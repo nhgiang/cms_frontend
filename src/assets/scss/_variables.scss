@@ -17,6 +17,7 @@ $magenta:                   #eb2f96 !default;
 $volcano:                   #fa541c !default;
 $lime:                      #a0d911 !default;
 $geekblue:                  #2f54eb !default;
+$lightred:                  #ca4e53 !default; 
 
 
 // Create grayscale
@@ -76,7 +77,7 @@ $tone-loop: (
 );
 
 // State Colors
-$brand-primary:             $blue !default;
+$brand-primary:             $lightred !default;
 $brand-secondary:           $purple !default;
 $brand-success:             $cyan !default;
 $brand-info:                $blue !default;

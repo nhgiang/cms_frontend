@@ -1,0 +1,73 @@
+<div class="container">
+  <nz-card nzTitle="Thông tin cơ bản">
+    <div class="media align-items-center">
+      <nz-avatar [nzSize]="80" nzIcon="user" [nzSrc]="avatarUrl"></nz-avatar>
+      <div class="m-l-20 m-r-20">
+        <h5 class="m-b-5 font-size-18">Thay đổi ảnh đại diện</h5>
+        <p class="opacity-07 font-size-13 m-b-0">
+          Kích thước đề xuất: <br>
+          120x120 Max file size: 5MB
+        </p>
+      </div>
+      <nz-upload nzName="avatar" [nzShowUploadList]="false" (nzChange)="handleChange($event)">
+        <button nz-button nzType="primary">
+          <span>Upload</span>
+        </button>
+      </nz-upload>
+    </div>
+    <hr class="m-v-25">
+    <div class="row">
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzRequired>E-mail</nz-form-label>
+          <nz-form-control>
+            <input nz-input placeholder="Nhập Email">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzRequired>Password</nz-form-label>
+          <nz-form-control>
+            <input nz-input placeholder="Nhập Password">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzRequired>Họ và tên</nz-form-label>
+          <nz-form-control>
+            <input nz-input placeholder="Nhập Họ và tên">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzRequired>Phone</nz-form-label>
+          <nz-form-control>
+            <input nz-input placeholder="Nhập Số điện thoại">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzRequired>Chuyên môn</nz-form-label>
+          <nz-form-control>
+            <input nz-input placeholder="Nhập chuyên môn">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzRequired>Mô tả:</nz-form-label>
+          <nz-form-control>
+            <input nz-input placeholder="Nhập mô tả">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="text-center">
+      <button nz-button nzType="primary">Tạo mới</button>
+    </div>
+  </nz-card>
+</div>
