@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ttc-technology-solutions": {
+      "hosting": {
+        "cms-beautyup": [
+          "cms-beautyup"
+        ]
+      }
+    }
+  }
+}
