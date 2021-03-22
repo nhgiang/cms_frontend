@@ -1,8 +1,9 @@
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { AuthorizeGuard } from '@shared/guards/authorize.guard';
+import { CommonLayoutRoutes } from '@shared/routes/common-layout.routes';
+import { FullLayoutRoutes } from '@shared/routes/full-layout.routes';
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
-import { CommonLayout_ROUTES } from './shared/routes/common-layout.routes';
-import { FullLayout_ROUTES } from './shared/routes/full-layout.routes';
 
 const routes: Routes = [
   {
@@ -13,12 +14,13 @@ const routes: Routes = [
   {
     path: '',
     component: CommonLayoutComponent,
-    children: CommonLayout_ROUTES
+    canActivate: [AuthorizeGuard],
+    children: CommonLayoutRoutes
   },
   {
     path: '',
     component: FullLayoutComponent,
-    children: FullLayout_ROUTES
+    children: FullLayoutRoutes
   },
 ];
 

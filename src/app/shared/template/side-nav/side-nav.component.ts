@@ -1,20 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ThemeConstantService } from '@shared/services/theme-constant.service';
 import { ROUTES } from './side-nav-routes.config';
-import { ThemeConstantService } from '../../services/theme-constant.service';
 
 @Component({
     selector: 'app-sidenav',
     templateUrl: './side-nav.component.html'
 })
+export class SideNavComponent implements OnInit {
 
-export class SideNavComponent{
+    menuItems: any[];
+    isFolded: boolean;
+    isSideNavDark: boolean;
+    isExpand: boolean;
 
-    public menuItems: any[]
-    isFolded : boolean;
-    isSideNavDark : boolean;
-    isExpand : boolean;
-
-    constructor( private themeService: ThemeConstantService) {}
+    constructor(private themeService: ThemeConstantService) { }
 
     ngOnInit(): void {
         this.menuItems = ROUTES.filter(menuItem => menuItem);

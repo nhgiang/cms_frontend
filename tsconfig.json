@@ -17,24 +17,12 @@
       "dom"
     ],
     "paths": {
-      "@app/*": [
-        "src/app/_core/*"
-      ],
       "@shared/*": [
         "src/app/shared/*"
       ],
       "@env": [
         "src/environments/environment"
-      ],
-      "@modules/*": [
-        "src/app/modules/*"
-      ],
-      "@constants/*": [
-        "src/app/data/constants/*"
-      ],
-      "@options": [
-        "src/app/data/options"
-      ],
+      ]
     }
   }
 }

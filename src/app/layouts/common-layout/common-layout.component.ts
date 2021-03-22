@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { IBreadcrumb } from '@shared/interfaces/breadcrumb.type';
+import { ThemeConstantService } from '@shared/services/theme-constant.service';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
-import { IBreadcrumb } from '../../shared/interfaces/breadcrumb.type';
-import { ThemeConstantService } from '../../shared/services/theme-constant.service';
 
 @Component({
     selector: 'app-common-layout',

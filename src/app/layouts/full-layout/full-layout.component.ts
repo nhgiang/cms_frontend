@@ -4,7 +4,4 @@ import { Component } from '@angular/core';
     selector: 'app-full-layout',
     templateUrl: './full-layout.component.html'
 })
-
-export class FullLayoutComponent {
-    constructor() { }
-}
+export class FullLayoutComponent { }

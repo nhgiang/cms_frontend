@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './dashboard.component';
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { DashboardRoutes } from './dashboard.routing';
+import { SharedModule } from '@shared/shared.module';
 
 const antdModule = [
     NzButtonModule,

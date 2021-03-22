@@ -1,8 +1,8 @@
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 
-export const FullLayout_ROUTES: Routes = [
+export const FullLayoutRoutes: Routes = [
     {
         path: 'authentication',
-        loadChildren: () => import('../../authentication/authentication.module').then(m => m.AuthenticationModule)
+        loadChildren: () => import('src/app/authentication/authentication.module').then(m => m.AuthenticationModule)
     }
 ];

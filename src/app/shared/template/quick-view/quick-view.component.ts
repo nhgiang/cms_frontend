@@ -1,20 +1,17 @@
 import { Component } from '@angular/core';
-import { ThemeConstantService } from '../../services/theme-constant.service';
+import { ThemeConstantService } from '@shared/services/theme-constant.service';
 
 @Component({
     selector: 'app-quick-view',
     templateUrl: './quick-view.component.html'
 })
-
-
-
 export class QuickViewComponent {
-  
-    selectedHeaderColor: string;
-    isSideNavDark : boolean;
-    isFolded : boolean;
 
-    constructor( private themeService: ThemeConstantService) {}
+    selectedHeaderColor: string;
+    isSideNavDark: boolean;
+    isFolded: boolean;
+
+    constructor(private themeService: ThemeConstantService) { }
 
     ngOnInit(): void {
         this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
@@ -23,7 +20,7 @@ export class QuickViewComponent {
     }
 
     changeHeaderColor() {
-        this.themeService.changeHeaderColor(this.selectedHeaderColor)
+        this.themeService.changeHeaderColor(this.selectedHeaderColor);
     }
 
     toggleSideNavDark() {

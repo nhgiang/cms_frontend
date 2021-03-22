@@ -1,4 +1,5 @@
-import { SideNavInterface } from '../../interfaces/side-nav.type';
+import { SideNavInterface } from '@shared/interfaces/side-nav.type';
+
 export const ROUTES: SideNavInterface[] = [
     {
         path: '',
@@ -9,19 +10,30 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
     },
     {
-        path: '/user',
+        path: '',
         title: 'Quản lý người dùng',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'user',
-        submenu: []
+        submenu: [
+            {
+                path: '/student',
+                title: 'Quản lý học viên',
+                submenu: []
+            },
+            {
+                path: '/lecturer',
+                title: 'Quản lý giảng viên',
+                submenu: []
+            },
+        ]
     },
     {
         path: '',
         title: 'Quản lý khóa học',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'book',
         submenu: []
     },
     {
@@ -29,7 +41,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Tư vấn đánh giá',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'profile',
         submenu: []
     },
     {
@@ -37,7 +49,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Đơn hàng',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'profile',
         submenu: []
     },
     {
@@ -45,7 +57,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Quản lý nội dung website',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'profile',
         submenu: []
     },
     {
@@ -53,7 +65,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Quản lý sự kiện',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'calendar',
         submenu: []
     },
     {
@@ -61,7 +73,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Quản lý bài đăng',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'calendar',
         submenu: []
     },
     {
@@ -69,7 +81,7 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Quản lý đối tác',
         iconType: 'nzIcon',
         iconTheme: 'outline',
-        icon: 'dashboard',
+        icon: 'customer-service',
         submenu: []
     }
 ];
