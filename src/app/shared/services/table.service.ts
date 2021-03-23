@@ -21,15 +21,11 @@ export class TableService {
 
         const outputDataList = dataArr.sort((a, b) => {
             const isAsc = sortAttribute.value === 'ascend';
-            switch (sortAttribute.key) {
-                case sortAttribute.key:
-                    return this.compare(
-                        typeof a[sortAttribute.key] !== 'string' ? a[sortAttribute.key] : a[sortAttribute.key].toUpperCase(),
-                        typeof b[sortAttribute.key] !== 'string' ? b[sortAttribute.key] : b[sortAttribute.key].toUpperCase(), isAsc
-                    );
-                default:
-                    return 0;
-            }
+            if (!sortAttribute.key) { return 0; }
+            return this.compare(
+                typeof a[sortAttribute.key] !== 'string' ? a[sortAttribute.key] : a[sortAttribute.key].toUpperCase(),
+                typeof b[sortAttribute.key] !== 'string' ? b[sortAttribute.key] : b[sortAttribute.key].toUpperCase(), isAsc
+            );
         });
         return outputDataList;
     }

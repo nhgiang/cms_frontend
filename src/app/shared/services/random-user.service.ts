@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 export class RandomUserService {
     randomUserUrl = 'https://api.randomuser.me/';
 
-    getUsers(pageIndex: number = 1, pageSize: number = 10, sortField: string, sortOrder: string, genders: string[]): Observable<{}> {
+    getUsers(pageIndex: number, pageSize: number, sortField: string, sortOrder: string, genders: string[]): Observable<{}> {
         let params = new HttpParams()
         .append('page', `${pageIndex}`)
         .append('results', `${pageSize}`)

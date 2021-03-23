@@ -11,12 +11,9 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-// import sdk from '@stackblitz/sdk';
-import { VERSION } from 'ng-zorro-antd/version'
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { CodeBoxService, DemoCode } from './codebox.service';
-// import { stackBlitzConfiguration } from './stack-blitz';
 
 @Component({
   selector       : 'nz-code-box',
@@ -123,23 +120,10 @@ export class NzCodeBoxComponent implements OnInit, OnDestroy {
     }
   }
 
-  // openOnStackBlitz(): void {
-  //   setTimeout(() => {
-  //     this.openStackBlitzLoading = !this.codeLoaded;
-  //     this.check();
-  //   }, 120);
-  //   this.getDemoCode().subscribe(data => {
-  //     this.openStackBlitzLoading = false;
-  //     this.check();
-  //     sdk.openProject(stackBlitzConfiguration(this.nzComponentName, data.rawCode, this.nzSelector, VERSION.full));
-  //   });
-  // }
-
   check(): void {
     this.cdr.markForCheck();
   }
 
-  // tslint:disable-next-line:no-any
   constructor(@Inject(DOCUMENT) private dom: any,
               private sanitizer: DomSanitizer,
               private cdr: ChangeDetectorRef,
