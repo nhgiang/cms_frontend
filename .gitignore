@@ -46,3 +46,4 @@ testem.log
 Thumbs.db
 .firebase
 .scannerwork
+src/environments/environment.ts
