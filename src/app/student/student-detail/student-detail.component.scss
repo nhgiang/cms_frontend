@@ -1,1 +1,8 @@
 // TODO: Add SCSS hear
+:host ::ng-deep {
+  nz-badge {
+    span {
+      font-size: 11px;
+    }
+  }
+}

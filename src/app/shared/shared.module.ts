@@ -7,6 +7,8 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ThemeConstantService } from './services/theme-constant.service';
 import { SearchPipe } from './pipes/search.pipe';
 import { ZorroAntdModule } from './zorro-antd.module';
+import { OptionPipe } from './pipes/option.pipe';
+import { DatetimePipe } from './pipes/datetime.pipe';
 
 @NgModule({
     exports: [
@@ -17,13 +19,17 @@ import { ZorroAntdModule } from './zorro-antd.module';
         HttpClientJsonpModule,
         ZorroAntdModule,
         PerfectScrollbarModule,
-        SearchPipe
+        SearchPipe,
+        OptionPipe,
+        DatetimePipe
     ],
     imports: [
         RouterModule,
     ],
     declarations: [
-        SearchPipe
+        SearchPipe,
+        OptionPipe,
+        DatetimePipe
     ],
     providers: [
         ThemeConstantService

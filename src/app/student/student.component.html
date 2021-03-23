@@ -42,26 +42,23 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of productsListTable.data;  let i=index">
+      <tr *ngFor="let item of productsListTable.data; let i=index">
         <td>#{{item.id}}</td>
         <td>
-          <div class="d-flex align-items-center">
-            <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item.avatar"></nz-avatar>
-            <span class="m-l-10">{{item.name}}</span>
-          </div>
+          <a [routerLink]="item.id">
+            <div class="d-flex align-items-center">
+              <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item.avatar"></nz-avatar>
+              <span class="m-l-10">{{ item.name }}</span>
+            </div>
+          </a>
         </td>
-        <td>{{item.position}}</td>
-        <td>{{item.email}}</td>
+        <td>{{ item.position }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.phone }}</td>
+        <td>{{ item.partner }}</td>
         <td>
-          {{item.phone}}
-        </td>
-        <td>
-          {{item.partner}}
-        </td>
-        <td>
-          <nz-badge *ngIf="item.status === 'Active'" nzStatus="success"></nz-badge>
-          <nz-badge *ngIf="item.status === 'Inactive'" nzStatus="error"></nz-badge>
-          <span class="text-capitalize">{{item.status}}</span>
+          <nz-badge [nzColor]="item.status | option:studentStatusOptions:'color'"
+            [nzText]="item.status | option:studentStatusOptions"></nz-badge>
         </td>
       </tr>
     </tbody>

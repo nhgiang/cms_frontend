@@ -79,13 +79,14 @@
           </thead>
           <tbody class="font-size-11">
             <tr *ngFor="let item of orderTable.data; let i = index;">
-              <td>#{{i + 1}}</td>
-              <td>{{item.name}}</td>
-              <td>{{item.lecturer}}</td>
-              <td>{{item.startDate}}</td>
-              <td>{{item.progress}}%</td>
+              <td>#{{ i + 1 }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.lecturer }}</td>
+              <td>{{ item.startDate }}</td>
+              <td>{{ item.progress }}%</td>
               <td>
-                <nz-badge nzStatus="success"></nz-badge>{{item.status}}
+                <nz-badge [nzColor]="item.status | option:studentCourseStatusOptions:'color'"
+                  [nzText]="item.status | option:studentCourseStatusOptions"></nz-badge>
               </td>
             </tr>
           </tbody>

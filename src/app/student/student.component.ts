@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { TableService } from '@shared/services/table.service';
-
+import { StudentStatusOptions } from '@shared/options/student-status.options';
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
@@ -11,6 +10,7 @@ export class StudentComponent {
   selectedposition: string;
   selectedStatus: string;
   searchInput: any;
+  studentStatusOptions = StudentStatusOptions;
   displayData = [];
   productsList = [
     {
@@ -20,7 +20,7 @@ export class StudentComponent {
       position: 'NV Chăm sóc gia',
       email: 'trungnv@ttc-solutions.com',
       phone: '0359804444',
-      status: 'Active',
+      status: 'active',
       partner: 'Beauty Up'
     },
     {
@@ -30,7 +30,7 @@ export class StudentComponent {
       position: 'Quản lý spa',
       email: 'trungnv@ttc-solutions.com',
       phone: '0359804444',
-      status: 'Active',
+      status: 'active',
       partner: 'Beauty Up'
     },
     {
@@ -40,7 +40,7 @@ export class StudentComponent {
       position: 'Nhân viên nail',
       email: 'trungnv@ttc-solutions.com',
       phone: '0359804444',
-      status: 'Active',
+      status: 'active',
       partner: 'Beauty Up'
     },
     {
@@ -50,7 +50,7 @@ export class StudentComponent {
       position: 'NV Chăm sóc gia',
       email: 'trungnv@ttc-solutions.com',
       phone: '0359804444',
-      status: 'Inactive',
+      status: 'inactive',
       partner: 'Beauty Up'
     },
     {
@@ -60,7 +60,7 @@ export class StudentComponent {
       position: 'NV Chăm sóc gia',
       email: 'trungnv@ttc-solutions.com',
       phone: '0359804444',
-      status: 'Inactive',
+      status: 'inactive',
       partner: 'Beauty Up'
     },
     {
@@ -70,7 +70,7 @@ export class StudentComponent {
       position: 'NV Chăm sóc gia',
       email: 'trungnv@ttc-solutions.com',
       phone: '0359804444',
-      status: 'Active',
+      status: 'active',
       partner: 'Beauty Up'
     },
     {
@@ -80,7 +80,7 @@ export class StudentComponent {
       position: 'NV Chăm sóc gia',
       email: 'trungnv@ttc-solutions.com',
       phone: '0359804444',
-      status: 'Active',
+      status: 'active',
       partner: 'Beauty Up'
     },
     {
@@ -90,7 +90,7 @@ export class StudentComponent {
       position: 'NV Chăm sóc gia',
       email: 'trungnv@ttc-solutions.com',
       phone: '0359804444',
-      status: 'Active',
+      status: 'active',
       partner: 'Beauty Up'
     },
     {
@@ -100,7 +100,7 @@ export class StudentComponent {
       position: 'NV Chăm sóc gia',
       email: 'trungnv@ttc-solutions.com',
       phone: '0359804444',
-      status: 'Active',
+      status: 'active',
       partner: 'Beauty Up'
     },
     {
@@ -110,12 +110,12 @@ export class StudentComponent {
       position: 'NV Chăm sóc gia',
       email: 'trungnv@ttc-solutions.com',
       phone: '0359804444',
-      status: 'Active',
+      status: 'active',
       partner: 'Beauty Up'
     },
   ];
 
-  constructor(private tableSvc: TableService) {
+  constructor() {
     this.displayData = this.productsList;
   }
 
