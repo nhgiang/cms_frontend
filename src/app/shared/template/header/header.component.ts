@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '@shared/services/authentication.service';
 import { ThemeConstantService } from '@shared/services/theme-constant.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-header',
@@ -8,7 +11,15 @@ import { ThemeConstantService } from '@shared/services/theme-constant.service';
 
 export class HeaderComponent implements OnInit {
 
-    constructor(private themeService: ThemeConstantService) { }
+    user$: Observable<any>;
+
+    constructor(
+        private themeService: ThemeConstantService,
+        private authService: AuthenticationService,
+        private router: Router
+    ) {
+        this.user$ = this.authService.currentUser;
+    }
 
     searchVisible = false;
     quickViewVisible = false;
@@ -65,5 +76,10 @@ export class HeaderComponent implements OnInit {
 
     quickViewToggle(): void {
         this.quickViewVisible = !this.quickViewVisible;
+    }
+
+    logout() {
+        this.authService.logout();
+        this.router.navigate(['/authentication/login']);
     }
 }

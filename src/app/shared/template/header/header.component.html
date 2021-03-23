@@ -23,14 +23,14 @@
         </a>
       </li>
     </ul>
-    <ul class="nav-right">
+    <ul *ngIf="user$ | async; let user" class="nav-right">
       <li>
         <div style="color: white;">
           <div class="font-size-10 text-right" style="line-height: 14px;">
             Xin chào
           </div>
           <div class="font-size-12" style="line-height: 16px;">
-            Beauty up Admin
+            {{ user.full_name }}
           </div>
         </div>
       </li>
@@ -45,40 +45,13 @@
               <div class="d-flex m-r-50">
                 <nz-avatar nzSize="large" nzSrc="assets/images/avatars/admin.png"></nz-avatar>
                 <div class="m-l-10">
-                  <p class="m-b-0 text-dark font-weight-semibold">Marshall Nichols</p>
-                  <p class="m-b-0 opacity-07">UI/UX Desinger</p>
+                  <p class="m-b-0 text-dark font-weight-semibold">{{ user.full_name }}</p>
+                  <p class="m-b-0 opacity-07">{{ user.role }}</p>
                 </div>
               </div>
             </li>
             <li nz-menu-item>
-              <a class="p-v-5 d-flex align-items-center justify-content-between">
-                <div>
-                  <i class="opacity-04 font-size-16" nz-icon nzType="user" theme="outline"></i>
-                  <span class="m-l-10">Edit Profile</span>
-                </div>
-                <i class="font-size-10" nz-icon nzType="right" theme="outline"></i>
-              </a>
-            </li>
-            <li nz-menu-item>
-              <a class="p-v-5 d-flex align-items-center justify-content-between">
-                <div>
-                  <i class="opacity-04 font-size-16" nz-icon nzType="lock" theme="outline"></i>
-                  <span class="m-l-10">Account Setting</span>
-                </div>
-                <i class="font-size-10" nz-icon nzType="right" theme="outline"></i>
-              </a>
-            </li>
-            <li nz-menu-item>
-              <a class="p-v-5 d-flex align-items-center justify-content-between">
-                <div>
-                  <i class="opacity-04 font-size-16" nz-icon nzType="project" theme="outline"></i>
-                  <span class="m-l-10">Projects</span>
-                </div>
-                <i class="font-size-10" nz-icon nzType="right" theme="outline"></i>
-              </a>
-            </li>
-            <li nz-menu-item>
-              <a class="p-v-5 d-flex align-items-center justify-content-between">
+              <a (click)="logout()" class="p-v-5 d-flex align-items-center justify-content-between">
                 <div>
                   <i class="opacity-04 font-size-16" nz-icon nzType="logout" theme="outline"></i>
                   <span class="m-l-10">Logout</span>

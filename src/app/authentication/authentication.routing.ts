@@ -12,14 +12,14 @@ const routes: Routes = [
     }
   },
   {
-    path: 'error-404',
+    path: 'error/404',
     component: Error404Component,
     data: {
       title: 'Error 404'
     }
   },
   {
-    path: 'error-500',
+    path: 'error/500',
     component: Error500Component,
     data: {
       title: 'Error 500'
