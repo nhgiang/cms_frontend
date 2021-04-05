@@ -3,6 +3,10 @@
 @import url('../node_modules/@fortawesome/fontawesome-free/css/all.min.css');
 @import './assets/scss/app.scss';
 
+html {
+  font-size: 14px;
+}
+
 .header {
   height: 50px;
   background-color: #253D7F !important;
@@ -25,4 +29,12 @@
 
 .side-nav {
   top: 50px;
+}
+table {
+  th { 
+    font-size: 12px;
+  }
+  td {
+    font-size: 11px;
+  }
 }

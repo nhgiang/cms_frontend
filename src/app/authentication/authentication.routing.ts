@@ -1,6 +1,6 @@
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { Routes, RouterModule } from '@angular/router';
-import { Error404Component } from './error404/error404.component';
-import { Error500Component } from './error500/error500.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
@@ -12,17 +12,17 @@ const routes: Routes = [
     }
   },
   {
-    path: 'error/404',
-    component: Error404Component,
+    path: 'reset-password/:email',
+    component: ResetPasswordComponent,
     data: {
-      title: 'Error 404'
+      title: 'Reset Password'
     }
   },
   {
-    path: 'error/500',
-    component: Error500Component,
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
     data: {
-      title: 'Error 500'
+      title: 'Forgot password?'
     }
   }
 ];

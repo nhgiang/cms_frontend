@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Ultilities } from '@shared/extentions/Ultilities';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { AuthenticationService } from '@shared/services/authentication.service';
-import { finalize } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 @Component({
     templateUrl: './login.component.html'
 })
@@ -26,8 +26,14 @@ export class LoginComponent {
     submitForm(): void {
         Ultilities.validateForm(this.myForm);
         this.loading = true;
-        this.authService.login(this.myForm.value)
-            .pipe(finalize(() => this.loading = false))
-            .subscribe(() => this.router.navigate(['/']));
+        const data = this.myForm.value;
+        Object.keys(data).map(k => data[k] = data[k].trim());
+        this.authService.login(data)
+            .pipe(
+                finalize(() => this.loading = false))
+            .subscribe(({ accessToken }) => {
+                localStorage.setItem('token', accessToken);
+                this.router.navigate(['/']);
+            });
     }
 }
