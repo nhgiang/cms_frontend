@@ -21,6 +21,10 @@ import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '@shared/interceptor/token.interceptor';
 import { ErrorInterceptor } from '@shared/interceptor/error.interceptor';
+import { Error404Component } from './authentication/error404/error404.component';
+import { Error500Component } from './authentication/error500/error500.component';
+import { API_BASE_URL } from '@shared/api/base-url';
+import { environment } from '@env';
 
 registerLocaleData(en);
 
@@ -29,6 +33,8 @@ registerLocaleData(en);
         AppComponent,
         CommonLayoutComponent,
         FullLayoutComponent,
+        Error404Component,
+        Error500Component
     ],
     imports: [
         BrowserModule,
@@ -59,6 +65,10 @@ registerLocaleData(en);
         {
             provide: ErrorHandler,
             useClass: ErrorHandlerService
+        },
+        {
+            provide: API_BASE_URL,
+            useValue: environment.api
         },
         ThemeConstantService
     ],

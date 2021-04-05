@@ -14,7 +14,9 @@ export class AuthorizeGuard implements CanActivate {
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-        return this.authService.getMe().pipe(map(user => user.role === 'ADMIN'), catchError(() => {
+        return this.authService.getMe().pipe(
+            map(user => user.role === 'Admin'),
+            catchError(() => {
             this.router.navigate(['/authentication/login']);
             return of(false);
         }));

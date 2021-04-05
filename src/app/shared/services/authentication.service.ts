@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
 import { User } from '../interfaces/user.type';
 import { environment } from '@env';
 
@@ -22,11 +21,7 @@ export class AuthenticationService {
     }
 
     login(body: { username: string; password: string; }) {
-        return this.httpClient.post<any>(`${this.baseURL}/login`, body)
-            .pipe(tap(({ user, token }) => {
-                this.storeUser(user);
-                localStorage.setItem('token', token.accessToken);
-            }));
+        return this.httpClient.post<any>(`${this.baseURL}/cms-login`, body);
     }
 
     getMe() {

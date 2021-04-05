@@ -8,7 +8,6 @@
   "projects": {
     "enlink": {
       "projectType": "application",
-      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
