@@ -1,73 +1,116 @@
-<div class="container">
-  <nz-card nzTitle="Thông tin cơ bản">
+<nz-card nzTitle="Thông tin cơ bản">
+  <form nz-form [formGroup]="form">
     <div class="media align-items-center">
       <nz-avatar [nzSize]="80" nzIcon="user" [nzSrc]="avatarUrl"></nz-avatar>
       <div class="m-l-20 m-r-20">
         <h5 class="m-b-5 font-size-18">Thay đổi ảnh đại diện</h5>
         <p class="opacity-07 font-size-13 m-b-0">
-          Kích thước đề xuất: <br>
+          Kích thước đề xuất: <br />
           120x120 Max file size: 5MB
         </p>
       </div>
-      <nz-upload nzName="avatar" [nzShowUploadList]="false" (nzChange)="handleChange($event)">
-        <button nz-button nzType="primary">
-          <span>Upload</span>
+      <div class="image-cropper" #cropperRef="imageCropper" imageCropper [aspectRatio]="1 / 1"
+        (cropped)="onCropped($event)">
+        <button nz-button nzType="primary" class="p-0">
+          <label [for]="'cropperImage'">
+            upload
+          </label>
         </button>
-      </nz-upload>
+        <input [id]="'cropperImage'" type="file" class="d-none" (change)="cropperRef.set($event)" accept="image/*" />
+      </div>
     </div>
-    <hr class="m-v-25">
+    <hr class="m-v-25" />
     <div class="row">
       <div class="col-md-6">
         <nz-form-item>
-          <nz-form-label nzRequired>E-mail</nz-form-label>
-          <nz-form-control>
-            <input nz-input placeholder="Nhập Email">
+          <nz-form-label [nzSpan]="6" nzRequired>E-mail</nz-form-label>
+          <nz-form-control [nzErrorTip]="errorEmailTpl">
+            <input nz-input formControlName="email" placeholder="Nhập Email" />
+          </nz-form-control>
+          <ng-template #errorEmailTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              Vui lòng nhập Email
+            </ng-container>
+            <ng-container *ngIf="control.hasError('email')">
+              Không đúng định dạng email
+            </ng-container>
+            <ng-container *ngIf="control.hasError('notUnique')">
+              Email đã tồn tại trên hệ thống
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzRequired>Password</nz-form-label>
+          <nz-form-control [nzErrorTip]="errorPasswordTpl">
+            <nz-input-group [nzPrefix]="prefixLock" [nzSuffix]="suffixPassword">
+              <input [type]="isPasswordVisible ? 'text' : 'password'" nz-input formControlName="password"
+                placeholder="Nhập mật khẩu" required>
+            </nz-input-group>
+            <ng-template #errorPasswordTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Vui lòng nhập mật khẩu
+              </ng-container>
+              <ng-container *ngIf="control.hasError('passwordRules')">
+                Mật khẩu chứa 6-16 ký tự, bao gồm tối thiểu 1 ký tự hoa và 1 ký tự thường
+              </ng-container>
+            </ng-template>
           </nz-form-control>
         </nz-form-item>
       </div>
       <div class="col-md-6">
         <nz-form-item>
-          <nz-form-label nzRequired>Password</nz-form-label>
-          <nz-form-control>
-            <input nz-input placeholder="Nhập Password">
+          <nz-form-label [nzSpan]="6" nzRequired>Họ và tên</nz-form-label>
+          <nz-form-control [nzErrorTip]="'Vui lòng nhập họ và tên'">
+            <input nz-input formControlName="fullName" placeholder="Nhập Họ và tên" />
           </nz-form-control>
         </nz-form-item>
       </div>
       <div class="col-md-6">
         <nz-form-item>
-          <nz-form-label nzRequired>Họ và tên</nz-form-label>
-          <nz-form-control>
-            <input nz-input placeholder="Nhập Họ và tên">
+          <nz-form-label [nzSpan]="6" nzRequired>Phone</nz-form-label>
+          <nz-form-control [nzErrorTip]="errorPhoneTpl">
+            <input nz-input formControlName="phoneNumber" placeholder="Nhập Số điện thoại" />
+          </nz-form-control>
+          <ng-template #errorPhoneTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              Vui lòng nhập số điện thoại
+            </ng-container>
+            <ng-container *ngIf="control.hasError('onlyNumber')">
+              Số điện thoại chỉ bao gồm các ký tự số
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6" nzRequired>Chuyên môn</nz-form-label>
+          <nz-form-control [nzErrorTip]="'Vui lòng chọn chuyên môn'">
+            <nz-select id="gender" formControlName="specializationId" nzPlaceHolder="Chọn chuyên môn">
+              <nz-option [nzValue]="item.id" [nzLabel]="item.name" *ngFor="let item of specializations"></nz-option>
+            </nz-select>
           </nz-form-control>
         </nz-form-item>
       </div>
       <div class="col-md-6">
         <nz-form-item>
-          <nz-form-label nzRequired>Phone</nz-form-label>
-          <nz-form-control>
-            <input nz-input placeholder="Nhập Số điện thoại">
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div class="col-md-6">
-        <nz-form-item>
-          <nz-form-label nzRequired>Chuyên môn</nz-form-label>
-          <nz-form-control>
-            <input nz-input placeholder="Nhập chuyên môn">
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div class="col-md-6">
-        <nz-form-item>
-          <nz-form-label nzRequired>Mô tả:</nz-form-label>
-          <nz-form-control>
-            <input nz-input placeholder="Nhập mô tả">
+          <nz-form-label [nzSpan]="6" nzRequired>Mô tả:</nz-form-label>
+          <nz-form-control [nzErrorTip]="'Vui lòng nhập mô tả'">
+            <input nz-input formControlName="bio" placeholder="Nhập mô tả" />
           </nz-form-control>
         </nz-form-item>
       </div>
     </div>
     <div class="text-center">
-      <button nz-button nzType="primary">Tạo mới</button>
+      <button [disabled]="form.invalid" type="submit" nz-button nzType="primary" (click)="submitForm()" [nzLoading]="isLoading">
+        Tạo mới
+      </button>
     </div>
-  </nz-card>
-</div>
+  </form>
+</nz-card>
+<ng-template #suffixPassword>
+  <i nz-icon [nzType]="isPasswordVisible ? 'eye-invisible' : 'eye'" (click)="isPasswordVisible = !isPasswordVisible">
+  </i>
+</ng-template>
+<ng-template #prefixLock><i nz-icon nzType="lock"></i></ng-template>

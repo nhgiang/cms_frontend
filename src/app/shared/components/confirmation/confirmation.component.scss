@@ -1,0 +1,22 @@
+.temp-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 990;
+  opacity: 0.5;
+  background-color: #000;
+  transition: opacity 0.15s linear;
+}
+
+.icon {
+  padding: 0 30px;
+  margin-bottom: 1rem;
+  i {
+    font-size: 40px;
+  }
+}
+img {
+  width: 50px;
+}

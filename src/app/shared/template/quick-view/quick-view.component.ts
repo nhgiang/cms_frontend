@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThemeConstantService } from '@shared/services/theme-constant.service';
 
 @Component({
     selector: 'app-quick-view',
     templateUrl: './quick-view.component.html'
 })
-export class QuickViewComponent {
+export class QuickViewComponent implements OnInit{
 
     selectedHeaderColor: string;
     isSideNavDark: boolean;

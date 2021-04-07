@@ -1,6 +1,6 @@
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthApiService } from '@shared/api/auth.api.service';
 import { ActivatedRoute } from '@angular/router';

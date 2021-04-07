@@ -18,7 +18,7 @@ export abstract class BaseApi {
 
   protected createParams(params: { [key: string]: any }): HttpParams {
     return Object.keys(params).reduce((m, k) => {
-      if (params[k] != null) {
+      if (params[k] != null && params[k].length !== 0) {
         return m.set(k, params[k]);
       }
       return m;

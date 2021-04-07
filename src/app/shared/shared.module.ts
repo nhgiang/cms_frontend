@@ -9,6 +9,10 @@ import { SearchPipe } from './pipes/search.pipe';
 import { ZorroAntdModule } from './zorro-antd.module';
 import { OptionPipe } from './pipes/option.pipe';
 import { DatetimePipe } from './pipes/datetime.pipe';
+import { ImageCropperModalComponent } from './components/image-cropper-modal/image-cropper-modal.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { ImageCropperDirective } from './directives/image-cropper.directive';
+import { ConfirmationComponent } from './components/confirmation/confirmation.Component';
 
 @NgModule({
     exports: [
@@ -21,15 +25,24 @@ import { DatetimePipe } from './pipes/datetime.pipe';
         PerfectScrollbarModule,
         SearchPipe,
         OptionPipe,
-        DatetimePipe
+        DatetimePipe,
+        ImageCropperModalComponent,
+        ImageCropperDirective,
+        ConfirmationComponent
     ],
     imports: [
         RouterModule,
+        ImageCropperModule,
+        ZorroAntdModule,
+        CommonModule
     ],
     declarations: [
         SearchPipe,
         OptionPipe,
-        DatetimePipe
+        DatetimePipe,
+        ImageCropperModalComponent,
+        ImageCropperDirective,
+        ConfirmationComponent
     ],
     providers: [
         ThemeConstantService

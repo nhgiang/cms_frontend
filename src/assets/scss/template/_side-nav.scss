@@ -6,7 +6,6 @@
     border-right: 1px solid $border-color;
     height: 100%;
     z-index: $zindex-navbar;
-    overflow-y: auto;
     @include transition(all 0.2s ease); 
 
     @include screen-tablet {

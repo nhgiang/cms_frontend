@@ -15,9 +15,22 @@ export class TValidators extends Validators {
   }
 
   static passwordRules(control: AbstractControl): ValidationErrors {
+    if (!control.value) {
+      return null;
+    }
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,16}$/g;
     return regex.test(control.value) ? null : {
       passwordRules: true
+    };
+  }
+
+  static onlyNumber(control: AbstractControl): ValidationErrors {
+    if (!control.value) {
+      return null;
+    }
+    const regex = /^[0-9]*$/g;
+    return regex.test(control.value) ? null : {
+      onlyNumber: true
     };
   }
 }
