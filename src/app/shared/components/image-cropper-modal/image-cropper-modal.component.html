@@ -1,0 +1,9 @@
+<div class="modal-body">
+  <image-cropper [imageFile]="imageFile" [imageURL]="imageUrl" [maintainAspectRatio]="maintainAspectRatio"
+    [aspectRatio]="aspectRatio" format="png" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()">
+  </image-cropper>
+</div>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="hide()">Hủy bỏ</button>
+  <button nz-button nzType="primary" (click)="submit()">Lưu lại</button>
+</div>

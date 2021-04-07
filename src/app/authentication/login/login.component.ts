@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { AuthenticationService } from '@shared/services/authentication.service';
-import { finalize, tap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 @Component({
     templateUrl: './login.component.html'
 })
@@ -15,7 +15,7 @@ export class LoginComponent {
     constructor(
         private fb: FormBuilder,
         private authService: AuthenticationService,
-        private router: Router,
+        private router: Router
     ) {
         this.myForm = this.fb.group({
             email: [null, [TValidators.required, TValidators.email]],
@@ -27,7 +27,7 @@ export class LoginComponent {
         Ultilities.validateForm(this.myForm);
         this.loading = true;
         const data = this.myForm.value;
-        Object.keys(data).map(k => data[k] = data[k].trim());
+        Object.keys(data).forEach(k => data[k] = data[k].trim());
         this.authService.login(data)
             .pipe(
                 finalize(() => this.loading = false))

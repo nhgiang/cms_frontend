@@ -2,8 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable } from '@angular/core';
 import { InvalidFormError } from '@shared/extentions/Ultilities';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { flatten } from 'lodash-es';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Injectable()
 export class ErrorHandlerService implements ErrorHandler {
@@ -32,6 +32,8 @@ export class ErrorHandlerService implements ErrorHandler {
                 } else {
                     this.message.error(errorMessage);
                 }
+            } else if (error.status === 422) {
+                this.notification.error('Thất bại', error.error?.message);
             }
         } else {
             this.handlers.find(x => x.error === error.constructor.name || x.error === 'Unknown').handleError(error);

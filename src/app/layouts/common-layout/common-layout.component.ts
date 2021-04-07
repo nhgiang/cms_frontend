@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { IBreadcrumb } from '@shared/interfaces/breadcrumb.type';
 import { ThemeConstantService } from '@shared/services/theme-constant.service';
@@ -10,7 +10,7 @@ import { distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
     templateUrl: './common-layout.component.html',
 })
 
-export class CommonLayoutComponent {
+export class CommonLayoutComponent implements OnInit {
 
     breadcrumbs$: Observable<IBreadcrumb[]>;
     contentHeaderDisplay: string;
@@ -53,8 +53,8 @@ export class CommonLayoutComponent {
     }
 
     private buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadcrumb[] = []): IBreadcrumb[] {
-        let label = '', path = '/', display = null;
-
+        let label = '';
+        let path = '/';
         if (route.routeConfig) {
             if (route.routeConfig.data) {
                 label = route.routeConfig.data.title;

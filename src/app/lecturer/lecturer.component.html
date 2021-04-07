@@ -1,24 +1,24 @@
 <nz-card>
   <div class="row m-b-30">
     <div class="col-lg-8">
-      <div class="d-md-flex">
-        <div class="m-b-10 m-r-20">
-          <nz-input-group style="min-width: 275px;" [nzPrefix]="prefixTemplate">
-            <input type="text" nz-input placeholder="Tìm kiếm theo họ tên hoặc email">
-          </nz-input-group>
-          <ng-template #prefixTemplate>
-            <i nz-icon nzType="search" class="opacity-05"></i>
-          </ng-template>
+      <form nz-form [formGroup]="search">
+        <div class="d-md-flex">
+          <div class="m-b-10 m-r-20">
+            <nz-input-group style="min-width: 275px;" [nzPrefix]="prefixTemplate">
+              <input type="text" nz-input placeholder="Tìm kiếm theo họ tên hoặc email" formControlName="q">
+            </nz-input-group>
+            <ng-template #prefixTemplate>
+              <i nz-icon nzType="search" class="opacity-05"></i>
+            </ng-template>
+          </div>
+          <div class="m-b-10 m-r-20 d-flex align-items-center">
+            <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn chuyên môn" formControlName="specializationId">
+              <nz-option nzLabel="Tất cả" nzValue=""></nz-option>
+              <nz-option [nzLabel]="item?.name" *ngFor="let item of specializations" [nzValue]="item?.id"></nz-option>
+            </nz-select>
+          </div>
         </div>
-        <div class="m-b-10 m-r-20 d-flex align-items-center">
-          <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn chuyên môn">
-            <nz-option nzLabel="All" nzValue="All"></nz-option>
-            <nz-option nzLabel="Home Decoration" nzValue="Home Decoration"></nz-option>
-            <nz-option nzLabel="Eletronic" nzValue="Eletronic"></nz-option>
-            <nz-option nzLabel="Jewellery" nzValue="Jewellery"></nz-option>
-          </nz-select>
-        </div>
-      </div>
+      </form>
     </div>
     <div class="col-lg-4 text-right">
       <a routerLink="create" nz-button nzType="primary">
@@ -26,35 +26,42 @@
       </a>
     </div>
   </div>
-  <nz-table #productsListTable [nzData]="displayData">
+  <nz-table #productsListTable [nzFrontPagination]="false" [nzData]="items" [nzTotal]="meta?.totalItems"
+    (nzPageIndexChange)="onPageChanged($event)" [nzPageSize]="quantity" [nzLoading]="isloading" [nzPageIndex]="page">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Tên giảng viên</th>
-        <th>Chuyên môn</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Mô tả</th>
-        <th></th>
+        <th scope="col">Tên giảng viên</th>
+        <th scope="col">Chuyên môn</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Mô tả</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of productsListTable.data;  let i=index">
-        <td>#{{item.id}}</td>
+        <td>#{{item?.index}}</td>
         <td>
           <div class="d-flex align-items-center">
-            <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item.avatar"></nz-avatar>
-            <span class="m-l-10">{{item.name}}</span>
+            <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item?.avatar"></nz-avatar>
+            <span class="m-l-10">{{item?.fullName}}</span>
           </div>
         </td>
-        <td>{{item.specialization}}</td>
-        <td>{{item.email}}</td>
-        <td>{{item.phone}}</td>
-        <td>{{item.description}}</td>
+        <td>{{item?.specializationName}}</td>
+        <td>{{item?.email}}</td>
+        <td>{{item?.phoneNumber}}</td>
+        <td>{{item?.bio}}</td>
         <td class="text-md-right">
-          <a [routerLink]="'1'" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
-            nzTooltipTitle="Edit">
+          <a [routerLink]="[item?.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
+            nzTooltipTitle="Cập nhật">
             <i nz-icon nzType="edit" theme="outline"></i>
+          </a>
+          <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
+            <span (confirmed)="deleteTeacher(item?.id)"
+              [confirmation]="'Bạn có chắc muốn xóa thông tin giảng viên này hay không?'">
+              <i nz-icon nzType="close" nzTheme="outline"></i>
+            </span>
           </a>
         </td>
       </tr>
