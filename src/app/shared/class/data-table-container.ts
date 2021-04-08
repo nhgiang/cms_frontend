@@ -60,9 +60,8 @@ export abstract class DataTableContainer<T> implements OnInit {
         this.refreshTrigger.pipe(
             switchMap(() => {
                 this.isloading = true;
-                return this.fetch();
+                return this.fetch().pipe(finalize(() => this.isloading = false));
             }),
-            finalize(() => this.isloading = false)
         ).subscribe(next);
     }
 
