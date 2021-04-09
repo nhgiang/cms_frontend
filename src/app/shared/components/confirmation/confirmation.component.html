@@ -1,24 +1,12 @@
 <ng-content></ng-content>
 <ng-template #template>
   <div class="d-flex align-items-center flex-column">
-    <div class="icon">
-      <ng-container [ngSwitch]="type">
-        <span *ngSwitchCase="'info'">
-          <i nz-icon nzType="info-circle" nzTheme="outline"></i>
-        </span>
-        <span *ngSwitchCase="'warning'">
-          <i nz-icon  nzType="warning" nzTheme="outline"></i>
-        </span>
-        <span *ngSwitchDefault>
-          <img *ngSwitchDefault src="/assets/images/confirm-icon.svg" alt="confirmation" />
-        </span>
-      </ng-container>
-    </div>
-    <h5 class="modal-title">Thông báo</h5>
-    <div class="text text-muted" [innerHTML]="confirmation"></div>
+    <div class="confirmation" [innerHTML]="confirmation"></div>
   </div>
 </ng-template>
 <ng-template #footer>
-  <button nz-button nzType="default" (click)="hide()" >Hủy bỏ</button>
-  <button nz-button nzType="primary" (click)="confirm()">{{ confirmLabel || 'Xác nhận' }}</button>
+  <div class="text-center">
+    <button nz-button nzType="default" (click)="hide()">Hủy bỏ</button>
+    <button nz-button nzType="primary" (click)="confirm()">{{ confirmLabel || 'Xác nhận' }}</button>
+  </div>
 </ng-template>

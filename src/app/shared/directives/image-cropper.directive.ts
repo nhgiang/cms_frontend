@@ -31,7 +31,7 @@ export class ImageCropperDirective {
       this.alert.error('Thất bại', 'Đây không phải là một file ');
       return;
     }
-    const imageFile = input.files[0] as File;
+    const imageFile = input.files[0];
     input.value = '';
     this.show(imageFile);
   }

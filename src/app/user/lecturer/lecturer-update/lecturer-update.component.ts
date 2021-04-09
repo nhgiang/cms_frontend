@@ -63,7 +63,7 @@ export class LecturerUpdateComponent implements OnInit {
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(() => {
-      this.router.navigate(['/lecturer']);
+      this.router.navigate(['/user/lecturer']);
     }, err => {
       if (err.error.statusCode === 409) {
         this.form.get('email').setErrors({ notUnique: true });

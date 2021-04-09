@@ -53,3 +53,10 @@ export interface Faq {
   question: string;
   answer: string;
 }
+
+export interface Feedback {
+  studentName: string;
+  courseName: string;
+  photo: string;
+  content: string;
+}

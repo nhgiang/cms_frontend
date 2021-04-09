@@ -40,4 +40,13 @@ export class TValidators extends Validators {
       link: true
     };
   }
+
+  static textRange = (min: number, max: number) => (control: AbstractControl) => {
+    if (control.value && control.value.length >= min && control.value.length <= max) {
+      return null;
+    }
+    return {
+      textRange: true
+    };
+  }
 }

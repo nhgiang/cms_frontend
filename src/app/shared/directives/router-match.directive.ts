@@ -14,7 +14,7 @@ export class RouterMatchDirective {
   get inActive() {
     const routerMatch = this.routerMatch && '/' + this.routerMatch;
     const currentRouteUrl = this.router.routerState.snapshot.url;
-    const matchingRoutes = routerMatch.split(/\,/) as string[];
+    const matchingRoutes = routerMatch.split(/\,/);
     let matched = false;
     matchingRoutes.forEach(r => {
       if (r && currentRouteUrl.startsWith(r)) {
