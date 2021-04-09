@@ -38,3 +38,15 @@ table {
     font-size: 11px;
   }
 }
+
+
+.truncate-3{
+  display: inline-block;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  height: inherit;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

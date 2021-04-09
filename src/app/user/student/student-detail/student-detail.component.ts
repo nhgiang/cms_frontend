@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { StudentApiService } from '@shared/api/student.api.service';
+import { UserApiService } from '@shared/api/user.api.service';
 import { StudentCourseStatusOptions } from '@shared/options/student-course-status.options';
+import { StudentStatusOptions } from '@shared/options/student-status.options';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { UserStatus } from 'types/enums';
+import { User } from 'types/typemodel';
 
 @Component({
   selector: 'app-student-detail',
@@ -7,8 +14,12 @@ import { StudentCourseStatusOptions } from '@shared/options/student-course-statu
   styleUrls: ['./student-detail.component.scss']
 })
 export class StudentDetailComponent implements OnInit {
-
+  studentStatusOptions = StudentStatusOptions;
   studentCourseStatusOptions = StudentCourseStatusOptions;
+  user: User;
+  get btnUserStatus() {
+    return this.user && this.user.status === UserStatus.InActive ? 'Mở khóa tài khoản' : 'Khóa tài khoản';
+  }
 
   registeredEventListData = [
     {
@@ -69,9 +80,33 @@ export class StudentDetailComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(
+    private studentApi: StudentApiService,
+    private route: ActivatedRoute,
+    private notification: NzNotificationService,
+    private userApi: UserApiService
+  ) { }
 
   ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.studentApi.getById(id).subscribe(res => {
+      this.user = res;
+    });
   }
 
+  inActiveAccount(id, status) {
+    const message = status === UserStatus.Active ? 'Khóa' : 'Mở khóa';
+    const next = () => {
+      this.user.status = status === UserStatus.Active ? UserStatus.InActive : UserStatus.Active;
+      this.notification.success('Thành công', `${message} tài khoản học viên thành công!`);
+    };
+    const error = () => {
+      this.notification.success('Thất bại', `${message} tài khoản học viên thất bại!`);
+    };
+    const data = {
+      id,
+      status: status === UserStatus.Active ? UserStatus.InActive : UserStatus.Active
+    };
+    this.userApi.updateStatus(id, data).subscribe(next, error);
+  }
 }
