@@ -13,6 +13,7 @@ import { ImageCropperModalComponent } from './components/image-cropper-modal/ima
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropperDirective } from './directives/image-cropper.directive';
 import { ConfirmationComponent } from './components/confirmation/confirmation.Component';
+import { RouterMatchDirective } from './directives/router-match.directive';
 
 @NgModule({
     exports: [
@@ -28,7 +29,8 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.Co
         DatetimePipe,
         ImageCropperModalComponent,
         ImageCropperDirective,
-        ConfirmationComponent
+        ConfirmationComponent,
+        RouterMatchDirective
     ],
     imports: [
         RouterModule,
@@ -42,7 +44,8 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.Co
         DatetimePipe,
         ImageCropperModalComponent,
         ImageCropperDirective,
-        ConfirmationComponent
+        ConfirmationComponent,
+        RouterMatchDirective
     ],
     providers: [
         ThemeConstantService

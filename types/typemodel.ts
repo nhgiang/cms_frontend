@@ -17,23 +17,6 @@ export interface Entity {
   lastModified: Date;
 }
 
-export interface Student extends Entity {
-  email: string;
-  fullName: string;
-  role: string;
-  dateOfBirth: Date;
-  phoneNumber: string;
-  emailConfirmed: boolean;
-  phoneNumberConfirmed: string;
-  address: string;
-  bio: string;
-  avatar: string;
-  gender: string;
-  specializationId: string;
-  partnerId: string;
-  status: string;
-}
-
 export interface User extends Entity {
   email: string;
   fullName: string;
@@ -64,4 +47,9 @@ export interface TeacherCreateCommand {
 }
 export interface TeacherUpdateCommand extends TeacherCreateCommand {
   id: string;
+}
+
+export interface Faq {
+  question: string;
+  answer: string;
 }

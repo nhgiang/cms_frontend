@@ -10,19 +10,19 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
     },
     {
-        path: '',
+        path: 'user',
         title: 'Quản lý người dùng',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'user',
         submenu: [
             {
-                path: '/student',
+                path: 'student',
                 title: 'Quản lý học viên',
                 submenu: []
             },
             {
-                path: '/lecturer',
+                path: 'lecturer',
                 title: 'Quản lý giảng viên',
                 submenu: []
             },
@@ -53,12 +53,33 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
     },
     {
-        path: '',
+        path: 'content',
         title: 'Quản lý nội dung website',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'profile',
-        submenu: []
+        submenu: [
+            {
+                path: 'premiums',
+                title: 'Ưu đãi',
+                submenu: []
+            },
+            {
+                path: 'footer',
+                title: 'Footer',
+                submenu: []
+            },
+            {
+                path: 'faq',
+                title: 'Câu hỏi thường gặp',
+                submenu: []
+            },
+            {
+                path: 'feedbacks',
+                title: 'Đánh giá học viên',
+                submenu: []
+            }
+        ]
     },
     {
         path: '',

@@ -6,11 +6,11 @@ export const CommonLayoutRoutes: Routes = [
         loadChildren: () => import('src/app/dashboard/dashboard.module').then(m => m.DashboardModule),
     },
     {
-        path: 'student',
-        loadChildren: () => import('src/app/student/student.module').then(m => m.StudentModule),
+        path: 'user',
+        loadChildren: () => import('src/app/user/user.module').then(m => m.UserModule)
     },
     {
-        path: 'lecturer',
-        loadChildren: () => import('src/app/lecturer/lecturer.module').then(m => m.LecturerModule),
+        path: 'content',
+        loadChildren: () => import('src/app/content/content.module').then(m => m.ContentModule)
     }
 ];

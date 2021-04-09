@@ -1,0 +1,64 @@
+<nz-card>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="form" (ngSubmit)="submit()" nz-form>
+                    <nz-form-item>
+                        <nz-form-label class="text-left" [nzSpan]="7" nzRequired>Tiết kiệm % chi phí khi đăng ký khóa
+                            học</nz-form-label>
+                        <nz-form-control [nzErrorTip]="errorEmailTpl">
+                            <input nz-input formControlName="discount" placeholder="Nhập % chi phí tiết kiệm" />
+                        </nz-form-control>
+                        <ng-template #errorEmailTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">
+                                Vui lòng nhập chi phí tiết kiệm
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('onlyNumber')">
+                                Chi phí tiết kiệm chỉ bao gồm các số
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label class="text-left" [nzSpan]="7" nzRequired>Số lượng khóa học từ chuyên gia
+                        </nz-form-label>
+                        <nz-form-control [nzErrorTip]="errorCourseTpl">
+                            <input nz-input formControlName="course" placeholder="Nhập số lượng khóa học" />
+                        </nz-form-control>
+                        <ng-template #errorCourseTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">
+                                Vui lòng nhập số lượng khóa học
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('onlyNumber')">
+                                Số lượng khóa học chỉ bao gồm các số
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label class="text-left" [nzSpan]="7" nzRequired>Số lượng bài giảng trong một khóa
+                        </nz-form-label>
+                        <nz-form-control [nzErrorTip]="errorLessionTpl">
+                            <input nz-input formControlName="lession" placeholder="Nhập số lượng bài giảng" />
+                        </nz-form-control>
+                        <ng-template #errorLessionTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">
+                                Vui lòng nhập số lượng bài giảng
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('onlyNumber')">
+                                Số lượng bài giảng chỉ bao gồm các số
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-item>
+                    <div class="text-right">
+                        <button type="submit" nz-button nzType="primary" [nzLoading]="isLoading">
+                            Lưu
+                        </button>
+                        <button class="ml-4" [routerLink]="['/dashboard/home']" type="button" nz-button nzType="primary"
+                            nzGhost>
+                            Quay lại
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</nz-card>
