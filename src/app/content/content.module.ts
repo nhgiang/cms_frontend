@@ -7,10 +7,19 @@ import { SharedModule } from '@shared/shared.module';
 import { FooterComponent } from './footer/footer.component';
 import { FaqComponent } from './faq/faq.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { FeedbackCreateComponent } from './feedback/feedback-create/feedback-create.component';
+import { FeedbackUpdateComponent } from './feedback/feedback-update/feedback-update.component';
 
 
 @NgModule({
-  declarations: [PremiumsComponent, FooterComponent, FaqComponent, FeedbackComponent],
+  declarations: [
+    PremiumsComponent,
+    FooterComponent,
+    FaqComponent,
+    FeedbackComponent,
+    FeedbackCreateComponent,
+    FeedbackUpdateComponent
+  ],
   imports: [
     CommonModule,
     ContentRoutingModule,

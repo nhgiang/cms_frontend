@@ -15,8 +15,4 @@ export class AuthApiService extends BaseApi {
   resetPassword(body: { email: string, newPassword: string, otp: string }) {
     return this.httpClient.post(this.createUrl('/reset-password'), body);
   }
-
-  resendOTP(body: { email: string }) {
-    return this.httpClient.post(this.createUrl('/send-otp'), body);
-  }
 }

@@ -30,9 +30,7 @@ export class FaqComponent implements OnInit {
     this.settingApi.faq.get().subscribe(res => {
       this.itemsControlArray.patchValue(res);
     });
-    for (const i of [1, 2, 3]) {
-      this.faqIndexs.push({ isEdit: false });
-    }
+    this.faqIndexs = Array(3).fill(0).map(() => ({ isEdit: false }));
   }
 
   buildForm() {

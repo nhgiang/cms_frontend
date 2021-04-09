@@ -46,7 +46,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   resendOtp() {
-    this.authApi.resendOTP({ email: this.email }).subscribe(res => {
+    this.authApi.forgotPassword({ email: this.email }).subscribe(res => {
       this.notification.success('Thành công', 'Gửi mã OTP thành công. Hãy kiểm tra email để nhận mã!');
     });
   }
