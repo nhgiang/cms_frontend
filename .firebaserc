@@ -2,6 +2,9 @@
   "targets": {
     "ttc-technology-solutions": {
       "hosting": {
+        "qa-cms-beautyup": [
+          "qa-cms-beautyup"
+        ],
         "cms-beautyup": [
           "cms-beautyup"
         ]

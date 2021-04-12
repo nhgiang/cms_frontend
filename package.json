@@ -9,10 +9,12 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-prod": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod",
-    "build-prod-state": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod --stats-json",
-    "bundle-report": "webpack-bundle-analyzer dist/enlink/stats.json",
-    "deploy": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod --aot && firebase use ttc-technology-solutions && firebase deploy --only hosting:cms-beautyup"
+    "build:qa": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod --configuration=qa --aot",
+    "deploy:qa": "npm run build:qa & firebase use ttc-technology-solutions && firebase deploy --only hosting:qa-cms-beautyup",
+    "build:prod": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod",
+    "build:prod:state": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod --stats-json",
+    "bundle:report": "webpack-bundle-analyzer dist/enlink/stats.json",
+    "deploy": "npm run build:prod && firebase use ttc-technology-solutions && firebase deploy --only hosting:cms-beautyup"
   },
   "private": true,
   "dependencies": {
