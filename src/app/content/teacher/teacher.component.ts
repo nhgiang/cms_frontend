@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { SettingApiService } from '@shared/api/setting.api.service';
+import { SettingTeacher } from 'types/typemodel';
+import { ContentStateService } from '../content-state.service';
 
 @Component({
   selector: 'app-teacher',
@@ -7,28 +9,22 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./teacher.component.scss']
 })
 export class TeacherComponent implements OnInit {
-  form: FormGroup;
-  faqIndexs = [];
-  submiting: boolean;
+  teachers: SettingTeacher;
 
-  get itemsControlArray() {
-    return this.form.get('items') as FormArray;
+  constructor(
+    private contentState: ContentStateService,
+    private settingApi: SettingApiService
+  ) {
   }
-
-  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-  }
-
-  buildform() {
-    this.form = this.fb.group({
-      items: this.controlTeacher()
+    this.contentState.teachers.subscribe(res => this.teachers = res);
+    this.settingApi.teacher.get().subscribe(res => {
+      this.contentState.initState(res);
     });
   }
 
-  controlTeacher() {
-    return this.fb.group({
-      
-    });
+  deleteTeacher(index) {
+
   }
 }
