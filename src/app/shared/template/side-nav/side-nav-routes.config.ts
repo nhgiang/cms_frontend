@@ -78,6 +78,11 @@ export const ROUTES: SideNavInterface[] = [
                 path: 'feedbacks',
                 title: 'Đánh giá học viên',
                 submenu: []
+            },
+            {
+                path: 'teacher',
+                title: 'Giảng viên',
+                submenu: []
             }
         ]
     },

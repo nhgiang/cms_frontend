@@ -9,6 +9,7 @@ import { FaqComponent } from './faq/faq.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { FeedbackCreateComponent } from './feedback/feedback-create/feedback-create.component';
 import { FeedbackUpdateComponent } from './feedback/feedback-update/feedback-update.component';
+import { TeacherComponent } from './teacher/teacher.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FeedbackUpdateComponent } from './feedback/feedback-update/feedback-upd
     FaqComponent,
     FeedbackComponent,
     FeedbackCreateComponent,
-    FeedbackUpdateComponent
+    FeedbackUpdateComponent,
+    TeacherComponent
   ],
   imports: [
     CommonModule,
