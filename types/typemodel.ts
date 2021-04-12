@@ -60,3 +60,8 @@ export interface Feedback {
   photo: string;
   content: string;
 }
+
+export interface FileModel {
+  file: Blob;
+  fileName: string;
+}

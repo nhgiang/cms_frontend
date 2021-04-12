@@ -6,7 +6,7 @@ import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { finalize, switchMap } from 'rxjs/operators';
-import { User } from 'types/typemodel';
+import { FileModel, User } from 'types/typemodel';
 
 @Component({
   selector: 'app-lecturer-update',
@@ -18,7 +18,7 @@ export class LecturerUpdateComponent implements OnInit {
   avatarUrl: string;
   teacher: User;
   isPasswordVisible: boolean;
-  image: Blob;
+  image: FileModel;
   specializations: any[];
   isLoading: boolean;
 
@@ -53,7 +53,7 @@ export class LecturerUpdateComponent implements OnInit {
   submitForm(): void {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.storageApi.uploadFile(this.image ?? this.avatarUrl).pipe(
+    this.storageApi.uploadFile(this.image.file ?? this.avatarUrl, this.image.fileName).pipe(
       switchMap((url) => {
         const data = {
           avatar: url,
@@ -77,9 +77,9 @@ export class LecturerUpdateComponent implements OnInit {
     reader.readAsDataURL(img);
   }
 
-  onCropped(image: Blob) {
-    this.image = image;
-    this.getBase64(image, (img: string) => {
+  onCropped(fileModel: FileModel) {
+    this.image = fileModel;
+    this.getBase64(fileModel.file, (img: string) => {
       this.avatarUrl = img;
     });
   }

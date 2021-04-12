@@ -7,7 +7,7 @@ import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
-import { Feedback } from 'types/typemodel';
+import { Feedback, FileModel } from 'types/typemodel';
 
 @Component({
   selector: 'app-feedback-update',
@@ -17,7 +17,7 @@ import { Feedback } from 'types/typemodel';
 export class FeedbackUpdateComponent implements OnInit {
   @Output() edited = new EventEmitter();
   form: FormGroup;
-  image: Blob;
+  image: FileModel;
   isLoading: boolean;
   index: number;
   feedbacks: Feedback[];
@@ -48,9 +48,9 @@ export class FeedbackUpdateComponent implements OnInit {
     reader.readAsDataURL(img);
   }
 
-  onCropped(image: Blob) {
+  onCropped(image: FileModel) {
     this.image = image;
-    this.getBase64(image, (img: string) => {
+    this.getBase64(image.file, (img: string) => {
       this.feedbacks[this.index].photo = img;
     });
   }
@@ -58,7 +58,7 @@ export class FeedbackUpdateComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.storageApi.uploadFile(this.image ?? this.feedbacks[this.index].photo).pipe(switchMap(url => {
+    this.storageApi.uploadFile(this.image.file ?? this.feedbacks[this.index].photo, this.image.fileName).pipe(switchMap(url => {
       const data = {
         photo: url,
         ...this.form.value

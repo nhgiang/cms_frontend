@@ -10,8 +10,9 @@
 					<thead>
 						<tr>
 							<th scope="col" [nzWidth]="'40px'">ID</th>
-							<th scope="col" [nzWidth]="'20%'">Tên học viên</th>
-							<th scope="col" [nzWidth]="'20%'">Hình ảnh</th>
+							<th scope="col" [nzWidth]="'15%'">Tên học viên</th>
+							<th scope="col" [nzWidth]="'10%'">Hình ảnh</th>
+							<th scope="col" [nzWidth]="'20%'">Tên khóa học</th>
 							<th scope="col">Chi tiết đánh giá</th>
 							<th scope="col" [nzWidth]="'120px'"></th>
 						</tr>
@@ -24,7 +25,12 @@
 								<nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item.photo">
 								</nz-avatar>
 							</td>
-							<td>{{ item?.content}}</td>
+							<td>{{ item?.courseName }}</td>
+							<td class="">
+								<span class="truncate-3">
+									{{ item?.content }}
+								</span>
+							</td>
 							<td>
 								<a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Cập nhật"
 									(click)="edit(index)">

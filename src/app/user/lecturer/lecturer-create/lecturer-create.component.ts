@@ -6,6 +6,7 @@ import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { finalize, switchMap } from 'rxjs/operators';
+import { FileModel } from 'types/typemodel';
 
 @Component({
   selector: 'app-lecturer-create',
@@ -14,7 +15,7 @@ import { finalize, switchMap } from 'rxjs/operators';
 })
 export class LecturerCreateComponent implements OnInit {
   form: FormGroup;
-  image: any;
+  image: FileModel;
   isPasswordVisible = false;
   avatarUrl: string;
   specializations: any[];
@@ -46,7 +47,7 @@ export class LecturerCreateComponent implements OnInit {
     Ultilities.validateForm(this.form);
 
     this.isLoading = true;
-    this.storageApi.uploadFile(this.image).pipe(
+    this.storageApi.uploadFile(this.image.file ?? this.avatarUrl, this.image.fileName).pipe(
       switchMap((url) => {
         const data = {
           avatar: url,
@@ -64,15 +65,15 @@ export class LecturerCreateComponent implements OnInit {
     });
   }
 
-  private getBase64(img: Blob, callback: (img: {}) => void): void {
+  private getBase64(img: Blob | File, callback: (img: {}) => void): void {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);
   }
 
-  onCropped(image: Blob) {
-    this.image = image;
-    this.getBase64(image, (img: string) => {
+  onCropped(fileModel: FileModel) {
+    this.image = fileModel;
+    this.getBase64(fileModel.file, (img: string) => {
       this.avatarUrl = img;
     });
   }

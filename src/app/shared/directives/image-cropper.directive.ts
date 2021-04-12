@@ -36,10 +36,10 @@ export class ImageCropperDirective {
     this.show(imageFile);
   }
 
-  show(image: Blob | string) {
-    let imageFile: Blob = null;
+  show(image: File | string ) {
+    let imageFile: File = null;
     let imageUrl = '';
-    if (image instanceof Blob) {
+    if (image instanceof File) {
       imageFile = image;
     } else {
       imageUrl = image;
