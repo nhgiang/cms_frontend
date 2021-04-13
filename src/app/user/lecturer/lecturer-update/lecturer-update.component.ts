@@ -53,19 +53,23 @@ export class LecturerUpdateComponent implements OnInit {
   submitForm(): void {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.storageApi.uploadFile(this.image.file ?? this.avatarUrl, this.image.fileName).pipe(
+
+
+    this.storageApi.uploadFile(this.image?.file ?? this.avatarUrl, this.image?.fileName).pipe(
       switchMap((url) => {
         const data = {
           avatar: url,
           ...this.form.value
         };
+
+        Object.keys(data).forEach(k => data[k] = data[k] && data[k].trim());
         return this.teacherApi.update(this.teacher.id, data);
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(() => {
       this.router.navigate(['/user/lecturer']);
     }, err => {
-      if (err.error.statusCode === 409) {
+      if (err?.error && err.error.statusCode === 409) {
         this.form.get('email').setErrors({ notUnique: true });
       }
     });

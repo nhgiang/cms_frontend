@@ -45,7 +45,6 @@ export class LecturerCreateComponent implements OnInit {
 
   submitForm(): void {
     Ultilities.validateForm(this.form);
-
     this.isLoading = true;
     this.storageApi.uploadFile(this.image.file ?? this.avatarUrl, this.image.fileName).pipe(
       switchMap((url) => {
@@ -53,11 +52,12 @@ export class LecturerCreateComponent implements OnInit {
           avatar: url,
           ...this.form.value,
         };
+        Object.keys(data).forEach(k => data[k] = data[k].trim());
         return this.teacherApi.create(data);
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(() => {
-      this.router.navigate(['/lecturer']);
+      this.router.navigate(['/user/lecturer']);
     }, err => {
       if (err.error.statusCode === 409) {
         this.form.get('email').setErrors({ notUnique: true });

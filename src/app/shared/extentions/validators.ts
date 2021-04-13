@@ -15,34 +15,37 @@ export class TValidators extends Validators {
   }
 
   static passwordRules(control: AbstractControl): ValidationErrors {
-    if (!control.value) {
+    const value = control.value && control.value.trim();
+    if (!value) {
       return null;
     }
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,16}$/g;
-    return regex.test(control.value) ? null : {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d@$!%*?&]{6,16}$/g;
+    return regex.test(value) ? null : {
       passwordRules: true
     };
   }
 
   static onlyNumber(control: AbstractControl): ValidationErrors {
-    if (!control.value) {
+    const value = control.value && control.value.trim();
+    if (!value) {
       return null;
     }
     const regex = /^[0-9]*$/g;
-    return regex.test(control.value) ? null : {
+    return regex.test(value) ? null : {
       onlyNumber: true
     };
   }
 
   static link(control: AbstractControl): ValidationErrors {
     const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
-    return regex.test(control.value) ? null : {
+    return regex.test(control.value && control.value.trim()) ? null : {
       link: true
     };
   }
 
   static textRange = (min: number, max: number) => (control: AbstractControl) => {
-    if (control.value && control.value.length >= min && control.value.length <= max) {
+    const value = control.value && control.value.trim();
+    if (value && value.trim().length >= min && value.trim().length <= max) {
       return null;
     }
     return {
