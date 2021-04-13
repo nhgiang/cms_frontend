@@ -14,7 +14,7 @@ import { User } from 'types/typemodel';
 })
 export class LecturerComponent extends DataTableContainer<User> implements OnInit {
   search: FormGroup;
-  specializations: any[];
+  specializations: any[] = [];
   constructor(
     private teacherApi: TeacherApiService,
     private notification: NzNotificationService,
@@ -46,7 +46,7 @@ export class LecturerComponent extends DataTableContainer<User> implements OnIni
     return this.teacherApi.getList({ ...params, specializationId, q });
   }
 
-  deleteTeacher(id) {
+  deleteTeacher(id: any) {
     const next = () => {
       this.refresh();
       this.notification.success('Thành công', 'Xóa thông tin giảng viên thành công!');

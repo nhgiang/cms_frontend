@@ -12,7 +12,8 @@
             </ng-template>
           </div>
           <div class="m-b-10 m-r-20 d-flex align-items-center">
-            <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn chuyên môn" formControlName="specializationId">
+            <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn chuyên môn"
+              formControlName="specializationId">
               <nz-option nzLabel="Tất cả" nzValue=""></nz-option>
               <nz-option [nzLabel]="item?.name" *ngFor="let item of specializations" [nzValue]="item?.id"></nz-option>
             </nz-select>
@@ -26,17 +27,18 @@
       </a>
     </div>
   </div>
-  <nz-table #productsListTable [nzFrontPagination]="false" [nzData]="items" [nzTotal]="meta?.totalItems"
-    (nzPageIndexChange)="onPageChanged($event)" [nzPageSize]="quantity" [nzLoading]="isloading" [nzPageIndex]="page">
+  <nz-table [nzShowTotal]="totalTemplate" [nzNoResult]="empty" #productsListTable [nzFrontPagination]="false"
+    [nzData]="items" [nzTotal]="meta?.totalItems" (nzPageIndexChange)="onPageChanged($event)" [nzPageSize]="quantity"
+    [nzLoading]="isloading" [(nzPageIndex)]="page" nzTableLayout="fixed">
     <thead>
       <tr>
-        <th>ID</th>
+        <th [nzWidth]="'70px'">ID</th>
         <th scope="col">Tên giảng viên</th>
         <th scope="col">Chuyên môn</th>
         <th scope="col">Email</th>
         <th scope="col">Phone</th>
         <th scope="col">Mô tả</th>
-        <th scope="col"></th>
+        <th scope="col" [nzWidth]="'120px'"></th>
       </tr>
     </thead>
     <tbody>
@@ -48,10 +50,14 @@
             <span class="m-l-10">{{item?.fullName}}</span>
           </div>
         </td>
-        <td>{{item?.specializationName}}</td>
-        <td>{{item?.email}}</td>
+        <td nzEllipsis>{{item?.specializationName}}</td>
+        <td nzEllipsis>{{item?.email}}</td>
         <td>{{item?.phoneNumber}}</td>
-        <td>{{item?.bio}}</td>
+        <td nzEllipsis>
+          <!-- <span class="truncate-1"> -->
+          {{item?.bio}}
+          <!-- </span> -->
+        </td>
         <td class="text-md-right">
           <a [routerLink]="[item?.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
             nzTooltipTitle="Cập nhật">
@@ -68,3 +74,7 @@
     </tbody>
   </nz-table>
 </nz-card>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
+<ng-template #totalTemplate let-total> Total: {{ total }} </ng-template>
