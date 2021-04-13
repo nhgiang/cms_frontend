@@ -40,7 +40,11 @@ export class FooterComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.settingApi.footer.post(this.form.value).pipe(
+    const data = {
+      ...this.form.value
+    };
+    Object.keys(data).forEach(k => data[k] = data[k] && data[k].trim());
+    this.settingApi.footer.post(data).pipe(
       finalize(() => this.isLoading = false)
     ).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật cấu hình footer thành công');

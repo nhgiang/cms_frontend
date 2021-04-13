@@ -7,7 +7,7 @@ import { BaseApi } from './base-api';
 export class SpecializationApiService extends BaseApi {
   endpoint = 'specializations';
 
-  getAll() {
-    return this.httpClient.get<any>(this.createUrl(''));
+  getAll(params) {
+    return this.httpClient.get<any>(this.createUrl(''), { params: this.createParams(params) });
   }
 }

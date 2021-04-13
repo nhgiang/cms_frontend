@@ -2,7 +2,6 @@ import { Directive, EventEmitter, Input, Output } from '@angular/core';
 import { ImageCropperModalComponent } from '@shared/components/image-cropper-modal/image-cropper-modal.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService, NzModalRef } from 'ng-zorro-antd/modal';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Directive({
   selector: '[imageCropper]',
