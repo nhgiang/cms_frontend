@@ -1,0 +1,19 @@
+.image-cropper {
+  width: 82px;
+  height: 82px;
+  border-radius: 4px;
+  background: #edf2f9;
+  cursor: pointer;
+  .avatar {
+    height: 100%;
+    line-height: 82px;
+    .upload {
+      color: #72849a;
+      cursor: pointer;
+      text-align: center;
+    }
+  }
+}
+.label-avatar {
+  font-weight: 500;
+}

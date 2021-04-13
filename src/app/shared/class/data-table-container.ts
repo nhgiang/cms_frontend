@@ -15,6 +15,7 @@ export abstract class DataTableContainer<T> implements OnInit {
     quantity = 10;
     protected refreshTrigger = new Subject();
 
+    // tslint:disable-next-line: contextual-lifecycle
     ngOnInit() {
         this.subscribe();
         this.refreshTrigger.next();

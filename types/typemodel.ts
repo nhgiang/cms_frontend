@@ -68,7 +68,7 @@ export interface FileModel {
 
 export interface SettingTeacher {
   description: string;
-  teachers: SettingTeacherItem;
+  teachers: SettingTeacherItem[];
 }
 
 export interface SettingTeacherItem {
