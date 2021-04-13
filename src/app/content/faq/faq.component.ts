@@ -36,8 +36,8 @@ export class FaqComponent implements OnInit {
   buildForm() {
     this.form = this.fb.group({
       items: this.fb.array([1, 2, 3].map(() => this.fb.group({
-        question: [null, [TValidators.minLength(10), TValidators.maxLength(300)]],
-        answer: [null, [TValidators.minLength(10), TValidators.maxLength(600)]],
+        question: [null, TValidators.textRange(10, 200)],
+        answer: [null, TValidators.textRange(10, 600)],
       })))
     });
   }
@@ -48,7 +48,7 @@ export class FaqComponent implements OnInit {
       return;
     }
     this.submiting = true;
-    Ultilities.validateForm(this.itemsControlArray.controls[0] as FormGroup);
+    Ultilities.validateForm(this.itemsControlArray.controls[index] as FormGroup);
     this.settingApi.faq.post(this.form.value.items).pipe(finalize(() => this.submiting = false)).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật câu hỏi thường gặp thành công');
       this.faqIndexs[index].isEdit = !this.faqIndexs[index].isEdit;
