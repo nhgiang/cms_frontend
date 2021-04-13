@@ -22,18 +22,19 @@
       </form>
     </div>
   </div>
-  <nz-table #productsListTable [nzData]="items" [nzTotal]="meta?.totalItems" [nzFrontPagination]="false"
-    [nzPageSize]="quantity" [nzPageIndex]="page" [nzLoading]="isloading">
+  <nz-table [nzShowTotal]="totalTemplate" [nzNoResult]="empty" #productsListTable [nzData]="items"
+    [nzTotal]="meta?.totalItems" [nzFrontPagination]="false" [nzPageSize]="quantity" [nzPageIndex]="page"
+    [nzLoading]="isloading" nzTableLayout="fixed">
     <thead>
       <tr>
-        <th scope="col">ID</th>
+        <th scope="col" [nzWidth]="'70px'">ID</th>
         <th scope="col">Người dùng</th>
         <th scope="col">Email</th>
         <th scope="col">Phone</th>
         <th scope="col">Khóa học đã mua</th>
         <th scope="col">Tổng tiến độ</th>
         <th scope="col">Tích điểm</th>
-        <th scope="col">Trạng thái</th>
+        <th scope="col" [nzWidth]="'120px'">Trạng thái</th>
       </tr>
     </thead>
     <tbody>
@@ -47,7 +48,7 @@
             </div>
           </a>
         </td>
-        <td>{{ item.email }}</td>
+        <td nzEllipsis>{{ item.email }}</td>
         <td>{{ item.phone }}</td>
         <td>{{ '1' }}</td>
         <td>{{ '100%' }}</td>
@@ -60,3 +61,7 @@
     </tbody>
   </nz-table>
 </nz-card>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
+<ng-template #totalTemplate let-total> Total: {{ total }} </ng-template>

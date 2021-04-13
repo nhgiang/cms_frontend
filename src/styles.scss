@@ -37,6 +37,7 @@
 
 
 .truncate-3{
+  display: -webkit-box;
   word-wrap: break-word;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
