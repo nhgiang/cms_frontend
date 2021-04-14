@@ -14,42 +14,46 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropperDirective } from './directives/image-cropper.directive';
 import { ConfirmationComponent } from './components/confirmation/confirmation.Component';
 import { RouterMatchDirective } from './directives/router-match.directive';
+import { SelectAdvanceComponent } from './controls/select-advance/select-advance.component';
 
 @NgModule({
-    exports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        HttpClientJsonpModule,
-        ZorroAntdModule,
-        PerfectScrollbarModule,
-        SearchPipe,
-        OptionPipe,
-        DatetimePipe,
-        ImageCropperModalComponent,
-        ImageCropperDirective,
-        ConfirmationComponent,
-        RouterMatchDirective
-    ],
-    imports: [
-        RouterModule,
-        ImageCropperModule,
-        ZorroAntdModule,
-        CommonModule
-    ],
-    declarations: [
-        SearchPipe,
-        OptionPipe,
-        DatetimePipe,
-        ImageCropperModalComponent,
-        ImageCropperDirective,
-        ConfirmationComponent,
-        RouterMatchDirective
-    ],
-    providers: [
-        ThemeConstantService
-    ]
+  exports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
+    ZorroAntdModule,
+    PerfectScrollbarModule,
+    SearchPipe,
+    OptionPipe,
+    DatetimePipe,
+    ImageCropperModalComponent,
+    ImageCropperDirective,
+    ConfirmationComponent,
+    RouterMatchDirective,
+    SelectAdvanceComponent,
+  ],
+  imports: [
+    RouterModule,
+    ImageCropperModule,
+    ZorroAntdModule,
+    CommonModule,
+    FormsModule
+  ],
+  declarations: [
+    SearchPipe,
+    OptionPipe,
+    DatetimePipe,
+    ImageCropperModalComponent,
+    ImageCropperDirective,
+    ConfirmationComponent,
+    RouterMatchDirective,
+    SelectAdvanceComponent
+  ],
+  providers: [
+    ThemeConstantService
+  ]
 })
 
 export class SharedModule { }
