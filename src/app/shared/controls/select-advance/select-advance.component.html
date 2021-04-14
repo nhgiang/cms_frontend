@@ -1,0 +1,10 @@
+<nz-select class="w-100" [(ngModel)]="controlValue" (ngModelChange)="onModelChange($event)" (nzScrollToBottom)="loadMore$.next()"
+  [nzServerSearch]="true" (nzOnSearch)="search$.next($event)" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
+  nzAllowClear nzShowSearch [nzLoading]="isLoading" [nzClearIcon]="clearIconTpl">
+  <nz-option *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.label">
+  </nz-option>
+  <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+    <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+  </nz-option>
+  <ng-template #clearIconTpl><i (click)="onClear()" nz-icon nzType="close-circle" nzTheme="fill"></i></ng-template>
+</nz-select>
