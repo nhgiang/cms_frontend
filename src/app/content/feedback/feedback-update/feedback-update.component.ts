@@ -8,6 +8,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
 import { Feedback, FileModel } from 'types/typemodel';
+import { trimData } from 'utils/common';
 
 @Component({
   selector: 'app-feedback-update',
@@ -58,12 +59,12 @@ export class FeedbackUpdateComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.storageApi.uploadFile(this.image.file ?? this.feedbacks[this.index].photo, this.image.fileName).pipe(switchMap(url => {
+    this.storageApi.uploadFile(this.image?.file ?? this.feedbacks[this.index].photo, this.image?.fileName).pipe(switchMap(url => {
       const data = {
         photo: url,
         ...this.form.value
       };
-      this.feedbacks[this.index] = data;
+      this.feedbacks[this.index] = trimData(data) ;
       return this.settingApi.feedbacks.post(this.feedbacks);
     }), finalize(() => this.isLoading = false)).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật đánh giá học viên thành công!');

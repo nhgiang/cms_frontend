@@ -94,7 +94,7 @@ export class StudentDetailComponent implements OnInit {
     });
   }
 
-  inActiveAccount(id, status) {
+  inActiveAccount(id: string, status: UserStatus) {
     const message = status === UserStatus.Active ? 'Khóa' : 'Mở khóa';
     const next = () => {
       this.user.status = status === UserStatus.Active ? UserStatus.InActive : UserStatus.Active;
