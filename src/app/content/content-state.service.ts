@@ -5,14 +5,14 @@ import { tap } from 'rxjs/operators';
 import { SettingTeacher, SettingTeacherItem } from 'types/typemodel';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ContentStateService {
   // tslint:disable-next-line: variable-name
   private readonly _setttingTeacher = new BehaviorSubject<SettingTeacher>(null);
   readonly setttingTeacher$: Observable<SettingTeacher> = this._setttingTeacher.asObservable();
 
-  constructor(private settingApi: SettingApiService) { }
+  constructor(private settingApi: SettingApiService) {}
 
   get setttingTeacher() {
     return this._setttingTeacher.getValue();
@@ -29,16 +29,34 @@ export class ContentStateService {
   createTeacher(teacher: SettingTeacherItem) {
     const newSettingTeacherState = {
       description: this.setttingTeacher.description,
-      teachers: [...this.setttingTeacher.teachers, teacher]
+      teachers: [...this.setttingTeacher.teachers, teacher],
     };
-    return this.settingApi.teacher.post(newSettingTeacherState).pipe(tap(() => this.settingTeachers = newSettingTeacherState));
+    return this.settingApi.teacher
+      .post(newSettingTeacherState)
+      .pipe(tap(() => (this.settingTeachers = newSettingTeacherState)));
+  }
+
+  updateTeacher(teacher: SettingTeacherItem, index: number) {
+    const newSettingTeacherState = {
+      description: this.setttingTeacher.description,
+      teachers: [...this.setttingTeacher.teachers],
+    };
+    newSettingTeacherState.teachers[index] = teacher;
+    return this.settingApi.teacher
+      .post(newSettingTeacherState)
+      .pipe(tap(() => (this.settingTeachers = newSettingTeacherState)));
   }
 
   deleteTeacher(index) {
     const newSettingTeacherState = {
       description: this.setttingTeacher.description,
-      teachers: [...this.setttingTeacher.teachers.slice(0, index), ...this.setttingTeacher.teachers.slice(index + 1)]
+      teachers: [
+        ...this.setttingTeacher.teachers.slice(0, index),
+        ...this.setttingTeacher.teachers.slice(index + 1),
+      ],
     };
-    this.settingApi.teacher.post(newSettingTeacherState).subscribe(() => this.settingTeachers = newSettingTeacherState);
+    return this.settingApi.teacher
+      .post(newSettingTeacherState)
+      .pipe(tap(() => (this.settingTeachers = newSettingTeacherState)));
   }
 }

@@ -5,14 +5,15 @@ import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { switchMap, tap } from 'rxjs/operators';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { finalize, switchMap, tap } from 'rxjs/operators';
 import { FileModel, SettingTeacher } from 'types/typemodel';
 import { ContentStateService } from '../../content-state.service';
 
 @Component({
   selector: 'app-teacher-create',
   templateUrl: './teacher-create.component.html',
-  styleUrls: ['./teacher-create.component.scss']
+  styleUrls: ['./teacher-create.component.scss'],
 })
 export class TeacherCreateComponent implements OnInit {
   form: FormGroup;
@@ -23,8 +24,9 @@ export class TeacherCreateComponent implements OnInit {
     private fb: FormBuilder,
     private contentState: ContentStateService,
     private storageApi: StorageApiService,
-    private modalRef: NzModalRef
-  ) { }
+    private modalRef: NzModalRef,
+    private notification: NzNotificationService
+  ) {}
 
   ngOnInit(): void {
     this.buildForm();
@@ -32,15 +34,24 @@ export class TeacherCreateComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
-    this.storageApi.uploadFile(this.image?.file, this.image.fileName).pipe(switchMap(res => {
-      const data = {
-        ...this.form.value,
-        avatar: res
-      };
-      return this.contentState.createTeacher(data);
-    })).subscribe(() => {
-      this.modalRef.close();
-    });
+    this.storageApi
+      .uploadFile(this.image?.file, this.image.fileName)
+      .pipe(
+        switchMap((res) => {
+          const data = {
+            ...this.form.value,
+            avatar: res,
+          };
+          return this.contentState.createTeacher(data);
+        }),
+        finalize(() => this.modalRef.close())
+      )
+      .subscribe(() => {
+        this.notification.success(
+          'Thành công',
+          'Thêm mới giảng viên thành công!'
+        );
+      });
   }
 
   private getBase64(img: Blob, callback: (img: {}) => void): void {
@@ -59,7 +70,7 @@ export class TeacherCreateComponent implements OnInit {
   buildForm() {
     this.form = this.fb.group({
       name: [null, TValidators.textRange(1, 200)],
-      position: [null, TValidators.textRange(1, 200)]
+      position: [null, TValidators.textRange(1, 200)],
     });
   }
 }
