@@ -6,6 +6,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { SettingTeacher } from 'types/typemodel';
 import { ContentStateService } from '../content-state.service';
 import { TeacherCreateComponent } from './teacher-create/teacher-create.component';
+import { TeacherUpdateComponent } from './teacher-update/teacher-update.component';
 
 @Component({
   selector: 'app-teacher',
@@ -42,6 +43,14 @@ export class TeacherComponent implements OnInit {
     this.modalService.create({
       nzTitle: 'Thêm thông tin giảng viên',
       nzContent: TeacherCreateComponent
+    });
+  }
+
+  editItem(index: number) {
+    this.modalService.create({
+      nzTitle: 'Cập nhật thông tin giảng viên',
+      nzContent: TeacherUpdateComponent,
+      nzComponentParams: { index }
     });
   }
 }

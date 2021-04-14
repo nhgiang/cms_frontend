@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SettingApiService } from '@shared/api/setting.api.service';
+import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import { NzModalRef } from 'ng-zorro-antd/modal';
+import { switchMap, tap } from 'rxjs/operators';
 import { FileModel, SettingTeacher } from 'types/typemodel';
 import { ContentStateService } from '../../content-state.service';
 
@@ -19,6 +22,8 @@ export class TeacherCreateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private contentState: ContentStateService,
+    private storageApi: StorageApiService,
+    private modalRef: NzModalRef
   ) { }
 
   ngOnInit(): void {
@@ -27,7 +32,15 @@ export class TeacherCreateComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
-    this.contentState.createTeacher(this.form)
+    this.storageApi.uploadFile(this.image?.file, this.image.fileName).pipe(switchMap(res => {
+      const data = {
+        ...this.form.value,
+        avatar: res
+      };
+      return this.contentState.createTeacher(data);
+    })).subscribe(() => {
+      this.modalRef.close();
+    });
   }
 
   private getBase64(img: Blob, callback: (img: {}) => void): void {

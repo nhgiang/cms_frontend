@@ -11,6 +11,7 @@ import { FeedbackCreateComponent } from './feedback/feedback-create/feedback-cre
 import { FeedbackUpdateComponent } from './feedback/feedback-update/feedback-update.component';
 import { TeacherComponent } from './teacher/teacher.component';
 import { TeacherCreateComponent } from './teacher/teacher-create/teacher-create.component';
+import { TeacherUpdateComponent } from './teacher/teacher-update/teacher-update.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { TeacherCreateComponent } from './teacher/teacher-create/teacher-create.
     FeedbackCreateComponent,
     FeedbackUpdateComponent,
     TeacherComponent,
-    TeacherCreateComponent
+    TeacherCreateComponent,
+    TeacherUpdateComponent
   ],
   imports: [
     CommonModule,

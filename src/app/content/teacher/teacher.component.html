@@ -36,7 +36,7 @@
 				<td>{{item.avatar}}</td>
 				<td>{{item.position}}</td>
 				<td>
-					<a [routerLink]="[item?.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
+					<a (click)="editItem(index)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
 						nzTooltipTitle="Cập nhật">
 						<i nz-icon nzType="edit" theme="outline"></i>
 					</a>

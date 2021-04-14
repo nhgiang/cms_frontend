@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SettingApiService } from '@shared/api/setting.api.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { SettingTeacher } from 'types/typemodel';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { SettingTeacher, SettingTeacherItem } from 'types/typemodel';
 
 @Injectable({
   providedIn: 'root'
@@ -25,12 +26,12 @@ export class ContentStateService {
     this.settingTeachers = data;
   }
 
-  createTeacher(teacher) {
+  createTeacher(teacher: SettingTeacherItem) {
     const newSettingTeacherState = {
       description: this.setttingTeacher.description,
-      teachers: Object.assign({}, this.setttingTeacher.teachers, teacher)
+      teachers: [...this.setttingTeacher.teachers, teacher]
     };
-    this.settingApi.teacher.post(newSettingTeacherState).subscribe(() => this.settingTeachers = newSettingTeacherState);
+    return this.settingApi.teacher.post(newSettingTeacherState).pipe(tap(() => this.settingTeachers = newSettingTeacherState));
   }
 
   deleteTeacher(index) {

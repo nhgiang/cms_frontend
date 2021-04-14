@@ -36,7 +36,7 @@ export class ImageCropperDirective {
     this.show(imageFile);
   }
 
-  show(image: File | string ) {
+  show(image: File | string) {
     let imageFile: File = null;
     let imageUrl = '';
     if (image instanceof File) {
@@ -51,7 +51,7 @@ export class ImageCropperDirective {
         imageUrl,
         aspectRatio: this.aspectRatio,
         maintainAspectRatio: this.maintainAspectRatio,
-       }
+      }
     });
     this.modalRef.getContentComponent().cropped.subscribe((imagea) => {
       this.cropped.emit(imagea);
