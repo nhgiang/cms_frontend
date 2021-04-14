@@ -26,7 +26,7 @@ export class StudentComponent extends DataTableContainer<User> implements OnInit
   ngOnInit() {
     this.buildform();
     super.ngOnInit();
-    this.form.valueChanges.pipe(debounceTime(500)).subscribe((res) => this.onSearchParamsChanged(res))
+    this.form.valueChanges.pipe(debounceTime(500)).subscribe((res) => this.onSearchParamsChanged(res));
   }
 
   protected fetch() {
@@ -35,7 +35,7 @@ export class StudentComponent extends DataTableContainer<User> implements OnInit
       page: this.page,
     };
     const { specializationId, q, status } = this.params;
-    return this.studentApi.getAll({ ...params, specializationId, q, status })
+    return this.studentApi.getAll({ ...params, specializationId, q, status });
   }
 
   buildform() {

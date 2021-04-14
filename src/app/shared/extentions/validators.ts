@@ -19,7 +19,7 @@ export class TValidators extends Validators {
     if (!value) {
       return null;
     }
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d@$!%*?&]{6,16}$/g;
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g;
     return regex.test(value) ? null : {
       passwordRules: true
     };
@@ -30,14 +30,14 @@ export class TValidators extends Validators {
     if (!value) {
       return null;
     }
-    const regex = /^[0-9]*$/g;
+    const regex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
     return regex.test(value) ? null : {
       onlyNumber: true
     };
   }
 
   static link(control: AbstractControl): ValidationErrors {
-    const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
+    const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
     return regex.test(control.value && control.value.trim()) ? null : {
       link: true
     };
@@ -50,6 +50,17 @@ export class TValidators extends Validators {
     }
     return {
       textRange: true
+    };
+  }
+
+  static email(control: AbstractControl): ValidationErrors{
+    const value = control.value && control.value.trim();
+    if (!value) {
+      return null;
+    }
+    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    return regex.test(value) ? null : {
+      passwordRules: true
     };
   }
 }

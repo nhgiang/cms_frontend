@@ -14,7 +14,7 @@
             </p>
             <p class="text-dark m-b-10">100 point</p>
             <button class="ant-btn ant-btn-primary ant-btn-background-ghost"
-              (confirmed)="inActiveAccount(user?.id, user.status)"
+              (confirmed)="inActiveAccount(user?.id, user?.status)"
               [confirmation]="'Bạn có chắc chắn muốn khóa tài khoản học viên này không?'">{{ btnUserStatus }} </button>
           </div>
         </div>

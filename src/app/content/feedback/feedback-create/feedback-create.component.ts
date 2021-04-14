@@ -8,6 +8,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
 import { Feedback, FileModel } from 'types/typemodel';
+import { trimData } from 'utils/common';
 
 @Component({
   selector: 'app-feedback-create',
@@ -63,7 +64,7 @@ export class FeedbackCreateComponent implements OnInit {
         photo: url,
         ...this.form.value
       };
-      this.feedbacks.push(data);
+      this.feedbacks.push(trimData(data));
       return this.settingApi.feedbacks.post(this.feedbacks);
     }), finalize(() => this.isLoading = false)).subscribe(() => {
       this.notification.success('Thành công', 'Thêm mới đánh giá học viên thành công!');

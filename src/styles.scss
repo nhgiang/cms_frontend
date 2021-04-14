@@ -26,21 +26,22 @@
 .side-nav {
   top: 50px;
 }
-// table {
-//   th { 
-//     font-size: 12px;
-//   }
-//   td {
-//     font-size: 11px;
-//   }
-// }
-
 
 .truncate-3{
   display: -webkit-box;
   word-wrap: break-word;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  height: inherit;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.truncate-1{
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
   height: inherit;
   text-overflow: ellipsis;
   overflow: hidden;

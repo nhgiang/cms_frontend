@@ -46,7 +46,7 @@ export class LecturerComponent extends DataTableContainer<User> implements OnIni
     return this.teacherApi.getList({ ...params, specializationId, q });
   }
 
-  deleteTeacher(id: any) {
+  deleteTeacher(id: string) {
     const next = () => {
       this.refresh();
       this.notification.success('Thành công', 'Xóa thông tin giảng viên thành công!');
