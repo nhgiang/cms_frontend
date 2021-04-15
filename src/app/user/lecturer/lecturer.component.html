@@ -12,11 +12,8 @@
             </ng-template>
           </div>
           <div class="m-b-10 m-r-20 d-flex align-items-center">
-            <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn chuyên môn"
-              formControlName="specializationId">
-              <nz-option nzLabel="Tất cả" nzValue=""></nz-option>
-              <nz-option [nzLabel]="item?.name" *ngFor="let item of specializations" [nzValue]="item?.id"></nz-option>
-            </nz-select>
+            <select-advance placeholder="Chọn chuyên môn" [getOptionsFn]="specializations" style="min-width: 220px;" formControlName="specializationId">
+            </select-advance>
           </div>
         </div>
       </form>

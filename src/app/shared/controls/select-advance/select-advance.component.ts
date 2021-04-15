@@ -2,8 +2,9 @@ import { Component, Input, forwardRef, OnInit, Output, EventEmitter } from '@ang
 import { Observable, Subject } from 'rxjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractControlDirective } from '../abstract-control.directive';
-import { debounceTime, distinctUntilChanged, finalize, map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { concatMap, debounceTime, distinctUntilChanged, finalize, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DestroyService } from '@shared/services/destroy.service';
+import { Option } from '@shared/interfaces/option.type';
 
 export interface ParamsSelectAdvance {
   page?: number;
@@ -26,14 +27,14 @@ export interface ParamsSelectAdvance {
 export class SelectAdvanceComponent extends AbstractControlDirective implements OnInit {
 
   isLoading = false;
-  page = 0;
+  page = 1;
   timeout: any;
   isDone = false;
   options = [];
   search$: Subject<string>;
   loadMore$: Subject<any>;
   q: string;
-  @Input() getOptionsFn: (params: ParamsSelectAdvance) => Observable<any>;
+  @Input() getOptionsFn: (params: ParamsSelectAdvance) => Observable<Option[]>;
   @Output() readonly csClear = new EventEmitter<void>();
 
   constructor(
@@ -58,28 +59,28 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
       startWith(''),
       distinctUntilChanged(),
       debounceTime(500),
-      tap(q => this.q = q),
-      switchMap(q => this.getOptionsFn({ page: 1, q })),
-      finalize(() => {
-        this.isLoading = false;
+      tap(q => {
+        this.q = q;
+        this.page = 1;
+        this.isLoading = true;
       }),
+      switchMap(q => this.getOptionsFn({ page: 1, q }).pipe(finalize(() => this.isLoading = false))),
       takeUntil(this.destroy)
     ).subscribe(data => {
       this.options = data;
     });
   }
 
-  async loadMore(): Promise<void> {
+  loadMore(): void {
     this.loadMore$.pipe(
       tap(() => this.isLoading = true),
-      switchMap(x => this.getOptionsFn({ page: this.page++, q: this.q })),
-      finalize(() => this.isLoading = false),
+      concatMap(() => this.getOptionsFn({ page: ++this.page, q: this.q }).pipe(finalize(() => this.isLoading = false))),
       takeUntil(this.destroy)
     ).subscribe(this.pushToOption);
   }
 
-  private pushToOption(data: any[]) {
-    this.options = this.options.concat(data.filter(x => !this.options.some(y => y.value === x.value)));
+  private pushToOption = (data: any[]) => {
+    this.options = this.options.concat(data);
   }
 
   onClear() {
