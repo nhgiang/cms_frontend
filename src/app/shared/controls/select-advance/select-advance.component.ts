@@ -1,5 +1,6 @@
 import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Option } from '@shared/interfaces/option.type';
 import { DestroyService } from '@shared/services/destroy.service';
 import { Observable, Subject } from 'rxjs';
 import { concatMap, debounceTime, distinctUntilChanged, finalize, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
