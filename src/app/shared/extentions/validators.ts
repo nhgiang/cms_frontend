@@ -15,10 +15,10 @@ export class TValidators extends Validators {
   }
 
   static passwordRules(control: AbstractControl): ValidationErrors {
-    const value = control.value && control.value.trim();
-    if (!value) {
+    if (!control.value) {
       return null;
     }
+    const value = control.value && control.value.trim();
     const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g;
     return regex.test(value) ? null : {
       passwordRules: true
@@ -26,10 +26,10 @@ export class TValidators extends Validators {
   }
 
   static onlyNumber(control: AbstractControl): ValidationErrors {
-    const value = control.value && control.value.trim();
-    if (!value) {
+    if (!control.value) {
       return null;
     }
+    const value = control.value && control.value.trim();
     const regex = /^[0-9]*$/g;
     return regex.test(value) ? null : {
       onlyNumber: true
@@ -44,8 +44,11 @@ export class TValidators extends Validators {
   }
 
   static textRange = (min: number, max: number) => (control: AbstractControl) => {
+    if (!control.value) {
+      return null;
+    }
     const value = control.value && control.value.trim();
-    if (value && value.trim().length >= min && value.trim().length <= max) {
+    if (value && value.length >= min && value.length <= max) {
       return null;
     }
     return {
@@ -54,10 +57,10 @@ export class TValidators extends Validators {
   }
 
   static emailRules(control: AbstractControl): ValidationErrors {
-    const value = control.value && control.value.trim();
-    if (!value) {
+    if (!control.value) {
       return null;
     }
+    const value = control.value && control.value.trim();
     const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     return regex.test(value) ? null : {
       emailRules: true
@@ -65,10 +68,10 @@ export class TValidators extends Validators {
   }
 
   static phoneNumber(control: AbstractControl): ValidationErrors {
-    const value = control.value && control.value.trim();
-    if (!value) {
+    if (!control.value) {
       return null;
     }
+    const value = control.value && control.value.trim();
     const regex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
     return regex.test(value) ? null : {
       phoneNumber: true

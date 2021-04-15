@@ -30,7 +30,7 @@ export class FooterComponent implements OnInit {
   buildForm() {
     this.form = this.fb.group({
       address: [null, [TValidators.required]],
-      email: [null, [TValidators.email, TValidators.required]],
+      email: [null, [TValidators.emailRules, TValidators.required]],
       phoneNumber: [null, [TValidators.phoneNumber, TValidators.required]],
       facebook: [null, [TValidators.link, TValidators.required]],
       youtube: [null, [TValidators.link, TValidators.required]]

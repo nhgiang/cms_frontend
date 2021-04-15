@@ -17,8 +17,8 @@
                 <ng-container *ngIf="control.hasError('required')">
                     Vui lòng nhập email
                 </ng-container>
-                <ng-container *ngIf="control.hasError('email')">
-                    không đúng định dạng email
+                <ng-container *ngIf="control.hasError('emailRules')">
+                    Email không đúng định dạng
                 </ng-container>
             </ng-template>
         </nz-form-item>
