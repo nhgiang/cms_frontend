@@ -87,9 +87,11 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="6" nzRequired>Chuyên môn</nz-form-label>
           <nz-form-control [nzErrorTip]="'Vui lòng chọn chuyên môn'">
-            <nz-select id="gender" formControlName="specializationId" nzPlaceHolder="Chọn chuyên môn">
+            <!-- <nz-select id="gender" formControlName="specializationId" nzPlaceHolder="Chọn chuyên môn">
               <nz-option [nzValue]="item.id" [nzLabel]="item.name" *ngFor="let item of specializations"></nz-option>
-            </nz-select>
+            </nz-select> -->
+            <select-advance placeholder="Chọn chuyên môn" [getOptionsFn]="specializations" style="min-width: 220px;" formControlName="specializationId">
+            </select-advance>
           </nz-form-control>
         </nz-form-item>
       </div>
