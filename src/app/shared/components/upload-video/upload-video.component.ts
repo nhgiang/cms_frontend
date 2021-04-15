@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { UploaderStatus } from 'types/enums';
 
 @Component({
@@ -7,14 +8,20 @@ import { UploaderStatus } from 'types/enums';
   styleUrls: ['./upload-video.component.scss']
 })
 export class UploadVideoComponent implements OnInit {
+  @Input() acceptType: string;
   UploaderStatus = UploaderStatus;
   status: UploaderStatus = UploaderStatus.NotSelected;
-  constructor() { }
+  selectedFile: File;
+
+  constructor(private messageService: NzMessageService) { }
 
   ngOnInit(): void {
   }
 
-  onFileChanged(event) {
-
+  onFileChanged($event) {
+    const file = ($event.target as HTMLInputElement).files[0];
+    if (file.type !== this.acceptType) {
+      this.messageService.error(`Chỉ cho phép video định dạng ${this.acceptType}`)
+    }
   }
 }
