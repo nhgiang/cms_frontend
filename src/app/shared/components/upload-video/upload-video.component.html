@@ -1,8 +1,9 @@
 <div class="upload-area">
   <ng-container *ngIf="status === UploaderStatus.NotSelected">
     <label class="upload-label d-flex flex-column align-items-center justify-content-center" for="fileInput">
-      <i class="far fa-cloud-upload fa-3x text-primary"></i>
-      <span class="text-muted mt-2" translate>Click to browse a file to upload</span>
+      <i nz-icon nzType="youtube" nzTheme="fill"></i>
+      <span class="mt-1 text-dark" translate>Nhấn hoặc kéo thả video vào vùng này để upload</span>
+      <span class="file-type">Định dạng file hỗ trợ .mp4. Tên file không chứa các ký tự đặc biệt</span>
     </label>
   </ng-container>
 </div>
