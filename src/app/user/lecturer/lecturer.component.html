@@ -54,18 +54,20 @@
         <td nzEllipsis>{{item?.specializationName}}</td>
         <td nzEllipsis>{{item?.email}}</td>
         <td>{{item?.phoneNumber}}</td>
-        <td nzEllipsis>{{item?.bio}} </td>
+        <td nzEllipsis>{{item?.bio}}</td>
         <td class="text-md-right">
-          <a [routerLink]="[item?.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
-            nzTooltipTitle="Cập nhật">
-            <i nz-icon nzType="edit" theme="outline"></i>
-          </a>
-          <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
-            <span (confirmed)="deleteTeacher(item?.id)"
+          <div class="d-flex">
+            <a [routerLink]="[item?.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
+              nzTooltipTitle="Cập nhật">
+              <i nz-icon nzType="edit" theme="outline"></i>
+            </a>
+            <div (confirmed)="deleteTeacher(item?.id)"
               [confirmation]="'Bạn có chắc muốn xóa thông tin giảng viên này hay không?'">
-              <i nz-icon nzType="close" nzTheme="outline"></i>
-            </span>
-          </a>
+              <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
+                <i nz-icon nzType="close" nzTheme="outline"></i>
+              </a>
+            </div>
+          </div>
         </td>
       </tr>
     </tbody>
