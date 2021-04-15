@@ -10,7 +10,8 @@
             120x120 Max file size: 5MB
           </p>
         </div>
-        <div class="image-cropper" #cropperRef="imageCropper" imageCropper [aspectRatio]="1 / 1" (cropped)="onCropped($event)">
+        <div class="image-cropper" #cropperRef="imageCropper" imageCropper [aspectRatio]="1 / 1"
+          (cropped)="onCropped($event)">
           <button nz-button nzType="primary" class="p-0">
             <label [for]="'cropperImage'">
               upload
@@ -31,7 +32,7 @@
               <ng-container *ngIf="control.hasError('required')">
                 Vui lòng nhập Email
               </ng-container>
-              <ng-container *ngIf="control.hasError('email')">
+              <ng-container *ngIf="control.hasError('emailRules')">
                 Không đúng định dạng email
               </ng-container>
               <ng-container *ngIf="control.hasError('notExist')">
@@ -62,9 +63,17 @@
         <div class="col-md-6">
           <nz-form-item>
             <nz-form-label [nzSpan]="6" nzRequired>Phone</nz-form-label>
-            <nz-form-control [nzErrorTip]="'Vui lòng nhập số điện thoại'">
+            <nz-form-control [nzErrorTip]="errorPhoneTpl">
               <input nz-input formControlName="phoneNumber" placeholder="Nhập Số điện thoại" />
             </nz-form-control>
+            <ng-template #errorPhoneTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Vui lòng nhập số điện thoại
+              </ng-container>
+              <ng-container *ngIf="control.hasError('phoneNumber')">
+                Số điện thoại không hợp lệ
+              </ng-container>
+            </ng-template>
           </nz-form-item>
         </div>
         <div class="col-md-6">
@@ -87,7 +96,8 @@
         </div>
       </div>
       <div class="text-center">
-        <button [disabled]="form.invalid || !avatarUrl" type="submit" nz-button nzType="primary" (click)="submitForm()" [nzLoading]="isLoading">
+        <button [disabled]="form.invalid || !avatarUrl" type="submit" nz-button nzType="primary" (click)="submitForm()"
+          [nzLoading]="isLoading">
           Lưu lại
         </button>
       </div>

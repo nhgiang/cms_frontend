@@ -34,11 +34,11 @@ export class LecturerCreateComponent implements OnInit {
       this.specializations = data.specializations;
     });
     this.form = this.fb.group({
-      email: [null, [TValidators.required, TValidators.email]],
+      email: [null, [TValidators.required, TValidators.emailRules]],
       fullName: [null, [TValidators.required]],
       specializationId: [null],
       password: ['', [TValidators.required, TValidators.passwordRules]],
-      phoneNumber: [null, [TValidators.required, TValidators.onlyNumber]],
+      phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]],
       bio: [null, TValidators.required],
     });
   }

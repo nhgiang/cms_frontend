@@ -39,11 +39,11 @@ export class LecturerUpdateComponent implements OnInit {
     });
 
     this.form = this.fb.group({
-      email: [null, [TValidators.required, TValidators.email]],
+      email: [null, [TValidators.required, TValidators.emailRules]],
       fullName: [null, [TValidators.required]],
       specializationId: [null],
       password: [null],
-      phoneNumber: [null, TValidators.required],
+      phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]],
       bio: [null, TValidators.required],
       id: [null]
     });

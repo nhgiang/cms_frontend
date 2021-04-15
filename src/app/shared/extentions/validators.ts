@@ -30,7 +30,7 @@ export class TValidators extends Validators {
     if (!value) {
       return null;
     }
-    const regex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+    const regex = /^[0-9]*$/g;
     return regex.test(value) ? null : {
       onlyNumber: true
     };
@@ -53,7 +53,7 @@ export class TValidators extends Validators {
     };
   }
 
-  static emailRules(control: AbstractControl): ValidationErrors{
+  static emailRules(control: AbstractControl): ValidationErrors {
     const value = control.value && control.value.trim();
     if (!value) {
       return null;
@@ -61,6 +61,17 @@ export class TValidators extends Validators {
     const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     return regex.test(value) ? null : {
       emailRules: true
+    };
+  }
+
+  static phoneNumber(control: AbstractControl): ValidationErrors {
+    const value = control.value && control.value.trim();
+    if (!value) {
+      return null;
+    }
+    const regex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+    return regex.test(value) ? null : {
+      phoneNumber: true
     };
   }
 }

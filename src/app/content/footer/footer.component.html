@@ -31,8 +31,8 @@
                 <ng-container *ngIf="control.hasError('required')">
                     Vui lòng nhập số điện thoại
                 </ng-container>
-                <ng-container *ngIf="control.hasError('onlyNumber')">
-                    Số điện thoại chỉ bao gồm số
+                <ng-container *ngIf="control.hasError('phoneNumber')">
+                    Số điện thoại không hợp lệ
                 </ng-container>
             </ng-template>
         </nz-form-item>
