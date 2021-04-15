@@ -29,16 +29,18 @@
 					</span>
 				</td>
 				<td>
-					<a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Cập nhật"
-						(click)="edit(index)">
-						<i nz-icon nzType="edit" theme="outline"></i>
-					</a>
-					<a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
-						<span (confirmed)="delete(index)"
+					<div class="d-flex">
+						<a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Cập nhật"
+							(click)="edit(index)">
+							<i nz-icon nzType="edit" theme="outline"></i>
+						</a>
+						<div (confirmed)="delete(index)"
 							[confirmation]="'Bạn chắc chắn muốn xóa thông tin giảng viên này? Các trường thông tin sẽ không thể khôi phục sau khi xóa'">
-							<i nz-icon nzType="close" nzTheme="outline"></i>
-						</span>
-					</a>
+							<a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
+								<i nz-icon nzType="close" nzTheme="outline"></i>
+							</a>
+						</div>
+					</div>
 				</td>
 			</tr>
 		</tbody>
