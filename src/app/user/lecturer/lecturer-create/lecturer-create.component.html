@@ -31,7 +31,7 @@
             <ng-container *ngIf="control.hasError('required')">
               Vui lòng nhập Email
             </ng-container>
-            <ng-container *ngIf="control.hasError('email')">
+            <ng-container *ngIf="control.hasError('emailRules')">
               Không đúng định dạng email
             </ng-container>
             <ng-container *ngIf="control.hasError('notUnique')">
@@ -53,7 +53,7 @@
                 Vui lòng nhập mật khẩu
               </ng-container>
               <ng-container *ngIf="control.hasError('passwordRules')">
-                Mật khẩu chứa 6-16 ký tự, bao gồm tối thiểu 1 ký tự hoa và 1 ký tự thường
+                Mật khẩu cần từ 8 kí tự,có kí tự in hoa,in thường và số
               </ng-container>
             </ng-template>
           </nz-form-control>
@@ -77,8 +77,8 @@
             <ng-container *ngIf="control.hasError('required')">
               Vui lòng nhập số điện thoại
             </ng-container>
-            <ng-container *ngIf="control.hasError('onlyNumber')">
-              Số điện thoại chỉ bao gồm các ký tự số
+            <ng-container *ngIf="control.hasError('phoneNumber')">
+              Số điện thoại không hợp lệ
             </ng-container>
           </ng-template>
         </nz-form-item>
