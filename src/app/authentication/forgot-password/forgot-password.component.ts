@@ -1,10 +1,11 @@
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthApiService } from '@shared/api/auth.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component } from '@angular/core';
-import { AuthApiService } from '@shared/api/auth.api.service';
-import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
+import { trimData } from 'utils/common';
 
 @Component({
   selector: 'app-forgot-password',
@@ -22,14 +23,15 @@ export class ForgotPasswordComponent {
     private router: Router
   ) {
     this.myForm = this.fb.group({
-      email: ['', [TValidators.required, Validators.email]]
+      email: ['', [TValidators.required, TValidators.emailRules]]
     });
   }
 
   submitForm(): void {
     Ultilities.validateForm(this.myForm);
     this.loading = true;
-    this.authApi.forgotPassword(this.myForm.value).pipe(finalize(() => this.loading = false)).subscribe(() => {
+    const data = this.myForm.value;
+    this.authApi.forgotPassword(trimData(data)).pipe(finalize(() => this.loading = false)).subscribe(() => {
       this.router.navigate(['/authentication/reset-password', this.myForm.value.email]);
     }, () => {
       this.myForm.get('email').setErrors({ notExist: true });

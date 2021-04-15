@@ -43,6 +43,10 @@ const routes: Routes = [
       }
     ]
   },
+  {
+    path: '**',
+    redirectTo: 'error/404'
+  }
 ];
 
 export const AppRoutes = RouterModule.forRoot(routes, {

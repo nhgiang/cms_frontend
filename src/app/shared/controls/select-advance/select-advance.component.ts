@@ -1,9 +1,9 @@
-import { Component, Input, forwardRef, OnInit, Output, EventEmitter } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AbstractControlDirective } from '../abstract-control.directive';
-import { debounceTime, distinctUntilChanged, finalize, map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DestroyService } from '@shared/services/destroy.service';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { AbstractControlDirective } from '../abstract-control.directive';
 
 export interface ParamsSelectAdvance {
   page?: number;
