@@ -1,37 +1,69 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, OnInit } from '@angular/core';
+import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UploaderStatus } from 'types/enums';
+import { isFunction } from 'lodash-es';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-upload-video',
   templateUrl: './upload-video.component.html',
-  styleUrls: ['./upload-video.component.scss']
+  styleUrls: ['./upload-video.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => UploadVideoComponent),
+      multi: true
+    },
+  ]
 })
-export class UploadVideoComponent implements OnInit {
-  @Input() acceptType: string = 'video/mp4';
+export class UploadVideoComponent extends AbstractControlDirective implements OnInit {
   UploaderStatus = UploaderStatus;
   status: UploaderStatus = UploaderStatus.NotSelected;
   selectedFile: File;
   url: any;
+  process = 0;
+  file: File;
 
-  constructor(private messageService: NzMessageService) { }
+  constructor(private messageService: NzMessageService) {
+    super();
+  }
+
+  writeValue(file: any) {
+    this.url = file;
+  }
 
   ngOnInit(): void {
   }
 
   onFileChanged($event) {
-    const file = ($event.target as HTMLInputElement).files[0];
-    if (!file) {
+    this.file = ($event.target as HTMLInputElement).files[0];
+    if (!this.file) {
       return;
     }
-    if (file.type !== this.acceptType) {
-      this.messageService.error(`Chỉ cho phép video định dạng ${this.acceptType}`);
+    if (this.file.type !== 'video/mp4') {
+      this.messageService.error(`Chỉ cho phép video định dạng mp4`);
+      return
     }
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(this.file);
+    reader.onprogress = (event) => {
+      this.status = UploaderStatus.InProgress;
+      this.process = Math.round(event.loaded / event.total * 100);
+    };
     reader.onload = (event) => {
       this.url = event.target.result;
       this.status = UploaderStatus.Selected;
     };
+    if (isFunction(this.onChangeFn)) {
+      this.onChangeFn(this.file);
+    }
+  }
+
+  removeVideo() {
+    this.url = null;
+    this.status = UploaderStatus.NotSelected;
+    this.file = undefined;
+    this.onChangeFn(this.file);
   }
 }

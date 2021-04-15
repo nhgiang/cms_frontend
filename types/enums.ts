@@ -5,5 +5,7 @@ export enum UserStatus {
 
 export enum UploaderStatus {
   NotSelected,
-  Selected
+  Selected,
+  InProgress,
+  Completed
 }

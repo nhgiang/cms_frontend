@@ -10,3 +10,16 @@
     font-size: 32px;
   }
 }
+.video-player {
+  width: fit-content;
+  position: relative;
+  i {
+    color: #72849A;
+    font-size: 30px;
+    top: 10px;
+    right: 10px;
+    position: absolute;
+    z-index: 2;
+    cursor: pointer;
+  }
+}

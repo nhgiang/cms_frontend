@@ -7,8 +7,17 @@
         <span class="file-type">Định dạng file hỗ trợ .mp4. Tên file không chứa các ký tự đặc biệt</span>
       </label>
     </ng-container>
+    <ng-container *ngSwitchCase="UploaderStatus.InProgress">
+      <label class="upload-label d-flex flex-column align-items-center justify-content-center">
+        <nz-progress style="width:100%" [nzPercent]="process"></nz-progress>
+      </label>
+    </ng-container>
     <ng-container *ngSwitchCase="UploaderStatus.Selected">
-      <video [src]="url"  height="200" controls></video>
+      <div class="video-player" style="height: 350;">
+        <i nz-icon nzType="close-circle" nzTheme="fill" (click)="removeVideo()"></i>
+        <video [src]="url" height="350" controls>
+        </video>
+      </div>
     </ng-container>
   </ng-container>
 </div>

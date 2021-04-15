@@ -16,6 +16,7 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.Co
 import { RouterMatchDirective } from './directives/router-match.directive';
 import { SelectAdvanceComponent } from './controls/select-advance/select-advance.component';
 import { UploadVideoComponent } from './components/upload-video/upload-video.component';
+import { FileUploadControlComponent } from './components/file-upload-control/file-upload-control.component';
 
 @NgModule({
   exports: [
@@ -52,7 +53,8 @@ import { UploadVideoComponent } from './components/upload-video/upload-video.com
     ConfirmationComponent,
     RouterMatchDirective,
     SelectAdvanceComponent,
-    UploadVideoComponent
+    UploadVideoComponent,
+    FileUploadControlComponent
   ],
   providers: [
     ThemeConstantService
