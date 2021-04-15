@@ -53,14 +53,14 @@ export class TValidators extends Validators {
     };
   }
 
-  static email(control: AbstractControl): ValidationErrors{
+  static emailRules(control: AbstractControl): ValidationErrors{
     const value = control.value && control.value.trim();
     if (!value) {
       return null;
     }
     const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     return regex.test(value) ? null : {
-      passwordRules: true
+      emailRules: true
     };
   }
 }

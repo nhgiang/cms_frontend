@@ -5,7 +5,8 @@
         <div class="d-md-flex">
           <div class="m-b-10 m-r-20">
             <nz-input-group style="min-width: 275px;" [nzPrefix]="prefixTemplate">
-              <input type="text" nz-input placeholder="Tìm kiếm theo họ tên, email hoặc số điện thoại" formControlName="q">
+              <input type="text" nz-input placeholder="Tìm kiếm theo họ tên, email hoặc số điện thoại"
+                formControlName="q">
             </nz-input-group>
             <ng-template #prefixTemplate>
               <i nz-icon nzType="search" class="opacity-05"></i>
@@ -53,11 +54,7 @@
         <td nzEllipsis>{{item?.specializationName}}</td>
         <td nzEllipsis>{{item?.email}}</td>
         <td>{{item?.phoneNumber}}</td>
-        <td nzEllipsis>
-          <!-- <span class="truncate-1"> -->
-          {{item?.bio}}
-          <!-- </span> -->
-        </td>
+        <td nzEllipsis>{{item?.bio}} </td>
         <td class="text-md-right">
           <a [routerLink]="[item?.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
             nzTooltipTitle="Cập nhật">

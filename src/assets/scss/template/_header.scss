@@ -100,6 +100,7 @@
       align-items: center;
       display: flex;
       margin-left: auto;
+      margin-right: 10px;
 
       li {
         > a,
@@ -132,10 +133,6 @@
 
     .nav-left {
       margin-left: 10px;
-    }
-
-    .nav-right {
-      margin-right: 10px;
     }
   }
 
