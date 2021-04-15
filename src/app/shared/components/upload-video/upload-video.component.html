@@ -1,0 +1,9 @@
+<div class="upload-area">
+  <ng-container *ngIf="status === UploaderStatus.NotSelected">
+    <label class="upload-label d-flex flex-column align-items-center justify-content-center" for="fileInput">
+      <i class="far fa-cloud-upload fa-3x text-primary"></i>
+      <span class="text-muted mt-2" translate>Click to browse a file to upload</span>
+    </label>
+  </ng-container>
+</div>
+<input id="fileInput" type="file" name="file" class="d-none" (change)="onFileChanged($event)">

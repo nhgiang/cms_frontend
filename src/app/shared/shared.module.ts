@@ -15,6 +15,7 @@ import { ImageCropperDirective } from './directives/image-cropper.directive';
 import { ConfirmationComponent } from './components/confirmation/confirmation.Component';
 import { RouterMatchDirective } from './directives/router-match.directive';
 import { SelectAdvanceComponent } from './controls/select-advance/select-advance.component';
+import { UploadVideoComponent } from './components/upload-video/upload-video.component';
 
 @NgModule({
   exports: [
@@ -33,6 +34,7 @@ import { SelectAdvanceComponent } from './controls/select-advance/select-advance
     ConfirmationComponent,
     RouterMatchDirective,
     SelectAdvanceComponent,
+    UploadVideoComponent
   ],
   imports: [
     RouterModule,
@@ -49,7 +51,8 @@ import { SelectAdvanceComponent } from './controls/select-advance/select-advance
     ImageCropperDirective,
     ConfirmationComponent,
     RouterMatchDirective,
-    SelectAdvanceComponent
+    SelectAdvanceComponent,
+    UploadVideoComponent
   ],
   providers: [
     ThemeConstantService
