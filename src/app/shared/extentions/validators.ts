@@ -44,9 +44,6 @@ export class TValidators extends Validators {
   }
 
   static textRange = (min: number, max: number) => (control: AbstractControl) => {
-    if (!control.value) {
-      return null;
-    }
     const value = control.value && control.value.trim();
     if (value && value.length >= min && value.length <= max) {
       return null;
