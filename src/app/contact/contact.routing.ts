@@ -1,4 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
+import { AboutUsComponent } from './about-us/about-us.component';
 import { StoryComponent } from './story/story.component';
 
 const routes: Routes = [
@@ -8,6 +9,13 @@ const routes: Routes = [
     data: {
       // headerDisplay: true,
       title: 'Câu truyện'
+    }
+  },
+  {
+    path: 'about-us',
+    component: AboutUsComponent,
+    data: {
+      title: 'Về chúng tôi'
     }
   }
 ];

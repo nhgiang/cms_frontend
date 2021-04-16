@@ -4,6 +4,7 @@ import { SharedModule } from '@shared/shared.module';
 import { ContactRoutes } from './contact.routing';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { StoryComponent } from './story/story.component';
+import { VideoIntroComponent } from './video-intro/video-intro.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { StoryComponent } from './story/story.component';
   ],
   declarations: [
     AboutUsComponent,
-    StoryComponent
+    StoryComponent,
+    VideoIntroComponent
   ]
 })
 export class ContactModule { }
