@@ -67,3 +67,10 @@ export interface FileModel {
   file: Blob;
   fileName: string;
 }
+
+export interface VideoIntro {
+  title: string;
+  iamge: string;
+  video: string;
+}
+
