@@ -36,8 +36,8 @@ export class FeedbackCreateComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
-      studentName: [null, TValidators.textRange(1, 200)],
-      content: [null, TValidators.textRange(1, 200)],
+      studentName: [null, [TValidators.textRange(1, 200)]],
+      content: [null, [TValidators.textRange(1, 200)]],
       courseName: [null, TValidators.required],
       photo: [null, TValidators.required]
     });
