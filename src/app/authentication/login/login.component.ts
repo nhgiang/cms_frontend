@@ -36,8 +36,9 @@ export class LoginComponent {
     this.authService.login(trimData(data))
       .pipe(
         finalize(() => this.loading = false))
-      .subscribe(({ accessToken }) => {
+      .subscribe(({ accessToken, refreshToken }) => {
         localStorage.setItem('token', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
         if (this.myForm.value.isRemember) {
           this.storePassword(data).then(() => this.router.navigate(['/']));
         } else {
