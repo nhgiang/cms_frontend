@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
 import { isFunction } from 'lodash-es';
@@ -17,7 +17,8 @@ import { AssetType, FileUploadErrors, UploaderStatus } from 'types/enums';
     }
   ]
 })
-export class UploadVideoComponent extends AbstractControlDirective implements OnInit {
+export class UploadVideoComponent extends AbstractControlDirective implements OnInit, AfterViewInit {
+  @ViewChild('video', { static: true }) video: ElementRef;
   UploaderStatus = UploaderStatus;
   AssetType = AssetType;
   status: UploaderStatus = UploaderStatus.NotSelected;
@@ -28,8 +29,13 @@ export class UploadVideoComponent extends AbstractControlDirective implements On
   constructor(private messageService: NzMessageService) {
     super();
   }
+  ngAfterViewInit(): void {
+  }
 
   writeValue(file: any) {
+    if (file) {
+      this.status = UploaderStatus.Selected;
+    }
     this.url = file;
   }
 

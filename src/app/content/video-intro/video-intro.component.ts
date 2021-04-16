@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { SettingApiService } from '@shared/api/setting.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import { forkJoin } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
+import { VideoIntro } from 'types/typemodel';
 @Component({
   selector: 'app-video-intro',
   templateUrl: './video-intro.component.html',
@@ -12,10 +16,18 @@ import { AssetType } from 'types/enums';
 export class VideoIntroComponent implements OnInit {
   form: FormGroup;
   AssetType = AssetType;
-  constructor(private fb: FormBuilder, private storageApi: StorageApiService) { }
+  isloading: boolean
+  constructor(
+    private fb: FormBuilder,
+    private storageApi: StorageApiService,
+    private settingApi: SettingApiService
+  ) { }
 
   ngOnInit(): void {
     this.buildForm();
+    this.settingApi.videoIntro.get().subscribe((res: VideoIntro) => {
+      this.form.patchValue(res);
+    });
   }
 
   buildForm() {
@@ -29,6 +41,22 @@ export class VideoIntroComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
 
-    this.storageApi.uploadFile();
+    forkJoin({
+      image: this.storageApi.uploadFile(this.form.value.image),
+      video: this.storageApi.uploadFile(this.form.value.video)
+    }).pipe(switchMap(({ image, video }) => {
+      const data = {
+        image,
+        video,
+        title: this.form.value.title.trim()
+      };
+      return this.settingApi.videoIntro.post(data);
+    })).subscribe(res => {
+      this
+    });
   }
 }
+function VideoIntro(res: any, VideoIntro: any) {
+  throw new Error('Function not implemented.');
+}
+

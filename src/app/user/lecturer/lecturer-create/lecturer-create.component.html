@@ -1,5 +1,5 @@
 <nz-card nzTitle="Thông tin cơ bản">
-  <form nz-form [formGroup]="form">
+  <form nz-form [formGroup]="form" autocomplete="off">
     <div class="media align-items-center">
       <nz-avatar [nzSize]="80" nzIcon="user" [nzSrc]="avatarUrl"></nz-avatar>
       <div class="m-l-20 m-r-20">
@@ -25,7 +25,7 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="6" nzRequired>E-mail</nz-form-label>
           <nz-form-control [nzErrorTip]="errorEmailTpl">
-            <input nz-input formControlName="email" placeholder="Nhập Email" />
+            <input nz-input formControlName="email" name="email" autocomplete="false" placeholder="Nhập Email" />
           </nz-form-control>
           <ng-template #errorEmailTpl let-control>
             <ng-container *ngIf="control.hasError('required')">

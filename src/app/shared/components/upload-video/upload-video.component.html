@@ -15,7 +15,9 @@
     <ng-container *ngSwitchCase="UploaderStatus.Selected">
       <div class="video-player" style="height: 350;">
         <i nz-icon nzType="close-circle" nzTheme="fill" (click)="removeVideo()"></i>
-        <video [src]="url" height="350" controls>
+        <video height="350" controls #video autoplay muted>
+          <source [src]="url" type="video/mp4">
+          <track kind="subtitles">
         </video>
       </div>
     </ng-container>
