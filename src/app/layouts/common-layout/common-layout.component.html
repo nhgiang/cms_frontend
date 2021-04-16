@@ -12,7 +12,7 @@
           <nz-breadcrumb nzSeparator=">">
             <nz-breadcrumb-item *ngFor="let item of breadcrumbs;let i = index">
               <h4 *ngIf="breadcrumbs.length  === 1;else el">{{ item.label }}</h4>
-              <ng-template #el>{{ item.label }}</ng-template>
+              <ng-template #el><h4 class="d-inline-block"> {{ item.label }}</h4></ng-template>
             </nz-breadcrumb-item>
           </nz-breadcrumb>
         </h4>

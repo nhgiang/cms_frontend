@@ -36,7 +36,7 @@ import { FileUploadControlComponent } from './components/file-upload-control/fil
     ConfirmationComponent,
     RouterMatchDirective,
     SelectAdvanceComponent,
-    PicturesWallUploadComponent
+    PicturesWallUploadComponent,
     UploadVideoComponent,
     FileUploadControlComponent
   ],
@@ -56,7 +56,7 @@ import { FileUploadControlComponent } from './components/file-upload-control/fil
     ConfirmationComponent,
     RouterMatchDirective,
     SelectAdvanceComponent,
-    PicturesWallUploadComponent
+    PicturesWallUploadComponent,
     UploadVideoComponent,
     FileUploadControlComponent
   ],
