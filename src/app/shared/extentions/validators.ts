@@ -5,7 +5,7 @@ export class TValidators extends Validators {
     if (!group.controls.password.value) {
       group.controls.password.setErrors({ required: true });
       return { require: true };
-    } else if (group.controls.password.value !== group.controls.confirmPassword.value) {
+    } else if (group.controls.password.value.trim() !== group.controls.confirmPassword.value.trim()) {
       group.controls.confirmPassword.setErrors({ confirm: true });
       return { confirm: true };
     }
