@@ -5,7 +5,7 @@ export class TValidators extends Validators {
     if (!group.controls.password.value) {
       group.controls.password.setErrors({ required: true });
       return { require: true };
-    } else if (group.controls.password.value !== group.controls.confirmPassword.value) {
+    } else if (group.controls.password.value.trim() !== group.controls.confirmPassword.value.trim()) {
       group.controls.confirmPassword.setErrors({ confirm: true });
       return { confirm: true };
     }
@@ -15,21 +15,21 @@ export class TValidators extends Validators {
   }
 
   static passwordRules(control: AbstractControl): ValidationErrors {
-    const value = control.value && control.value.trim();
-    if (!value) {
+    if (!control.value) {
       return null;
     }
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d@$!%*?&]{6,16}$/g;
+    const value = control.value && control.value.trim();
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g;
     return regex.test(value) ? null : {
       passwordRules: true
     };
   }
 
   static onlyNumber(control: AbstractControl): ValidationErrors {
-    const value = control.value && control.value.trim();
-    if (!value) {
+    if (!control.value) {
       return null;
     }
+    const value = control.value && control.value.trim();
     const regex = /^[0-9]*$/g;
     return regex.test(value) ? null : {
       onlyNumber: true
@@ -37,7 +37,7 @@ export class TValidators extends Validators {
   }
 
   static link(control: AbstractControl): ValidationErrors {
-    const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
+    const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
     return regex.test(control.value && control.value.trim()) ? null : {
       link: true
     };
@@ -45,11 +45,33 @@ export class TValidators extends Validators {
 
   static textRange = (min: number, max: number) => (control: AbstractControl) => {
     const value = control.value && control.value.trim();
-    if (value && value.trim().length >= min && value.trim().length <= max) {
+    if (value && value.length >= min && value.length <= max) {
       return null;
     }
     return {
       textRange: true
+    };
+  }
+
+  static emailRules(control: AbstractControl): ValidationErrors {
+    if (!control.value) {
+      return null;
+    }
+    const value = control.value && control.value.trim();
+    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    return regex.test(value) ? null : {
+      emailRules: true
+    };
+  }
+
+  static phoneNumber(control: AbstractControl): ValidationErrors {
+    if (!control.value) {
+      return null;
+    }
+    const value = control.value && control.value.trim();
+    const regex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+    return regex.test(value) ? null : {
+      phoneNumber: true
     };
   }
 }

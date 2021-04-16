@@ -8,6 +8,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
 import { Feedback, FileModel } from 'types/typemodel';
+import { trimData } from 'utils/common';
 
 @Component({
   selector: 'app-feedback-create',
@@ -16,7 +17,6 @@ import { Feedback, FileModel } from 'types/typemodel';
 })
 export class FeedbackCreateComponent implements OnInit {
   form: FormGroup;
-  avatarUrl: string;
   image: FileModel;
   isLoading: boolean;
   @Output() created = new EventEmitter();
@@ -36,9 +36,10 @@ export class FeedbackCreateComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
-      studentName: [null, TValidators.textRange(1, 200)],
-      content: [null, TValidators.textRange(1, 200)],
-      courseName: [null, TValidators.required]
+      studentName: [null, [TValidators.textRange(1, 200)]],
+      content: [null, [TValidators.textRange(1, 200)]],
+      courseName: [null, TValidators.required],
+      photo: [null, TValidators.required]
     });
   }
 
@@ -51,7 +52,7 @@ export class FeedbackCreateComponent implements OnInit {
   onCropped(image: FileModel) {
     this.image = image;
     this.getBase64(image.file, (img: string) => {
-      this.avatarUrl = img;
+      this.form.get('photo').setValue(img);
     });
   }
 
@@ -59,16 +60,18 @@ export class FeedbackCreateComponent implements OnInit {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
     this.storageApi.uploadFile(this.image.file, this.image.fileName).pipe(switchMap(url => {
+      this.form.get('photo').setValue(url);
       const data = {
-        photo: url,
         ...this.form.value
       };
-      this.feedbacks.push(data);
+      this.feedbacks.push(trimData(data));
       return this.settingApi.feedbacks.post(this.feedbacks);
-    }), finalize(() => this.isLoading = false)).subscribe(() => {
+    }), finalize(() => {
+      this.isLoading = false;
+      this.modalRef.close();
+    })).subscribe(() => {
       this.notification.success('Thành công', 'Thêm mới đánh giá học viên thành công!');
       this.created.emit();
-      this.modalRef.close();
     });
   }
 }

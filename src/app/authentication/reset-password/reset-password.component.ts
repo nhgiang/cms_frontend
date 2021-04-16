@@ -6,6 +6,7 @@ import { AuthApiService } from '@shared/api/auth.api.service';
 import { ActivatedRoute } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
+import { trimData } from 'utils/common';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -40,7 +41,7 @@ export class ResetPasswordComponent implements OnInit {
       email: this.email
     };
 
-    this.authApi.resetPassword(data).pipe(finalize(() => this.loading = false)).subscribe(res => {
+    this.authApi.resetPassword(trimData(data)).pipe(finalize(() => this.loading = false)).subscribe(res => {
       this.notification.success('Thành công', 'Cập nhật mật khẩu thành công!');
     });
   }

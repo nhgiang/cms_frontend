@@ -30,9 +30,6 @@ const routes: Routes = [
   },
   {
     path: 'lecturer',
-    resolve: {
-      specializations: SpecializationResolver
-    },
     children: [
       {
         path: '',

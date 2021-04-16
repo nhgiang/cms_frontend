@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SpecializationApiService } from '@shared/api/specialization.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
-import { finalize, switchMap } from 'rxjs/operators';
+import { IPaginate } from '@shared/interfaces/paginate.type';
+import { Observable } from 'rxjs';
+import { finalize, map, switchMap } from 'rxjs/operators';
 import { FileModel, User } from 'types/typemodel';
+import { Option } from '@shared/interfaces/option.type';
 
 @Component({
   selector: 'app-lecturer-update',
@@ -19,7 +23,6 @@ export class LecturerUpdateComponent implements OnInit {
   teacher: User;
   isPasswordVisible: boolean;
   image: FileModel;
-  specializations: any[];
   isLoading: boolean;
 
   constructor(
@@ -28,6 +31,7 @@ export class LecturerUpdateComponent implements OnInit {
     private storageApi: StorageApiService,
     private teacherApi: TeacherApiService,
     private router: Router,
+    private specializationApi: SpecializationApiService
   ) {
   }
 
@@ -35,15 +39,14 @@ export class LecturerUpdateComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.teacher = data.teacher as User;
       this.avatarUrl = this.teacher.avatar;
-      this.specializations = data.specializations;
     });
 
     this.form = this.fb.group({
-      email: [null, [TValidators.required, TValidators.email]],
+      email: [null, [TValidators.required, TValidators.emailRules]],
       fullName: [null, [TValidators.required]],
       specializationId: [null],
       password: [null],
-      phoneNumber: [null, TValidators.required],
+      phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]],
       bio: [null, TValidators.required],
       id: [null]
     });
@@ -86,5 +89,11 @@ export class LecturerUpdateComponent implements OnInit {
     this.getBase64(fileModel.file, (img: string) => {
       this.avatarUrl = img;
     });
+  }
+
+  specializations = (params: IPaginate): Observable<Option[]> => {
+    return this.specializationApi.getAll(params).pipe(map(res => res.items.map(x => {
+      return { value: x.id, label: x.name };
+    })));
   }
 }

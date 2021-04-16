@@ -26,15 +26,6 @@
 .side-nav {
   top: 50px;
 }
-// table {
-//   th { 
-//     font-size: 12px;
-//   }
-//   td {
-//     font-size: 11px;
-//   }
-// }
-
 
 .truncate-3{
   display: -webkit-box;
@@ -46,6 +37,25 @@
   overflow: hidden;
 }
 
+.truncate-1{
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  height: inherit;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .ant-modal-confirm {
   width: 400px !important;
+}
+
+.login-container {
+  .option {
+    margin-top: 16px;
+    color: #626F95;
+    display: flex;
+    justify-content: space-between;
+  }
 }
