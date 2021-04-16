@@ -78,8 +78,21 @@ export const ROUTES: SideNavInterface[] = [
         path: 'feedbacks',
         title: 'Đánh giá học viên',
         submenu: []
+      },
+      {
+        path: 'video-intro',
+        title: 'Video giới thiệu',
+        submenu: []
       }
     ]
+  },
+  {
+    path: '',
+    title: 'Quản lý sự kiện',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'calendar',
+    submenu: []
   },
   {
     path: 'contact',

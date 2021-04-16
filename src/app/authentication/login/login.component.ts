@@ -40,10 +40,9 @@ export class LoginComponent {
         localStorage.setItem('token', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
         if (this.myForm.value.isRemember) {
-          this.storePassword(data).then(() => this.router.navigate(['/']));
-        } else {
-          this.router.navigate(['/']);
+          this.storePassword(data).then();
         }
+        this.router.navigate(['/']);
       });
   }
 
