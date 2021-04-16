@@ -14,17 +14,14 @@
     <nz-form-item>
       <nz-form-label>Image poster</nz-form-label>
       <nz-form-control>
-        <div>
-          <!-- <app-upload-video></app-upload-video> -->
-        </div>
+        <app-file-upload-control formControlName="image" [fileType]="AssetType.Image"></app-file-upload-control>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label>Upload video</nz-form-label>
       <nz-form-control>
-        <div>
-          <app-upload-video formControlName="video"></app-upload-video>
-        </div>
+        <app-upload-video formControlName="video">
+        </app-upload-video>
       </nz-form-control>
     </nz-form-item>
     <div class="text-right">

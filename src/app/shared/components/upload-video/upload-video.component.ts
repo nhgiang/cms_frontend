@@ -1,9 +1,9 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { UploaderStatus } from 'types/enums';
 import { isFunction } from 'lodash-es';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { AssetType, FileUploadErrors, UploaderStatus } from 'types/enums';
 
 @Component({
   selector: 'app-upload-video',
@@ -14,17 +14,17 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => UploadVideoComponent),
       multi: true
-    },
+    }
   ]
 })
 export class UploadVideoComponent extends AbstractControlDirective implements OnInit {
   UploaderStatus = UploaderStatus;
+  AssetType = AssetType;
   status: UploaderStatus = UploaderStatus.NotSelected;
   selectedFile: File;
   url: any;
   process = 0;
   file: File;
-
   constructor(private messageService: NzMessageService) {
     super();
   }
@@ -43,8 +43,9 @@ export class UploadVideoComponent extends AbstractControlDirective implements On
     }
     if (this.file.type !== 'video/mp4') {
       this.messageService.error(`Chỉ cho phép video định dạng mp4`);
-      return
+      return;
     }
+
     const reader = new FileReader();
     reader.readAsDataURL(this.file);
     reader.onprogress = (event) => {

@@ -1,0 +1,17 @@
+.upload-label {
+  background-color: #fafafa;
+  padding: 20px 0;
+  cursor: pointer;
+  .file-type {
+    color: #72849a;
+  }
+  i {
+    color: #2f80ed;
+    font-size: 32px;
+  }
+}
+.btn-upload {
+  padding: 4px 8px;
+  border: 1px solid #cccccc;
+  cursor: pointer;
+}

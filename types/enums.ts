@@ -9,3 +9,15 @@ export enum UploaderStatus {
   InProgress,
   Completed
 }
+
+export enum AssetType {
+  undefined = 0,
+  Video,
+  Image,
+  File
+}
+
+export enum FileUploadErrors {
+  Size = 1,
+  Type = 2
+}

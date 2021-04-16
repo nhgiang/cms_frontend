@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { StorageApiService } from '@shared/api/storage.api.service';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
-
+import { AssetType } from 'types/enums';
 @Component({
   selector: 'app-video-intro',
   templateUrl: './video-intro.component.html',
@@ -9,7 +11,8 @@ import { TValidators } from '@shared/extentions/validators';
 })
 export class VideoIntroComponent implements OnInit {
   form: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  AssetType = AssetType;
+  constructor(private fb: FormBuilder, private storageApi: StorageApiService) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -24,6 +27,8 @@ export class VideoIntroComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form.value);
+    Ultilities.validateForm(this.form);
+
+    this.storageApi.uploadFile();
   }
 }

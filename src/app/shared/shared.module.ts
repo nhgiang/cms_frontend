@@ -35,7 +35,8 @@ import { FileUploadControlComponent } from './components/file-upload-control/fil
     ConfirmationComponent,
     RouterMatchDirective,
     SelectAdvanceComponent,
-    UploadVideoComponent
+    UploadVideoComponent,
+    FileUploadControlComponent
   ],
   imports: [
     RouterModule,
