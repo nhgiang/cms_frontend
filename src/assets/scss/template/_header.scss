@@ -7,10 +7,12 @@
   width: 100%;
   z-index: $zindex-navbar;
   display: flex;
+
   .header-left {
     display: flex;
     justify-content: space-between;
     width: 280px;
+
     .desktop-toggle {
       @include screen-tablet {
         display: none;
@@ -31,8 +33,9 @@
       display: flex;
 
       li {
-        > a,
-        nz-dropdown > a {
+
+        >a,
+        nz-dropdown>a {
           padding: 5px 15px;
           font-size: 18px;
           color: $body-color;
@@ -58,10 +61,12 @@
         }
       }
     }
+
     &.isFolded {
       width: 79px;
     }
   }
+
   .logo {
     width: $side-nav-width;
     border-right: 1px solid $border-color;
@@ -75,7 +80,7 @@
       display: none;
     }
 
-    > a {
+    >a {
       display: block;
       text-align: center;
     }
@@ -100,10 +105,12 @@
       align-items: center;
       display: flex;
       margin-left: auto;
+      margin-right: 10px;
 
       li {
-        > a,
-        nz-dropdown > a {
+
+        >a,
+        nz-dropdown>a {
           padding: 5px 15px;
           font-size: 18px;
           color: $body-color;
@@ -132,10 +139,6 @@
 
     .nav-left {
       margin-left: 10px;
-    }
-
-    .nav-right {
-      margin-right: 10px;
     }
   }
 
@@ -199,8 +202,9 @@
     .nav-left,
     .nav-right {
       li {
-        > a,
-        nz-dropdown > a {
+
+        >a,
+        nz-dropdown>a {
           color: rgba($white, 0.8);
 
           &:hover,

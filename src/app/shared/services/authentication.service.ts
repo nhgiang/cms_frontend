@@ -20,7 +20,7 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    login(body: { username: string; password: string; }) {
+    login(body: { email: string; password: string; }) {
         return this.httpClient.post<any>(`${this.baseURL}/cms-login`, body);
     }
 

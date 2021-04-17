@@ -1,4 +1,4 @@
-<div class="row align-items-center">
+<div class="row align-items-center login-container">
   <div class="col-md-5">
     <nz-card>
       <h2 class="m-t-20">Đăng nhập</h2>
@@ -6,29 +6,28 @@
       <form nz-form [formGroup]="myForm" nzLayout="vertical" class="login-form" (ngSubmit)="submitForm()">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="email">Tài khoản</nz-form-label>
-          <nz-form-control [nzErrorTip]="errorTpl">
+          <nz-form-control [nzErrorTip]="'Tên tài khoản đăng nhập không hợp lệ'">
             <nz-input-group [nzPrefix]="prefixUser">
               <input type="text" nz-input formControlName="email" placeholder="Nhập Email">
             </nz-input-group>
-            <ng-template #errorTpl let-control>
-              <ng-container *ngIf="control.hasError('required')">
-                Vui lòng nhập Email
-              </ng-container>
-              <ng-container *ngIf="control.hasError('email')">
-                Không đúng định dạng email
-              </ng-container>
-            </ng-template>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item class="relative">
           <nz-form-label nzRequired nzFor="password">Mật khẩu</nz-form-label>
-          <a tabindex="-1" class="float-right font-size-13 text-muted" style="position:absolute;right:0"
-            [routerLink]="['/authentication/forgot-password']">Quên mật khẩu?</a>
-          <nz-form-control nzErrorTip="Vui lòng nhập mật khẩu">
-            <nz-input-group [nzPrefix]="prefixLock">
-              <input type="password" nz-input formControlName="password" placeholder="Nhập mật khẩu">
+          <nz-form-control nzErrorTip="Mật khẩu của bạn không đúng">
+            <nz-input-group [nzPrefix]="prefixLock" [nzSuffix]="suffixPassword">
+              <input [type]="isPasswordVisible ? 'text' : 'password'" nz-input formControlName="password"
+                placeholder="Nhập mật khẩu" required>
             </nz-input-group>
           </nz-form-control>
+          <div class="option">
+            <div class="d-flex align-items-center">
+              <input id="isRemember" type="checkbox" class="mr-2" formControlName="isRemember">
+              <label for="isRemember">Ghi nhớ mật khẩu</label>
+            </div>
+            <a tabindex="-1" class="float-right font-size-13 text-muted" style="position:absolute;right:0"
+              [routerLink]="['/authentication/forgot-password']">Quên mật khẩu?</a>
+          </div>
         </nz-form-item>
         <nz-form-item>
           <nz-form-control>
@@ -46,3 +45,10 @@
     <img class="img-fluid" src="assets/images/others/login-2.png" alt="">
   </div>
 </div>
+<ng-template #suffixPassword>
+  <i nz-icon
+    [nzType]="isPasswordVisible ? 'eye-invisible' : 'eye'"
+    (click)="isPasswordVisible = !isPasswordVisible"
+  >
+  </i>
+</ng-template>

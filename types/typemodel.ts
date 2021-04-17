@@ -1,3 +1,5 @@
+import { UserStatus } from "./enums";
+
 export interface QueryResult<T> {
   meta: Meta;
   items: Array<T>;
@@ -31,7 +33,7 @@ export interface User extends Entity {
   gender: string;
   specializationId: string;
   partnerId: string;
-  status: string;
+  status: UserStatus;
   specializationName: string;
   index?: number;
 }
@@ -65,3 +67,10 @@ export interface FileModel {
   file: Blob;
   fileName: string;
 }
+
+export interface VideoIntro {
+  title: string;
+  iamge: string;
+  video: string;
+}
+
