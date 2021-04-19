@@ -1,0 +1,19 @@
+label {
+  padding: 4px 8px;
+  border:1px solid #cccccc;
+  cursor: pointer;
+}
+.preview {
+  width: fit-content;
+  position: relative;
+  max-width: 350px;
+  i {
+    color: #72849A;
+    font-size: 30px;
+    top: 10px;
+    right: 10px;
+    position: absolute;
+    z-index: 2;
+    cursor: pointer;
+  }
+}

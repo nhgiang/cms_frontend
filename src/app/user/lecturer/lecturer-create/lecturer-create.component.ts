@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { SpecializationApiService } from '@shared/api/specialization.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
-import { finalize, switchMap } from 'rxjs/operators';
+import { IPaginate } from '@shared/interfaces/paginate.type';
+import { finalize, map, switchMap } from 'rxjs/operators';
 import { FileModel } from 'types/typemodel';
+import { Option } from '@shared/interfaces/option.type';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-lecturer-create',
@@ -18,7 +22,6 @@ export class LecturerCreateComponent implements OnInit {
   image: FileModel;
   isPasswordVisible = false;
   avatarUrl: string;
-  specializations: any[];
   isLoading: boolean;
 
   constructor(
@@ -26,26 +29,22 @@ export class LecturerCreateComponent implements OnInit {
     private storageApi: StorageApiService,
     private teacherApi: TeacherApiService,
     private router: Router,
-    private route: ActivatedRoute
+    private specializationApi: SpecializationApiService
   ) { }
 
   ngOnInit(): void {
-    this.route.data.subscribe(data => {
-      this.specializations = data.specializations;
-    });
     this.form = this.fb.group({
-      email: [null, [TValidators.required, TValidators.email]],
+      email: [null, [TValidators.required, TValidators.emailRules]],
       fullName: [null, [TValidators.required]],
       specializationId: [null],
       password: ['', [TValidators.required, TValidators.passwordRules]],
-      phoneNumber: [null, [TValidators.required, TValidators.onlyNumber]],
+      phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]],
       bio: [null, TValidators.required],
     });
   }
 
   submitForm(): void {
     Ultilities.validateForm(this.form);
-
     this.isLoading = true;
     this.storageApi.uploadFile(this.image.file ?? this.avatarUrl, this.image.fileName).pipe(
       switchMap((url) => {
@@ -53,11 +52,12 @@ export class LecturerCreateComponent implements OnInit {
           avatar: url,
           ...this.form.value,
         };
+        Object.keys(data).forEach(k => data[k] = data[k].trim());
         return this.teacherApi.create(data);
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(() => {
-      this.router.navigate(['/lecturer']);
+      this.router.navigate(['/user/lecturer']);
     }, err => {
       if (err.error.statusCode === 409) {
         this.form.get('email').setErrors({ notUnique: true });
@@ -76,5 +76,11 @@ export class LecturerCreateComponent implements OnInit {
     this.getBase64(fileModel.file, (img: string) => {
       this.avatarUrl = img;
     });
+  }
+
+  specializations = (params: IPaginate): Observable<Option[]> => {
+    return this.specializationApi.getAll(params).pipe(map(res => res.items.map(x => {
+      return { value: x.id, label: x.name };
+    })));
   }
 }

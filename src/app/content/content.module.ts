@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ContentRoutingModule } from './content-routing.module';
 import { PremiumsComponent } from './premiums/premiums.component';
 import { SharedModule } from '@shared/shared.module';
@@ -12,6 +11,7 @@ import { FeedbackUpdateComponent } from './feedback/feedback-update/feedback-upd
 import { TeacherComponent } from './teacher/teacher.component';
 import { TeacherCreateComponent } from './teacher/teacher-create/teacher-create.component';
 import { TeacherUpdateComponent } from './teacher/teacher-update/teacher-update.component';
+import { VideoIntroComponent } from './video-intro/video-intro.component';
 
 
 @NgModule({
@@ -24,7 +24,8 @@ import { TeacherUpdateComponent } from './teacher/teacher-update/teacher-update.
     FeedbackUpdateComponent,
     TeacherComponent,
     TeacherCreateComponent,
-    TeacherUpdateComponent
+    TeacherUpdateComponent,
+    VideoIntroComponent
   ],
   imports: [
     CommonModule,

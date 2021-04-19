@@ -1,55 +1,49 @@
 <nz-card>
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<form [formGroup]="form" nz-form>
-					<nz-table [nzTemplateMode]="true">
-						<thead>
-							<tr>
-								<th scope="col" nzWidth="5%">ID</th>
-								<th scope="col" nzWidth="30%">Câu hỏi</th>
-								<th scope="col">Câu trả lời</th>
-								<th scope="col" nzWidth="40px"></th>
-							</tr>
-						</thead>
-						<tbody>
-							<ng-container formArrayName="items" *ngFor="let ctrl of itemsControlArray.controls; let index = index">
-								<tr [formGroupName]="index">
-									<td>#{{ index+1 }}</td>
-									<td>
-										<ng-container *ngIf="faqIndexs[index].isEdit;else questionTemp">
-											<nz-form-control [nzErrorTip]="'Câu hỏi phải chứa từ 10 đến 300 ký tự'">
-												<input nz-input formControlName="question" placeholder="Nhập câu hỏi" />
-											</nz-form-control>
-										</ng-container>
-										<ng-template #questionTemp>
-											<span class="editable truncate-3">{{ ctrl.value.question }}</span>
-										</ng-template>
-									</td>
-									<td>
-										<ng-container *ngIf="faqIndexs[index].isEdit;else answerTemp">
-											<nz-form-control [nzErrorTip]="'Câu trả lời phải chứa từ 10 đến 600 ký tự'">
-												<textarea nz-input formControlName="answer" [nzAutosize]="{ minRows: 1, maxRows: 3 }"
-													placeholder="Nhập câu trả lời"></textarea>
-											</nz-form-control>
-										</ng-container>
-										<ng-template #answerTemp>
-											<span class="editable truncate-3">{{ctrl.value.answer}}</span>
-										</ng-template>
-									</td>
-									<td class="text-md-right">
-										<label class="m-r-5" [for]="'isEdit'+index" nz-button nzType="default" nzShape="circle" nz-tooltip
-											nzTooltipTitle="Cập nhật" (click)="submit(index)" [disabled]="submiting">
-											<i nz-icon nzType="edit" theme="outline" *ngIf="!faqIndexs[index].isEdit"></i>
-											<i nz-icon nzType="check" nzTheme="outline" *ngIf="faqIndexs[index].isEdit"></i>
-										</label>
-									</td>
-								</tr>
+	<form [formGroup]="form" nz-form>
+		<nz-table [nzTemplateMode]="true">
+			<thead>
+				<tr>
+					<th scope="col" nzWidth="5%">ID</th>
+					<th scope="col" nzWidth="30%">Câu hỏi</th>
+					<th scope="col">Câu trả lời</th>
+					<th scope="col" nzWidth="40px"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<ng-container formArrayName="items" *ngFor="let ctrl of itemsControlArray.controls; let index = index">
+					<tr [formGroupName]="index">
+						<td>#{{ index+1 }}</td>
+						<td>
+							<ng-container *ngIf="faqIndexs[index].isEdit;else questionTemp">
+								<nz-form-control [nzErrorTip]="'Câu hỏi phải chứa từ 10 đến 300 ký tự'">
+									<input nz-input formControlName="question" placeholder="Nhập câu hỏi" />
+								</nz-form-control>
 							</ng-container>
-						</tbody>
-					</nz-table>
-				</form>
-			</div>
-		</div>
-	</div>
+							<ng-template #questionTemp>
+								<span class="editable truncate-3">{{ ctrl.value.question }}</span>
+							</ng-template>
+						</td>
+						<td>
+							<ng-container *ngIf="faqIndexs[index].isEdit;else answerTemp">
+								<nz-form-control [nzErrorTip]="'Câu trả lời phải chứa từ 10 đến 600 ký tự'">
+									<textarea nz-input formControlName="answer" [nzAutosize]="{ minRows: 1, maxRows: 3 }"
+										placeholder="Nhập câu trả lời"></textarea>
+								</nz-form-control>
+							</ng-container>
+							<ng-template #answerTemp>
+								<span class="editable truncate-3">{{ctrl.value.answer}}</span>
+							</ng-template>
+						</td>
+						<td class="text-md-right">
+							<label class="m-r-5" [for]="'isEdit'+index" nz-button nzType="default" nzShape="circle" nz-tooltip
+								nzTooltipTitle="Cập nhật" (click)="submit(index)" [disabled]="submiting">
+								<i nz-icon nzType="edit" theme="outline" *ngIf="!faqIndexs[index].isEdit"></i>
+								<i nz-icon nzType="check" nzTheme="outline" *ngIf="faqIndexs[index].isEdit"></i>
+							</label>
+						</td>
+					</tr>
+				</ng-container>
+			</tbody>
+		</nz-table>
+	</form>
 </nz-card>

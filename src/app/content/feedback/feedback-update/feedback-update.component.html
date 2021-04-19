@@ -35,7 +35,7 @@
 		<nz-form-item>
 			<nz-form-label [nzSpan]="6" class="text-left" nzRequired>Đánh giá</nz-form-label>
 			<nz-form-control [nzErrorTip]="'Nội dung đánh giá chỉ từ 1 đến 200 ký tự'">
-				<input nz-input formControlName="content" placeholder="Nhập đánh giá học viên">
+				<textarea nz-input formControlName="content" placeholder="Nhập đánh giá học viên" rows="3" style="resize: none;"></textarea>
 			</nz-form-control>
 		</nz-form-item>
 	</div>

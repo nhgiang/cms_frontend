@@ -47,6 +47,7 @@ export class ConfirmationComponent {
       nzContent: this.template,
       nzFooter: this.footer,
       nzClassName: 'ant-modal-confirm',
+      nzClosable: false
     });
     if (this.time > 0) {
       setTimeout(() => {

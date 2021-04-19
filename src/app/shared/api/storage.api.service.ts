@@ -19,4 +19,26 @@ export class StorageApiService extends BaseApi {
       .post<any>(this.createUrl('/upload'), form)
       .pipe(map((result: { path: string }) => result.path));
   }
+
+  uploadFiles(files: Blob[] | File[] | string[] | any[]): Observable<string[]> {
+    if (!files.some(file => typeof file !== 'string')) {
+      return of(files as string[]);
+    }
+    const form = new FormData();
+    let fileNames = [];
+    files.forEach(file => {
+      if (typeof file !== 'string') {
+        form.append('file', file, ((file as any).name || 'unknownfile'));
+      } else {
+        fileNames.push(file);
+      }
+    });
+
+    return this.httpClient
+      .post<any>(this.createUrl('/uploads'), form)
+      .pipe(map((res: any[]) => {
+        fileNames = [...fileNames, ...res.map(file => file.path)];
+        return fileNames;
+      }));
+  }
 }

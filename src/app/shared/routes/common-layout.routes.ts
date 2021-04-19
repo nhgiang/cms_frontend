@@ -1,16 +1,24 @@
 import { Routes } from '@angular/router';
 
 export const CommonLayoutRoutes: Routes = [
-    {
-        path: 'dashboard',
-        loadChildren: () => import('src/app/dashboard/dashboard.module').then(m => m.DashboardModule),
-    },
-    {
-        path: 'user',
-        loadChildren: () => import('src/app/user/user.module').then(m => m.UserModule)
-    },
-    {
-        path: 'content',
-        loadChildren: () => import('src/app/content/content.module').then(m => m.ContentModule)
+  {
+    path: 'dashboard',
+    loadChildren: () => import('src/app/dashboard/dashboard.module').then(m => m.DashboardModule),
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('src/app/user/user.module').then(m => m.UserModule)
+  },
+  {
+    path: 'content',
+    loadChildren: () => import('src/app/content/content.module').then(m => m.ContentModule)
+  },
+  {
+    path: 'contact',
+    loadChildren: () => import('src/app/contact/contact.module').then(m => m.ContactModule),
+    data: {
+      headerDisplay: true,
+      title: 'Quản lí nội dung liên hệ'
     }
+  }
 ];

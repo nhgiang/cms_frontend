@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { SpecializationApiService } from '@shared/api/specialization.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
+import { Option } from '@shared/interfaces/option.type';
+import { IPaginate } from '@shared/interfaces/paginate.type';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { debounceTime } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
 import { User } from 'types/typemodel';
 
 @Component({
@@ -14,20 +18,18 @@ import { User } from 'types/typemodel';
 })
 export class LecturerComponent extends DataTableContainer<User> implements OnInit {
   search: FormGroup;
-  specializations: any[];
+  // specializations: (p) => Observable<any>;
   constructor(
     private teacherApi: TeacherApiService,
     private notification: NzNotificationService,
     private fb: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private specializationApi: SpecializationApiService
   ) {
     super();
   }
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.specializations = data.specializations;
-    });
     this.buildform();
     super.ngOnInit();
     this.search.valueChanges.pipe(
@@ -46,7 +48,7 @@ export class LecturerComponent extends DataTableContainer<User> implements OnIni
     return this.teacherApi.getList({ ...params, specializationId, q });
   }
 
-  deleteTeacher(id) {
+  deleteTeacher(id: string) {
     const next = () => {
       this.refresh();
       this.notification.success('Thành công', 'Xóa thông tin giảng viên thành công!');
@@ -62,5 +64,11 @@ export class LecturerComponent extends DataTableContainer<User> implements OnIni
       q: [null],
       specializationId: [null]
     });
+  }
+
+  specializations = (params: IPaginate): Observable<Option[]> => {
+    return this.specializationApi.getAll(params).pipe(map(res => res.items.map(x => {
+      return { value: x.id, label: x.name };
+    })));
   }
 }

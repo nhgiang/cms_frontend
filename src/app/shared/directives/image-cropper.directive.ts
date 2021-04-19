@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
 import { ImageCropperModalComponent } from '@shared/components/image-cropper-modal/image-cropper-modal.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService, NzModalRef } from 'ng-zorro-antd/modal';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Directive({
   selector: '[imageCropper]',
@@ -10,6 +10,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 export class ImageCropperDirective {
   @Input() aspectRatio: number;
   @Input() maintainAspectRatio = false;
+  @Input() maxSize = 5000000; // 5MB
   @Input() set fileInputEvent($event: { target: HTMLInputElement }) {
     this.set($event);
   }
@@ -19,16 +20,22 @@ export class ImageCropperDirective {
 
   constructor(
     private modalService: NzModalService,
-    private alert: NzNotificationService
+    private alert: NzMessageService
   ) { }
 
   set($event: { target: HTMLInputElement }) {
     if (!$event) {
       return;
     }
+
     const input = $event.target;
+    // console.log(input.files[0]);
     if (!input.files[0].type.startsWith('image/')) {
-      this.alert.error('Thất bại', 'Đây không phải là một file ');
+      this.alert.error('Đây không phải là một file ảnh');
+      return;
+    }
+    if (input.files[0].size > this.maxSize) {
+      this.alert.error('Kích thước file ảnh phải nhỏ hơn 5MB');
       return;
     }
     const imageFile = input.files[0];

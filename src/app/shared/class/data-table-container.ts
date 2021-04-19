@@ -6,7 +6,7 @@ import { Meta, QueryResult } from 'types/typemodel';
 @Injectable()
 // tslint:disable-next-line: component-class-suffix
 export abstract class DataTableContainer<T> implements OnInit {
-    items: T[];
+    items: T[] = [];
     meta: Meta;
     sort: string;
     page = 1;
@@ -22,17 +22,20 @@ export abstract class DataTableContainer<T> implements OnInit {
     }
 
     refresh() {
+        this.params = {};
+        this.page = 1;
         this.refreshTrigger.next();
     }
 
     onPageChanged(pageNumber: number) {
         this.page = pageNumber;
-        this.refresh();
+        this.refreshTrigger.next();
     }
 
     onSearchParamsChanged(params: { [key: string]: any }) {
         this.page = 1;
         const parsedParams = {};
+        Object.keys(params).forEach(k => params[k] = params[k] && params[k].trim());
         // tslint:disable-next-line: forin
         for (const key in params) {
             try {
@@ -42,7 +45,7 @@ export abstract class DataTableContainer<T> implements OnInit {
             }
         }
         this.params = parsedParams;
-        this.refresh();
+        this.refreshTrigger.next();
     }
 
     protected abstract fetch(): Observable<QueryResult<T>>;

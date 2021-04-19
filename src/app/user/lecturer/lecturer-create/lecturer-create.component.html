@@ -1,5 +1,5 @@
 <nz-card nzTitle="Thông tin cơ bản">
-  <form nz-form [formGroup]="form">
+  <form nz-form [formGroup]="form" autocomplete="off">
     <div class="media align-items-center">
       <nz-avatar [nzSize]="80" nzIcon="user" [nzSrc]="avatarUrl"></nz-avatar>
       <div class="m-l-20 m-r-20">
@@ -25,13 +25,13 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="6" nzRequired>E-mail</nz-form-label>
           <nz-form-control [nzErrorTip]="errorEmailTpl">
-            <input nz-input formControlName="email" placeholder="Nhập Email" />
+            <input nz-input formControlName="email" name="email" autocomplete="false" placeholder="Nhập Email" />
           </nz-form-control>
           <ng-template #errorEmailTpl let-control>
             <ng-container *ngIf="control.hasError('required')">
               Vui lòng nhập Email
             </ng-container>
-            <ng-container *ngIf="control.hasError('email')">
+            <ng-container *ngIf="control.hasError('emailRules')">
               Không đúng định dạng email
             </ng-container>
             <ng-container *ngIf="control.hasError('notUnique')">
@@ -53,7 +53,7 @@
                 Vui lòng nhập mật khẩu
               </ng-container>
               <ng-container *ngIf="control.hasError('passwordRules')">
-                Mật khẩu chứa 6-16 ký tự, bao gồm tối thiểu 1 ký tự hoa và 1 ký tự thường
+                Mật khẩu cần từ 8 kí tự,có kí tự in hoa,in thường và số
               </ng-container>
             </ng-template>
           </nz-form-control>
@@ -77,8 +77,8 @@
             <ng-container *ngIf="control.hasError('required')">
               Vui lòng nhập số điện thoại
             </ng-container>
-            <ng-container *ngIf="control.hasError('onlyNumber')">
-              Số điện thoại chỉ bao gồm các ký tự số
+            <ng-container *ngIf="control.hasError('phoneNumber')">
+              Số điện thoại không hợp lệ
             </ng-container>
           </ng-template>
         </nz-form-item>
@@ -87,9 +87,11 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="6" nzRequired>Chuyên môn</nz-form-label>
           <nz-form-control [nzErrorTip]="'Vui lòng chọn chuyên môn'">
-            <nz-select id="gender" formControlName="specializationId" nzPlaceHolder="Chọn chuyên môn">
+            <!-- <nz-select id="gender" formControlName="specializationId" nzPlaceHolder="Chọn chuyên môn">
               <nz-option [nzValue]="item.id" [nzLabel]="item.name" *ngFor="let item of specializations"></nz-option>
-            </nz-select>
+            </nz-select> -->
+            <select-advance placeholder="Chọn chuyên môn" [getOptionsFn]="specializations" style="min-width: 220px;" formControlName="specializationId">
+            </select-advance>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -103,7 +105,7 @@
       </div>
     </div>
     <div class="text-center">
-      <button [disabled]="form.invalid" type="submit" nz-button nzType="primary" (click)="submitForm()" [nzLoading]="isLoading">
+      <button [disabled]="form.invalid || !avatarUrl" type="submit" nz-button nzType="primary" (click)="submitForm()" [nzLoading]="isLoading">
         Tạo mới
       </button>
     </div>
