@@ -79,11 +79,11 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Đánh giá học viên',
         submenu: []
       },
-      {
-        path: 'video-intro',
-        title: 'Video giới thiệu',
-        submenu: []
-      }
+      // {
+      //   path: 'video-intro',
+      //   title: 'Video giới thiệu',
+      //   submenu: []
+      // }
     ]
   },
   {
@@ -101,26 +101,26 @@ export const ROUTES: SideNavInterface[] = [
     iconTheme: 'outline',
     icon: 'profile',
     submenu: [
-      {
-        path: 'video',
-        title: 'Video Intro',
-        submenu: []
-      },
-      {
-        path: 'about-us',
-        title: 'Về chúng tôi',
-        submenu: []
-      },
-      {
-        path: 'contact-management',
-        title: 'Liên hệ',
-        submenu: []
-      },
-      {
-        path: 'story',
-        title: 'Câu truyện',
-        submenu: []
-      }
+      // {
+      //   path: 'video',
+      //   title: 'Video Intro',
+      //   submenu: []
+      // },
+      // {
+      //   path: 'about-us',
+      //   title: 'Về chúng tôi',
+      //   submenu: []
+      // },
+      // {
+      //   path: 'contact-management',
+      //   title: 'Liên hệ',
+      //   submenu: []
+      // },
+      // {
+      //   path: 'story',
+      //   title: 'Câu truyện',
+      //   submenu: []
+      // }
     ]
   },
   {
