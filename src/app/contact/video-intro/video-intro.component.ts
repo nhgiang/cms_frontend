@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { SettingApiService } from '@shared/api/setting.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
@@ -9,6 +9,7 @@ import { forkJoin } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 import { VideoIntro } from 'types/typemodel';
+
 @Component({
   selector: 'app-video-intro',
   templateUrl: './video-intro.component.html',
@@ -17,7 +18,7 @@ import { VideoIntro } from 'types/typemodel';
 export class VideoIntroComponent implements OnInit {
   form: FormGroup;
   AssetType = AssetType;
-  isloading: boolean
+  isloading: boolean;
   constructor(
     private fb: FormBuilder,
     private storageApi: StorageApiService,
@@ -27,7 +28,7 @@ export class VideoIntroComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    this.settingApi.videoIntro.get().subscribe((res: VideoIntro) => {
+    this.settingApi.videoIntroContact.get().subscribe((res: VideoIntro) => {
       this.form.patchValue(res);
     });
   }
@@ -52,10 +53,9 @@ export class VideoIntroComponent implements OnInit {
         video,
         title: this.form.value.title.trim()
       };
-      return this.settingApi.videoIntro.post(data);
-    })).subscribe(res => {
-      this.notification.success('Thành công', 'Cập nhật thông tin video giới thiệu thành công')
+      return this.settingApi.videoIntroContact.post(data);
+    })).subscribe(() => {
+      this.notification.success('Thành công', 'Cập nhật thôn tin video giới thiệu thành công')
     });
   }
 }
-

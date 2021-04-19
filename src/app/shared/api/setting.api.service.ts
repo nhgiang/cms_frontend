@@ -37,4 +37,14 @@ export class SettingApiService extends BaseApi {
     get: () => this.httpClient.get<any>(this.createUrl('-video-intro')),
     post: (body) => this.httpClient.post(this.createUrl('-video-intro'), body)
   };
+
+  aboutUs = {
+    get: () => this.httpClient.get<any>(this.createUrl('-about-us')),
+    post: (body) => this.httpClient.post(this.createUrl('-about-us'), body)
+  };
+
+  videoIntroContact = {
+    get: () => this.httpClient.get<any>(this.createUrl('-video-intro-contact')),
+    post: (body) => this.httpClient.post(this.createUrl('-video-intro-contact'), body)
+  };
 }
