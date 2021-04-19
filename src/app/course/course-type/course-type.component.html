@@ -5,7 +5,8 @@
         <button nz-button nzType="primary" (click)="addItem()">Thêm mới</button>
       </div>
     </div>
-    <nz-table [nzData]="items">
+    <nz-table [nzData]="items" [nzLoading]="isloading" (nzPageIndexChange)="onPageChanged($event)"
+      [(nzPageIndex)]="page">
       <thead>
         <tr>
           <th scope="col">ID</th>
@@ -19,11 +20,12 @@
           <td>{{item?.name}}</td>
           <td>
             <div class="d-flex">
-              <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Cập nhật">
+              <a (click)="editItem(item?.id)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
+                nzTooltipTitle="Cập nhật">
                 <i nz-icon nzType="edit" theme="outline"></i>
               </a>
               <div (confirmed)="deleteTeacher(item?.id)"
-                [confirmation]="'Bạn có chắc muốn xóa thông tin giảng viên này hay không?'">
+                [confirmation]="'Bạn có chắc muốn xóa thông tin loại khóa học này hay không?'">
                 <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
                   <i nz-icon nzType="close" nzTheme="outline"></i>
                 </a>

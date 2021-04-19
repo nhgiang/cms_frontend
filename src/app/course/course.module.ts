@@ -5,6 +5,7 @@ import { CourseRoutes } from './course.routing';
 import { SkillsComponent } from './skills/skills.component';
 import { CourseTypeComponent } from './course-type/course-type.component';
 import { CourseTypeCreateComponent } from './course-type/course-type-create/course-type-create.component';
+import { CourseTypeEditComponent } from './course-type/course-type-edit/course-type-edit.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { CourseTypeCreateComponent } from './course-type/course-type-create/cour
     SharedModule,
     CourseRoutes
   ],
-  declarations: [SkillsComponent, CourseTypeComponent, CourseTypeCreateComponent]
+  declarations: [SkillsComponent, CourseTypeComponent, CourseTypeCreateComponent, CourseTypeEditComponent]
 })
 export class CourseModule { }

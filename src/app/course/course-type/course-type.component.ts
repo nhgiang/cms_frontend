@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CourseTypesApiService } from '@shared/api/course.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
 import { CourseType, QueryResult } from 'types/typemodel';
 import { CourseTypeCreateComponent } from './course-type-create/course-type-create.component';
+import { CourseTypeEditComponent } from './course-type-edit/course-type-edit.component';
 
 @Component({
   selector: 'app-course-type',
@@ -15,7 +17,8 @@ export class CourseTypeComponent extends DataTableContainer<CourseType> {
 
   constructor(
     private courseTypesApi: CourseTypesApiService,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private notification: NzNotificationService
   ) {
     super();
   }
@@ -29,13 +32,30 @@ export class CourseTypeComponent extends DataTableContainer<CourseType> {
   }
 
   deleteTeacher(id: string) {
-
+    this.courseTypesApi.delete(id).subscribe(() => {
+      this.notification.success('Thành công', 'Xóa loại khóa học thành công!');
+      this.refresh();
+    });
   }
 
   addItem() {
-    this.modalService.create({
+    const modalRef = this.modalService.create({
       nzContent: CourseTypeCreateComponent,
-      nzTitle: 'Thêm mới loại khóa học',
+      nzTitle: 'Thêm mới loại khóa học'
+    });
+    modalRef.componentInstance.created.subscribe(() => {
+      this.refresh();
+    });
+  }
+
+  editItem(id) {
+    const modalRef = this.modalService.create({
+      nzContent: CourseTypeEditComponent,
+      nzTitle: 'Cập nhật loại khóa học',
+      nzComponentParams: { id }
+    });
+    modalRef.componentInstance.created.subscribe(() => {
+      this.refresh();
     });
   }
 }
