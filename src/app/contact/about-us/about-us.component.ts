@@ -48,6 +48,8 @@ export class AboutUsComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
+      title: [null, TValidators.required],
+      image: [null, TValidators.required],
       content: [null, TValidators.required]
     })
   }

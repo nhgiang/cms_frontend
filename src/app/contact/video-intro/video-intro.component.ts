@@ -4,6 +4,7 @@ import { SettingApiService } from '@shared/api/setting.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { forkJoin } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
@@ -17,11 +18,12 @@ import { VideoIntro } from 'types/typemodel';
 export class VideoIntroComponent implements OnInit {
   form: FormGroup;
   AssetType = AssetType;
-  isloading: boolean
+  isloading: boolean;
   constructor(
     private fb: FormBuilder,
     private storageApi: StorageApiService,
-    private settingApi: SettingApiService
+    private settingApi: SettingApiService,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -52,8 +54,8 @@ export class VideoIntroComponent implements OnInit {
         title: this.form.value.title.trim()
       };
       return this.settingApi.videoIntroContact.post(data);
-    })).subscribe(res => {
-      this
+    })).subscribe(() => {
+      this.notification.success('Thành công', 'Cập nhật thôn tin video giới thiệu thành công')
     });
   }
 }
