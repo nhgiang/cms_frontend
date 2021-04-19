@@ -34,7 +34,28 @@ export const ROUTES: SideNavInterface[] = [
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'book',
-    submenu: []
+    submenu: [
+      {
+        path: '',
+        title: 'Chi tiết khóa học',
+        submenu: []
+      },
+      {
+        path: '',
+        title: 'Loại khóa học',
+        submenu: []
+      },
+      {
+        path: 'skills',
+        title: 'Kỹ năng đạt được',
+        submenu: []
+      },
+      {
+        path: '',
+        title: 'Template chứng chỉ',
+        submenu: []
+      },
+    ]
   },
   {
     path: '',
@@ -68,42 +89,42 @@ export const ROUTES: SideNavInterface[] = [
         path: 'footer',
         title: 'Footer',
         submenu: []
-    },
-    {
+      },
+      {
         path: 'content',
         title: 'Quản lý nội dung website',
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'profile',
         submenu: [
-            {
-                path: 'premiums',
-                title: 'Ưu đãi',
-                submenu: []
-            },
-            {
-                path: 'footer',
-                title: 'Footer',
-                submenu: []
-            },
-            {
-                path: 'faq',
-                title: 'Câu hỏi thường gặp',
-                submenu: []
-            },
-            {
-                path: 'feedbacks',
-                title: 'Đánh giá học viên',
-                submenu: []
-            },
-            {
-                path: 'teacher',
-                title: 'Giảng viên',
-                submenu: []
-            }
+          {
+            path: 'premiums',
+            title: 'Ưu đãi',
+            submenu: []
+          },
+          {
+            path: 'footer',
+            title: 'Footer',
+            submenu: []
+          },
+          {
+            path: 'faq',
+            title: 'Câu hỏi thường gặp',
+            submenu: []
+          },
+          {
+            path: 'feedbacks',
+            title: 'Đánh giá học viên',
+            submenu: []
+          },
+          {
+            path: 'teacher',
+            title: 'Giảng viên',
+            submenu: []
+          }
         ]
-    },
-    {
+      },
+      {
         path: '',
         title: 'Quản lý sự kiện',
         iconType: 'nzIcon',
