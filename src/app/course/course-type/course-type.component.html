@@ -1,0 +1,37 @@
+<nz-card>
+  <div class="ant-card-body">
+    <div class="row">
+      <div class="col-12 text-right">
+        <button nz-button nzType="primary" (click)="addItem()">Thêm mới</button>
+      </div>
+    </div>
+    <nz-table [nzData]="items">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Tên loại khóa học</th>
+          <th scope="col" [nzWidth]="'120px'"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td>#{{item?.index}}</td>
+          <td>{{item?.name}}</td>
+          <td>
+            <div class="d-flex">
+              <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Cập nhật">
+                <i nz-icon nzType="edit" theme="outline"></i>
+              </a>
+              <div (confirmed)="deleteTeacher(item?.id)"
+                [confirmation]="'Bạn có chắc muốn xóa thông tin giảng viên này hay không?'">
+                <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
+                  <i nz-icon nzType="close" nzTheme="outline"></i>
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</nz-card>

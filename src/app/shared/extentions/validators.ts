@@ -74,4 +74,13 @@ export class TValidators extends Validators {
       phoneNumber: true
     };
   }
+
+  static required(control: AbstractControl): ValidationErrors {
+    if (control.value && control.value.trim()) {
+
+    }
+    return {
+      required: true
+    }
+  }
 }
