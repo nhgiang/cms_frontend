@@ -27,14 +27,14 @@ export class TeacherComponent implements OnInit, OnDestroy {
     private contentState: ContentStateService,
     private settingApi: SettingApiService,
     private modalService: NzModalService,
-    private destroyService: DestroyService,
+    private destroy: DestroyService,
     private notification: NzNotificationService
   ) {}
 
   ngOnInit(): void {
     this.description = new FormControl(null, TValidators.textRange(1, 500));
     this.contentState.setttingTeacher$
-      .pipe(takeUntil(this.destroyService.destroy$))
+      .pipe(takeUntil(this.destroy))
       .subscribe((res) => {
         this.settingTeachers = res;
         this.description.setValue(res?.description);
