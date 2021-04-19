@@ -20,5 +20,13 @@ export const CommonLayoutRoutes: Routes = [
       headerDisplay: true,
       title: 'Quản lí nội dung liên hệ'
     }
+  },
+  {
+    path: 'course',
+    loadChildren: () => import('src/app/course/course.module').then(m => m.CourseModule),
+    data: {
+      headerDisplay: true,
+      title: 'Quản lí khóa học'
+    }
   }
 ];

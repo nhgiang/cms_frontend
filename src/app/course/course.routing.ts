@@ -3,18 +3,12 @@ import { SkillsComponent } from './skills/skills.component';
 
 const routes: Routes = [
   {
-    path: 'course',
-    children: [
-      {
-        path: '',
-        redirectTo: 'skills'
-      },
-      {
-        path: 'skills',
-        component: SkillsComponent
-      }
-    ]
-  },
+    path: 'skills',
+    component: SkillsComponent,
+    data: {
+      title: 'Danh sách kĩ năng'
+    }
+  }
 ];
 
 export const CourseRoutes = RouterModule.forChild(routes);
