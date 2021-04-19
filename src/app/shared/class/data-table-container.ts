@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { finalize, switchMap } from 'rxjs/operators';
+import { finalize, switchMap, tap } from 'rxjs/operators';
 import { Meta, QueryResult } from 'types/typemodel';
 
 @Injectable()
@@ -12,12 +12,8 @@ export abstract class DataTableContainer<T> implements OnInit {
     page = 1;
     isloading: boolean;
     params: { [key: string]: any } = {};
+    quantity = 10;
     protected refreshTrigger = new Subject();
-
-    constructor(
-        public quantity: number = 10,
-    ) {
-    }
 
     // tslint:disable-next-line: contextual-lifecycle
     ngOnInit() {
@@ -55,25 +51,19 @@ export abstract class DataTableContainer<T> implements OnInit {
     protected abstract fetch(): Observable<QueryResult<T>>;
 
     protected subscribe() {
-        const next = (result: QueryResult<T>) => {
-            this.handleResult(result);
-        };
-
         this.refreshTrigger.pipe(
-            switchMap(() => {
-                this.isloading = true;
-                return this.fetch().pipe(finalize(() => this.isloading = false));
-            }),
-        ).subscribe(next);
+            tap(() => this.isloading = true),
+            switchMap(() => this.fetch().pipe(finalize(() => this.isloading = false))),
+        ).subscribe({
+            next: result => this.handleResult(result)
+        });
     }
 
     protected handleResult(result: QueryResult<T>) {
         this.meta = result.meta;
-        this.items = result.items.map((item: T, index) => {
-            return {
-                ...item,
-                index: (index + 1) + ((this.page - 1) * this.quantity)
-            };
-        });
+        this.items = result.items.map((item: T, index) => ({
+            ...item,
+            index: (index + 1) + ((this.page - 1) * this.quantity)
+        }));
     }
 }

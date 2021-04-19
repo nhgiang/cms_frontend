@@ -1,4 +1,4 @@
-import { UserStatus } from "./enums";
+import { UserStatus } from './enums';
 
 export interface QueryResult<T> {
   meta: Meta;
@@ -66,6 +66,17 @@ export interface Feedback {
 export interface FileModel {
   file: Blob;
   fileName: string;
+}
+
+export interface SettingTeacher {
+  description: string;
+  teachers: SettingTeacherItem[];
+}
+
+export interface SettingTeacherItem {
+  name: string;
+  avatar: string;
+  position: string;
 }
 
 export interface VideoIntro {
