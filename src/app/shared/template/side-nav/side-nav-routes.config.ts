@@ -29,7 +29,7 @@ export const ROUTES: SideNavInterface[] = [
     ]
   },
   {
-    path: '',
+    path: 'course',
     title: 'Quản lý khóa học',
     iconType: 'nzIcon',
     iconTheme: 'outline',
