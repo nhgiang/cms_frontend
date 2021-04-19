@@ -14,7 +14,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         localStorage.clear();
         this.router.navigate(['/authentication/login']);
       } else if ([403, 404, 500].includes(error.status)) {
-        this.router.navigate(['/error', error.status]);
+        this.router.navigate(['/authentication/error', error.status]);
       }
       return throwError(error);
     }));
