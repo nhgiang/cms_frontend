@@ -4,8 +4,8 @@
       <form nz-form [formGroup]="search">
         <div class="d-md-flex">
           <div class="m-b-10 m-r-20">
-            <nz-input-group [nzPrefix]="prefixTemplate"  style="min-width: 275px;">
-              <input type="text" nz-input placeholder="Tìm kiếm email, tên và số điện thoại của khách hàng" formControlName="q">
+            <nz-input-group [nzPrefix]="prefixTemplate" style="min-width: 350px;">
+              <input type="text" nz-input placeholder="Tìm kiếm email, tên và số điện thoại" formControlName="q">
             </nz-input-group>
             <ng-template #prefixTemplate>
               <i nz-icon nzType="search" class="opacity-05"></i>
@@ -13,7 +13,7 @@
           </div>
           <div class="m-b-10 m-r-20 d-flex align-items-center">
             <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn trạng thái" formControlName="status">
-              <nz-option nzLabel="All" nzValue="all"></nz-option> 
+              <nz-option nzLabel="All" nzValue="all"></nz-option>
               <nz-option nzLabel="Approved" nzValue="approved"></nz-option>
               <nz-option nzLabel="Pending" nzValue="pending"></nz-option>
               <nz-option nzLabel="Rejected" nzValue="rejected"></nz-option>
@@ -23,17 +23,22 @@
       </form>
     </div>
   </div>
-  <nz-table>
+  <nz-table [nzData]="items" (nzQueryParams)="onParamsChanged($event)" [nzLoading]="isloading">
     <thead>
       <tr>
         <th scope="col">ID</th>
-        <th scope="col">Tên khách hàng</th>
+        <ng-container *ngFor="let item of metaData">
+          <th *ngIf="item.sortable" [nzSortFn]="item.sortable" scope="col" [nzColumnKey]="item.key"
+            [nzSortOrder]="item.sortOrder">{{item.name}}</th>
+          <th *ngIf="!item.sortable" scope="col" [nzColumnKey]="item.key">{{item.name}}</th>
+        </ng-container>
+        <!-- <th scope="col">Tên khách hàng</th>
         <th scope="col">Email</th>
         <th scope="col">Số điện thoại</th>
         <th scope="col">Ngày gửi</th>
         <th scope="col">Khóa học quan tâm</th>
         <th scope="col">Trạng thái</th>
-        <th scope="col"></th>
+        <th scope="col"></th> -->
       </tr>
     </thead>
     <tbody>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SpecializationApiService } from '@shared/api/specialization.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
@@ -23,10 +23,12 @@ export class LecturerComponent extends DataTableContainer<User> implements OnIni
     private teacherApi: TeacherApiService,
     private notification: NzNotificationService,
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private specializationApi: SpecializationApiService
+    route: ActivatedRoute,
+    private specializationApi: SpecializationApiService,
+    router: Router
+
   ) {
-    super();
+    super(route, router);
   }
 
   ngOnInit() {

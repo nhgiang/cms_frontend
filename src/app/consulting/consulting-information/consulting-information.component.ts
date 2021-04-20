@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ContactApiService } from '@shared/api/contact.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
-import { Observable, of } from 'rxjs';
-import { ConsultingInformation, QueryResult } from 'types/typemodel';
+import { Observable } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { ConsultingInformation, DataTableColumnMetaData, QueryResult } from 'types/typemodel';
 
 @Component({
   selector: 'app-consulting-information',
@@ -10,20 +13,63 @@ import { ConsultingInformation, QueryResult } from 'types/typemodel';
   styleUrls: ['./consulting-information.component.scss']
 })
 export class ConsultingInformationComponent extends DataTableContainer<ConsultingInformation> implements OnInit {
-
-  search: FormGroup;
+  metaData = [
+    {
+      key: 'name',
+      name: 'Tên khách hàng',
+      sortable: false,
+    },
+    {
+      key: 'email',
+      name: 'Email',
+      sortable: false,
+    },
+    {
+      key: 'phoneNumber',
+      name: 'Số điện thoại',
+      sortable: false,
+    }, {
+      key: 'created',
+      name: 'Ngày gửi',
+      sortable: true,
+    },
+    {
+      key: 'courseInterested',
+      name: 'Khóa học quan tâm',
+      sortable: false,
+    },
+    {
+      key: 'status',
+      name: 'Trạng thái',
+      sortable: false,
+    }
+  ];
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    router: Router,
+    route: ActivatedRoute,
+    private contactApi: ContactApiService
   ) {
-    super();
+    super(route, router);
   }
 
   ngOnInit(): void {
     this.buildForm();
+    super.ngOnInit();
+    this.search.valueChanges.pipe(debounceTime(300)).subscribe(value => {
+      this.onSearchParamsChanged(value);
+    });
   }
 
   protected fetch(): Observable<QueryResult<ConsultingInformation>> {
-    return of(null);
+    const params = {
+      limit: this.quantity,
+      page: this.page,
+      sort: this.sort,
+      order: this.order
+    };
+    const { status, q } = this.params;
+    return this.contactApi.getList({ ...params, q, status });
   }
 
   deleteItems(id: string) {

@@ -93,3 +93,15 @@ export interface ConsultingInformation extends Entity {
   note: string;
   status: ContactStatus;
 }
+
+export interface DataTableMetadata {
+  columns: DataTableColumnMetaData[];
+}
+
+export interface DataTableColumnMetaData {
+  key: string;
+  name: string;
+  sortable: boolean;
+  width?: string;
+  sortOrder?: string;
+}

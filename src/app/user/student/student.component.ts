@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StudentApiService } from '@shared/api/student.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { StudentStatusOptions } from '@shared/options/student-status.options';
@@ -18,9 +19,11 @@ export class StudentComponent extends DataTableContainer<User> implements OnInit
   partners: any[];
   constructor(
     private studentApi: StudentApiService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    route: ActivatedRoute,
+    router: Router
   ) {
-    super();
+    super(route, router);
   }
 
   ngOnInit() {
