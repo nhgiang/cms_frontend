@@ -4,6 +4,8 @@ import { SharedModule } from '@shared/shared.module';
 import { CourseRoutes } from './course.routing';
 import { SkillsComponent } from './skills/skills.component';
 import { SkillsModalComponent } from './skills/skills-modal/skills-modal.component';
+import { CourseListComponent } from './course-list/course-list.component';
+import { CreateCourseComponent } from './course-list/create-course/create-course.component';
 
 @NgModule({
   imports: [
@@ -11,6 +13,11 @@ import { SkillsModalComponent } from './skills/skills-modal/skills-modal.compone
     SharedModule,
     CourseRoutes
   ],
-  declarations: [SkillsComponent, SkillsModalComponent]
+  declarations: [
+    SkillsComponent,
+    SkillsModalComponent,
+    CourseListComponent,
+    CreateCourseComponent
+  ]
 })
 export class CourseModule { }

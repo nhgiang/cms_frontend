@@ -4,7 +4,6 @@ import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 import { ICourseSkills } from 'types/models/course-skills.model';
 import { FileModel } from 'types/typemodel';
