@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TValidators } from '@shared/extentions/validators';
+import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
+import { ICourseSkills } from 'types/models/course-skills.model';
 import { FileModel } from 'types/typemodel';
 
 @Component({
@@ -11,13 +16,17 @@ import { FileModel } from 'types/typemodel';
 })
 export class SkillsModalComponent implements OnInit {
 
-  // type: 'create' | 'edit' = 'create';
+  type: 'create' | 'edit';
+  data: any;
   assetType = AssetType;
   form: FormGroup;
   image: any;
+  api: (data: ICourseSkills) => Observable<ICourseSkills>;
 
   constructor(
-    fb: FormBuilder
+    fb: FormBuilder,
+    private modalRef: NzModalRef,
+    private notificationService: NzNotificationService
   ) {
     this.form = fb.group({
       icon: [null, TValidators.required],
@@ -27,7 +36,7 @@ export class SkillsModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form.valueChanges.subscribe(console.log);
+    if (this.data) { this.form.patchValue(this.data); }
   }
 
   onCropped(image: FileModel) {
@@ -41,5 +50,15 @@ export class SkillsModalComponent implements OnInit {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);
+  }
+
+  submit() {
+    if (this.form.invalid) { return; }
+    this.api(this.form.value).subscribe(
+      () => {
+        this.notificationService.success('Thành công', '');
+        this.modalRef.close(true);
+      }
+    );
   }
 }

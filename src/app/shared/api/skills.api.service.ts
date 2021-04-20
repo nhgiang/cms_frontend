@@ -25,8 +25,8 @@ export class SkillsApiService extends BaseApi {
     return this.httpClient.post<ICourseSkills>(this.createUrl(''), body);
   }
 
-  update(body: ICourseSkills) {
-    return this.httpClient.put<ICourseSkills>(this.createUrl(''), body);
+  update(id: string, body: ICourseSkills) {
+    return this.httpClient.put<ICourseSkills>(this.createUrl(`/${id}`), body);
   }
 
   delete(id: string) {

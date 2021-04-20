@@ -16,7 +16,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of items; let i=index">
-        <td>#{{ i + 1 }}</td>
+        <td>#{{ (i + 1) + ((page - 1) * 10) }}</td>
         <td>{{ item.name }}</td>
         <td>
           <div class="d-flex align-items-center">
@@ -26,12 +26,12 @@
         <td>{{ item.description }}</td>
         <td class="text-md-right">
           <div class="d-flex">
-            <a [routerLink]="[item?.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
+            <a (click)="editSkill(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
               nzTooltipTitle="Cập nhật">
               <i nz-icon nzType="edit" theme="outline"></i>
             </a>
-            <div (confirmed)="deleteTeacher(item?.id)"
-              [confirmation]="'Bạn có chắc muốn xóa thông tin giảng viên này hay không?'">
+            <div (confirmed)="deleteSkill(item?.id)"
+              [confirmation]="'Bạn có chắc muốn xóa thông tin kỹ năng này hay không?'">
               <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
                 <i nz-icon nzType="close" nzTheme="outline"></i>
               </a>
