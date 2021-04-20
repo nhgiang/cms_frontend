@@ -1,0 +1,65 @@
+<nz-card>
+  <div class="row">
+    <div class="col-12">
+      <form nz-form [formGroup]="search">
+        <div class="d-md-flex">
+          <div class="m-b-10 m-r-20">
+            <nz-input-group [nzPrefix]="prefixTemplate"  style="min-width: 275px;">
+              <input type="text" nz-input placeholder="Tìm kiếm email, tên và số điện thoại của khách hàng" formControlName="q">
+            </nz-input-group>
+            <ng-template #prefixTemplate>
+              <i nz-icon nzType="search" class="opacity-05"></i>
+            </ng-template>
+          </div>
+          <div class="m-b-10 m-r-20 d-flex align-items-center">
+            <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn trạng thái" formControlName="status">
+              <nz-option nzLabel="All" nzValue="all"></nz-option> 
+              <nz-option nzLabel="Approved" nzValue="approved"></nz-option>
+              <nz-option nzLabel="Pending" nzValue="pending"></nz-option>
+              <nz-option nzLabel="Rejected" nzValue="rejected"></nz-option>
+            </nz-select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <nz-table>
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Tên khách hàng</th>
+        <th scope="col">Email</th>
+        <th scope="col">Số điện thoại</th>
+        <th scope="col">Ngày gửi</th>
+        <th scope="col">Khóa học quan tâm</th>
+        <th scope="col">Trạng thái</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>{{item?.index}}</td>
+        <td>{{item?.name}}</td>
+        <td>{{item?.email}}</td>
+        <td>{{item?.phoneNumber}}</td>
+        <td>{{item?.created}}</td>
+        <td>{{item?.courseInterested}}</td>
+        <td>{{item?.status}}</td>
+        <td>
+          <div class="d-flex">
+            <a [routerLink]="[item?.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
+              nzTooltipTitle="Cập nhật">
+              <i nz-icon nzType="edit" theme="outline"></i>
+            </a>
+            <div (confirmed)="deleteItems(item?.id)"
+              [confirmation]="'Bạn có chắc muốn xóa thông tin giảng viên này hay không?'">
+              <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
+                <i nz-icon nzType="close" nzTheme="outline"></i>
+              </a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

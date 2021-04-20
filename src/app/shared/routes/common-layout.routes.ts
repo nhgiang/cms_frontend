@@ -28,5 +28,13 @@ export const CommonLayoutRoutes: Routes = [
       headerDisplay: true,
       title: 'Quản lí khóa học'
     }
+  },
+  {
+    path: 'consulting',
+    loadChildren: () => import('src/app/consulting/consulting.module').then(m => m.ConsultingModule),
+    data: {
+      headerDisplay: true,
+      title: 'Thông tin đánh giá'
+    }
   }
 ];

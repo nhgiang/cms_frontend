@@ -1,4 +1,4 @@
-import { UserStatus } from './enums';
+import { ContactStatus, UserStatus } from './enums';
 
 export interface QueryResult<T> {
   meta: Meta;
@@ -85,3 +85,11 @@ export interface VideoIntro {
   video: string;
 }
 
+export interface ConsultingInformation extends Entity {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  courseInterested: string;
+  note: string;
+  status: ContactStatus;
+}

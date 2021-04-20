@@ -58,12 +58,18 @@ export const ROUTES: SideNavInterface[] = [
     ]
   },
   {
-    path: '',
+    path: 'consulting',
     title: 'Tư vấn đánh giá',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'profile',
-    submenu: []
+    submenu: [
+      {
+        path: 'information',
+        title: 'Thông tin tư vấn',
+        submenu: []
+      },
+    ]
   },
   {
     path: '',
