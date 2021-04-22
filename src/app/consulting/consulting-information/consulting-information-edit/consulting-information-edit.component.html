@@ -1,0 +1,74 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <nz-card>
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="8" nzRequired>Tên khách hàng</nz-form-label>
+            <nz-form-control nzErrorTip="Vui lòng nhận tên khách hàng">
+              <input nz-input formControlName="name" autocomplete="false" placeholder="Nhập tên khách hàng" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="8" nzRequired>Email khách hàng</nz-form-label>
+            <nz-form-control nzErrorTip="Vui lòng nhận email khách hàng">
+              <input nz-input formControlName="email" autocomplete="false" placeholder="Nhập email khách hàng" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="8" nzRequired>Số điện thoại</nz-form-label>
+            <nz-form-control nzErrorTip="Vui lòng nhận số điện thoại">
+              <input nz-input formControlName="phoneNumber" autocomplete="false" placeholder="Nhập số điện thoại" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="8" nzRequired>Khóa học quan tâm</nz-form-label>
+            <nz-form-control nzErrorTip="Vui lòng nhận khóa học quan tâm">
+              <input nz-input formControlName="courseInterested" autocomplete="false"
+                placeholder="Nhập khóa học quan tâm" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="8" nzRequired>Trạng thái</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="status">
+                <nz-option [nzValue]="ContactStatus.NotContactedYet" [nzLabel]="'Chưa liên hệ'"></nz-option>
+                <nz-option [nzValue]="ContactStatus.Contacted" [nzLabel]="'Đã liên hệ'"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="4" nzRequired>Ghi chú</nz-form-label>
+            <nz-form-control>
+              <textarea nz-input formControlName="note" placeholder="Nhập ghi chú" rows="3"
+                style="resize: none;"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="d-flex">
+        <button class="ml-auto mr-3" nz-button nzType="primary" nzGhost type="button" [routerLink]="['/consulting/information']">Hủy bỏ</button>
+        <div (confirmed)="deleteItem()" [confirmation]="'Bạn có chắc chắn muốn xóa thông tin tư vấn này không?'">
+          <button class="mr-3" nz-button nzType="primary" nzGhost type="button" [nzLoading]="isLoading">Xóa khách hàng</button>
+        </div>
+        <button nz-button nzType="primary" type="submit" [nzLoading]="isLoading">Xác nhận</button>
+      </div>
+    </div>
+  </nz-card>
+</form>

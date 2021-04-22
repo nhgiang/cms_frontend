@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SpecializationApiService } from '@shared/api/specialization.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
@@ -8,8 +8,8 @@ import { Option } from '@shared/interfaces/option.type';
 import { IPaginate } from '@shared/interfaces/paginate.type';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
-import { debounceTime, map } from 'rxjs/operators';
-import { User } from 'types/typemodel';
+import { debounceTime, distinctUntilKeyChanged, map } from 'rxjs/operators';
+import { DataTableColumnMetaData, User } from 'types/typemodel';
 
 @Component({
   selector: 'app-lecturer',
@@ -18,15 +18,43 @@ import { User } from 'types/typemodel';
 })
 export class LecturerComponent extends DataTableContainer<User> implements OnInit {
   search: FormGroup;
-  // specializations: (p) => Observable<any>;
+  metaData: DataTableColumnMetaData[]  = [
+    {
+      key: 'name',
+      name: 'Tên giảng viên',
+      sortable: false,
+    },
+    {
+      key: 'specializationId',
+      name: 'Chuyên môn',
+      sortable: false,
+    },
+    {
+      key: 'email',
+      name: 'Email',
+      sortable: false,
+    }, {
+      key: 'phoneNumber',
+      name: 'Số điện thoại',
+      sortable: false,
+    },
+    {
+      key: 'bio',
+      name: 'Mô tả',
+      sortable: false,
+    }
+  ];
+  
   constructor(
     private teacherApi: TeacherApiService,
     private notification: NzNotificationService,
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private specializationApi: SpecializationApiService
+    route: ActivatedRoute,
+    private specializationApi: SpecializationApiService,
+    router: Router
+
   ) {
-    super();
+    super(route, router);
   }
 
   ngOnInit() {
@@ -34,9 +62,11 @@ export class LecturerComponent extends DataTableContainer<User> implements OnIni
     super.ngOnInit();
     this.search.valueChanges.pipe(
       debounceTime(500),
+      distinctUntilKeyChanged('q')
     ).subscribe(params => {
       this.onSearchParamsChanged(params);
     });
+    this.search.patchValue(this.params);
   }
 
   fetch() {

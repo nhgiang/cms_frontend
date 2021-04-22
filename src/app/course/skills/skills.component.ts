@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SkillsApiService } from '@shared/api/skills.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -19,9 +20,11 @@ export class SkillsComponent extends DataTableContainer<ICourseSkills> implement
   constructor(
     private skillsApiService: SkillsApiService,
     private modalService: NzModalService,
+    route: ActivatedRoute,
+    router: Router,
     private notificationService: NzNotificationService
   ) {
-    super();
+    super(route, router);
   }
 
 

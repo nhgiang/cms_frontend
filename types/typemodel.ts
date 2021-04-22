@@ -1,4 +1,4 @@
-import { UserStatus } from './enums';
+import { ContactStatus, UserStatus } from './enums';
 
 export interface QueryResult<T> {
   meta: Meta;
@@ -36,6 +36,7 @@ export interface User extends Entity {
   status: UserStatus;
   specializationName: string;
   index?: number;
+  bio: string;
 }
 
 export interface TeacherCreateCommand {
@@ -85,6 +86,27 @@ export interface VideoIntro {
   video: string;
 }
 
+export interface ConsultingInformation extends Entity {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  courseInterested: string;
+  note: string;
+  status: ContactStatus;
+  statusTransformed: string;
+}
+
+export interface DataTableMetadata {
+  columns: DataTableColumnMetaData[];
+}
+
+export interface DataTableColumnMetaData {
+  key: string;
+  name: string;
+  sortable: boolean;
+  width?: string;
+  sortOrder?: string;
+}
 export interface CourseType {
   id: string;
   created: Date;

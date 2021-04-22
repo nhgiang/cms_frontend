@@ -21,3 +21,8 @@ export enum FileUploadErrors {
   Size = 1,
   Type = 2
 }
+
+export enum ContactStatus {
+  NotContactedYet = 'NotContactedYet',
+  Contacted = 'Contacted'
+}

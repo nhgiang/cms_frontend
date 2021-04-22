@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CourseTypesApiService } from '@shared/api/course.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
-import { CourseType, QueryResult } from 'types/typemodel';
+import { CourseType, DataTableColumnMetaData, QueryResult } from 'types/typemodel';
 import { CourseTypeCreateComponent } from './course-type-create/course-type-create.component';
 import { CourseTypeEditComponent } from './course-type-edit/course-type-edit.component';
 
@@ -14,13 +15,21 @@ import { CourseTypeEditComponent } from './course-type-edit/course-type-edit.com
   styleUrls: ['./course-type.component.scss']
 })
 export class CourseTypeComponent extends DataTableContainer<CourseType> {
-
+  metaData: DataTableColumnMetaData[] = [
+    {
+      key: '',
+      name: '',
+      sortable: false
+    }
+  ];
   constructor(
     private courseTypesApi: CourseTypesApiService,
     private modalService: NzModalService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    route: ActivatedRoute,
+    router: Router
   ) {
-    super();
+    super(route, router);
   }
 
   protected fetch(): Observable<QueryResult<CourseType>> {

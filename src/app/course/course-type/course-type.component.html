@@ -5,7 +5,7 @@
         <button nz-button nzType="primary" (click)="addItem()">Thêm mới</button>
       </div>
     </div>
-    <nz-table [nzData]="items" [nzLoading]="isloading" (nzPageIndexChange)="onPageChanged($event)"
+    <nz-table [nzData]="items" [nzLoading]="isloading" (nzQueryParams)="onParamsChanged($event)"
       [(nzPageIndex)]="page">
       <thead>
         <tr>

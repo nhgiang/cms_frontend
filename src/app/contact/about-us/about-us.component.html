@@ -1,9 +1,7 @@
 <nz-card>
   <form [formGroup]="form" (ngSubmit)="submit()">
     <nz-form-item>
-      <nz-form-label class="text-left" [nzSpan]="3" nzRequired
-        >Title</nz-form-label
-      >
+      <nz-form-label class="text-left" [nzSpan]="3" nzRequired>Title</nz-form-label>
       <nz-form-control [nzErrorTip]="errorEmailTpl">
         <input nz-input formControlName="title" placeholder="Nhập tiêu đề" />
       </nz-form-control>
@@ -14,15 +12,9 @@
       </ng-template>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label class="text-left" [nzSpan]="3" nzRequired
-        >Image</nz-form-label
-      >
+      <nz-form-label class="text-left" [nzSpan]="3" nzRequired>Image</nz-form-label>
       <nz-form-control [nzErrorTip]="errorFileTpl">
-        <app-file-upload-control
-          formControlName="image"
-          [fileType]="AssetType.Image"
-          [maxSize]="5000000"
-        >
+        <app-file-upload-control formControlName="image" [fileType]="AssetType.Image" [maxSize]="5000000">
         </app-file-upload-control>
       </nz-form-control>
       <ng-template #errorFileTpl let-control>
@@ -38,16 +30,10 @@
       </ng-template>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label class="text-left align-self-center" [nzSpan]="3" nzRequired
-        >Nội dung
+      <nz-form-label class="text-left align-self-center" [nzSpan]="3" nzRequired>Nội dung
       </nz-form-label>
       <nz-form-control [nzErrorTip]="'Vui lòng nhập tiêu đề'">
-        <textarea
-          nz-input
-          rows="3"
-          formControlName="address"
-          placeholder="Nhập nội dung"
-        ></textarea>
+        <textarea nz-input rows="3" formControlName="content" placeholder="Nhập nội dung"></textarea>
       </nz-form-control>
     </nz-form-item>
   </form>
