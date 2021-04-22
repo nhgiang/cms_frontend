@@ -36,6 +36,7 @@ export interface User extends Entity {
   status: UserStatus;
   specializationName: string;
   index?: number;
+  bio: string;
 }
 
 export interface TeacherCreateCommand {
@@ -92,6 +93,7 @@ export interface ConsultingInformation extends Entity {
   courseInterested: string;
   note: string;
   status: ContactStatus;
+  statusTransformed: string;
 }
 
 export interface DataTableMetadata {

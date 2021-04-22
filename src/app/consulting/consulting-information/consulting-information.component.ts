@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContactApiService } from '@shared/api/contact.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { Observable } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
-import { ConsultingInformation, DataTableColumnMetaData, QueryResult } from 'types/typemodel';
+import { debounceTime, map } from 'rxjs/operators';
+import { ContactStatus } from 'types/enums';
+import { ConsultingInformation, QueryResult } from 'types/typemodel';
 
 @Component({
   selector: 'app-consulting-information',
@@ -13,6 +14,7 @@ import { ConsultingInformation, DataTableColumnMetaData, QueryResult } from 'typ
   styleUrls: ['./consulting-information.component.scss']
 })
 export class ConsultingInformationComponent extends DataTableContainer<ConsultingInformation> implements OnInit {
+  search: FormGroup;
   metaData = [
     {
       key: 'name',
@@ -69,7 +71,13 @@ export class ConsultingInformationComponent extends DataTableContainer<Consultin
       order: this.order
     };
     const { status, q } = this.params;
-    return this.contactApi.getList({ ...params, q, status });
+    return this.contactApi.getList({ ...params, q, status }).pipe(map((res) => {
+      res.items = res.items.map(item => {
+        item.statusTransformed = item.status === ContactStatus.Contacted ? 'Đã liên hệ' : 'Chưa liên hệ'
+        return item;
+      });
+      return res;
+    }));
   }
 
   deleteItems(id: string) {

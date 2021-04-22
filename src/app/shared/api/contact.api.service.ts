@@ -17,4 +17,16 @@ export class ContactApiService extends BaseApi {
   }) {
     return this.httpClient.get<QueryResult<ConsultingInformation>>(this.createUrl(''), { params: this.createParams(params) });
   }
+
+  update(id: string, body: any) {
+    return this.httpClient.put<any>(this.createUrl(`/${id}`), body);
+  }
+
+  getById(id) {
+    return this.httpClient.get<ConsultingInformation>(this.createUrl(`/${id}`));
+  }
+
+  delete(id) {
+    return this.httpClient.delete<any>(this.createUrl(`/${id}`));
+  }
 }

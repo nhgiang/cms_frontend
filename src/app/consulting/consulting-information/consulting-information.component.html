@@ -32,13 +32,7 @@
             [nzSortOrder]="item.sortOrder">{{item.name}}</th>
           <th *ngIf="!item.sortable" scope="col" [nzColumnKey]="item.key">{{item.name}}</th>
         </ng-container>
-        <!-- <th scope="col">Tên khách hàng</th>
-        <th scope="col">Email</th>
-        <th scope="col">Số điện thoại</th>
-        <th scope="col">Ngày gửi</th>
-        <th scope="col">Khóa học quan tâm</th>
-        <th scope="col">Trạng thái</th>
-        <th scope="col"></th> -->
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -47,13 +41,13 @@
         <td>{{item?.name}}</td>
         <td>{{item?.email}}</td>
         <td>{{item?.phoneNumber}}</td>
-        <td>{{item?.created}}</td>
+        <td>{{item?.created| date: 'dd/MM/yyyy'}}</td>
         <td>{{item?.courseInterested}}</td>
-        <td>{{item?.status}}</td>
+        <td>{{item?.statusTransformed}}</td>
         <td>
           <div class="d-flex">
-            <a [routerLink]="[item?.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
-              nzTooltipTitle="Cập nhật">
+            <a [routerLink]="['/consulting/information',item?.id]" class="m-r-5" nz-button nzType="default"
+              nzShape="circle" nz-tooltip nzTooltipTitle="Cập nhật">
               <i nz-icon nzType="edit" theme="outline"></i>
             </a>
             <div (confirmed)="deleteItems(item?.id)"

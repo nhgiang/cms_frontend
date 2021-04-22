@@ -4,7 +4,7 @@
   </div>
   <nz-table [nzShowTotal]="totalTemplate" [nzNoResult]="empty" #productsListTable [nzData]="items"
     [nzTotal]="meta?.totalItems" [nzFrontPagination]="false" [nzPageSize]="quantity" [nzPageIndex]="page"
-    [nzLoading]="isloading" nzTableLayout="fixed" (nzPageIndexChange)="onPageChanged($event)">
+    [nzLoading]="isloading" nzTableLayout="fixed" (nzQueryParams)="onParamsChanged($event)">
     <thead>
       <tr>
         <th scope="col" [nzWidth]="'70px'">ID</th>

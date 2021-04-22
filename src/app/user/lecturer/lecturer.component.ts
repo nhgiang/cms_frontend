@@ -8,7 +8,7 @@ import { Option } from '@shared/interfaces/option.type';
 import { IPaginate } from '@shared/interfaces/paginate.type';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
-import { debounceTime, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, distinctUntilKeyChanged, filter, map } from 'rxjs/operators';
 import { User } from 'types/typemodel';
 
 @Component({
@@ -18,7 +18,33 @@ import { User } from 'types/typemodel';
 })
 export class LecturerComponent extends DataTableContainer<User> implements OnInit {
   search: FormGroup;
-  // specializations: (p) => Observable<any>;
+  metaData = [
+    {
+      key: 'name',
+      name: 'Tên giảng viên',
+      sortable: false,
+    },
+    {
+      key: 'specializationId',
+      name: 'Chuyên môn',
+      sortable: false,
+    },
+    {
+      key: 'email',
+      name: 'Email',
+      sortable: false,
+    }, {
+      key: 'phoneNumber',
+      name: 'Số điện thoại',
+      sortable: false,
+    },
+    {
+      key: 'bio',
+      name: 'Mô tả',
+      sortable: false,
+    }
+  ];
+  
   constructor(
     private teacherApi: TeacherApiService,
     private notification: NzNotificationService,
@@ -36,9 +62,11 @@ export class LecturerComponent extends DataTableContainer<User> implements OnIni
     super.ngOnInit();
     this.search.valueChanges.pipe(
       debounceTime(500),
+      distinctUntilKeyChanged('q')
     ).subscribe(params => {
       this.onSearchParamsChanged(params);
     });
+    this.search.patchValue(this.params);
   }
 
   fetch() {

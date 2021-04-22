@@ -6,11 +6,11 @@ import { DataTableColumnMetaData, Meta, QueryResult } from 'types/typemodel';
 import { omitBy, isNil } from 'lodash-es';
 import { FormGroup } from '@angular/forms';
 import { SortType } from 'types/sort-type';
+import { trimData } from 'utils/common';
 
 @Injectable()
 // tslint:disable-next-line: component-class-suffix
 export abstract class DataTableContainer<T> implements OnInit {
-  search: FormGroup;
   items: T[] = [];
   meta: Meta;
   sort: string;
@@ -18,7 +18,7 @@ export abstract class DataTableContainer<T> implements OnInit {
   isloading: boolean;
   params: { [key: string]: any } = {};
   quantity = 10;
-  order: 'ASC' | 'DESC' | '' = '';
+  order: string;
   metaData: DataTableColumnMetaData[];
   protected refreshTrigger = new Subject();
   get sortOrder() {
@@ -47,23 +47,13 @@ export abstract class DataTableContainer<T> implements OnInit {
     this.refreshTrigger.next();
   }
 
-  onPageChanged(pageNumber: number) {
-    this.navigate({ ...this.currentParams, page: pageNumber });
-  }
-
   onSearchParamsChanged(params: { [key: string]: any }) {
     this.navigate({ ...this.currentParams, page: 1, ...params });
   }
-
-  onSorted(sort: any) {
-    // this.navigate({ ...this.currentParams, page: 1, sort });
-  }
-
+  
   onParamsChanged(event: any) {
     const sort = event.sort.find(t => t.value !== null);
-    // this.sort = sort?.name;
-    // this.order = sort?.value;
-    this.navigate({ ...this.currentParams, page: event.pageIndex, sort: sort?.name, order: sort?.value });
+    this.navigate({ ...this.currentParams, page: event.pageIndex, sort: sort?.key, order: sort?.value });
   }
 
   protected abstract fetch(): Observable<QueryResult<T>>;
@@ -91,16 +81,16 @@ export abstract class DataTableContainer<T> implements OnInit {
         this.metaData[i].sortOrder = null;
       }
     });
+    this.sort = sort;
+    this.order = order && (order === 'ascend' ? 'ASC' : 'DESC');
     const parsedParams = { ...params };
     // tslint:disable-next-line: forin
-    for (const key in parsedParams) {
+    for (const key in trimData(parsedParams)) {
       try {
         parsedParams[key] = JSON.parse(parsedParams[key]);
       } catch (e) { }
     }
     this.params = parsedParams;
-    this.search.patchValue(parsedParams);
-
   }
 
   protected navigate(params: Params) {
