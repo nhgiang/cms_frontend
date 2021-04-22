@@ -45,7 +45,7 @@ export abstract class DataTableContainer<T> implements OnInit {
   onSearchParamsChanged(params: { [key: string]: any }) {
     this.navigate({ ...this.currentParams, page: 1, ...params });
   }
-  
+
   onParamsChanged(event: any) {
     const sort = event.sort.find(t => t.value !== null);
     this.navigate({ ...this.currentParams, page: event.pageIndex, sort: sort?.key, order: sort?.value });
@@ -66,18 +66,20 @@ export abstract class DataTableContainer<T> implements OnInit {
   }
 
   protected readRouteParams(params: { [key: string]: any }) {
-    const { page, quantity, sort, order } = params;
+    const { page, quantity, sort, order } = params || {};
     this.page = +page || 1;
     this.quantity = +quantity || this.quantity;
-    this.metaData.forEach((column, i) => {
-      if (column.key === sort) {
-        this.metaData[i].sortOrder = order;
-      } else {
-        this.metaData[i].sortOrder = null;
-      }
-    });
-    this.sort = sort;
-    this.order = order && (order === 'ascend' ? 'ASC' : 'DESC');
+    if (this.metaData && this.metaData.some(t => t.sortable === true)) {
+      this.metaData.forEach((column, i) => {
+        if (column.key === sort) {
+          this.metaData[i].sortOrder = order;
+        } else {
+          this.metaData[i].sortOrder = null;
+        }
+      });
+      this.sort = sort;
+      this.order = order && (order === 'ascend' ? 'ASC' : 'DESC');
+    }
     const parsedParams = { ...params };
     // tslint:disable-next-line: forin
     for (const key in trimData(parsedParams)) {
