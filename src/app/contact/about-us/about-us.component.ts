@@ -27,12 +27,12 @@ export class AboutUsComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.settingApi.aboutUs.get().subscribe(res => {
-      this.form.patchValue(res)
+      this.form.patchValue(res);
     });
   }
 
   submit() {
-    Ultilities.validateForm(this.form)
+    Ultilities.validateForm(this.form);
     this.storageApi.uploadFile(this.form.value.image).pipe(
       switchMap(res => {
         const body = {
@@ -42,8 +42,8 @@ export class AboutUsComponent implements OnInit {
         return this.settingApi.aboutUs.post(body);
       })
     ).subscribe(() => {
-      this.notification.success('Thành công', 'Cập nhật nội dung giới thiệu về chúng tôi thành công!')
-    })
+      this.notification.success('Thành công', 'Cập nhật nội dung giới thiệu về chúng tôi thành công!');
+    });
   }
 
   buildForm() {
@@ -51,6 +51,6 @@ export class AboutUsComponent implements OnInit {
       title: [null, TValidators.required],
       image: [null, TValidators.required],
       content: [null, TValidators.required]
-    })
+    });
   }
 }
