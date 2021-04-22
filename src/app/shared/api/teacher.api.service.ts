@@ -12,7 +12,7 @@ export class TeacherApiService extends BaseApi {
     limit: number,
     page: number,
     q: string,
-    specializationId: string
+    specializationId?: string
   }) {
     return this.httpClient.get<QueryResult<User>>(this.createUrl(''), {
       params: this.createParams(params),

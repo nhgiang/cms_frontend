@@ -26,6 +26,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class FileUploadControlComponent extends AbstractControlDirective implements OnInit {
   @Input() fileType: AssetType;
   @Input() maxSize: number;
+  @Input() customLabel = false;
   AssetType = AssetType;
   url: any;
   file: File;
@@ -43,8 +44,7 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
     super();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   writeValue(obj: any) {
     this.url = obj;
@@ -77,7 +77,7 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
   initExtentionFile(assetType: AssetType) {
     switch (assetType) {
       case AssetType.Image:
-        this.currentTypes = ['jpg', 'jpeg', 'png', 'svg'];
+        this.currentTypes = ['images'];
         break;
       case AssetType.undefined:
         this.currentTypes = [];
@@ -93,7 +93,7 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
       return null;
     }
     if (this.fileType) {
-      const isValidType = !this.validateType(this.file?.name);
+      const isValidType = !this.validateType(this.file?.type);
       if (isValidType) {
         errors.push(FileUploadErrors.Type);
       }
@@ -124,9 +124,8 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
     if (this.fileType) {
       this.initExtentionFile(this.fileType);
     }
-    const types = url.split('.');
-    const extension = types[types.length - 1];
-    return this.currentTypes.indexOf(extension) >= 0;
+    const types = url.split('/')[0];
+    return this.currentTypes.indexOf(types) >= 0;
   }
 
   private validateSize(file: File) {
