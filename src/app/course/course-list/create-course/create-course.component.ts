@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CourseTypesApiService } from '@shared/api/course.api.service';
+import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { TValidators } from '@shared/extentions/validators';
 import { map } from 'rxjs/operators';
