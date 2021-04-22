@@ -1,23 +1,24 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { CourseTypesApiService } from '@shared/api/course-types.api.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { SpecializationApiService } from '@shared/api/specialization.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { finalize } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-course-type-create',
-  templateUrl: './course-type-create.component.html',
-  styleUrls: ['./course-type-create.component.scss']
+  selector: 'app-specializations-create',
+  templateUrl: './specializations-create.component.html',
+  styleUrls: ['./specializations-create.component.scss']
 })
-export class CourseTypeCreateComponent implements OnInit {
+export class SpecializationsCreateComponent implements OnInit {
   form: FormGroup;
-  loading: boolean;
+  isloading: boolean;
   @Output() created = new EventEmitter();
   constructor(
     private fb: FormBuilder,
-    private courseTypesApi: CourseTypesApiService,
+    private specializationApi: SpecializationApiService,
     private modalRef: NzModalRef,
     private notification: NzNotificationService
   ) { }
@@ -34,7 +35,8 @@ export class CourseTypeCreateComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
-    this.courseTypesApi.create(this.form.value.name.trim()).subscribe(() => {
+    this.isloading = true;
+    this.specializationApi.create(this.form.value.name.trim()).pipe(finalize(() => this.isloading = false)).subscribe(() => {
       this.modalRef.close();
       this.notification.success('Thành công', 'Thêm mới loại khóa học thành công!');
       this.created.emit();

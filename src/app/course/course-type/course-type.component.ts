@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CourseTypesApiService } from '@shared/api/course.api.service';
+import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -15,13 +15,6 @@ import { CourseTypeEditComponent } from './course-type-edit/course-type-edit.com
   styleUrls: ['./course-type.component.scss']
 })
 export class CourseTypeComponent extends DataTableContainer<CourseType> {
-  metaData: DataTableColumnMetaData[] = [
-    {
-      key: '',
-      name: '',
-      sortable: false
-    }
-  ];
   constructor(
     private courseTypesApi: CourseTypesApiService,
     private modalService: NzModalService,
@@ -63,7 +56,7 @@ export class CourseTypeComponent extends DataTableContainer<CourseType> {
       nzTitle: 'Cập nhật loại khóa học',
       nzComponentParams: { id }
     });
-    modalRef.componentInstance.created.subscribe(() => {
+    modalRef.componentInstance.edited.subscribe(() => {
       this.refresh();
     });
   }

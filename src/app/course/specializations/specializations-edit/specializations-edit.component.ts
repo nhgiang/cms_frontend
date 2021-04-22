@@ -1,31 +1,32 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { CourseTypesApiService } from '@shared/api/course-types.api.service';
+import { SpecializationApiService } from '@shared/api/specialization.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { finalize } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-course-type-edit',
-  templateUrl: './course-type-edit.component.html',
-  styleUrls: ['./course-type-edit.component.scss']
+  selector: 'app-specializations-edit',
+  templateUrl: './specializations-edit.component.html',
+  styleUrls: ['./specializations-edit.component.scss']
 })
-export class CourseTypeEditComponent implements OnInit {
+export class SpecializationsEditComponent implements OnInit {
   @Input() id: string;
   @Output() edited = new EventEmitter();
   form: FormGroup;
-
+  isLoading: boolean;
   constructor(
     private fb: FormBuilder,
-    private courseTypesApi: CourseTypesApiService,
-    private notification: NzNotificationService,
-    private modalRef: NzModalRef
+    private specialiationApi: SpecializationApiService,
+    private modalRef: NzModalRef,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
     this.buildForm();
-    this.courseTypesApi.getById(this.id).subscribe(res => {
+    this.specialiationApi.getById(this.id).subscribe(res => {
       this.form.patchValue(res);
     })
   }
@@ -42,9 +43,10 @@ export class CourseTypeEditComponent implements OnInit {
       name: this.form.value.name.trim(),
       id: this.id
     };
-    this.courseTypesApi.update(this.id, data).subscribe(() => {
+    this.isLoading = true;
+    this.specialiationApi.update(this.id, data).pipe(finalize(() => this.isLoading = false)).subscribe(() => {
       this.modalRef.close();
-      this.notification.success('Thành công', 'Cập nhật loại khóa học thành công');
+      this.notification.success('Thành công', 'Cập nhật chuyên môn giảng viên thành công');
       this.edited.emit();
     });
   }

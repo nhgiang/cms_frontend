@@ -1,1 +1,33 @@
+<nz-card>
+  <div class="row">
+    <div class="col-8">
+      <form [formGroup]="search">
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group [nzPrefix]="prefixTemplate">
+              <input type="text" nz-input formControlName="courseName" placeholder="Tìm kiếm theo tên khóa học">
+            </nz-input-group>
+            <ng-template #prefixTemplate>
+              <i nz-icon nzType="search" class="opacity-05"></i>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <select-advance placeholder="Chọn loại khóa học" [getOptionsFn]="" style="min-width: 220px;"
+            formControlName="courseType">
+          </select-advance>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <select-advance placeholder="Chọn giảng viên" [getOptionsFn]="" style="min-width: 220px;"
+              formControlName="teacher">
+            </select-advance>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </div>
+</nz-card>
 <a nz-button nzType="primary" [routerLink]="['/course/create']">thêm mới</a>
