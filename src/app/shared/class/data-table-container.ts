@@ -17,7 +17,7 @@ export abstract class DataTableContainer<T> implements OnInit {
   params: { [key: string]: any } = {};
   quantity = 10;
   order: string;
-  metaData: DataTableColumnMetaData[];
+  metaData: DataTableColumnMetaData[] = [];
   protected refreshTrigger = new Subject();
 
   get currentParams() {
@@ -45,7 +45,7 @@ export abstract class DataTableContainer<T> implements OnInit {
   onSearchParamsChanged(params: { [key: string]: any }) {
     this.navigate({ ...this.currentParams, page: 1, ...params });
   }
-  
+
   onParamsChanged(event: any) {
     const sort = event.sort.find(t => t.value !== null);
     this.navigate({ ...this.currentParams, page: event.pageIndex, sort: sort?.key, order: sort?.value });

@@ -6,7 +6,7 @@
           <div class="image-cropper">
             <label [for]="'fileUpload'">
               <div class="avatar">
-                <img [src]="form.controls.icon.value" alt="image upload" *ngIf="form.controls.icon.value">
+                <img class="upload" [src]="iconUrl || form.controls.icon.value" alt="image upload" *ngIf="form.controls.icon.value">
                 <div class="upload" *ngIf="!form.controls.icon.value">+upload</div>
               </div>
             </label>
@@ -20,7 +20,7 @@
           </div>
 			  </div>
       </app-file-upload-control>
-			<div *ngIf="form.controls.icon.invalid && form.controls.icon.dirty"
+			<div *ngIf="form.controls.icon.hasError('required') && form.controls.icon.dirty"
 				class="ant-form-item-explain ant-form-item-explain-error">
 				Vui lòng tải icon lên
 			</div>
@@ -33,7 +33,7 @@
 		</nz-form-item>
 		<nz-form-item>
 			<nz-form-label [nzSpan]="6" class="text-left" nzRequired>Mô tả</nz-form-label>
-			<nz-form-control [nzErrorTip]="'Nội dung mô tả chỉ từ 1 đến 500 ký tự'">
+			<nz-form-control [nzErrorTip]="'Nội dung mô tả phải từ 1 đến 500 ký tự'">
 				<textarea nz-input formControlName="description" placeholder="Nhập mô tả kỹ năng" rows="3"
 					style="resize: none;"></textarea>
 			</nz-form-control>

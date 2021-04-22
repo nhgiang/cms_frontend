@@ -1,10 +1,14 @@
 <div class="clearfix">
   <nz-upload
-    nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+    [nzAction]="upload"
     nzListType="picture-card"
+    [nzSize]="maxSize"
     [(nzFileList)]="fileList"
-    [nzShowButton]="fileList?.length < 8"
-    [nzPreview]="handlePreview">
+    [nzShowButton]="fileList?.length < maxLength"
+    [nzPreview]="handlePreview"
+    (nzChange)="change($event)"
+    [nzRemove]="remove"
+    [nzFileType]="fileType.join(',')">
     <div>
       <i nz-icon nzType="plus"></i>
       <div style="margin-top: 8px">Upload</div>

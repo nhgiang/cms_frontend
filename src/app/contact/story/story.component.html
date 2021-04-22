@@ -1,31 +1,30 @@
-<nz-card class="w-100 card-wrap">
-  <div class="d-flex">
+<nz-card class="w-100 card-wrap p-4">
+  <form [formGroup]="form" class="d-flex" >
     <div class="col-5">
-      <nz-card class="w-100 text-footer color-1" [nzTitle]="pictureUpload">
-        Size tối đa mỗi tấm ảnh là 5MB<br/>
-        Số lượng tối đa là 15 tấm ảnh
+      <nz-card class="w-100 text-footer color-1">
+        <div class="w-100 p-4 border-bottom">
+          <h6>Hình ảnh minh họa</h6>
+          <app-pictures-wall-upload [maxLength]="15" [maxSize]="5000000" formControlName="images"></app-pictures-wall-upload>
+        </div>
+        <div class="p-4">
+          Size tối đa mỗi tấm ảnh là 5MB<br/>
+          Số lượng tối đa là 15 tấm ảnh
+        </div>
       </nz-card>
     </div>
 
     <div class="col-7">
-      <nz-card  [nzTitle]="contentStory">
-        <div class="text-footer color-85">
+      <nz-card>
+        <div class="p-4 border-bottom">
+          <h5>Câu chuyện về doanh nghiệp</h5>
+          <div class="text-content w-100 ">
+            <textarea rows="12" class="w-100 border-0" style="resize: none;" formControlName="content"></textarea>
+          </div>
+        </div>
+        <div class="text-footer color-85 p-4">
           Câu chuyện là phần tự truyện ngắn nói về quá trình phát triển của doanh nghiệp, hoặc nói về các đặc điểm nổi bật của doanh nghiệp.
         </div>
       </nz-card>
     </div>
-  </div>
+  </form>
 </nz-card>
-
-<ng-template #pictureUpload>
-  <div class="w-100">
-    <h6>Hình ảnh minh họa</h6>
-    <app-pictures-wall-upload></app-pictures-wall-upload>
-  </div>
-</ng-template>
-
-<ng-template #contentStory>
-  <h5>Câu chuyện về doanh nghiệp</h5>
-  <div class="text-content">Chứng kiến cảnh cha bị bệnh nặng, chỉ cần 2 triệu đồng chữa trị mà vay mượn cả đại gia đình cũng không đủ, cậu con trai 16 tuổi - Đặng Lê Nguyên Vũ đã thề với lòng: “Một ngày nào đó mình sẽ thay đổi cuộc sống của cả đại gia đình này!”. Những năm 1990, thầy cô và các sinh viên Trường Đại học Tây Nguyên không ai không biết đến Đặng Lê Nguyên Vũ, chàng sinh viên khoa Y với nhiều ước mơ và hoài bão vượt ra phạm vi đất nước. Nhận ra ngành Y không thể đáp ứng được ước mơ và tham vọng của mình, năm thứ ba đại học, anh quyết định nghỉ học và đón xe vào thành phố Hồ Chí Minh để tìm kiếm cơ hội. Ra đi với hành trang duy nhất là tên và địa chỉ của một người chú chưa từng biết mặt, anh tự hứa sẽ không trở về nhà cho đến khi sự nghiệp vững vàng.
-  </div>
-</ng-template>

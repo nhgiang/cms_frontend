@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CourseTypesApiService } from '@shared/api/course.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { TValidators } from '@shared/extentions/validators';
 import { map } from 'rxjs/operators';
@@ -14,25 +15,66 @@ export class CreateCourseComponent implements OnInit {
 
   assetType = AssetType;
   form: FormGroup;
+  photoUrl: string;
+  videoUpload: any;
 
   constructor(
     fb: FormBuilder,
-    private teacherApiService: TeacherApiService
+    private teacherApiService: TeacherApiService,
+    private courseTypesApiService: CourseTypesApiService
   ) {
     this.form = fb.group({
-      icon: [null, TValidators.required],
+      photo: [null, Validators.required],
+      videoIntro: [null, TValidators.required],
       name: [null, TValidators.required],
-      description: [null, TValidators.required]
+      userId: [null, TValidators.required],
+      typeId: [null, TValidators.required],
+      description: [null, TValidators.required],
+      studentPrice: [null, TValidators.required],
+      partnerPrice: [null, TValidators.required],
+      skills: [null, TValidators.required]
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.previewPhoto();
+    this.uploadVideo();
   }
 
-  teacher = (params: any) => {
+  teachers = (params: any) => {
     return this.teacherApiService.getList(params).pipe(map(res => res.items.map(x => {
       return { value: x.id, label: x.fullName };
     })));
+  }
+
+  courseTypes = (params: any) => {
+    return this.courseTypesApiService.getList(params).pipe(map(res => res.items.map(x => {
+      return { value: x.id, label: x.name };
+    })));
+  }
+
+  uploadVideo() {
+    this.form.get('videoIntro').valueChanges.subscribe(res => {
+      console.log(res);
+    })
+  }
+
+  previewPhoto() {
+    this.form.get('photo').valueChanges.subscribe(photo => {
+      if (photo) {
+        if (typeof photo !== 'string') {
+          const reader = new FileReader();
+          reader.readAsDataURL(photo);
+          reader.onload = (event) => {
+            this.photoUrl = event.target.result as string;
+          };
+        } else {
+          this.photoUrl = photo;
+        }
+        return;
+      }
+      this.photoUrl = null;
+    });
   }
 
 }

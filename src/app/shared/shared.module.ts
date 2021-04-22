@@ -58,7 +58,7 @@ import { FileUploadControlComponent } from './components/file-upload-control/fil
     SelectAdvanceComponent,
     PicturesWallUploadComponent,
     UploadVideoComponent,
-    FileUploadControlComponent
+    FileUploadControlComponent,
   ],
   providers: [
     ThemeConstantService

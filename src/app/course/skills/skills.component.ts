@@ -16,7 +16,6 @@ import { SkillsModalComponent } from './skills-modal/skills-modal.component';
 })
 export class SkillsComponent extends DataTableContainer<ICourseSkills> implements OnInit {
 
-
   constructor(
     private skillsApiService: SkillsApiService,
     private modalService: NzModalService,
