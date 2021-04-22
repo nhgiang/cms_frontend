@@ -77,7 +77,7 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
   initExtentionFile(assetType: AssetType) {
     switch (assetType) {
       case AssetType.Image:
-        this.currentTypes = ['images'];
+        this.currentTypes = ['image'];
         break;
       case AssetType.undefined:
         this.currentTypes = [];
