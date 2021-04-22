@@ -64,7 +64,7 @@
       </div>
       <div class="d-flex">
         <button class="ml-auto mr-3" nz-button nzType="primary" nzGhost type="button" [routerLink]="['/consulting/information']">Hủy bỏ</button>
-        <div (confirmed)="deleteItem()" [confirmation]="'Bạn có chắc chắn muốn xóa thông tin tư vấn này không? Các trường thông tin sẽ không thể khôi phục sau khi xóa.'">
+        <div (confirmed)="deleteItem()" [confirmation]="'Bạn có chắc chắn muốn xóa thông tin tư vấn này không?'">
           <button class="mr-3" nz-button nzType="primary" nzGhost type="button" [nzLoading]="isLoading">Xóa khách hàng</button>
         </div>
         <button nz-button nzType="primary" type="submit" [nzLoading]="isLoading">Xác nhận</button>

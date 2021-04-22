@@ -46,6 +46,7 @@ export class ConsultingInformationComponent extends DataTableContainer<Consultin
       sortable: false,
     }
   ];
+  ContactStatus = ContactStatus;
   constructor(
     private fb: FormBuilder,
     router: Router,

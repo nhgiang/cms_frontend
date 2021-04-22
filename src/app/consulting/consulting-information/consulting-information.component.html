@@ -13,10 +13,9 @@
           </div>
           <div class="m-b-10 m-r-20 d-flex align-items-center">
             <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn trạng thái" formControlName="status">
-              <nz-option nzLabel="All" nzValue="all"></nz-option>
-              <nz-option nzLabel="Approved" nzValue="approved"></nz-option>
-              <nz-option nzLabel="Pending" nzValue="pending"></nz-option>
-              <nz-option nzLabel="Rejected" nzValue="rejected"></nz-option>
+              <nz-option nzLabel="Tất cả" [nzValue]="null"></nz-option>
+              <nz-option nzLabel="Chưa liên hệ" [nzValue]="ContactStatus.NotContactedYet"></nz-option>
+              <nz-option nzLabel="Đã liên hệ" [nzValue]="ContactStatus.Contacted"></nz-option>
             </nz-select>
           </div>
         </div>
