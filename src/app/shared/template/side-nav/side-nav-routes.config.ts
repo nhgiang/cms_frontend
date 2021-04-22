@@ -41,7 +41,7 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
       },
       {
-        path: 'b',
+        path: 'type',
         title: 'Loại khóa học',
         submenu: []
       },

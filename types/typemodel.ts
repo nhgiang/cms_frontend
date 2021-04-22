@@ -85,3 +85,9 @@ export interface VideoIntro {
   video: string;
 }
 
+export interface CourseType {
+  id: string;
+  created: Date;
+  lastModified: Date;
+  name: string;
+}
