@@ -3,6 +3,7 @@ import { CourseTypeComponent } from './course-type/course-type.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { CreateCourseComponent } from './course-list/create-course/create-course.component';
 import { SkillsComponent } from './skills/skills.component';
+import { SpecializationsComponent } from './specializations/specializations.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,13 @@ const routes: Routes = [
     component: CourseTypeComponent,
     data: {
       title: 'Danh sách loại khóa học'
+    }
+  },
+  {
+    path: 'specialization',
+    component: SpecializationsComponent,
+    data: {
+      title: 'Danh sách chuyên môn'
     }
   }
 ];

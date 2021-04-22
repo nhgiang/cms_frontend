@@ -9,6 +9,9 @@ import { CourseTypeEditComponent } from './course-type/course-type-edit/course-t
 import { SkillsModalComponent } from './skills/skills-modal/skills-modal.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { CreateCourseComponent } from './course-list/create-course/create-course.component';
+import { SpecializationsComponent } from './specializations/specializations.component';
+import { SpecializationsEditComponent } from './specializations/specializations-edit/specializations-edit.component';
+import { SpecializationsCreateComponent } from './specializations/specializations-create/specializations-create.component';
 
 @NgModule({
   imports: [
@@ -24,6 +27,9 @@ import { CreateCourseComponent } from './course-list/create-course/create-course
     CourseTypeComponent,
     CourseTypeCreateComponent,
     CourseTypeEditComponent,
+    SpecializationsComponent,
+    SpecializationsEditComponent,
+    SpecializationsCreateComponent,
   ]
 })
 export class CourseModule { }
