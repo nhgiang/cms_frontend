@@ -9,7 +9,7 @@ export class AuthApiService extends BaseApi {
   endpoint = 'auth';
 
   forgotPassword(body: { email: string }) {
-    return this.httpClient.post(this.createUrl('/recover-password'), body);
+    return this.httpClient.post(this.createUrl('/cms-recover-password'), body);
   }
 
   resetPassword(body: { email: string, newPassword: string, otp: string }) {

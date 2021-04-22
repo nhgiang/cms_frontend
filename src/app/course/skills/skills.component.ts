@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SkillsApiService } from '@shared/api/skills.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
 import { ICourseSkills } from 'types/models/course-skills.model';
 import { QueryResult } from 'types/typemodel';
@@ -20,7 +21,8 @@ export class SkillsComponent extends DataTableContainer<ICourseSkills> implement
     private skillsApiService: SkillsApiService,
     private modalService: NzModalService,
     route: ActivatedRoute,
-    router: Router
+    router: Router,
+    private notificationService: NzNotificationService
   ) {
     super(route, router);
   }
@@ -35,17 +37,37 @@ export class SkillsComponent extends DataTableContainer<ICourseSkills> implement
   }
 
   addItem() {
-    const ref = this.modalService.create({
+    this.modalService.create({
       nzContent: SkillsModalComponent,
       nzTitle: 'Thêm kỹ năng đạt được',
       nzComponentParams: {
-        // type: 'create'
+        type: 'create',
+        api: (data: ICourseSkills) => this.skillsApiService.create(data)
       }
-    }).afterClose.subscribe(data => {
-      if (data) {
-        this.fetch();
-      }
+    }).afterClose.subscribe(submit => {
+      if (submit) { this.refresh(); }
     });
   }
 
+  editSkill(item: ICourseSkills) {
+    this.modalService.create({
+      nzContent: SkillsModalComponent,
+      nzTitle: 'Sửa kỹ năng đạt được',
+      nzComponentParams: {
+        type: 'edit',
+        data: item,
+        api: (data: ICourseSkills) => this.skillsApiService.update(item.id, data)
+      }
+    }).afterClose.subscribe(submit => {
+      if (submit) { this.refresh(); }
+    });
+  }
+
+  deleteSkill(id: string) {
+    this.skillsApiService.delete(id).subscribe(
+      () => {
+        this.notificationService.success('Thành công', '');
+        this.refreshTrigger.next();
+      });
+  }
 }

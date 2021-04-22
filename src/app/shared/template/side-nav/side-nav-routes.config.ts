@@ -36,12 +36,12 @@ export const ROUTES: SideNavInterface[] = [
     icon: 'book',
     submenu: [
       {
-        path: 'a',
-        title: 'Chi tiết khóa học',
+        path: 'list',
+        title: 'Danh sách khóa học',
         submenu: []
       },
       {
-        path: 'b',
+        path: 'type',
         title: 'Loại khóa học',
         submenu: []
       },
@@ -51,7 +51,7 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
       },
       {
-        path: 'c',
+        path: 'd',
         title: 'Template chứng chỉ',
         submenu: []
       },

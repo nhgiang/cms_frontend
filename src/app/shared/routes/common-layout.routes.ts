@@ -17,7 +17,6 @@ export const CommonLayoutRoutes: Routes = [
     path: 'contact',
     loadChildren: () => import('src/app/contact/contact.module').then(m => m.ContactModule),
     data: {
-      headerDisplay: true,
       title: 'Quản lí nội dung liên hệ'
     }
   },
@@ -25,7 +24,6 @@ export const CommonLayoutRoutes: Routes = [
     path: 'course',
     loadChildren: () => import('src/app/course/course.module').then(m => m.CourseModule),
     data: {
-      headerDisplay: true,
       title: 'Quản lí khóa học'
     }
   },

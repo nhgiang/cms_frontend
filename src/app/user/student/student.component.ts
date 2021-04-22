@@ -6,7 +6,7 @@ import { DataTableContainer } from '@shared/class/data-table-container';
 import { StudentStatusOptions } from '@shared/options/student-status.options';
 import { debounceTime } from 'rxjs/operators';
 import { UserStatus } from 'types/enums';
-import { User } from 'types/typemodel';
+import { DataTableColumnMetaData, User } from 'types/typemodel';
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
@@ -17,7 +17,7 @@ export class StudentComponent extends DataTableContainer<User> implements OnInit
   studentStatusOptions = StudentStatusOptions;
   UserStatus = UserStatus;
   partners: any[];
-  metaData = [
+  metaData: DataTableColumnMetaData[]  = [
     {
       key: 'name',
       name: 'Người dùng',

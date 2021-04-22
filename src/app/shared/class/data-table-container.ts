@@ -4,8 +4,6 @@ import { merge, Observable, Subject } from 'rxjs';
 import { finalize, switchMap, tap } from 'rxjs/operators';
 import { DataTableColumnMetaData, Meta, QueryResult } from 'types/typemodel';
 import { omitBy, isNil } from 'lodash-es';
-import { FormGroup } from '@angular/forms';
-import { SortType } from 'types/sort-type';
 import { trimData } from 'utils/common';
 
 @Injectable()
@@ -21,17 +19,14 @@ export abstract class DataTableContainer<T> implements OnInit {
   order: string;
   metaData: DataTableColumnMetaData[];
   protected refreshTrigger = new Subject();
-  get sortOrder() {
-    return SortType.fromName(this.order) ? SortType.fromName(this.order).name : null;
-  }
 
   get currentParams() {
     return this.route.snapshot.params;
   }
 
   constructor(
-    protected route: ActivatedRoute,
-    protected router: Router
+    private route: ActivatedRoute,
+    private router: Router
   ) {
 
   }

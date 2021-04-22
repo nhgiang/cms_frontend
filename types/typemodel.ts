@@ -107,3 +107,9 @@ export interface DataTableColumnMetaData {
   width?: string;
   sortOrder?: string;
 }
+export interface CourseType {
+  id: string;
+  created: Date;
+  lastModified: Date;
+  name: string;
+}

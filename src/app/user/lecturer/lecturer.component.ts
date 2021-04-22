@@ -8,8 +8,8 @@ import { Option } from '@shared/interfaces/option.type';
 import { IPaginate } from '@shared/interfaces/paginate.type';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, distinctUntilKeyChanged, filter, map } from 'rxjs/operators';
-import { User } from 'types/typemodel';
+import { debounceTime, distinctUntilKeyChanged, map } from 'rxjs/operators';
+import { DataTableColumnMetaData, User } from 'types/typemodel';
 
 @Component({
   selector: 'app-lecturer',
@@ -18,7 +18,7 @@ import { User } from 'types/typemodel';
 })
 export class LecturerComponent extends DataTableContainer<User> implements OnInit {
   search: FormGroup;
-  metaData = [
+  metaData: DataTableColumnMetaData[]  = [
     {
       key: 'name',
       name: 'Tên giảng viên',

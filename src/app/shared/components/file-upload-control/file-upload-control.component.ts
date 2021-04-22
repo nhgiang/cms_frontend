@@ -26,7 +26,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class FileUploadControlComponent extends AbstractControlDirective implements OnInit {
   @Input() fileType: AssetType;
   @Input() maxSize: number;
-  @Input() customLabel: boolean = false;
+  @Input() customLabel = false;
   AssetType = AssetType;
   url: any;
   file: File;
@@ -62,8 +62,6 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
     reader.onload = (event) => {
       this.url = event.target.result;
       if (isFunction(this.onChangeFn)) {
-        console.log(123);
-
         this.onChangeFn(this.file);
       }
     };
