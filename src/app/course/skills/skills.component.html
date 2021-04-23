@@ -1,6 +1,6 @@
 <nz-card>
   <div class="row m-b-30 d-flex flex-row-reverse">
-    <button nz-button nzType="primary" (click)="addItem()">Thêm mới</button>
+    <button nz-button nzType="primary" (click)="createSkill()">Thêm mới</button>
   </div>
   <nz-table [nzShowTotal]="totalTemplate" [nzNoResult]="empty" #productsListTable [nzData]="items"
     [nzTotal]="meta?.totalItems" [nzFrontPagination]="false" [nzPageSize]="quantity" [nzPageIndex]="page"

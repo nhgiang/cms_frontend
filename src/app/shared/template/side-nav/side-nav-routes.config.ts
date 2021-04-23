@@ -29,14 +29,14 @@ export const ROUTES: SideNavInterface[] = [
     ]
   },
   {
-    path: 'course',
+    path: 'course-management',
     title: 'Quản lý khóa học',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'book',
     submenu: [
       {
-        path: 'list',
+        path: 'course',
         title: 'Danh sách khóa học',
         submenu: []
       },

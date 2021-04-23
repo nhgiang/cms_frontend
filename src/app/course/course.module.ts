@@ -12,6 +12,7 @@ import { CreateCourseComponent } from './course-list/create-course/create-course
 import { SpecializationsComponent } from './specializations/specializations.component';
 import { SpecializationsEditComponent } from './specializations/specializations-edit/specializations-edit.component';
 import { SpecializationsCreateComponent } from './specializations/specializations-create/specializations-create.component';
+import { UploadVideoIntroComponent } from './course-list/create-course/upload-video-intro/upload-video-intro.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { SpecializationsCreateComponent } from './specializations/specialization
     SpecializationsComponent,
     SpecializationsEditComponent,
     SpecializationsCreateComponent,
+    UploadVideoIntroComponent
   ]
 })
 export class CourseModule { }

@@ -56,6 +56,8 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
       this.messageService.error(`Vui lòng chọn đúng định dạng file`);
       return;
     }
+    console.log(file);
+
     this.file = file;
     const reader = new FileReader();
     reader.readAsDataURL(this.file);

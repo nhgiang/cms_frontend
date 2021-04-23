@@ -21,7 +21,7 @@ export const CommonLayoutRoutes: Routes = [
     }
   },
   {
-    path: 'course',
+    path: 'course-management',
     loadChildren: () => import('src/app/course/course.module').then(m => m.CourseModule),
     data: {
       title: 'Quản lí khóa học'

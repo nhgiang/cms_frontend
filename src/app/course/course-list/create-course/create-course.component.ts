@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { TValidators } from '@shared/extentions/validators';
+import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 
@@ -17,6 +18,7 @@ export class CreateCourseComponent implements OnInit {
   form: FormGroup;
   photoUrl: string;
   videoUpload: any;
+  isUploadLink = true;
 
   constructor(
     fb: FormBuilder,
@@ -25,7 +27,7 @@ export class CreateCourseComponent implements OnInit {
   ) {
     this.form = fb.group({
       photo: [null, Validators.required],
-      videoIntro: [null, TValidators.required],
+      videoIntro: [null],
       name: [null, TValidators.required],
       userId: [null, TValidators.required],
       typeId: [null, TValidators.required],
@@ -39,24 +41,18 @@ export class CreateCourseComponent implements OnInit {
   ngOnInit(): void {
     this.previewPhoto();
     this.uploadVideo();
+    this.form.get('videoIntro').valueChanges.subscribe(res => console.log(this.form))
   }
 
   teachers = (params: any) => {
-    return this.teacherApiService.getList(params).pipe(map(res => res.items.map(x => {
-      return { value: x.id, label: x.fullName };
-    })));
+    return this.teacherApiService.getList(params).pipe(map(res => res.items.map(x => ({ value: x.id, label: x.fullName }))));
   }
 
   courseTypes = (params: any) => {
-    return this.courseTypesApiService.getList(params).pipe(map(res => res.items.map(x => {
-      return { value: x.id, label: x.name };
-    })));
+    return this.courseTypesApiService.getList(params).pipe(map(res => res.items.map(x => ({ value: x.id, label: x.name }))));
   }
 
   uploadVideo() {
-    this.form.get('videoIntro').valueChanges.subscribe(res => {
-      console.log(res);
-    })
   }
 
   previewPhoto() {

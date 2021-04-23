@@ -35,7 +35,7 @@ export class SkillsComponent extends DataTableContainer<ICourseSkills> implement
     return this.skillsApiService.findAll(params);
   }
 
-  addItem() {
+  createSkill() {
     this.modalService.create({
       nzContent: SkillsModalComponent,
       nzTitle: 'Thêm kỹ năng đạt được',

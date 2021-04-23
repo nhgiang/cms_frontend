@@ -7,11 +7,26 @@ import { SpecializationsComponent } from './specializations/specializations.comp
 
 const routes: Routes = [
   {
-    path: 'list',
-    component: CourseListComponent,
-    data: {
-      title: 'Danh sách khóa học',
-    },
+    path: 'course',
+    children: [
+      {
+        path: '',
+        component: CourseListComponent,
+        data: {
+          title: 'Danh sách khóa học',
+        },
+      },
+      {
+        path: 'edit'
+      },
+      {
+        path: 'create',
+        component: CreateCourseComponent,
+        data: {
+          title: 'Tạo mới khóa học',
+        }
+      },
+    ]
   },
   {
     path: 'skills',
@@ -19,13 +34,6 @@ const routes: Routes = [
     data: {
       title: 'Danh sách kĩ năng'
     },
-  },
-  {
-    path: 'create',
-    component: CreateCourseComponent,
-    data: {
-      title: 'Tạo mới khóa học',
-    }
   },
   {
     path: 'type',

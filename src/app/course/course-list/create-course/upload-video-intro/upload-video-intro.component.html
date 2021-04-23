@@ -1,0 +1,19 @@
+<div>
+  <div *ngIf="isUploadLink" >
+    <nz-form-control nzErrorTip="Link youtube chưa chính xác" >
+      <input nz-input class="mb-4" [(ngModel)]="linkYoutubeInput" (input)="changeLink($event.target.value)" placeholder="Nhập link video giới thiệu">
+    </nz-form-control>
+    <iframe *ngIf="displayPreviewYT" width="560" height="315" [src]="linkYoutube()" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div *ngIf="!isUploadLink">
+    <label [for]="'videoIntro'"><a nz-button nzType="primary" class="w-25 mb-4">Upload</a></label>
+    <input id="videoIntro" class="d-none" (change)="uploadVideo($event.target.files[0])" [(ngModel)]="fileVideo" type="file">
+    <div *ngIf="displayPreview" class="video-player" style="height: 315px; width: 560px;">
+      <i nz-icon nzType="close-circle" nzTheme="fill" (click)="removeVideo()"></i>
+      <video width="560" height="315" controls #video autoplay muted>
+        <source [src]="url" type="video/mp4">
+        <track kind="subtitles">
+      </video>
+    </div>
+  </div>
+</div>

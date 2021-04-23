@@ -19,17 +19,32 @@
         </div>
       </div>
     </app-file-upload-control>
+
     <nz-form-item class="row">
       <nz-form-label class="text-left input-space" nzRequired>Video giới thiệu</nz-form-label>
+      <nz-radio-group nzAutoFocus [(ngModel)]="isUploadLink" [ngModelOptions]="{standalone: true}" class="d-flex align-items-center row">
+        <nz-radio-button nz-radio [nzValue]="true">
+          Nhập link youtube
+        </nz-radio-button>
+        <nz-radio-button nz-radio [nzValue]="false">
+          Tải lên file video
+        </nz-radio-button>
+      </nz-radio-group>
+    </nz-form-item>
+
+    <nz-form-item class="row">
+      <label class="text-left input-space"></label>
       <nz-form-control nzErrorTip="Nhập link giới thiệu" >
         <div class="d-flex justify-content-between">
-          <input class="col-10" nz-input formControlName="videoIntro" placeholder="Nhập link video giới thiệu">
-          <app-file-upload-control formControlName="videoIntro" class="col-2 upload-btn text-right" [customLabel]="true" [maxSize]="1000000" [fileType]="assetType.Image">
+          <!-- <input *ngIf="isUploadLink" nz-input formControlName="videoIntro" placeholder="Nhập link video giới thiệu">
+          <app-file-upload-control *ngIf="!isUploadLink" formControlName="videoIntro" class="upload-btn text-right" [customLabel]="true" [maxSize]="1000000" [fileType]="assetType.Image">
               <label class="w-100" [for]="'fileUpload'"><a nz-button nzType="primary" class="w-100">Upload</a></label>
-          </app-file-upload-control>
+          </app-file-upload-control> -->
+          <app-upload-video-intro class="w-100" formControlName="videoIntro" [isUploadLink]="isUploadLink"></app-upload-video-intro>
         </div>
       </nz-form-control>
     </nz-form-item>
+
     <div class="d-flex justify-content-between row">
       <nz-form-item class="col-6">
         <nz-form-label class="text-left input-space" nzRequired>Tên khóa học</nz-form-label>
@@ -73,9 +88,9 @@
   </nz-card>
   <div class="row">
     <div class="col-6">
-      <!-- <nz-card>
+      <nz-card>
         aaa
-      </nz-card> -->
+      </nz-card>
     </div>
     <div class="col-6">
       <nz-card>bbbb</nz-card>

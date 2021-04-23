@@ -6,7 +6,7 @@ import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { finalize, switchMap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 import { ICourseSkills } from 'types/models/course-skills.model';
 import { FileModel } from 'types/typemodel';
@@ -25,6 +25,7 @@ export class SkillsModalComponent implements OnInit {
   image: any;
   api: (data: ICourseSkills) => Observable<ICourseSkills>;
   iconUrl: string;
+  isLoading: boolean;
 
   constructor(
     fb: FormBuilder,
@@ -73,11 +74,13 @@ export class SkillsModalComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
+    this.isLoading = true;
     this.storageApiService.uploadFile(this.form.get('icon').value).pipe(
       switchMap(data => {
         this.form.controls.icon.setValue(data);
         return this.api(this.form.value);
-      })
+      }),
+      finalize(() => this.isLoading = false)
     ).subscribe(
       () => {
         this.notificationService.success('Thành công', '');
