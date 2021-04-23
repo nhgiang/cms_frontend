@@ -32,8 +32,8 @@
 		<tbody>
 			<tr *ngFor="let item of settingTeachers?.teachers; let index = index">
 				<td>#{{(index + 1) + ((pageIndex - 1) * 10)}}</td>
-				<td>{{item.name}}</td>
-				<td>{{item.avatar}}</td>
+				<td>{{item?.name}}</td>
+				<td><nz-avatar nzShape="square" [nzSize]="42" nzIcon="picture" [nzSrc]="item?.avatar"></nz-avatar></td>
 				<td>{{item.position}}</td>
 				<td>
 					<a (click)="editItem(index)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
