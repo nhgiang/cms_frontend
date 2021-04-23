@@ -6,7 +6,7 @@
           <nz-form-item class="mr-3">
             <nz-form-control>
               <nz-input-group [nzPrefix]="prefixTemplate">
-                <input type="text" nz-input formControlName="courseName" placeholder="Tìm kiếm theo tên khóa học">
+                <input type="text" nz-input formControlName="q" placeholder="Tìm kiếm theo tên khóa học">
               </nz-input-group>
               <ng-template #prefixTemplate>
                 <i nz-icon nzType="search" class="opacity-05"></i>
@@ -15,14 +15,14 @@
           </nz-form-item>
           <nz-form-item class="mr-3">
             <nz-form-control>
-              <select-advance placeholder="Chọn loại khóa học" [getOptionsFn]="type$" formControlName="courseType"
+              <select-advance placeholder="Chọn loại khóa học" [getOptionsFn]="type$" formControlName="typeId"
                 style="min-width: 220px;">
               </select-advance>
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
             <nz-form-control>
-              <select-advance placeholder="Chọn giảng viên" [getOptionsFn]="teacher$" formControlName="teacher"
+              <select-advance placeholder="Chọn giảng viên" [getOptionsFn]="teacher$" formControlName="userId"
                 style="min-width: 220px;">
               </select-advance>
             </nz-form-control>
@@ -34,7 +34,7 @@
       </div>
     </div>
   </form>
-  <nz-table>
+  <nz-table [nzData]="items" (nzQueryParams)="onParamsChanged($event)">
     <thead>
       <tr>
         <th scope="col">ID</th>

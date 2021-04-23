@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
 import { Course } from 'types/models/course';
 import { DataTableColumnMetaData, QueryResult } from 'types/typemodel';
 import { Option } from '@shared/interfaces/option.type';
@@ -40,12 +40,12 @@ export class CourseListComponent extends DataTableContainer<Course> implements O
       sortable: true,
     },
     {
-      key: 'teacherPrice',
+      key: 'partnerId',
       name: 'Giá đối tác',
       sortable: true,
     },
     {
-      key: 'numberOfLearner',
+      key: 'totalStudent',
       name: 'Tổng học viên',
       sortable: true,
     },
@@ -68,15 +68,22 @@ export class CourseListComponent extends DataTableContainer<Course> implements O
   }
 
   ngOnInit() {
+    super.ngOnInit();
+    this.buildForm();
+    this.search.valueChanges.pipe(debounceTime(500)).subscribe(value => {
+      this.onSearchParamsChanged(value);
+    });
   }
 
   protected fetch(): Observable<QueryResult<Course>> {
     const params = {
       limit: this.quantity,
       page: this.page,
+      order: this.order,
+      sort: this.sort
     };
-    const { specializationId, q, status } = this.params;
-    return this.courseApi.getList({ ...params, specializationId, q, status });
+    const { q, userId, typeId } = this.params;
+    return this.courseApi.getList({ ...params, userId, q, typeId });
   }
 
   teacher$ = (params): Observable<Option[]> => {
@@ -93,9 +100,9 @@ export class CourseListComponent extends DataTableContainer<Course> implements O
 
   buildForm() {
     this.search = this.fb.group({
-      courseName: [null],
-      courseType: [null],
-      teacher: [null],
+      q: [null],
+      typeId: [null],
+      userId: [null],
     });
   }
 }
