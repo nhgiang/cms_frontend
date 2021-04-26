@@ -4,6 +4,8 @@ import { FaqComponent } from './faq/faq.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { FooterComponent } from './footer/footer.component';
 import { PremiumsComponent } from './premiums/premiums.component';
+import { TeacherComponent } from './teacher/teacher.component';
+import { VideoIntroComponent } from './video-intro/video-intro.component';
 
 const routes: Routes = [
   {
@@ -32,6 +34,20 @@ const routes: Routes = [
     component: FeedbackComponent,
     data: {
       title: 'Đánh giá học viên'
+    }
+  },
+  {
+    path: 'teacher',
+    component: TeacherComponent,
+    data: {
+      title: 'Giảng viên'
+    }
+  },
+  {
+    path: 'video-intro',
+    component: VideoIntroComponent,
+    data: {
+      title: 'Video giới thiệu'
     }
   }
 ];

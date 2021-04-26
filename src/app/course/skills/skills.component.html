@@ -1,0 +1,48 @@
+<nz-card>
+  <div class="row m-b-30 d-flex flex-row-reverse">
+    <button nz-button nzType="primary" (click)="createSkill()">Thêm mới</button>
+  </div>
+  <nz-table [nzShowTotal]="totalTemplate" [nzNoResult]="empty" #productsListTable [nzData]="items"
+    [nzTotal]="meta?.totalItems" [nzFrontPagination]="false" [nzPageSize]="quantity" [nzPageIndex]="page"
+    [nzLoading]="isloading" nzTableLayout="fixed" (nzQueryParams)="onParamsChanged($event)">
+    <thead>
+      <tr>
+        <th scope="col" [nzWidth]="'70px'">ID</th>
+        <th scope="col">Tên kĩ năng</th>
+        <th scope="col">Icon</th>
+        <th scope="col">Mô tả</th>
+        <th scope="col" [nzWidth]="'120px'"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items; let i=index">
+        <td>#{{ item.index }}</td>
+        <td>{{ item.name }}</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item.icon"></nz-avatar>
+          </div>
+        </td>
+        <td>{{ item.description }}</td>
+        <td class="text-md-right">
+          <div class="d-flex">
+            <a (click)="editSkill(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
+              nzTooltipTitle="Cập nhật">
+              <i nz-icon nzType="edit" theme="outline"></i>
+            </a>
+            <div (confirmed)="deleteSkill(item?.id)"
+              [confirmation]="'Bạn có chắc muốn xóa thông tin kỹ năng này hay không?'">
+              <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
+                <i nz-icon nzType="close" nzTheme="outline"></i>
+              </a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
+<ng-template #totalTemplate let-total> Total: {{ total }} </ng-template>

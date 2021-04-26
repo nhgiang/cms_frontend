@@ -1,0 +1,35 @@
+.image-cropper {
+  width: 82px;
+  height: 82px;
+  border-radius: 4px;
+  background: #edf2f9;
+  cursor: pointer;
+  .avatar {
+    height: 100%;
+    line-height: 82px;
+    .upload {
+      color: #72849a;
+      cursor: pointer;
+      text-align: center;
+    }
+    img {
+      width: 100%;
+    }
+  }
+}
+.label-avatar {
+  font-weight: 500;
+}
+
+.input-space {
+  width: 150px;
+}
+.upload-btn {
+  padding-right: 0 !important;
+}
+.card-body {
+  border: 1px solid #edf2f9;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  background-color: #ffffff;
+}

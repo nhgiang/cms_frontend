@@ -1,0 +1,27 @@
+.image-cropper {
+  width: 82px;
+  border-radius: 4px;
+  background: #edf2f9;
+  cursor: pointer;
+  .avatar {
+    padding-bottom: calc(100% * 300 / 262);
+    position: relative;
+    .upload {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    img {
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 100%;
+    }
+  }
+}
+.label-avatar {
+  font-weight: 500;
+}

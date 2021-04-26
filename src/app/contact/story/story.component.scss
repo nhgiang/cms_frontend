@@ -1,0 +1,45 @@
+.card-wrap {
+  height: 80vh;
+  position: relative;
+}
+
+:host {
+  ::ng-deep .ant-card-head-title {
+    white-space: unset !important;
+  }
+
+  ::ng-deep .ant-card-body {
+    padding: 0 !important;
+  }
+
+  .text-content {
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.65);
+  }
+
+  .text-footer {
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+  }
+
+  .color-85 {
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  .color-1 {
+    color: rgba(0, 0, 0, 1);
+  }
+
+  .button {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+  }
+
+  .btn-cancel {
+    color: rgb(131, 17, 17);
+  }
+}
