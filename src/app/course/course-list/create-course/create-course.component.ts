@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CourseTypesApiService } from '@shared/api/course-types.api.service';
+import { CourseApiService } from '@shared/api/course.api.service';
+import { StorageApiService } from '@shared/api/storage.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
-import { interval } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { iif, interval, of } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 
 @Component({
@@ -23,7 +28,11 @@ export class CreateCourseComponent implements OnInit {
   constructor(
     fb: FormBuilder,
     private teacherApiService: TeacherApiService,
-    private courseTypesApiService: CourseTypesApiService
+    private courseTypesApiService: CourseTypesApiService,
+    private courseApiService: CourseApiService,
+    private storageApiService: StorageApiService,
+    private notification: NzNotificationService,
+    private router: Router
   ) {
     this.form = fb.group({
       photo: [null, Validators.required],
@@ -32,9 +41,9 @@ export class CreateCourseComponent implements OnInit {
       userId: [null, TValidators.required],
       typeId: [null, TValidators.required],
       description: [null, TValidators.required],
-      studentPrice: [null, TValidators.required],
-      partnerPrice: [null, TValidators.required],
-      skills: [null, TValidators.required]
+      studentPrice: [null, Validators.required],
+      partnerPrice: [null, Validators.required],
+      skills: [[]]
     });
   }
 
@@ -52,6 +61,27 @@ export class CreateCourseComponent implements OnInit {
   }
 
   uploadVideo() {
+  }
+
+  submit() {
+    Ultilities.validateForm(this.form);
+    this.storageApiService.uploadFile(this.form.get('photo').value).pipe(
+      switchMap(res => {
+        this.form.controls.photo.setValue(res);
+        if (this.form.get('videoIntro').value instanceof File) {
+          return this.storageApiService.uploadVideo(this.form.get('videoIntro').value).pipe(tap((data) => {
+            this.form.get('videoIntro').setValue(data);
+          }));
+        }
+        return of();
+      }),
+      switchMap(() => {
+        return this.courseApiService.create(this.form.value);
+      })
+    ).subscribe(() => {
+      this.notification.success('Thành công', '');
+      this.router.navigate(['/course-management/course']);
+    });
   }
 
   previewPhoto() {
@@ -73,3 +103,4 @@ export class CreateCourseComponent implements OnInit {
   }
 
 }
+

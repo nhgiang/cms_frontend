@@ -18,6 +18,8 @@ import { SelectAdvanceComponent } from './controls/select-advance/select-advance
 import { PicturesWallUploadComponent } from './controls/pictures-wall-upload/pictures-wall-upload.component';
 import { UploadVideoComponent } from './components/upload-video/upload-video.component';
 import { FileUploadControlComponent } from './components/file-upload-control/file-upload-control.component';
+import { SafeHtmlPipe } from './pipes/safeHtml.pipe';
+import { MultipleSelectionComponent } from './controls/multiple-selection/multiple-selection.component';
 
 @NgModule({
   exports: [
@@ -38,7 +40,9 @@ import { FileUploadControlComponent } from './components/file-upload-control/fil
     SelectAdvanceComponent,
     PicturesWallUploadComponent,
     UploadVideoComponent,
-    FileUploadControlComponent
+    FileUploadControlComponent,
+    SafeHtmlPipe,
+    MultipleSelectionComponent
   ],
   imports: [
     RouterModule,
@@ -59,6 +63,8 @@ import { FileUploadControlComponent } from './components/file-upload-control/fil
     PicturesWallUploadComponent,
     UploadVideoComponent,
     FileUploadControlComponent,
+    SafeHtmlPipe,
+    MultipleSelectionComponent
   ],
   providers: [
     ThemeConstantService
