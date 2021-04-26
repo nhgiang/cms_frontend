@@ -1,12 +1,15 @@
 .card-wrap {
-  height: 80vh;
-  position: relative;
+  min-height: 80vh;
+}
+
+.form-wrap {
+  min-height: calc(80vh - 3rem - 42px);
 }
 
 :host {
-  ::ng-deep .ant-card-head-title {
-    white-space: unset !important;
-  }
+  // ::ng-deep .ant-card-head-title {
+  //   white-space: unset !important;
+  // }
 
   ::ng-deep .ant-card-body {
     padding: 0 !important;
