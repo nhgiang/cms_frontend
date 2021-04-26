@@ -142,7 +142,7 @@ export const ROUTES: SideNavInterface[] = [
       },
       {
         path: 'story',
-        title: 'Câu truyện',
+        title: 'Câu chuyện',
         submenu: []
       }
     ]
