@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SpecializationResolver } from '@shared/services/resolve/specialization.resolver';
 import { TeacherDetailResolver } from '@shared/services/resolve/teacher-detail.resolver';
 import { LecturerCreateComponent } from './lecturer/lecturer-create/lecturer-create.component';
 import { LecturerUpdateComponent } from './lecturer/lecturer-update/lecturer-update.component';

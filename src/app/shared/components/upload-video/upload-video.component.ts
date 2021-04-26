@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
-import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AfterViewInit, Component, ElementRef, forwardRef, OnInit, ViewChild } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
 import { isFunction } from 'lodash-es';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { AssetType, FileUploadErrors, UploaderStatus } from 'types/enums';
+import { AssetType, UploaderStatus } from 'types/enums';
 
 @Component({
   selector: 'app-upload-video',

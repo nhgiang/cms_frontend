@@ -44,7 +44,7 @@ export class LecturerComponent extends DataTableContainer<User> implements OnIni
       sortable: false,
     }
   ];
-  
+
   constructor(
     private teacherApi: TeacherApiService,
     private notification: NzNotificationService,

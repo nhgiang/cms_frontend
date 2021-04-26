@@ -5,7 +5,7 @@ import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { finalize, map, switchMap } from 'rxjs/operators';
+import { finalize, switchMap } from 'rxjs/operators';
 import { FileModel, SettingTeacherItem } from 'types/typemodel';
 import { ContentStateService } from '../../content-state.service';
 

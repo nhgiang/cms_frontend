@@ -10,6 +10,6 @@ export class CourseApiService extends BaseApi {
   endpoint = 'courses';
 
   getList(params) {
-    return this.httpClient.get<QueryResult<Course>>(this.createUrl(''), { params: this.createParams(params) })
+    return this.httpClient.get<QueryResult<Course>>(this.createUrl(''), { params: this.createParams(params) });
   }
 }

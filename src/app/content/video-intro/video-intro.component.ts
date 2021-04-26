@@ -17,7 +17,7 @@ import { VideoIntro } from 'types/typemodel';
 export class VideoIntroComponent implements OnInit {
   form: FormGroup;
   AssetType = AssetType;
-  isloading: boolean
+  isloading: boolean;
   constructor(
     private fb: FormBuilder,
     private storageApi: StorageApiService,
@@ -54,7 +54,7 @@ export class VideoIntroComponent implements OnInit {
       };
       return this.settingApi.videoIntro.post(data);
     })).subscribe(res => {
-      this.notification.success('Thành công', 'Cập nhật thông tin video giới thiệu thành công')
+      this.notification.success('Thành công', 'Cập nhật thông tin video giới thiệu thành công');
     });
   }
 }

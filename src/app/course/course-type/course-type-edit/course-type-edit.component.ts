@@ -27,7 +27,7 @@ export class CourseTypeEditComponent implements OnInit {
     this.buildForm();
     this.courseTypesApi.getById(this.id).subscribe(res => {
       this.form.patchValue(res);
-    })
+    });
   }
 
   buildForm() {

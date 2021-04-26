@@ -56,7 +56,7 @@ export class SkillsModalComponent implements OnInit {
         return;
       }
       this.iconUrl = null;
-    })
+    });
   }
 
   onCropped(image: FileModel) {
