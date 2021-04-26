@@ -5,7 +5,7 @@ import { DataTableContainer } from '@shared/class/data-table-container';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
-import { CourseType, DataTableColumnMetaData, QueryResult } from 'types/typemodel';
+import { CourseType, QueryResult } from 'types/typemodel';
 import { CourseTypeCreateComponent } from './course-type-create/course-type-create.component';
 import { CourseTypeEditComponent } from './course-type-edit/course-type-edit.component';
 

@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { TValidators } from '@shared/extentions/validators';
-import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 

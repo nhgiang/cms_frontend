@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { Course } from 'types/models/course';
 import { DataTableColumnMetaData, QueryResult } from 'types/typemodel';

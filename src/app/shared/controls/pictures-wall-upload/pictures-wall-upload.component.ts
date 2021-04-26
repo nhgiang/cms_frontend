@@ -1,11 +1,8 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { StorageApiService } from '@shared/api/storage.api.service';
-import { DestroyService } from '@shared/services/destroy.service';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
-import { of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { AbstractControlDirective } from '../abstract-control.directive';
 
 function getBase64(file: File): Promise<string | ArrayBuffer | null> {
@@ -40,7 +37,6 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
   fileList: NzUploadFile | string[];
 
   constructor(
-    private notification: NzNotificationService,
     private storageApiService: StorageApiService
   ) {
     super();
@@ -55,7 +51,7 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
   handlePreview = async (file: NzUploadFile) => {
     if (!file.url && !file.preview) {
       // tslint:disable-next-line: no-non-null-assertion
-      file.preview = await getBase64(file.originFileObj!);
+      file.preview = await getBase64(file.originFileObj);
     }
     this.previewImage = file.url || file.preview;
     this.previewVisible = true;

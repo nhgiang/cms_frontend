@@ -28,7 +28,7 @@ export class SpecializationsEditComponent implements OnInit {
     this.buildForm();
     this.specialiationApi.getById(this.id).subscribe(res => {
       this.form.patchValue(res);
-    })
+    });
   }
 
   buildForm() {

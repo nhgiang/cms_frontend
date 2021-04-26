@@ -5,7 +5,7 @@ import { TValidators } from '@shared/extentions/validators';
 import { DestroyService } from '@shared/services/destroy.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { Subject, Subscriber } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SettingTeacher } from 'types/typemodel';
 import { ContentStateService } from '../content-state.service';
@@ -46,7 +46,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
 
   deleteTeacher(index) {
     this.contentState.deleteTeacher(index).subscribe(() => {
-      this.notification.success('Thành công', 'Xóa giảng viên thành công!')
+      this.notification.success('Thành công', 'Xóa giảng viên thành công!');
     });
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SettingApiService } from '@shared/api/setting.api.service';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { SettingTeacher, SettingTeacherItem } from 'types/typemodel';
 

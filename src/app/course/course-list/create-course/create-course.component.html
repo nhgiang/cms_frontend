@@ -14,7 +14,7 @@
         </div>
         <div class="m-l-20 m-r-20">
           <nz-form-label nzRequired class="label-avatar">Chọn ảnh đại diện cho khoá học</nz-form-label>
-          <p class="opacity-07 font-size-10 m-b-0">
+          <p class="opacity-07 font-size-12 m-b-0">
             Kích thước đề xuất: 120x120 <br>
             Max file size: 5MB
           </p>
@@ -39,10 +39,6 @@
       <label class="text-left input-space"></label>
       <nz-form-control nzErrorTip="Nhập link giới thiệu">
         <div class="d-flex justify-content-between">
-          <!-- <input *ngIf="isUploadLink" nz-input formControlName="videoIntro" placeholder="Nhập link video giới thiệu">
-          <app-file-upload-control *ngIf="!isUploadLink" formControlName="videoIntro" class="upload-btn text-right" [customLabel]="true" [maxSize]="1000000" [fileType]="assetType.Image">
-              <label class="w-100" [for]="'fileUpload'"><a nz-button nzType="primary" class="w-100">Upload</a></label>
-          </app-file-upload-control> -->
           <app-upload-video-intro class="w-100" formControlName="videoIntro" [isUploadLink]="isUploadLink">
           </app-upload-video-intro>
         </div>
@@ -104,7 +100,10 @@
         bbb
       </div>
       <div class="card-body">
-        bbb
+        <div class="title d-flex justify-content-between">
+          <h5 class="mb-0">Đánh giá học viên</h5>
+          <span><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+        </div>
       </div>
       <div class="card-body">
         bbb
