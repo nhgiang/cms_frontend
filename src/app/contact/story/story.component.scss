@@ -11,9 +11,9 @@
   //   white-space: unset !important;
   // }
 
-  ::ng-deep .ant-card-body {
-    padding: 0 !important;
-  }
+  // ::ng-deep .ant-card-body {
+  //   padding: 0 !important;
+  // }
 
   .text-content {
     font-size: 14px;
@@ -44,5 +44,17 @@
 
   .btn-cancel {
     color: rgb(131, 17, 17);
+  }
+}
+.underline {
+  position: relative;
+  &::after {
+    content: "";
+    width: calc(100% + 3rem);
+    height: 1px;
+    background-color: #f0f0f0;
+    position: absolute;
+    left: -1.5rem;
+    bottom: 0;
   }
 }
