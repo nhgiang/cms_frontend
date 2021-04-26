@@ -41,7 +41,6 @@ export class CreateCourseComponent implements OnInit {
   ngOnInit(): void {
     this.previewPhoto();
     this.uploadVideo();
-    this.form.get('videoIntro').valueChanges.subscribe(res => console.log(this.form))
   }
 
   teachers = (params: any) => {

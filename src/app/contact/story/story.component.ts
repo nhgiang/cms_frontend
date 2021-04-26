@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SettingApiService } from '@shared/api/setting.api.service';
 import { DestroyService } from '@shared/services/destroy.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-story',
   templateUrl: './story.component.html',
   styleUrls: ['./story.component.scss'],
-  providers: [DestroyService]
-
 })
 export class StoryComponent implements OnInit {
 
@@ -18,7 +17,7 @@ export class StoryComponent implements OnInit {
   constructor(
     fb: FormBuilder,
     private settingApi: SettingApiService,
-    private destroy: DestroyService
+    private notification: NzNotificationService
   ) {
     this.form = fb.group({
       images: [null],
@@ -28,12 +27,9 @@ export class StoryComponent implements OnInit {
 
   ngOnInit() {
     this.settingApi.stories.get().subscribe(res => this.form.patchValue(res));
-    this.form.valueChanges.pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      switchMap(() => this.settingApi.stories.post(this.form.value)),
-      takeUntil(this.destroy)
-    ).subscribe();
   }
 
+  submit() {
+    this.settingApi.stories.post(this.form.value).subscribe(res => this.notification.success('Thành Công', ''));
+  }
 }
