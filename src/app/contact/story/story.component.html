@@ -1,13 +1,13 @@
-<nz-card class="w-100 card-wrap p-4">
+<nz-card class="w-100 card-wrap">
   <form [formGroup]="form"  (ngSubmit)="submit()">
     <div class="row form-wrap">
       <div class="col-5">
         <nz-card class="w-100 text-footer color-1">
-          <div class="w-100 p-4 border-bottom">
+          <div class="w-100 underline mb-4 pb-4">
             <h6>Hình ảnh minh họa</h6>
             <app-pictures-wall-upload [maxLength]="15" [maxSize]="5000000" formControlName="images"></app-pictures-wall-upload>
           </div>
-          <div class="p-4">
+          <div >
             Size tối đa mỗi tấm ảnh là 5MB<br/>
             Số lượng tối đa là 15 tấm ảnh
           </div>
@@ -16,13 +16,13 @@
 
       <div class="col-7">
         <nz-card>
-          <div class="p-4 border-bottom">
+          <div class="underline mb-4 pb-4">
             <h5>Câu chuyện về doanh nghiệp</h5>
-            <div class="text-content w-100 ">
-              <textarea rows="12" class="w-100 border-0" style="resize: none;" formControlName="content"></textarea>
+            <div class="text-content w-100">
+              <textarea nz-input [nzAutosize]="{ minRows: 3, maxRows: 10 }" class="w-100 border-0" style="resize: none;" formControlName="content"></textarea>
             </div>
           </div>
-          <div class="text-footer color-85 p-4">
+          <div class="text-footer color-85">
             Câu chuyện là phần tự truyện ngắn nói về quá trình phát triển của doanh nghiệp, hoặc nói về các đặc điểm nổi bật của doanh nghiệp.
           </div>
         </nz-card>

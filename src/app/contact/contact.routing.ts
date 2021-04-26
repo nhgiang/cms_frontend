@@ -8,7 +8,7 @@ const routes: Routes = [
     path: 'story',
     component: StoryComponent,
     data: {
-      title: 'Câu truyện'
+      title: 'Câu chuyện'
     }
   },
   {
