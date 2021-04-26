@@ -132,7 +132,7 @@ export const ROUTES: SideNavInterface[] = [
     submenu: [
       {
         path: 'video',
-        title: 'Video Intro',
+        title: 'Video giới thiệu',
         submenu: []
       },
       {

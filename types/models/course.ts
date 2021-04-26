@@ -12,3 +12,8 @@ export interface Course extends Entity {
 export interface Specialization extends Entity {
   name: string;
 }
+
+export interface Step extends Entity {
+  name: string;
+  order: number;
+}
