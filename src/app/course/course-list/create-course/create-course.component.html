@@ -1,12 +1,14 @@
 <form [formGroup]="form">
   <nz-card nzTitle="Thông tin cơ bản">
-    <app-file-upload-control [maxSize]="5000000" [fileType]="assetType.Image" [customLabel]="true" formControlName="photo">
+    <app-file-upload-control [maxSize]="5000000" [fileType]="assetType.Image" [customLabel]="true"
+      formControlName="photo">
       <div class="media mb-3">
         <div class="image-cropper">
           <label [for]="'fileUpload'">
             <div class="avatar">
-              <img class="upload" [src]="photoUrl || form.controls.photo.value" alt="image upload" *ngIf="form.controls.photo.value">
-                <div class="upload" *ngIf="!form.controls.photo.value">+upload</div>
+              <img class="upload" [src]="photoUrl || form.controls.photo.value" alt="image upload"
+                *ngIf="form.controls.photo.value">
+              <div class="upload" *ngIf="!form.controls.photo.value">+upload</div>
             </div>
           </label>
         </div>
@@ -22,7 +24,8 @@
 
     <nz-form-item class="row">
       <nz-form-label class="text-left input-space" nzRequired>Video giới thiệu</nz-form-label>
-      <nz-radio-group nzAutoFocus [(ngModel)]="isUploadLink" [ngModelOptions]="{standalone: true}" class="d-flex align-items-center row">
+      <nz-radio-group nzAutoFocus [(ngModel)]="isUploadLink" [ngModelOptions]="{standalone: true}"
+        class="d-flex align-items-center row">
         <nz-radio-button nz-radio [nzValue]="true">
           Nhập link youtube
         </nz-radio-button>
@@ -34,13 +37,14 @@
 
     <nz-form-item class="row">
       <label class="text-left input-space"></label>
-      <nz-form-control nzErrorTip="Nhập link giới thiệu" >
+      <nz-form-control nzErrorTip="Nhập link giới thiệu">
         <div class="d-flex justify-content-between">
           <!-- <input *ngIf="isUploadLink" nz-input formControlName="videoIntro" placeholder="Nhập link video giới thiệu">
           <app-file-upload-control *ngIf="!isUploadLink" formControlName="videoIntro" class="upload-btn text-right" [customLabel]="true" [maxSize]="1000000" [fileType]="assetType.Image">
               <label class="w-100" [for]="'fileUpload'"><a nz-button nzType="primary" class="w-100">Upload</a></label>
           </app-file-upload-control> -->
-          <app-upload-video-intro class="w-100" formControlName="videoIntro" [isUploadLink]="isUploadLink"></app-upload-video-intro>
+          <app-upload-video-intro class="w-100" formControlName="videoIntro" [isUploadLink]="isUploadLink">
+          </app-upload-video-intro>
         </div>
       </nz-form-control>
     </nz-form-item>
@@ -52,23 +56,26 @@
           <input nz-input formControlName="name" placeholder="Nhập tên khóa học">
         </nz-form-control>
       </nz-form-item>
-      <nz-form-item  class="col-6">
+      <nz-form-item class="col-6">
         <nz-form-label class="text-left input-space" nzRequired>Chọn giảng viên</nz-form-label>
         <nz-form-control nzErrorTip="Chọn giảng viên cho khóa học">
-          <select-advance [getOptionsFn]="teachers" formControlName="userId" placeholder="Chọn giảng viên cho khóa học"></select-advance>
+          <select-advance [getOptionsFn]="teachers" formControlName="userId" placeholder="Chọn giảng viên cho khóa học">
+          </select-advance>
         </nz-form-control>
       </nz-form-item>
     </div>
-    <nz-form-item >
-        <nz-form-label class="text-left input-space" nzRequired>Loại khóa học</nz-form-label>
-        <nz-form-control nzErrorTip="Chọn loại khóa học">
-          <select-advance [getOptionsFn]="courseTypes" formControlName="typeId" placeholder="Chọn loại cho khóa học"></select-advance>
-        </nz-form-control>
-      </nz-form-item>
+    <nz-form-item>
+      <nz-form-label class="text-left input-space" nzRequired>Loại khóa học</nz-form-label>
+      <nz-form-control nzErrorTip="Chọn loại khóa học">
+        <select-advance [getOptionsFn]="courseTypes" formControlName="typeId" placeholder="Chọn loại cho khóa học">
+        </select-advance>
+      </nz-form-control>
+    </nz-form-item>
     <nz-form-item>
       <nz-form-label class="text-left input-space" nzRequired>Mô tả</nz-form-label>
       <nz-form-control nzErrorTip="Nhập mô tả khóa học">
-        <textarea style="resize: no;" nz-input rows="3" formControlName="description" placeholder="Nhập mô tả khóa học"></textarea>
+        <textarea style="resize: no;" nz-input rows="3" formControlName="description"
+          placeholder="Nhập mô tả khóa học"></textarea>
       </nz-form-control>
     </nz-form-item>
     <div class="d-flex justify-content-between row">
@@ -88,18 +95,23 @@
   </nz-card>
   <div class="row">
     <div class="col-6">
-      <nz-card>
-        aaa
-      </nz-card>
+      <div class="card-body">
+        bbb
+      </div>
     </div>
     <div class="col-6">
-      <nz-card>bbbb</nz-card>
-      <nz-card>bbbb</nz-card>
-      <nz-card>bbbb</nz-card>
+      <div class="card-body">
+        bbb
+      </div>
+      <div class="card-body">
+        bbb
+      </div>
+      <div class="card-body">
+        bbb
+      </div>
     </div>
   </div>
   <div class="w-100 d-flex justify-content-center">
     <button nz-button [nzType]="'primary'">Tạo mới</button>
   </div>
 </form>
-
