@@ -91,12 +91,12 @@
   </nz-card>
   <div class="row">
     <div class="col-6">
-      <div class="card-body">
-        <div class="title">
+      <div class="card-body p-0">
+        <div class="title px-3 py-2">
           <h5 class="mb-0">Chương học</h5>
-          <span (click)="addStep()"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+          <span class="add-step" (click)="addStep()"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
         </div>
-        <div class="steps" *ngIf="steps?.length">
+        <div class="steps p-3" *ngIf="steps?.length">
           <app-learning-path [steps]="steps"></app-learning-path>
         </div>
       </div>

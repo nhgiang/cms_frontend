@@ -7,6 +7,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
 import { FileModel, SettingTeacherItem } from 'types/typemodel';
+import { trimData } from 'utils/common';
 import { ContentStateService } from '../../content-state.service';
 
 @Component({
@@ -49,7 +50,7 @@ export class TeacherUpdateComponent implements OnInit {
             ...this.form.value,
             avatar: res,
           };
-          return this.contentState.updateTeacher(data, this.index);
+          return this.contentState.updateTeacher(trimData(data), this.index);
         }),
         finalize(() => this.modalRef.close())
       )

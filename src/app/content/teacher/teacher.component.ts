@@ -6,7 +6,7 @@ import { DestroyService } from '@shared/services/destroy.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, skip, switchMap, takeUntil } from 'rxjs/operators';
 import { SettingTeacher } from 'types/typemodel';
 import { ContentStateService } from '../content-state.service';
 import { TeacherCreateComponent } from './teacher-create/teacher-create.component';
@@ -29,7 +29,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
     private modalService: NzModalService,
     private destroy: DestroyService,
     private notification: NzNotificationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.description = new FormControl(null, TValidators.textRange(1, 500));
@@ -37,10 +37,17 @@ export class TeacherComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy))
       .subscribe((res) => {
         this.settingTeachers = res;
-        this.description.setValue(res?.description);
+        if (this.description.value !== res?.description) {
+          this.description.setValue(res?.description);
+        }
       });
     this.settingApi.teacher.get().subscribe((res) => {
       this.contentState.initState(res);
+    });
+    this.description.valueChanges.pipe(skip(1), debounceTime(1000), switchMap(val => {
+      return this.contentState.updateDescripton(val.trim());
+    })).subscribe(() => {
+      this.notification.success('Thành công', 'Cập nhật mô tả chung thành công!');
     });
   }
 
@@ -66,7 +73,6 @@ export class TeacherComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('destroy');
     this.destroy$.next();
   }
 }

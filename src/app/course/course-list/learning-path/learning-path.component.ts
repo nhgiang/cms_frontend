@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
+import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
 import { Step } from 'types/models/course';
 
 @Component({
@@ -8,7 +9,6 @@ import { Step } from 'types/models/course';
 })
 export class LearningPathComponent implements OnInit {
   @Input() steps: Step[];
-
   constructor() { }
 
   ngOnInit(): void {

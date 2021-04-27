@@ -6,7 +6,7 @@
       </div>
     </div>
     <nz-table [nzData]="items" [nzLoading]="isloading" (nzQueryParams)="onParamsChanged($event)"
-      [(nzPageIndex)]="page">
+      [(nzPageIndex)]="page" [nzPageSize]="quantity" [nzTotal]="meta?.totalItems" [nzFrontPagination]="false">
       <thead>
         <tr>
           <th scope="col">ID</th>

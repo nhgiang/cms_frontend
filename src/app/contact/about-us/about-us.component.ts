@@ -54,7 +54,7 @@ export class AboutUsComponent implements OnInit {
     this.form = this.fb.group({
       title: [null, TValidators.required],
       image: [null, TValidators.required],
-      content: [null, TValidators.maxLength(1000)]
+      content: [null, TValidators.textRange(0, 1000), TValidators.required]
     });
   }
 }

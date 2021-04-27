@@ -26,6 +26,7 @@ export class UploadVideoComponent extends AbstractControlDirective implements On
   url: any;
   process = 0;
   file: File;
+  maxSize = 100;
   constructor(private messageService: NzMessageService) {
     super();
   }
@@ -49,6 +50,11 @@ export class UploadVideoComponent extends AbstractControlDirective implements On
     }
     if (this.file.type !== 'video/mp4') {
       this.messageService.error(`Chỉ cho phép video định dạng mp4`);
+      return;
+    }
+
+    if (this.file.size > this.maxSize) {
+      this.messageService.error(`Chỉ cho phép video có kích thước  nhỏ hơn 100MB`);
       return;
     }
 

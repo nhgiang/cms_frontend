@@ -19,6 +19,7 @@ import { PicturesWallUploadComponent } from './controls/pictures-wall-upload/pic
 import { UploadVideoComponent } from './components/upload-video/upload-video.component';
 import { FileUploadControlComponent } from './components/file-upload-control/file-upload-control.component';
 import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
+import { CustomeCollapseStepComponent } from './components/custome-collapse/custome-collapse-step.component';
 
 @NgModule({
   exports: [
@@ -40,7 +41,8 @@ import { FeedbackFormComponent } from './components/feedback-form/feedback-form.
     PicturesWallUploadComponent,
     UploadVideoComponent,
     FileUploadControlComponent,
-    FeedbackFormComponent
+    FeedbackFormComponent,
+    CustomeCollapseStepComponent
   ],
   imports: [
     RouterModule,
@@ -63,6 +65,7 @@ import { FeedbackFormComponent } from './components/feedback-form/feedback-form.
     UploadVideoComponent,
     FileUploadControlComponent,
     FeedbackFormComponent,
+    CustomeCollapseStepComponent,
   ],
   providers: [
     ThemeConstantService

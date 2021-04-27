@@ -5,7 +5,6 @@ import { ImageCropperModalComponent } from '@shared/components/image-cropper-mod
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
-import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { FileModel } from 'types/typemodel';
 import { AbstractControlDirective } from '../abstract-control.directive';
@@ -33,7 +32,7 @@ function getBase64(file: File): Promise<string | ArrayBuffer | null> {
 })
 export class PicturesWallUploadComponent extends AbstractControlDirective {
   @Input() maxLength = 15;
-  @Input() maxSize = 5000;
+  @Input() maxSize = 5_000_000;
   @Input() fileType = ['image/png', 'image/jpeg', 'image/gif', 'image/bmp'];
   @Input() uploadUrl: string;
   previewImage: string | undefined = '';
