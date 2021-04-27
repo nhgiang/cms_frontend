@@ -43,7 +43,7 @@ export class VideoIntroComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
-    this.isloading = false;
+    this.isloading = true;
     forkJoin({
       image: this.storageApi.uploadFile(this.form.value.image),
       video: this.storageApi.uploadFile(this.form.value.video)

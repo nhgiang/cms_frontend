@@ -20,7 +20,7 @@ export class CreateCourseComponent implements OnInit {
   photoUrl: string;
   videoUpload: any;
   isUploadLink = true;
-  steps: Step[];
+  steps: Step[] = [];
   constructor(
     fb: FormBuilder,
     private teacherApiService: TeacherApiService,
@@ -86,6 +86,6 @@ export class CreateCourseComponent implements OnInit {
       order: 1,
       id: '1'
     }
-    this.steps.push();
+    this.steps.push(item as Step);
   }
 }

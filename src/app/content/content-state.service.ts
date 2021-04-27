@@ -12,7 +12,7 @@ export class ContentStateService {
   private readonly _setttingTeacher = new BehaviorSubject<SettingTeacher>(null);
   readonly setttingTeacher$: Observable<SettingTeacher> = this._setttingTeacher.asObservable();
 
-  constructor(private settingApi: SettingApiService) {}
+  constructor(private settingApi: SettingApiService) { }
 
   get setttingTeacher() {
     return this._setttingTeacher.getValue();
@@ -45,6 +45,15 @@ export class ContentStateService {
     return this.settingApi.teacher
       .post(newSettingTeacherState)
       .pipe(tap(() => (this.settingTeachers = newSettingTeacherState)));
+  }
+
+  updateDescripton(description: string) {
+    const newSettingTeacherState = {
+      description: description,
+      teachers: [...this.setttingTeacher.teachers],
+    };
+    return this.settingApi.teacher
+      .post(newSettingTeacherState);
   }
 
   deleteTeacher(index) {

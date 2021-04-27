@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
@@ -7,6 +7,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
 import { FileModel } from 'types/typemodel';
+import { trimData } from 'utils/common';
 import { ContentStateService } from '../../content-state.service';
 
 @Component({
@@ -37,11 +38,12 @@ export class TeacherCreateComponent implements OnInit {
       .uploadFile(this.image?.file, this.image.fileName)
       .pipe(
         switchMap((res) => {
+          this.form.get('photo').setValue(res);
           const data = {
             ...this.form.value,
             avatar: res,
           };
-          return this.contentState.createTeacher(data);
+          return this.contentState.createTeacher(trimData(data));
         }),
         finalize(() => this.modalRef.close())
       )
@@ -62,7 +64,7 @@ export class TeacherCreateComponent implements OnInit {
   onCropped(image: FileModel) {
     this.image = image;
     this.getBase64(image.file, (img: string) => {
-      this.avatarUrl = img;
+      this.form.get('photo').setValue(img);
     });
   }
 
@@ -70,6 +72,7 @@ export class TeacherCreateComponent implements OnInit {
     this.form = this.fb.group({
       name: [null, TValidators.textRange(1, 200)],
       position: [null, TValidators.textRange(1, 200)],
+      photo: [null, Validators.required]
     });
   }
 }
