@@ -88,11 +88,16 @@
         </nz-form-control>
       </nz-form-item>
     </div>
+    <nz-form-item>
+      <nz-form-label class="text-left input-space" nzRequired>Kỹ năng</nz-form-label>
+      <nz-form-control nzErrorTip="Chọn kỹ năng đạt được cho khóa học">
+        <app-multiple-selection [apiFn]="skills" formControlName="skills"></app-multiple-selection>
+      </nz-form-control>
+    </nz-form-item>
   </nz-card>
   <div class="row">
     <div class="col-6">
       <div class="card-body">
-        <app-multiple-selection [apiFn]="skills"></app-multiple-selection>
       </div>
     </div>
     <div class="col-6">
