@@ -91,7 +91,8 @@
     <nz-form-item>
       <nz-form-label class="text-left input-space" nzRequired>Kỹ năng</nz-form-label>
       <nz-form-control nzErrorTip="Chọn kỹ năng đạt được cho khóa học">
-        <app-multiple-selection [apiFn]="skills" formControlName="skills"></app-multiple-selection>
+        <app-multiple-selection [getOptionsFn]="skills" formControlName="skills" placeholder="Chọn kĩ năng đạt được">
+        </app-multiple-selection>
       </nz-form-control>
     </nz-form-item>
   </nz-card>
