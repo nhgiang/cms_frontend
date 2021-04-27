@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, ViewChild } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { ImageCropperModalComponent } from '@shared/components/image-cropper-modal/image-cropper-modal.component';
@@ -59,7 +59,7 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
   handlePreview = async (file: NzUploadFile) => {
     if (!file.url && !file.preview) {
       // tslint:disable-next-line: no-non-null-assertion
-      file.preview = await getBase64(file.originFileObj);
+      file.preview = await getBase64(file.originFileObj!);
     }
     this.previewImage = file.url || file.preview;
     this.previewVisible = true;
@@ -85,12 +85,20 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
     reader.readAsDataURL(img);
   }
 
-  upload = (file: any) => {
+  beforeUpload = (file) => {
     if (file.size > this.maxSize) {
       this.notification.error('Thất bại', 'File phải nhỏ hơn 5MB');
-      return '';
+      return false;
     }
 
+    if (!this.fileType.includes(file.type)) {
+      this.notification.error('Thất bại', 'Không đúng định dạng file');
+      return false;
+    }
+    return true;
+  }
+
+  upload = (file: any) => {
     let imageFile: File;
     let imageUrl: string;
     if (file instanceof File) {
