@@ -1,26 +1,30 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <nz-card nzTitle="Thông tin cơ bản">
-    <app-file-upload-control [maxSize]="5000000" [fileType]="assetType.Image" [customLabel]="true"
-      formControlName="photo">
-      <div class="media mb-3">
-        <div class="image-cropper">
-          <label [for]="'fileUpload'">
-            <div class="avatar">
-              <img class="upload" [src]="photoUrl || form.controls.photo.value" alt="image upload"
-                *ngIf="form.controls.photo.value">
-              <div class="upload" *ngIf="!form.controls.photo.value">+upload</div>
+<nz-card nzTitle="Thông tin cơ bản">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <nz-form-item class="row">
+      <nz-form-control nzErrorTip="File phải là file ảnh và nhỏ hơn 5mb">
+        <app-file-upload-control [maxSize]="5000000" [fileType]="assetType.Image" [customLabel]="true"
+          formControlName="photo">
+          <div class="media mb-3">
+            <div class="image-cropper">
+              <label [for]="'fileUpload'">
+                <div class="avatar">
+                  <img class="upload" [src]="photoUrl || form.controls.photo.value" alt="image upload"
+                    *ngIf="form.controls.photo.value">
+                  <div class="upload" *ngIf="!form.controls.photo.value">+upload</div>
+                </div>
+              </label>
             </div>
-          </label>
-        </div>
-        <div class="m-l-20 m-r-20">
-          <nz-form-label nzRequired class="label-avatar">Chọn ảnh đại diện cho khoá học</nz-form-label>
-          <p class="opacity-07 font-size-10 m-b-0">
-            Kích thước đề xuất: 120x120 <br>
-            Max file size: 5MB
-          </p>
-        </div>
-      </div>
-    </app-file-upload-control>
+            <div class="m-l-20 m-r-20">
+              <nz-form-label nzRequired class="label-avatar">Chọn ảnh đại diện cho khoá học</nz-form-label>
+              <p class="opacity-07 font-size-10 m-b-0">
+                Kích thước đề xuất: 120x120 <br>
+                Max file size: 5MB
+              </p>
+            </div>
+          </div>
+        </app-file-upload-control>
+      </nz-form-control>
+    </nz-form-item>
 
     <nz-form-item class="row">
       <nz-form-label class="text-left input-space" nzRequired>Video giới thiệu</nz-form-label>
@@ -95,25 +99,28 @@
         </app-multiple-selection>
       </nz-form-control>
     </nz-form-item>
-  </nz-card>
-  <div class="row">
-    <div class="col-6">
-      <div class="card-body">
-      </div>
+    <div class="w-100 d-flex justify-content-end">
+      <button nz-button [nzType]="'primary'" type="submit">Lưu dữ liệu</button>
     </div>
-    <div class="col-6">
-      <div class="card-body">
-        bbb
-      </div>
-      <div class="card-body">
-        bbb
-      </div>
-      <div class="card-body">
-        bbb
-      </div>
+  </form>
+</nz-card>
+<div class="row">
+  <div class="col-6">
+    <div class="card-body">
     </div>
   </div>
-  <div class="w-100 d-flex justify-content-center">
-    <button nz-button [nzType]="'primary'" type="submit">Tạo mới</button>
+  <div class="col-6">
+    <div class="card-body">
+      bbb
+    </div>
+    <div class="card-body">
+      bbb
+    </div>
+    <div class="card-body">
+      bbb
+    </div>
   </div>
-</form>
+</div>
+<div class="w-100 d-flex justify-content-center">
+  <button nz-button [nzType]="'primary'" type="submit">Tạo mới</button>
+</div>

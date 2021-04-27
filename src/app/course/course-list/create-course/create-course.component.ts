@@ -9,7 +9,7 @@ import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { iif, interval, of } from 'rxjs';
+import { of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 
@@ -45,7 +45,7 @@ export class CreateCourseComponent implements OnInit {
       description: [null, TValidators.required],
       studentPrice: [null, Validators.required],
       partnerPrice: [null, Validators.required],
-      skills: [[]]
+      skills: [[], [Validators.required]]
     });
   }
 
