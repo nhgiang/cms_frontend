@@ -19,16 +19,16 @@ export interface ITokenDecode {
 export class TokenService {
 
   private baseUrl = `${environment.api}/auth/refresh`;
-  private refreshToken = localStorage.getItem('refreshToken');
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
   refreshTokenFn() {
-    const { exp } = jwt_decode<ITokenDecode>(localStorage.getItem('token'));
+    const refreshToken = localStorage.getItem('refreshToken');
+    const { exp } = jwt_decode(localStorage.getItem('token')) as ITokenDecode;
     const timerReset = moment(exp * 1_000).subtract(new Date().getTime(), 'ms').unix() * 1_000 - 100_000;
-    timer(timerReset).pipe(switchMap(() => this.getNewToken({ refreshToken: this.refreshToken }))).subscribe(res => {
+    timer(timerReset).pipe(switchMap(() => this.getNewToken({ refreshToken }))).subscribe(res => {
       localStorage.setItem('token', res.accessToken);
       this.refreshTokenFn();
     });
