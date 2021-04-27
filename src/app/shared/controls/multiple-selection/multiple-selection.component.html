@@ -1,5 +1,5 @@
 <nz-select [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder" nzMode="multiple" [nzPlaceHolder]="placeholder"
   (keyup)="search$.next($event)" [(ngModel)]="listOfSelectedValue">
-  <nz-option *ngFor="let item of listOfOption" [nzLabel]="label" [nzValue]="value"></nz-option>
+  <nz-option *ngFor="let item of listOfOption" [nzLabel]="label" [nzValue]="value">{{ item.label }}</nz-option>
 </nz-select>
 <ng-template #tagPlaceHolder let-selectedList> và {{ selectedList.length }} nữa </ng-template>

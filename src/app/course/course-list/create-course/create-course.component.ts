@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { CourseApiService } from '@shared/api/course.api.service';
+import { SkillsApiService } from '@shared/api/skills.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
@@ -30,6 +31,7 @@ export class CreateCourseComponent implements OnInit {
     private teacherApiService: TeacherApiService,
     private courseTypesApiService: CourseTypesApiService,
     private courseApiService: CourseApiService,
+    private skillsApiService: SkillsApiService,
     private storageApiService: StorageApiService,
     private notification: NzNotificationService,
     private router: Router
@@ -58,6 +60,10 @@ export class CreateCourseComponent implements OnInit {
 
   courseTypes = (params: any) => {
     return this.courseTypesApiService.getList(params).pipe(map(res => res.items.map(x => ({ value: x.id, label: x.name }))));
+  }
+
+  skills = (params: any) => {
+    return this.skillsApiService.findAll(params).pipe(map(res => res.items.map(x => ({ value: x.id, label: x.name }))));
   }
 
   uploadVideo() {

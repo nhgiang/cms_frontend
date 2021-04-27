@@ -33,7 +33,7 @@ export class MultipleSelectionComponent extends AbstractControlDirective impleme
     private destroy: DestroyService
   ) {
     super();
-    this.search$ = new Subject();
+    this.search$ = new Subject<string>();
   }
 
   ngOnInit(): void {
