@@ -86,7 +86,7 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
   }
 
   upload = (file: any) => {
-    if (file.size > this.maxSize * 1000) {
+    if (file.size > this.maxSize) {
       this.notification.error('Thất bại', 'File phải nhỏ hơn 5MB');
       return '';
     }
