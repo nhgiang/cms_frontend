@@ -1,7 +1,7 @@
 <div class="clearfix">
   <nz-upload [nzAction]="upload" nzListType="picture-card" [(nzFileList)]="fileList"
     [nzShowButton]="fileList?.length < maxLength" [nzPreview]="handlePreview" (nzChange)="change($event)"
-    [nzRemove]="remove">
+    [nzBeforeUpload]="beforeUpload" [nzRemove]="remove">
     <div>
       <i nz-icon nzType="plus"></i>
       <div style="margin-top: 8px">Upload</div>

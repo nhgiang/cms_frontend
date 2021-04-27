@@ -86,17 +86,20 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
     reader.readAsDataURL(img);
   }
 
-  upload = (file: any) => {
+  beforeUpload = (file) => {
     if (file.size > this.maxSize) {
       this.notification.error('Thất bại', 'File phải nhỏ hơn 5MB');
-      return of('');
+      return false;
     }
 
     if (!this.fileType.includes(file.type)) {
       this.notification.error('Thất bại', 'Không đúng định dạng file');
-      return of('');
+      return false;
     }
+    return true;
+  }
 
+  upload = (file: any) => {
     let imageFile: File;
     let imageUrl: string;
     if (file instanceof File) {
