@@ -30,7 +30,6 @@ export class TokenService {
     const timerReset = moment(exp * 1_000).subtract(new Date().getTime(), 'ms').unix() * 1_000 - 100_000;
     timer(timerReset).pipe(switchMap(() => this.getNewToken({ refreshToken }))).subscribe(res => {
       localStorage.setItem('token', res.accessToken);
-      console.log('refffffffffff');
       this.refreshTokenFn();
     });
   }
