@@ -2,64 +2,38 @@
   <div>
     <div>
       <div class="media mb-3">
-        <div
-          class="image-cropper"
-          #cropperRef="imageCropper"
-          imageCropper
-          [aspectRatio]="262 / 300"
-          (cropped)="onCropped($event)"
-        >
+        <div class="image-cropper" #cropperRef="imageCropper" imageCropper [aspectRatio]="262 / 300"
+          (cropped)="onCropped($event)">
           <label [for]="'cropperImageFeedback'">
             <div class="avatar">
-              <img
-                [src]="form.value.avatar"
-                alt="image upload"
-                *ngIf="form.value.avatar"
-              />
+              <img [src]="form.value.avatar" alt="image upload" *ngIf="form.value.avatar" />
               <div class="upload" *ngIf="!form.value.avatar">+upload</div>
             </div>
           </label>
-          <input
-            [id]="'cropperImageFeedback'"
-            type="file"
-            class="d-none"
-            (change)="cropperRef.set($event)"
-            accept="image/*"
-          />
+          <input [id]="'cropperImageFeedback'" type="file" class="d-none" (change)="cropperRef.set($event)"
+            accept="image/*" />
         </div>
         <div class="m-l-20 m-r-20">
-          <nz-form-label nzRequired class="label-avatar"
-            >Chọn ảnh học viên</nz-form-label
-          >
+          <nz-form-label nzRequired class="label-avatar">Chọn ảnh học viên</nz-form-label>
           <p class="opacity-07 font-size-10 m-b-0">
             Kích thước đề xuất: 550x500 <br />
             Max file size: 5MB
           </p>
         </div>
       </div>
-      <div
-        class="ant"
-        *ngIf="form.controls.avatar.invalid && form.controls.avatar.dirty"
-      >Vui lòng tải ảnh đại diện lên</div>
+      <div class="ant" *ngIf="form.controls.avatar.invalid && form.controls.avatar.dirty">Vui lòng tải ảnh đại diện lên
+      </div>
     </div>
     <nz-form-item>
-      <nz-form-label class="text-left" nzRequired [nzSpan]="6"
-        >Tên giảng viên</nz-form-label
-      >
+      <nz-form-label class="text-left" nzRequired [nzSpan]="6">Tên giảng viên</nz-form-label>
       <nz-form-control [nzErrorTip]="'Tên giảng viên chỉ từ 1 đến 200 ký tự'">
-        <input
-          nz-input
-          formControlName="name"
-          placeholder="Nhập tên giảng viên"
-        />
+        <input nz-input formControlName="name" placeholder="Nhập tên giảng viên" />
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label [nzSpan]="6" class="text-left" nzRequired
-        >Chức vụ</nz-form-label
-      >
+      <nz-form-label [nzSpan]="6" class="text-left" nzRequired>Chức vụ</nz-form-label>
       <nz-form-control [nzErrorTip]="'Chức vụ có độ dài từ 1 đến 200 ký tự'">
-        <input nz-input formControlName="position" placeholder="Nhập chức vụ" />
+        <input nz-input formControlName="position" placeholder="Nhập chức vụ/chức danh giảng viên" />
       </nz-form-control>
     </nz-form-item>
   </div>
