@@ -32,7 +32,7 @@ function getBase64(file: File): Promise<string | ArrayBuffer | null> {
 })
 export class PicturesWallUploadComponent extends AbstractControlDirective {
   @Input() maxLength = 15;
-  @Input() maxSize = 5000;
+  @Input() maxSize = 5_000_000;
   @Input() fileType = ['image/png', 'image/jpeg', 'image/gif', 'image/bmp'];
   @Input() uploadUrl: string;
   previewImage: string | undefined = '';
@@ -86,7 +86,7 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
   }
 
   upload = (file: any) => {
-    if (file.size > this.maxSize * 1000) {
+    if (file.size > this.maxSize) {
       this.notification.error('Thất bại', 'File phải nhỏ hơn 5MB');
       return '';
     }
