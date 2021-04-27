@@ -59,7 +59,7 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
   handlePreview = async (file: NzUploadFile) => {
     if (!file.url && !file.preview) {
       // tslint:disable-next-line: no-non-null-assertion
-      file.preview = await getBase64(file.originFileObj!);
+      file.preview = await getBase64(file.originFileObj);
     }
     this.previewImage = file.url || file.preview;
     this.previewVisible = true;

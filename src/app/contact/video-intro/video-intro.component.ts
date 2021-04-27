@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SettingApiService } from '@shared/api/setting.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { forkJoin } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { finalize, switchMap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 import { VideoIntro } from 'types/typemodel';
 
@@ -36,14 +36,14 @@ export class VideoIntroComponent implements OnInit {
   buildForm() {
     this.form = this.fb.group({
       title: [null, TValidators.required],
-      image: [null, TValidators.required],
+      image: [null, Validators.required],
       video: [null]
     });
   }
 
   submit() {
     Ultilities.validateForm(this.form);
-
+    this.isloading = true;
     forkJoin({
       image: this.storageApi.uploadFile(this.form.value.image),
       video: this.storageApi.uploadFile(this.form.value.video)
@@ -54,8 +54,8 @@ export class VideoIntroComponent implements OnInit {
         title: this.form.value.title.trim()
       };
       return this.settingApi.videoIntroContact.post(data);
-    })).subscribe(() => {
-      this.notification.success('Thành công', 'Cập nhật thôn tin video giới thiệu thành công')
+    }), finalize(() => this.isloading = false)).subscribe(() => {
+      this.notification.success('Thành công', 'Cập nhật thôn tin video giới thiệu thành công');
     });
   }
 }

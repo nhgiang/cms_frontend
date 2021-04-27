@@ -74,7 +74,7 @@ export class ConsultingInformationComponent extends DataTableContainer<Consultin
     const { status, q } = this.params;
     return this.contactApi.getList({ ...params, q, status }).pipe(map((res) => {
       res.items = res.items.map(item => {
-        item.statusTransformed = item.status === ContactStatus.Contacted ? 'Đã liên hệ' : 'Chưa liên hệ'
+        item.statusTransformed = item.status === ContactStatus.Contacted ? 'Đã liên hệ' : 'Chưa liên hệ';
         return item;
       });
       return res;

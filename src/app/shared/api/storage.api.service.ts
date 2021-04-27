@@ -28,7 +28,7 @@ export class StorageApiService extends BaseApi {
     let fileNames = [];
     files.forEach(file => {
       if (typeof file !== 'string') {
-        form.append('file', file, ((file as any).name || 'unknownfile'));
+        form.append('file', file, (file.name || 'unknownfile'));
       } else {
         fileNames.push(file);
       }
