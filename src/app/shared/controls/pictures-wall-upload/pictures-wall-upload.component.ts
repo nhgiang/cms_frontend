@@ -1,11 +1,11 @@
-import { Component, forwardRef, Input, ViewChild } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { ImageCropperModalComponent } from '@shared/components/image-cropper-modal/image-cropper-modal.component';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
-import { delay, map, switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { FileModel } from 'types/typemodel';
 import { AbstractControlDirective } from '../abstract-control.directive';
 
@@ -32,7 +32,7 @@ function getBase64(file: File): Promise<string | ArrayBuffer | null> {
 })
 export class PicturesWallUploadComponent extends AbstractControlDirective {
   @Input() maxLength = 15;
-  @Input() maxSize = 5000000;
+  @Input() maxSize = 5000;
   @Input() fileType = ['image/png', 'image/jpeg', 'image/gif', 'image/bmp'];
   @Input() uploadUrl: string;
   previewImage: string | undefined = '';
@@ -59,7 +59,7 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
   handlePreview = async (file: NzUploadFile) => {
     if (!file.url && !file.preview) {
       // tslint:disable-next-line: no-non-null-assertion
-      file.preview = await getBase64(file.originFileObj);
+      file.preview = await getBase64(file.originFileObj!);
     }
     this.previewImage = file.url || file.preview;
     this.previewVisible = true;
@@ -86,15 +86,16 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
   }
 
   upload = (file: any) => {
-    if (file.size > this.maxSize) {
+    if (file.size > this.maxSize * 1000) {
       this.notification.error('Thất bại', 'File phải nhỏ hơn 5MB');
       return '';
     }
 
     if (!this.fileType.includes(file.type)) {
-      this.notification.error('Thất bại', 'Chưa đúng định dạng file');
+      this.notification.error('Thất bại', 'Không đúng định dạng file');
       return '';
     }
+
     let imageFile: File;
     let imageUrl: string;
     if (file instanceof File) {
