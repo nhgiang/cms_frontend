@@ -1,6 +1,16 @@
-
+.common-action {
+  font-size: 19px;
+  position: absolute;
+  display: flex;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .ant-collapse-header {
   border-bottom: 1px solid #edf2f9;
+  input {
+    width: calc(100% - 105px);
+  }
 }
 .ant-collapse-content-active {
   border-bottom: 1px solid #edf2f9;

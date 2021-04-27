@@ -19,8 +19,7 @@ import { Step } from 'types/models/course';
 })
 export class CustomeCollapseStepComponent extends NzCollapsePanelComponent implements OnInit {
   @Input() data: Step;
-  @Input() nzActive = false;
-  @Input() nzDisabled = false;
+  isEdit: boolean;
   constructor(
     public nzConfigService: NzConfigService,
     cdr: ChangeDetectorRef,
@@ -36,7 +35,7 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
 
   editStep(e) {
     e.stopPropagation();
-    // this.data.
+    this.isEdit = !this.isEdit;
   }
 
   deleteStep(e) {

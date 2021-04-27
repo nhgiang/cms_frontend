@@ -1,13 +1,17 @@
-<div role="tab" [attr.aria-expanded]="nzActive" class="ant-collapse-header" (click)="clickHeader()">
-  <input type="text">
-  <div class="ant-collapse-extra">
-    <div class="common-action">
-      <span>
-        <i nz-icon nzType="plus" nzTheme="outline" class="mr-4"></i>
-        <i nz-icon nzType="edit" nzTheme="outline" class="mr-4" (click)="editStep($event)"></i>
-        <i nz-icon nzType="close-circle" nzTheme="outline" (click)="deleteStep($event)"></i>
-      </span>
-    </div>
+<div role="tab" [attr.aria-expanded]="nzActive" class="ant-collapse-header px-3 align-items-center"
+  (click)="clickHeader()">
+  <ng-container *ngIf="isEdit;else stepName;">
+    <input class="step-name" type="text" nz-input [(ngModel)]="data.name">
+  </ng-container>
+  <ng-template #stepName>
+    <div class="step-name">{{data.name}}</div>
+  </ng-template>
+  <div class="common-action">
+    <span>
+      <i nz-icon nzType="plus" nzTheme="outline" class="mr-4"></i>
+      <i nz-icon nzType="edit" nzTheme="outline" class="mr-4" (click)="editStep($event)"></i>
+      <i nz-icon nzType="close-circle" nzTheme="outline" (click)="deleteStep($event)"></i>
+    </span>
   </div>
 </div>
 <div class="ant-collapse-content ng-trigger ng-trigger-collapseMotion" [class.ant-collapse-content-active]="nzActive"
