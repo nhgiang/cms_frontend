@@ -5,6 +5,7 @@ import { ImageCropperModalComponent } from '@shared/components/image-cropper-mod
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { FileModel } from 'types/typemodel';
 import { AbstractControlDirective } from '../abstract-control.directive';
@@ -88,12 +89,12 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
   upload = (file: any) => {
     if (file.size > this.maxSize) {
       this.notification.error('Thất bại', 'File phải nhỏ hơn 5MB');
-      return '';
+      return of('');
     }
 
     if (!this.fileType.includes(file.type)) {
       this.notification.error('Thất bại', 'Không đúng định dạng file');
-      return '';
+      return of('');
     }
 
     let imageFile: File;
