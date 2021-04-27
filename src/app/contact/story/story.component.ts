@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SettingApiService } from '@shared/api/setting.api.service';
+import { Ultilities } from '@shared/extentions/ultilities';
+import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
@@ -18,8 +20,8 @@ export class StoryComponent implements OnInit {
     private notification: NzNotificationService
   ) {
     this.form = fb.group({
-      images: [null],
-      content: [null]
+      images: [null, TValidators.minLength(3)],
+      content: [null, [TValidators.maxLength(1000), TValidators.required]]
     });
   }
 
@@ -28,6 +30,7 @@ export class StoryComponent implements OnInit {
   }
 
   submit() {
+    Ultilities.validateForm(this.form);
     this.settingApi.stories.post(this.form.value).subscribe(res => this.notification.success('Thành Công', ''));
   }
 }
