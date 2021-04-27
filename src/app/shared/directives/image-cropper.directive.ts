@@ -2,6 +2,7 @@ import { Directive, EventEmitter, Input, Output } from '@angular/core';
 import { ImageCropperModalComponent } from '@shared/components/image-cropper-modal/image-cropper-modal.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService, NzModalRef } from 'ng-zorro-antd/modal';
+import { FileModel } from 'types/typemodel';
 
 @Directive({
   selector: '[imageCropper]',
@@ -14,7 +15,7 @@ export class ImageCropperDirective {
   @Input() set fileInputEvent($event: { target: HTMLInputElement }) {
     this.set($event);
   }
-  @Output() cropped = new EventEmitter<Blob>();
+  @Output() cropped = new EventEmitter<FileModel>();
 
   private modalRef: NzModalRef;
 
