@@ -7,6 +7,7 @@ import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { switchMap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
+import { trimData } from 'utils/common';
 
 @Component({
   selector: 'app-about-us',
@@ -16,7 +17,7 @@ import { AssetType } from 'types/enums';
 export class AboutUsComponent implements OnInit {
   form: FormGroup;
   AssetType = AssetType;
-
+  isEdit: boolean;
   constructor(
     private fb: FormBuilder,
     private storageApi: StorageApiService,
@@ -32,25 +33,28 @@ export class AboutUsComponent implements OnInit {
   }
 
   submit() {
-    Ultilities.validateForm(this.form);
-    this.storageApi.uploadFile(this.form.value.image).pipe(
-      switchMap(res => {
-        const body = {
-          ...this.form.value
-        };
-        body.image = res;
-        return this.settingApi.aboutUs.post(body);
-      })
-    ).subscribe(() => {
-      this.notification.success('Thành công', 'Cập nhật nội dung giới thiệu về chúng tôi thành công!');
-    });
+    if (this.isEdit) {
+      Ultilities.validateForm(this.form);
+      this.storageApi.uploadFile(this.form.value.image).pipe(
+        switchMap(res => {
+          const body = {
+            ...this.form.value
+          };
+          body.image = res;
+          return this.settingApi.aboutUs.post(trimData(body));
+        })
+      ).subscribe(() => {
+        this.notification.success('Thành công', 'Cập nhật nội dung giới thiệu về chúng tôi thành công!');
+      });
+    }
+    this.isEdit = !this.isEdit;
   }
 
   buildForm() {
     this.form = this.fb.group({
       title: [null, TValidators.required],
       image: [null, TValidators.required],
-      content: [null, TValidators.required]
+      content: [null, TValidators.maxLength(1000)]
     });
   }
 }

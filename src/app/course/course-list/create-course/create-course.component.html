@@ -92,7 +92,13 @@
   <div class="row">
     <div class="col-6">
       <div class="card-body">
-        bbb
+        <div class="title">
+          <h5 class="mb-0">Chương học</h5>
+          <span (click)="addStep()"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+        </div>
+        <div class="steps" *ngIf="steps?.length">
+          <app-learning-path [steps]="steps"></app-learning-path>
+        </div>
       </div>
     </div>
     <div class="col-6">
@@ -100,9 +106,9 @@
         bbb
       </div>
       <div class="card-body">
-        <div class="title d-flex justify-content-between">
+        <div class="title">
           <h5 class="mb-0">Đánh giá học viên</h5>
-          <span><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+          <span (click)="addFeedback()"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
         </div>
       </div>
       <div class="card-body">
