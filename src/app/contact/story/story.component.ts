@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingApiService } from '@shared/api/setting.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
@@ -21,7 +21,7 @@ export class StoryComponent implements OnInit {
     private notification: NzNotificationService
   ) {
     this.form = fb.group({
-      images: [null, TValidators.minLength(3)],
+      images: [null, [TValidators.minLength(3), Validators.required]],
       content: [null, [TValidators.maxLength(1000), TValidators.required]]
     });
   }
