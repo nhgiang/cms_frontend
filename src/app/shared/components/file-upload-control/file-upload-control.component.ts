@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
 import { AssetType, FileUploadErrors, UploaderStatus } from 'types/enums';
@@ -24,6 +24,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   ]
 })
 export class FileUploadControlComponent extends AbstractControlDirective implements OnInit {
+  @ViewChild('attachment', { static: false }) attachment: ElementRef;
   @Input() fileType: AssetType;
   @Input() maxSize: number;
   @Input() customLabel = false;
@@ -56,7 +57,6 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
       this.messageService.error(`Vui lòng chọn đúng định dạng file`);
       return;
     }
-    console.log(file);
 
     this.file = file;
     const reader = new FileReader();
@@ -67,6 +67,7 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
         this.onChangeFn(this.file);
       }
     };
+    this.attachment.nativeElement.value = '';
   }
 
   removeFile() {

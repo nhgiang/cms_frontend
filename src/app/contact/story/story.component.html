@@ -31,7 +31,7 @@
 
     <div class="d-flex">
       <button nz-button nzGhost [routerLink]="['/dashboard']" nzType="primary" class="ml-auto mr-4">Hủy bỏ</button>
-      <button nz-button nzType="primary" type="submit">Xác nhận</button>
+      <button nz-button nzType="primary" type="submit" [nzLoading]="isLoading">Xác nhận</button>
     </div>
   </form>
 </nz-card>

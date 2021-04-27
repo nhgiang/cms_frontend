@@ -18,6 +18,7 @@ import { SelectAdvanceComponent } from './controls/select-advance/select-advance
 import { PicturesWallUploadComponent } from './controls/pictures-wall-upload/pictures-wall-upload.component';
 import { UploadVideoComponent } from './components/upload-video/upload-video.component';
 import { FileUploadControlComponent } from './components/file-upload-control/file-upload-control.component';
+import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
 
 @NgModule({
   exports: [
@@ -38,7 +39,8 @@ import { FileUploadControlComponent } from './components/file-upload-control/fil
     SelectAdvanceComponent,
     PicturesWallUploadComponent,
     UploadVideoComponent,
-    FileUploadControlComponent
+    FileUploadControlComponent,
+    FeedbackFormComponent
   ],
   imports: [
     RouterModule,
@@ -46,6 +48,7 @@ import { FileUploadControlComponent } from './components/file-upload-control/fil
     ZorroAntdModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     SearchPipe,
@@ -59,6 +62,7 @@ import { FileUploadControlComponent } from './components/file-upload-control/fil
     PicturesWallUploadComponent,
     UploadVideoComponent,
     FileUploadControlComponent,
+    FeedbackFormComponent,
   ],
   providers: [
     ThemeConstantService
