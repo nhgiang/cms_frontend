@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { VideoAsset } from 'types/typemodel';
 import { BaseApi } from './base-api';
 
 @Injectable({
@@ -40,5 +41,14 @@ export class StorageApiService extends BaseApi {
         fileNames = [...fileNames, ...res.map(file => file.path)];
         return fileNames;
       }));
+  }
+
+  uploadVideo(file: Blob | File | string, fileName?: string): Observable<VideoAsset> | Observable<string> {
+    if (!file || typeof file === 'string') {
+      return of(file as string);
+    }
+    const form = new FormData();
+    form.append('file', file, fileName || ((file as any).name || 'unknownfile'));
+    return this.httpClient.post<VideoAsset>(this.createUrl('/upload'), form);
   }
 }

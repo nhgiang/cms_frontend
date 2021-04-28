@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Host, Input, OnInit, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Host, Input, OnInit, Optional, Output } from '@angular/core';
 import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
 import { collapseMotion } from 'ng-zorro-antd/core/animation';
 import { NzCollapseComponent, NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
 import { NzConfigService } from 'ng-zorro-antd/core/config';
-import { Step } from 'types/models/course';
+import { LessonApiService } from '@shared/api/lesson.api.service';
+import { Lesson } from 'types/models/course';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-custome-collapse-step',
@@ -18,14 +20,18 @@ import { Step } from 'types/models/course';
   }
 })
 export class CustomeCollapseStepComponent extends NzCollapsePanelComponent implements OnInit {
-  @Input() data: Step;
+  @Input() data: Lesson;
+  @Input() activities: any[];
+  @Output() refresh = new EventEmitter();
   isEdit: boolean;
   constructor(
     public nzConfigService: NzConfigService,
     cdr: ChangeDetectorRef,
     @Host() nzCollapseComponent: NzCollapseComponent,
     elementRef: ElementRef,
-    @Optional() public noAnimation?: NzNoAnimationDirective
+    private lessonApi: LessonApiService,
+    private notification: NzNotificationService,
+    @Optional() public noAnimation?: NzNoAnimationDirective,
   ) {
     super(nzConfigService, cdr, nzCollapseComponent, elementRef, noAnimation);
   }
@@ -40,5 +46,14 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
 
   deleteStep(e) {
     e.stopPropagation();
+    this.lessonApi.deleteLesson(this.data.id).subscribe(() => {
+      this.refresh.emit();
+      this.notification.success('Thành công', 'Xóa chương học thành công!')
+    });
+  }
+
+  addActivity(e) {
+    e.stopPropagation();
+    this.activities.push({});
   }
 }

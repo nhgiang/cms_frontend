@@ -113,3 +113,9 @@ export interface CourseType {
   lastModified: Date;
   name: string;
 }
+
+export interface VideoAsset {
+  path: string;
+  duration: number;
+  size?: number;
+}

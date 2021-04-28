@@ -4,6 +4,7 @@ import { CourseListComponent } from './course-list/course-list.component';
 import { CreateCourseComponent } from './course-list/create-course/create-course.component';
 import { SkillsComponent } from './skills/skills.component';
 import { SpecializationsComponent } from './specializations/specializations.component';
+import { LessonComponent } from './course-list/lesson/lesson.component';
 
 const routes: Routes = [
   {
@@ -21,10 +22,22 @@ const routes: Routes = [
       },
       {
         path: 'create',
-        component: CreateCourseComponent,
-        data: {
-          title: 'Tạo mới khóa học',
-        }
+        children: [
+          {
+            path: '',
+            component: CreateCourseComponent,
+            data: {
+              title: 'Tạo mới khóa học',
+            }
+          },
+          {
+            path: 'lesson',
+            component: LessonComponent,
+            data: {
+              title: 'Thêm bài học',
+            }
+          }
+        ],
       },
     ]
   },

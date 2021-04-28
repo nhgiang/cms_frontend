@@ -1,5 +1,6 @@
-<form [formGroup]="form">
-  <nz-card nzTitle="Thông tin cơ bản">
+<nz-card nzTitle="Thông tin cơ bản">
+  <form [formGroup]="form">
+
     <app-file-upload-control [maxSize]="5000000" [fileType]="assetType.Image" [customLabel]="true"
       formControlName="photo">
       <div class="media mb-3">
@@ -88,35 +89,29 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-  </nz-card>
-  <div class="row">
-    <div class="col-6">
-      <div class="card-body p-0">
-        <div class="title px-3 py-2">
-          <h5 class="mb-0">Chương học</h5>
-          <span class="add-step" (click)="addStep()"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
-        </div>
-        <div class="steps p-3" *ngIf="steps?.length">
-          <app-learning-path [steps]="steps"></app-learning-path>
-        </div>
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="card-body">
-        bbb
-      </div>
-      <div class="card-body">
-        <div class="title">
-          <h5 class="mb-0">Đánh giá học viên</h5>
-          <span (click)="addFeedback()"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
-        </div>
-      </div>
-      <div class="card-body">
-        bbb
-      </div>
+  </form>
+</nz-card>
+<div class="row">
+  <div class="col-6">
+    <div class="card-body p-0">
+      <app-learning-path ></app-learning-path>
     </div>
   </div>
-  <div class="w-100 d-flex justify-content-center">
-    <button nz-button [nzType]="'primary'">Tạo mới</button>
+  <div class="col-6">
+    <div class="card-body">
+      bbb
+    </div>
+    <div class="card-body">
+      <div class="title">
+        <h5 class="mb-0">Đánh giá học viên</h5>
+        <span (click)="addFeedback()"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+      </div>
+    </div>
+    <div class="card-body">
+      bbb
+    </div>
   </div>
-</form>
+</div>
+<div class="w-100 d-flex justify-content-center">
+  <button nz-button [nzType]="'primary'">Tạo mới</button>
+</div>

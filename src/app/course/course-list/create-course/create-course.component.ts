@@ -7,7 +7,6 @@ import { TValidators } from '@shared/extentions/validators';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { map } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
-import { Step } from 'types/models/course';
 
 @Component({
   selector: 'app-create-course',
@@ -20,7 +19,9 @@ export class CreateCourseComponent implements OnInit {
   photoUrl: string;
   videoUpload: any;
   isUploadLink = true;
-  steps: Step[] = [];
+  isAddStep: boolean;
+  courseId: string;
+
   constructor(
     fb: FormBuilder,
     private teacherApiService: TeacherApiService,
@@ -78,14 +79,5 @@ export class CreateCourseComponent implements OnInit {
     this.modalService.create({
       nzContent: FeedbackFormComponent
     });
-  }
-
-  addStep() {
-    const item = {
-      name: 'bước 1',
-      order: 1,
-      id: '1'
-    }
-    this.steps.push(item as Step);
   }
 }

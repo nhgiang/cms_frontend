@@ -13,7 +13,22 @@ export interface Specialization extends Entity {
   name: string;
 }
 
-export interface Step extends Entity {
-  name: string;
-  order: number;
+export interface Lesson extends Entity {
+  id: string;
+  created: Date;
+  lastModified: Date;
+  courseId: string;
+  title: string;
+  unitsAndTests: UnitAndTest[];
+}
+
+export interface UnitAndTest {
+  id: string;
+  type: UnitAndTest;
+  title: string;
+  description: string;
+  duration: number;
+  point: number;
+  totalQuestion: number;
+  created: Date;
 }
