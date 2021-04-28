@@ -21,8 +21,8 @@ export class StoryComponent implements OnInit {
     private notification: NzNotificationService
   ) {
     this.form = fb.group({
-      images: [null, [TValidators.minLength(3), Validators.required]],
-      content: [null, [TValidators.maxLength(1000), TValidators.required]]
+      images: [null, [TValidators.minLength(3)]],
+      content: [null, [TValidators.maxLength(1000)]]
     });
   }
 
