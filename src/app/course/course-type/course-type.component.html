@@ -5,8 +5,8 @@
         <button nz-button nzType="primary" (click)="addItem()">Thêm mới</button>
       </div>
     </div>
-    <nz-table [nzData]="items" [nzLoading]="isloading" (nzQueryParams)="onParamsChanged($event)"
-      [(nzPageIndex)]="page" [nzPageSize]="quantity" [nzTotal]="meta?.totalItems" [nzFrontPagination]="false">
+    <nz-table [nzData]="items" [nzLoading]="isloading" (nzQueryParams)="onParamsChanged($event)" [(nzPageIndex)]="page"
+      [nzPageSize]="quantity" [nzTotal]="meta?.totalItems" [nzFrontPagination]="false" [nzShowTotal]="totalTemplate" >
       <thead>
         <tr>
           <th scope="col">ID</th>
@@ -37,3 +37,4 @@
     </nz-table>
   </div>
 </nz-card>
+<ng-template #totalTemplate let-total> Total: {{ total }} </ng-template>
