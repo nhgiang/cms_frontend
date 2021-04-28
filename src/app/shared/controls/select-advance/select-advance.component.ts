@@ -34,11 +34,11 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
   search$: Subject<string>;
   loadMore$: Subject<any>;
   q: string;
-  @Input() getOptionsFn: (params: ParamsSelectAdvance) => Observable<Option[]>;
+  @Input() getOptionsFn: (params: ParamsSelectAdvance | any) => Observable<Option[]>;
   @Output() readonly csClear = new EventEmitter<void>();
 
   constructor(
-    private destroy: DestroyService
+    protected destroy: DestroyService
   ) {
     super();
     this.search$ = new Subject<string>();
@@ -50,7 +50,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
     this.onSearch();
   }
 
-  async writeValue(obj: any) {
+  writeValue(obj: any) {
     super.writeValue(obj);
   }
 
