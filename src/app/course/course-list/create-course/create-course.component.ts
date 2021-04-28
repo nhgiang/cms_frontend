@@ -11,7 +11,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { of } from 'rxjs';
+import { iif, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 import { Step } from 'types/models/course';
@@ -28,6 +28,7 @@ export class CreateCourseComponent implements OnInit {
   videoUpload: any;
   isUploadLink = true;
   steps: Step[] = [];
+  id: string;
   constructor(
     fb: FormBuilder,
     private teacherApiService: TeacherApiService,
@@ -74,22 +75,24 @@ export class CreateCourseComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
-    this.storageApiService.uploadFile(this.form.get('photo').value).pipe(
-      switchMap(res => {
-        this.form.controls.photo.setValue(res);
+    iif(() => (this.form.controls.photo.value instanceof File),
+      this.storageApiService.uploadFile(this.form.get('photo').value).pipe(tap(res => this.form.controls.photo.setValue(res))),
+      of(true)
+    ).pipe(
+      switchMap(() => {
         if (this.form.get('videoIntro').value instanceof File) {
           return this.storageApiService.uploadVideo(this.form.get('videoIntro').value).pipe(tap((data) => {
             this.form.get('videoIntro').setValue(data);
           }));
         }
-        return of();
+        return of(true);
       }),
       switchMap(() => {
-        return this.courseApiService.create(this.form.value);
+        return (this.id) ? this.courseApiService.update(this.id, this.form.value) : this.courseApiService.create(this.form.value);
       })
-    ).subscribe(() => {
+    ).subscribe(res => {
       this.notification.success('Thành công', '');
-      this.router.navigate(['/course-management/course']);
+      this.id = res.id;
     });
   }
 

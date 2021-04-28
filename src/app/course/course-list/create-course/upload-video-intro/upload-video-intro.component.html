@@ -4,9 +4,8 @@
       <input nz-input class="mb-4" [(ngModel)]="linkYoutubeInput" (keyup)="changeLink($event.target.value)"
         placeholder="Nhập link video giới thiệu">
     </nz-form-control>
-    <iframe *ngIf="displayPreviewYT" width="560" height="315" style="border: none" [src]="linkYoutube()"
-      title="YouTube video player"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    <iframe *ngIf="displayPreviewYT" width="560" height="315" [src]="url1| safeHtml" title="YouTube video player"
+      frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen></iframe>
   </div>
   <div *ngIf="!isUploadLink">
