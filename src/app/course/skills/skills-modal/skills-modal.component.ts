@@ -35,8 +35,8 @@ export class SkillsModalComponent implements OnInit {
   ) {
     this.form = fb.group({
       icon: [null, Validators.required],
-      name: [null, TValidators.required],
-      description: [null, TValidators.required]
+      name: [null, TValidators.required, TValidators.maxLength(200)],
+      description: [null, TValidators.required, TValidators.maxLength(500)]
     });
   }
 

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingApiService } from '@shared/api/setting.api.service';
+<<<<<<< HEAD
 import { Ultilities } from '@shared/extentions/ultilities';
+=======
+>>>>>>> course
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';

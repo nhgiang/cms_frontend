@@ -1,5 +1,5 @@
 import { Component, forwardRef, Injector, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import * as getYouTubeId from 'get-youtube-id';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -14,6 +14,11 @@ import { AbstractControlDirective } from '@shared/controls/abstract-control.dire
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => UploadVideoIntroComponent),
       multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: UploadVideoIntroComponent,
+      multi: true
     }
   ]
 })
@@ -26,52 +31,64 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
   linkYoutubeInput: string;
   fileVideo: File | null;
   ngControl: NgControl;
-
+  @Input() url1: string;
   constructor(
     private sanitizer: DomSanitizer,
     private notification: NzNotificationService,
-    private injector: Injector
   ) {
     super();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // if (changes.isUploadLink) {
-    //   this.displayPreview = false;
-    // }
+    if (changes.isUploadLink.currentValue) {
+      this.onChangeFn(this.linkYoutubeInput);
+    } else {
+      this.onChangeFn(this.fileVideo);
+    }
   }
 
   ngOnInit() {
-    this.ngControl = this.injector.get(NgControl);
   }
 
   changeLink(link: string) {
     const id = getYouTubeId.default(link);
     this.displayPreviewYT = !!id;
-    this.ngControl.control.setErrors(id ? null : { linkErr: true });
+    this.url1 = `https://www.youtube.com/embed/${id}`
     this.onChangeFn(link);
   }
 
-  linkYoutube() {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${getYouTubeId.default(this.linkYoutubeInput)}`);
-  }
-
   uploadVideo(file: File) {
-    this.fileVideo = file;
     if (file.type.split('/')[0] !== 'video') {
+      this.fileVideo = null;
       return this.notification.error('Thất bại', 'Vui lòng chọn đúng định dạng file');
     }
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (event) => {
-      this.url = event.target.result;
-      this.displayPreview = true;
-    };
+    if (this.fileVideo) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        this.url = event.target.result;
+        this.displayPreview = true;
+      };
+    }
+    this.fileVideo = file;
     this.onChangeFn(this.fileVideo);
   }
 
   removeVideo() {
+    this.displayPreview = false;
+    this.fileVideo = null;
     this.url = null;
+    this.onChangeFn(this.fileVideo);
+  }
+
+  validate() {
+    if (this.isUploadLink && !getYouTubeId.default(this.linkYoutubeInput)) {
+      return { required: true };
+    }
+    if (!this.isUploadLink && !this.fileVideo) {
+      return { required: true };
+    }
+    return null;
   }
 }
 

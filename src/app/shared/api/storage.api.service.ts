@@ -41,4 +41,15 @@ export class StorageApiService extends BaseApi {
         return fileNames;
       }));
   }
+
+  uploadVideo(file: Blob | File | string, fileName?: string): Observable<any> {
+    if (!file || typeof file === 'string') {
+      return of(file as string);
+    }
+    const form = new FormData();
+    form.append('file', file, fileName || ((file as any).name || 'unknownfile'));
+    return this.httpClient
+      .post<any>(this.createUrl('/uploadVideo'), form)
+      .pipe(map((result: { path: string }) => result.path));
+  }
 }
