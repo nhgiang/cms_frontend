@@ -5,14 +5,9 @@
 			Section này khác với danh sách giảng viên mà bạn đang quản trị tại quản lý người dùng</div>
 		<nz-form-item class="mb-5">
 			<nz-form-label nzRequired>Mô tả chung</nz-form-label>
-			<nz-form-control [nzErrorTip]="errorEmailTpl">
+			<nz-form-control [nzErrorTip]="'Mô tả chung có độ dài từ 1 đến 500 ký tự'">
 				<input nz-input [formControl]="description" placeholder="Nhập mô tả chung" />
 			</nz-form-control>
-			<ng-template #errorEmailTpl let-control>
-				<ng-container *ngIf="control.hasError('required')">
-					Mô tả chung có độ dài từ 1 đến 500 ký tự
-				</ng-container>
-			</ng-template>
 		</nz-form-item>
 		<div class="underline"></div>
 		<div class="text-right">

@@ -55,7 +55,7 @@ export class VideoIntroComponent implements OnInit {
       };
       return this.settingApi.videoIntroContact.post(data);
     }), finalize(() => this.isloading = false)).subscribe(() => {
-      this.notification.success('Thành công', 'Cập nhật thôn tin video giới thiệu thành công');
+      this.notification.success('Thành công', 'Cập nhật thônh tin video giới thiệu thành công');
     });
   }
 }
