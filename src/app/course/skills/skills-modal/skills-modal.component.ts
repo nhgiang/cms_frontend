@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { finalize, switchMap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 import { ICourseSkills } from 'types/models/course-skills.model';
-import { FileModel } from 'types/typemodel';
+import { trimData } from 'utils/common';
 
 @Component({
   selector: 'app-skills-modal',
@@ -35,8 +35,8 @@ export class SkillsModalComponent implements OnInit {
   ) {
     this.form = fb.group({
       icon: [null, Validators.required],
-      name: [null, TValidators.required],
-      description: [null, TValidators.required]
+      name: [null, [TValidators.required, TValidators.maxLength(200)]],
+      description: [null, [TValidators.required, TValidators.maxLength(500)]]
     });
   }
 
@@ -59,23 +59,11 @@ export class SkillsModalComponent implements OnInit {
     });
   }
 
-  onCropped(image: FileModel) {
-    this.image = image;
-    this.getBase64(image.file, (img: string) => {
-      this.form.get('photo').setValue(img);
-    });
-  }
-
-  private getBase64(img: Blob, callback: (img: {}) => void): void {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-  }
-
   submit() {
+
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.storageApiService.uploadFile(this.form.get('icon').value).pipe(
+    this.storageApiService.uploadFile(trimData(this.form.get('icon').value)).pipe(
       switchMap(data => {
         this.form.controls.icon.setValue(data);
         return this.api(this.form.value);

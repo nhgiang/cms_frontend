@@ -20,6 +20,8 @@ import { UploadVideoComponent } from './components/upload-video/upload-video.com
 import { FileUploadControlComponent } from './components/file-upload-control/file-upload-control.component';
 import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
 import { CustomeCollapseStepComponent } from './components/custome-collapse/custome-collapse-step.component';
+import { SafeHtmlPipe } from './pipes/safeHtml.pipe';
+import { MultipleSelectionComponent } from './controls/multiple-selection/multiple-selection.component';
 
 @NgModule({
   exports: [
@@ -42,7 +44,9 @@ import { CustomeCollapseStepComponent } from './components/custome-collapse/cust
     UploadVideoComponent,
     FileUploadControlComponent,
     FeedbackFormComponent,
-    CustomeCollapseStepComponent
+    CustomeCollapseStepComponent,
+    SafeHtmlPipe,
+    MultipleSelectionComponent
   ],
   imports: [
     RouterModule,
@@ -66,6 +70,8 @@ import { CustomeCollapseStepComponent } from './components/custome-collapse/cust
     FileUploadControlComponent,
     FeedbackFormComponent,
     CustomeCollapseStepComponent,
+    SafeHtmlPipe,
+    MultipleSelectionComponent
   ],
   providers: [
     ThemeConstantService
