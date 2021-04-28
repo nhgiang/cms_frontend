@@ -1,18 +1,23 @@
 <div role="tab" [attr.aria-expanded]="nzActive" class="ant-collapse-header px-3 align-items-center"
   (click)="clickHeader()">
   <ng-container *ngIf="isEdit;else stepName;">
-    <input class="step-name" type="text" nz-input [(ngModel)]="data.title">
+    <div class="d-flex align-items-center">
+      <input class="step-name" type="text" nz-input [(ngModel)]="data.title">
+      <span class="submit ml-3" (click)="editLesson($event)">
+        <i nz-icon nzType="check" style="font-size: 19px;" nzTheme="outline"></i>
+      </span>
+    </div>
   </ng-container>
   <ng-template #stepName>
     <div class="step-name">{{data?.title}}</div>
+    <div class="common-action">
+      <span>
+        <i nz-icon nzType="plus" nzTheme="outline" class="mr-4" (click)="addUnit($event)"></i>
+        <i nz-icon nzType="edit" nzTheme="outline" class="mr-4" (click)="editLesson($event)"></i>
+        <i nz-icon nzType="close-circle" nzTheme="outline" (click)="deleteStep($event)"></i>
+      </span>
+    </div>
   </ng-template>
-  <div class="common-action">
-    <span>
-      <i nz-icon nzType="plus" nzTheme="outline" class="mr-4" (click)="addActivity($event)"></i>
-      <i nz-icon nzType="edit" nzTheme="outline" class="mr-4" (click)="editStep($event)"></i>
-      <i nz-icon nzType="close-circle" nzTheme="outline" (click)="deleteStep($event)"></i>
-    </span>
-  </div>
 </div>
 <div class="ant-collapse-content ng-trigger ng-trigger-collapseMotion" [class.ant-collapse-content-active]="nzActive"
   [@.disabled]="noAnimation?.nzNoAnimation" [@collapseMotion]="nzActive ? 'expanded' : 'hidden'">
@@ -22,8 +27,8 @@
       <span>{{item?.title}}</span>
       <div class="common-action">
         <span>
-          <i nz-icon nzType="edit" nzTheme="outline" class="mr-4" (click)="editStep($event)"></i>
-          <i nz-icon nzType="close-circle" nzTheme="outline" (click)="deleteStep($event)"></i>
+          <i nz-icon nzType="edit" nzTheme="outline" class="mr-4" (click)="editUnit($event)"></i>
+          <i nz-icon nzType="close-circle" nzTheme="outline" (click)="deleteUnit($event)"></i>
         </span>
       </div>
     </div>

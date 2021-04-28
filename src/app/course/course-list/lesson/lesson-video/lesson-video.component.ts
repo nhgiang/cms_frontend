@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { UnitsApiService } from '@shared/api/units.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
@@ -8,7 +8,7 @@ import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { forkJoin } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { VideoAsset } from 'types/typemodel';
+import { AssetType } from 'types/enums';
 
 @Component({
   selector: 'app-lesson-video',
@@ -19,15 +19,20 @@ export class LessonVideoComponent implements OnInit {
   form: FormGroup;
   isLoading: boolean;
   @Input() unit: any;
+  lessonId: string;
+  AssetType = AssetType;
+
   constructor(
     private fb: FormBuilder,
     private storageApi: StorageApiService,
     private unitApi: UnitsApiService,
     private router: Router,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.lessonId = this.route.snapshot.paramMap.get('lessonId');
     this.buildForm();
     if (this.unit) {
       this.form.patchValue(this.unit);
@@ -41,8 +46,8 @@ export class LessonVideoComponent implements OnInit {
       video: this.storageApi.uploadVideo(this.form.value.video)
     }).pipe(switchMap(({ file, video }) => {
       const data = {
-        title: this.form.value.trim(),
-        lessionId: this.unit.lessionId,
+        title: this.form.value.title.trim(),
+        lessionId: this.lessonId,
         duration: typeof video === 'string' ? this.unit.duration : video.duration,
         video: typeof video === 'string' ? video : video.path,
         attachment: file

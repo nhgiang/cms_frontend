@@ -1,10 +1,11 @@
 import { Routes, RouterModule } from '@angular/router';
 import { CourseTypeComponent } from './course-type/course-type.component';
 import { CourseListComponent } from './course-list/course-list.component';
-import { CreateCourseComponent } from './course-list/create-course/create-course.component';
 import { SkillsComponent } from './skills/skills.component';
 import { SpecializationsComponent } from './specializations/specializations.component';
 import { LessonComponent } from './course-list/lesson/lesson.component';
+import { UnitAndTest } from 'types/enums';
+import { CreateCourseComponent } from './course-list/create-course/create-course.component';
 
 const routes: Routes = [
   {
@@ -18,26 +19,38 @@ const routes: Routes = [
         },
       },
       {
-        path: 'edit'
-      },
-      {
         path: 'create',
+        data: {
+          title: 'Thêm mới khóa học'
+        },
         children: [
           {
             path: '',
-            component: CreateCourseComponent,
-            data: {
-              title: 'Tạo mới khóa học',
-            }
+            component: CreateCourseComponent
           },
           {
-            path: 'lesson',
-            component: LessonComponent,
-            data: {
-              title: 'Thêm bài học',
-            }
-          }
-        ],
+            path: 'lesson/:lessonId',
+            children: [
+              {
+                path: 'unit',
+                component: LessonComponent,
+                data: {
+                  title: 'Thêm bài giảng',
+                  data: {
+                    type: UnitAndTest.Unit,
+                  }
+                }
+              },
+              {
+                path: 'unit/:unitId',
+                component: LessonComponent,
+                data: {
+                  title: 'Cập nhật bài giảng',
+                }
+              }
+            ]
+          },
+        ]
       },
     ]
   },

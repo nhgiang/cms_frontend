@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UnitsApiService } from '@shared/api/units.api.service';
 
 @Component({
   selector: 'app-lesson',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LessonComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private unitApi: UnitsApiService
+  ) { }
 
   ngOnInit(): void {
   }
-
 }

@@ -20,4 +20,8 @@ export class LessonApiService extends BaseApi {
   deleteLesson(id: string) {
     return this.httpClient.delete<any>(this.createUrl(`/${id}`));
   }
+
+  editLesson(id, body) {
+    return this.httpClient.put<any>(this.createUrl(`/${id}`), body);
+  }
 }

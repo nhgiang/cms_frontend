@@ -1,20 +1,21 @@
 <form [formGroup]="form" nz-form (ngSubmit)="submit()">
   <nz-form-item>
-    <nz-form-label nzRequired>Tiêu đề bài học</nz-form-label>
-    <nz-form-control>
+    <nz-form-label [nzSpan]="2" nzRequired class="text-left">Tiêu đề bài học</nz-form-label>
+    <nz-form-control [nzErrorTip]="'Vui lòng nhập tiêu đề bài học'">
       <textarea nz-input rows="3" formControlName="title" placeholder="Nhập tiêu đề bài học"></textarea>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-control>
+    <nz-form-label [nzSpan]="2" class="text-left" nzRequired>Video bài giảng</nz-form-label>
+    <nz-form-control [nzErrorTip]="'Vui lòng tải lên video bài giảng'">
       <app-upload-video formControlName="video">
       </app-upload-video>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label>Tài liệu đính kèm</nz-form-label>
+    <nz-form-label [nzSpan]="2" class="text-left">Tài liệu đính kèm</nz-form-label>
     <nz-form-control>
-      <app-file-upload-control formControlName="file"></app-file-upload-control>
+      <app-file-upload-control [fileType]="AssetType.File" formControlName="file"></app-file-upload-control>
     </nz-form-control>
   </nz-form-item>
   <div class="d-flex">

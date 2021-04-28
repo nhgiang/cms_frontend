@@ -10,4 +10,8 @@ export class UnitsApiService extends BaseApi {
   createUnit(body) {
     return this.httpClient.post<any>(this.createUrl(``), body);
   }
+
+  getUnit(id) {
+    return this.httpClient.get<any>(this.createUrl(`${id}`));
+  }
 }

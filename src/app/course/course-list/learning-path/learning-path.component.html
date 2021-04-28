@@ -4,7 +4,7 @@
 </div>
 <div class="steps p-3" *ngIf="lessons?.length || isAddStep">
   <nz-collapse>
-    <app-custome-collapse-step *ngFor="let lesson of lessons" [data]="lesson"></app-custome-collapse-step>
+    <app-custome-collapse-step *ngFor="let lesson of lessons" [data]="lesson" (refresh)="refresh()"></app-custome-collapse-step>
   </nz-collapse>
   <div class="add-step" *ngIf="isAddStep">
     <nz-form-item class="step-title mb-0">

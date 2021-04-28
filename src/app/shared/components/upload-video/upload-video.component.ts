@@ -26,7 +26,7 @@ export class UploadVideoComponent extends AbstractControlDirective implements On
   url: any;
   process = 0;
   file: File;
-  maxSize = 100;
+  maxSize = 100_000_000;
   constructor(private messageService: NzMessageService) {
     super();
   }

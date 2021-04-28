@@ -45,4 +45,10 @@ export class LearningPathComponent implements OnInit {
       this.isAddStep = false;
     });
   }
+
+  refresh() {
+    this.lessonApi.getLessonByCourse(this.courseId).subscribe(lessons => {
+      this.lessons = lessons;
+    });
+  }
 }

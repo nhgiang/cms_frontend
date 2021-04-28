@@ -49,6 +49,6 @@ export class StorageApiService extends BaseApi {
     }
     const form = new FormData();
     form.append('file', file, fileName || ((file as any).name || 'unknownfile'));
-    return this.httpClient.post<VideoAsset>(this.createUrl('/upload'), form);
+    return this.httpClient.post<VideoAsset>(this.createUrl('/upload-video'), form);
   }
 }

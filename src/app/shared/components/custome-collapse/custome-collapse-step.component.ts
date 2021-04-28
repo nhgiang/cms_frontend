@@ -6,6 +6,7 @@ import { NzConfigService } from 'ng-zorro-antd/core/config';
 import { LessonApiService } from '@shared/api/lesson.api.service';
 import { Lesson } from 'types/models/course';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-custome-collapse-step',
@@ -21,7 +22,6 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 })
 export class CustomeCollapseStepComponent extends NzCollapsePanelComponent implements OnInit {
   @Input() data: Lesson;
-  @Input() activities: any[];
   @Output() refresh = new EventEmitter();
   isEdit: boolean;
   constructor(
@@ -31,6 +31,8 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
     elementRef: ElementRef,
     private lessonApi: LessonApiService,
     private notification: NzNotificationService,
+    private router: Router,
+    private route: ActivatedRoute,
     @Optional() public noAnimation?: NzNoAnimationDirective,
   ) {
     super(nzConfigService, cdr, nzCollapseComponent, elementRef, noAnimation);
@@ -48,12 +50,32 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
     e.stopPropagation();
     this.lessonApi.deleteLesson(this.data.id).subscribe(() => {
       this.refresh.emit();
-      this.notification.success('Thành công', 'Xóa chương học thành công!')
+      this.notification.success('Thành công', 'Xóa thông tin chương học thành công!')
     });
   }
 
-  addActivity(e) {
+  addUnit(e) {
+    this.router.navigate([`/course-management/course/create/lesson/${this.data.id}/unit`], { relativeTo: this.route });
+  }
+
+  editLesson(e) {
     e.stopPropagation();
-    this.activities.push({});
+    if (!this.isEdit) {
+      this.isEdit = true;
+      return;
+    }
+    this.lessonApi.editLesson(this.data.id, this.data).subscribe(() => {
+      this.notification.success('Thành công', 'Cập nhật thông tin chương học thành công');
+      this.isEdit = false;
+      this.markForCheck();
+    });
+  }
+
+  editUnit(e) {
+    this.router.navigate(['']);
+  }
+
+  deleteUnit(e) {
+    e.stopPropagation();
   }
 }
