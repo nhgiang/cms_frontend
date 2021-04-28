@@ -1,33 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { CourseApiService } from '@shared/api/course.api.service';
 import { SkillsApiService } from '@shared/api/skills.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { FeedbackFormComponent } from '@shared/components/feedback-form/feedback-form.component';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { iif, of } from 'rxjs';
-import { finalize, map, switchMap, tap } from 'rxjs/operators';
+import { map, tap, switchMap, finalize } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
+import { Course } from 'types/models/course';
 import { VideoAsset } from 'types/typemodel';
 
 @Component({
-  selector: 'app-create-course',
-  templateUrl: './create-course.component.html',
-  styleUrls: ['./create-course.component.scss']
+  selector: 'app-edit-course',
+  templateUrl: './edit-course.component.html',
+  styleUrls: ['./edit-course.component.scss']
 })
-export class CreateCourseComponent implements OnInit {
+export class EditCourseComponent implements OnInit {
   assetType = AssetType;
   form: FormGroup;
   photoUrl: string;
   videoUpload: any;
   isUploadLink = true;
-  id: string;
+  course: Course;
   isLoading = false;
   constructor(
     fb: FormBuilder,
@@ -38,7 +39,8 @@ export class CreateCourseComponent implements OnInit {
     private skillsApiService: SkillsApiService,
     private storageApiService: StorageApiService,
     private notification: NzNotificationService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.form = fb.group({
       photo: [null, Validators.required],
@@ -54,6 +56,11 @@ export class CreateCourseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const courseId = this.route.snapshot.paramMap.get('courseId');
+    this.courseApiService.getById(courseId).subscribe(res => {
+      this.course = res;
+      this.form.patchValue(res)
+    })
     this.previewPhoto();
   }
 
@@ -85,13 +92,11 @@ export class CreateCourseComponent implements OnInit {
         return of(true);
       }),
       switchMap(() => {
-        return (this.id) ? this.courseApiService.update(this.id, this.form.value) : this.courseApiService.create(this.form.value);
+        return this.courseApiService.update(this.course.id, this.form.value);
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(res => {
       this.notification.success('Thành công', '');
-      this.id = res.id;
-      this.router.navigate([`/course-management/course/edit/${res.id}`])
     });
   }
 
@@ -119,4 +124,3 @@ export class CreateCourseComponent implements OnInit {
     });
   }
 }
-

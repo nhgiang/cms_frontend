@@ -6,7 +6,7 @@ import { NzConfigService } from 'ng-zorro-antd/core/config';
 import { LessonApiService } from '@shared/api/lesson.api.service';
 import { Lesson } from 'types/models/course';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-custome-collapse-step',
@@ -55,7 +55,7 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
   }
 
   addUnit(e) {
-    this.router.navigate([`/course-management/course/create/lesson/${this.data.id}/unit`], { relativeTo: this.route });
+    this.router.navigate([`lesson/${this.data.id}/unit`], { relativeTo: this.route });
   }
 
   editLesson(e) {
@@ -71,8 +71,8 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
     });
   }
 
-  editUnit(e) {
-    this.router.navigate(['']);
+  editUnit(id, unitType) {
+    this.router.navigate([`lesson/${this.data.id}/unit/${id}/${unitType}`], { relativeTo: this.route });
   }
 
   deleteUnit(e) {

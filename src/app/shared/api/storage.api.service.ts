@@ -43,7 +43,7 @@ export class StorageApiService extends BaseApi {
       }));
   }
 
-  uploadVideo(file: Blob | File | string, fileName?: string): Observable<VideoAsset> | Observable<string> {
+  uploadVideo(file: Blob | File | string, fileName?: string): Observable<VideoAsset | string> {
     if (!file || typeof file === 'string') {
       return of(file as string);
     }

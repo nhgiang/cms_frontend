@@ -16,6 +16,7 @@ import { UploadVideoIntroComponent } from './course-list/create-course/upload-vi
 import { LearningPathComponent } from './course-list/learning-path/learning-path.component';
 import { LessonComponent } from './course-list/lesson/lesson.component';
 import { LessonVideoComponent } from './course-list/lesson/lesson-video/lesson-video.component';
+import { EditCourseComponent } from './course-list/edit-course/edit-course.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { LessonVideoComponent } from './course-list/lesson/lesson-video/lesson-v
     UploadVideoIntroComponent,
     LearningPathComponent,
     LessonComponent,
-    LessonVideoComponent
+    LessonVideoComponent,
+    EditCourseComponent
   ]
 })
 export class CourseModule { }

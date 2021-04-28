@@ -6,6 +6,7 @@ import { SpecializationsComponent } from './specializations/specializations.comp
 import { LessonComponent } from './course-list/lesson/lesson.component';
 import { UnitAndTest } from 'types/enums';
 import { CreateCourseComponent } from './course-list/create-course/create-course.component';
+import { EditCourseComponent } from './course-list/edit-course/edit-course.component';
 
 const routes: Routes = [
   {
@@ -19,14 +20,14 @@ const routes: Routes = [
         },
       },
       {
-        path: 'create',
+        path: 'edit/:courseId',
         data: {
-          title: 'Thêm mới khóa học'
+          title: 'Cập nhật khóa học'
         },
         children: [
           {
             path: '',
-            component: CreateCourseComponent
+            component: EditCourseComponent
           },
           {
             path: 'lesson/:lessonId',
@@ -36,13 +37,10 @@ const routes: Routes = [
                 component: LessonComponent,
                 data: {
                   title: 'Thêm bài giảng',
-                  data: {
-                    type: UnitAndTest.Unit,
-                  }
                 }
               },
               {
-                path: 'unit/:unitId',
+                path: 'unit/:unitId/:unitType',
                 component: LessonComponent,
                 data: {
                   title: 'Cập nhật bài giảng',
@@ -51,6 +49,13 @@ const routes: Routes = [
             ]
           },
         ]
+      },
+      {
+        path: 'create',
+        component: CreateCourseComponent,
+        data: {
+          title: 'Thêm mới khóa học'
+        },
       },
     ]
   },

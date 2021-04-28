@@ -39,6 +39,13 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
     super();
   }
 
+  writeValue(obj: any) {
+    if (obj) {
+      this.linkYoutubeInput = obj;
+      this.changeLink(obj)
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.isUploadLink.currentValue) {
       this.onChangeFn(this.linkYoutubeInput);

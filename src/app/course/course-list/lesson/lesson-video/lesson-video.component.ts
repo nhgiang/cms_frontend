@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { UnitsApiService } from '@shared/api/units.api.service';
@@ -15,7 +16,7 @@ import { AssetType } from 'types/enums';
   templateUrl: './lesson-video.component.html',
   styleUrls: ['./lesson-video.component.scss']
 })
-export class LessonVideoComponent implements OnInit {
+export class LessonVideoComponent implements OnInit, OnChanges {
   form: FormGroup;
   isLoading: boolean;
   @Input() unit: any;
@@ -28,13 +29,17 @@ export class LessonVideoComponent implements OnInit {
     private unitApi: UnitsApiService,
     private router: Router,
     private notification: NzNotificationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
     this.lessonId = this.route.snapshot.paramMap.get('lessonId');
     this.buildForm();
-    if (this.unit) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.unit.currentValue) {
       this.form.patchValue(this.unit);
     }
   }
