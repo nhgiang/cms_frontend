@@ -29,13 +29,13 @@
     </div>
     <nz-form-item>
       <nz-form-label [nzSpan]="6" class="text-left" nzRequired>Tên kỹ năng</nz-form-label>
-      <nz-form-control [nzErrorTip]="'Tên kỹ năng phải từ 1 đến 200 ký tự'">
+      <nz-form-control nzErrorTip="Tên kỹ năng phải từ 1 đến 200 ký tự">
         <input nz-input formControlName="name" placeholder="Nhập tên kỹ năng">
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSpan]="6" class="text-left" nzRequired>Mô tả</nz-form-label>
-      <nz-form-control [nzErrorTip]="'Nội dung mô tả phải từ 1 đến 500 ký tự'">
+      <nz-form-control nzErrorTip="Nội dung mô tả phải từ 1 đến 500 ký tự">
         <textarea nz-input formControlName="description" placeholder="Nhập mô tả kỹ năng" rows="3"
           style="resize: none;"></textarea>
       </nz-form-control>
