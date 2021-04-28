@@ -1,5 +1,6 @@
-import { AbstractControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 export class TValidators extends Validators {
+
   static confirmPasswordValidator(control: AbstractControl): ValidationErrors {
     const group = control as FormGroup;
     if (!group.controls.password.value) {
@@ -82,5 +83,19 @@ export class TValidators extends Validators {
       };
     }
     return null;
+  }
+
+  static maxLength(length: number): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors => {
+      if (!control.value) { return null; }
+      return this.trimData(control.value)?.length > length ? { maxLength: true } : null;
+    };
+  }
+
+  static trimData(data: any): any {
+    if (data && typeof data === 'string') {
+      return data.trim();
+    }
+    return data;
   }
 }
