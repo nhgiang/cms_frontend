@@ -70,7 +70,7 @@ export class TValidators extends Validators {
       return null;
     }
     const value = control.value && control.value.trim();
-    const regex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+    const regex = /^(84|0[3|5|7|8|9])+([0-9]{8})$/;
     return regex.test(value) ? null : {
       phoneNumber: true
     };

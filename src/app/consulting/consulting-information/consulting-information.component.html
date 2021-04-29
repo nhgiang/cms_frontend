@@ -22,7 +22,9 @@
       </form>
     </div>
   </div>
-  <nz-table [nzData]="items" (nzQueryParams)="onParamsChanged($event)" [nzLoading]="isloading">
+  <nz-table [nzData]="items" [nzShowTotal]="totalTemplate" [nzNoResult]="empty" [nzFrontPagination]="false"
+    [nzPageSize]="quantity" [nzTotal]="meta?.totalItems" [(nzPageIndex)]="page"
+    (nzQueryParams)="onParamsChanged($event)" [nzLoading]="isloading" nzTableLayout="fixed">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -49,15 +51,13 @@
               nzShape="circle" nz-tooltip nzTooltipTitle="Cập nhật">
               <i nz-icon nzType="edit" theme="outline"></i>
             </a>
-            <div (confirmed)="deleteItems(item?.id)"
-              [confirmation]="'Bạn có chắc muốn xóa thông tin giảng viên này hay không?'">
-              <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
-                <i nz-icon nzType="close" nzTheme="outline"></i>
-              </a>
-            </div>
           </div>
         </td>
       </tr>
     </tbody>
   </nz-table>
 </nz-card>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
+<ng-template #totalTemplate let-total> Total: {{ total }} </ng-template>

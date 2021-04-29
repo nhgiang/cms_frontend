@@ -48,7 +48,7 @@ export class ConsultingInformationEditComponent implements OnInit {
   deleteItem() {
     this.isLoading = true;
     this.contactApi.delete(this.id).pipe(finalize(() => this.isLoading = false)).subscribe(() => {
-      this.notification.success('Thành công', 'Xóa thông tin đánh giá khách hàng thành công');
+      this.notification.success('Thành công', 'Xóa thông tin đánh giá khách hàng thành công!');
       this.router.navigate(['/consulting/information']);
     });
   }
@@ -57,7 +57,7 @@ export class ConsultingInformationEditComponent implements OnInit {
     this.form = this.fb.group({
       name: [null, TValidators.required],
       email: [null, TValidators.required],
-      phoneNumber: [null, TValidators.required],
+      phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]],
       courseInterested: [null, TValidators.required],
       note: [null],
       status: [null]
