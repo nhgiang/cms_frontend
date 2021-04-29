@@ -41,6 +41,6 @@
     </nz-form-item>
   </div>
   <div *nzModalFooter>
-    <button nz-button nzType="primary" (click)="submit()" type="submit" [nzLoading]="isLoading">Xác nhận</button>
+    <button nz-button [disabled]="form.invalid" nzType="primary" (click)="submit()" type="submit" [nzLoading]="isLoading">Xác nhận</button>
   </div>
 </form>

@@ -21,4 +21,8 @@ export class CourseApiService extends BaseApi {
   update(id: string, body: Course): Observable<Course> {
     return this.httpClient.put<Course>(this.createUrl(`/${id}`), body);
   }
+
+  getById(id: string): Observable<Course> {
+    return this.httpClient.get<Course>(this.createUrl(`/${id}`));
+  }
 }
