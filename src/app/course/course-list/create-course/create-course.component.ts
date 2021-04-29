@@ -88,13 +88,8 @@ export class CreateCourseComponent implements OnInit {
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(res => {
-<<<<<<< HEAD
-      this.notification.success('Thành công', 'Tạo mới thông tin chi tiết khóa học thành công');
-      this.id = res.id;
-=======
       this.notification.success('Thành công', '');
       this.router.navigate([`/course-management/course/edit/${res.id}`]);
->>>>>>> 636831286fbd589dfde60d34986bc1538620b634
     });
   }
 
