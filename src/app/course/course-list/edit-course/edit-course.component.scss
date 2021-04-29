@@ -1,0 +1,63 @@
+.image-cropper {
+  width: 82px;
+  height: 82px;
+  border-radius: 4px;
+  background: #edf2f9;
+  cursor: pointer;
+  .avatar {
+    height: 100%;
+    line-height: 82px;
+    .upload {
+      color: #72849a;
+      cursor: pointer;
+      text-align: center;
+    }
+    img {
+      width: 100%;
+    }
+  }
+}
+.label-avatar {
+  font-weight: 500;
+}
+
+.input-space {
+  width: 150px;
+}
+.upload-btn {
+  padding-right: 0 !important;
+}
+.card-body {
+  border: 1px solid #edf2f9;
+  margin-bottom: 1.25rem;
+  background-color: #ffffff;
+}
+
+.title {
+  position: relative;
+  border-bottom: 1px solid #edf2f9;
+  span {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    color: #000000;
+    font-size: 24px;
+    cursor: pointer;
+    &.add-step {
+      right: 20px
+    }
+  }
+}
+.feedback {
+  .feedback-content {
+    width: calc(100% - 110px);
+    align-self: flex-start;
+    h5 {
+      cursor: pointer;
+    }
+  }
+  &:not(:last-child) {
+    border-bottom: 1px solid #EDF2F9;
+  }
+}

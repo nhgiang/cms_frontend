@@ -21,8 +21,16 @@ import { Error500Component } from './authentication/error500/error500.component'
 import { API_BASE_URL } from '@shared/api/base-url';
 import { environment } from '@env';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
+import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
 
 registerLocaleData(en);
+
+const ngZorroConfig: NzConfig = {
+  modal: {
+    nzMaskClosable: false
+  }
+};
+
 
 @NgModule({
   declarations: [
@@ -53,6 +61,10 @@ registerLocaleData(en);
     {
       provide: NZ_I18N,
       useValue: en_US,
+    },
+    {
+      provide: NZ_CONFIG,
+      useValue: ngZorroConfig
     },
     {
       provide: LocationStrategy,

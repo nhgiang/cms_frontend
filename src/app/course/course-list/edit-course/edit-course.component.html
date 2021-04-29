@@ -99,8 +99,7 @@
     <nz-form-item>
       <nz-form-label class="text-left input-space" nzRequired>Kỹ năng</nz-form-label>
       <nz-form-control nzErrorTip="Chọn kỹ năng đạt được cho khóa học">
-        <app-multiple-selection [maxMultipleCount]="4" [getOptionsFn]="skills" formControlName="skills"
-          placeholder="Chọn kĩ năng đạt được">
+        <app-multiple-selection [getOptionsFn]="skills" formControlName="skills" placeholder="Chọn kĩ năng đạt được">
         </app-multiple-selection>
       </nz-form-control>
     </nz-form-item>
@@ -110,22 +109,37 @@
     </div>
   </form>
 </nz-card>
-<nz-card nzTitle="Bước 2: Thiết lập nội dung khoá học" style="pointer-events: none;opacity: 0.5;">
+<nz-card nzTitle="Bước 2: Thiết lập nội dung khoá học">
   <div class="row">
-    <div class="col-6">
+    <div class="col-7">
       <div class="card-body p-0">
-        <app-learning-path></app-learning-path>
+        <app-learning-path [courseId]="course?.id"></app-learning-path>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-5">
       <div class="card-body">
-        <div class="title">
+        <div class="title px-3 py-2">
           <h5 class="mb-0">Đánh giá học viên</h5>
-          <span><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+          <span (click)="addFeedback()"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+        </div>
+        <div class="feedbacks px-3">
+          <div *ngFor="let feedback of feedbacks"
+            class="feedback d-flex align-items-center py-3 justify-content-between">
+            <nz-avatar [nzShape]="'square'" [nzSize]="68" [nzIcon]="'user'" [nzSrc]="feedback.photo"></nz-avatar>
+            <div class="ml-3 feedback-content">
+              <h5 class="mb-0" (click)="editFeedback(feedback?.id)">{{feedback?.studentName}}</h5>
+              <div class="truncate-2 text-muted">{{feedback?.content}}</div>
+            </div>
+            <div class="text-muted">
+              <span [confirmation]="'Bạn có chắc chắn muốn xóa thông tin đánh giá của học viên này?'" (confirmed)="deleteFeedback()">
+                <i nz-icon nzType="close-circle" nzTheme="fill" style="font-size: 20px;"></i>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card-body">
-        <div class="title">
+        <div class="title  px-3 py-2">
           <h5 class="mb-0">Cấp chứng chỉ</h5>
           <span><i nz-icon nzType="plus" nzTheme="outline"></i></span>
         </div>
