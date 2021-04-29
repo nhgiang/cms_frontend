@@ -5,7 +5,8 @@ import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { Observable } from 'rxjs';
+import { iif, Observable } from 'rxjs';
+import { of } from 'rxjs/internal/observable/of';
 import { finalize, switchMap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 import { ICourseSkills } from 'types/models/course-skills.model';
@@ -63,10 +64,15 @@ export class SkillsModalComponent implements OnInit {
 
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.storageApiService.uploadFile(trimData(this.form.get('icon').value)).pipe(
+    iif(() => this.form.controls.icon.value instanceof File,
+      this.storageApiService.uploadFile(this.form.get('icon').value),
+      of(true)
+    ).pipe(
       switchMap(data => {
-        this.form.controls.icon.setValue(data);
-        return this.api(this.form.value);
+        if (typeof data === 'string') {
+          this.form.controls.icon.setValue(data);
+        }
+        return this.api(trimData(this.form.value));
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(
