@@ -6,7 +6,7 @@ import { DestroyService } from '@shared/services/destroy.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Subject } from 'rxjs';
-import { debounceTime, skip, switchMap, takeUntil } from 'rxjs/operators';
+import { debounceTime, skip, switchMap, takeUntil, takeWhile, tap } from 'rxjs/operators';
 import { SettingTeacher } from 'types/typemodel';
 import { ContentStateService } from '../content-state.service';
 import { TeacherCreateComponent } from './teacher-create/teacher-create.component';
@@ -44,11 +44,18 @@ export class TeacherComponent implements OnInit, OnDestroy {
     this.settingApi.teacher.get().subscribe((res) => {
       this.contentState.initState(res);
     });
-    this.description.valueChanges.pipe(skip(1), debounceTime(1000), switchMap(val => {
-      return this.contentState.updateDescripton(val.trim());
-    })).subscribe(() => {
-      this.notification.success('Thành công', 'Cập nhật mô tả chung thành công!');
-    });
+    this.description.valueChanges.pipe(
+      skip(1),
+      takeWhile(val => {
+        this.description.markAsDirty();
+        return this.description.valid;
+      }),
+      debounceTime(1000),
+      switchMap(val => {
+        return this.contentState.updateDescripton(val.trim());
+      })).subscribe(() => {
+        this.notification.success('Thành công', 'Cập nhật mô tả chung thành công!');
+      });
   }
 
   deleteTeacher(index) {
