@@ -15,7 +15,7 @@
     <nz-form-item class="align-items-center">
       <nz-form-label class="text-left align-self-flex-end" [nzSpan]="3" nzRequired>Nội dung
       </nz-form-label>
-      <nz-form-control [nzErrorTip]="'Nội dung chưa tối đa 1000 ký tự'">
+      <nz-form-control [nzErrorTip]="'Nội dung chứa tối đa 1000 ký tự'">
         <textarea nz-input rows="3" formControlName="content" [class.readonly]="!isEdit" placeholder="Nhập nội dung"
           [readonly]="!isEdit"></textarea>
       </nz-form-control>
