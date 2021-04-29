@@ -8,6 +8,7 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { switchMap, tap } from 'rxjs/operators';
 import { FileModel } from 'types/typemodel';
 import { AbstractControlDirective } from '../abstract-control.directive';
+import { last } from 'lodash-es';
 
 function getBase64(file: File): Promise<string | ArrayBuffer | null> {
   return new Promise((resolve, reject) => {
@@ -37,8 +38,8 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
   @Input() uploadUrl: string;
   previewImage: string | undefined = '';
   previewVisible = false;
-  fileList: NzUploadFile | string[];
-  image: any;
+  fileList: any[];
+  image: FileModel;
   avatarUrl: string;
   private modalRef: NzModalRef;
 
@@ -67,7 +68,6 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
 
   change(event) {
     if (!['start', 'progress'].includes(event.type)) {
-      this.fileList = this.fileList.filter(x => !x?.uid);
       this.onChangeFn(this.fileList.map(x => x.url));
     }
   }
@@ -118,9 +118,14 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
       switchMap((image: FileModel) => {
         return this.storageApiService.uploadFile(image.file, image.fileName);
       }),
-      tap(res => {
-        this.fileList.push({ url: res });
+      tap(path => {
         this.onChangeFn(this.fileList);
+        setTimeout(() => {
+          const lastFile = last(this.fileList);
+          lastFile.url = path;
+          lastFile.thumbUrl = path;
+          this.fileList = [...this.fileList] as any;
+        }, 30);
       })
     );
   }
@@ -130,3 +135,4 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
     this.onChangeFn(this.fileList.map(x => x.url));
   }
 }
+
