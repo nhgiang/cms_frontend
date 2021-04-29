@@ -90,7 +90,7 @@ export class CreateCourseComponent implements OnInit {
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(res => {
-      this.notification.success('Thành công', '');
+      this.notification.success('Thành công', 'Tạo mới thông tin chi tiết khóa học thành công');
       this.id = res.id;
     });
   }
