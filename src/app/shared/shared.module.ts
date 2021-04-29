@@ -47,7 +47,8 @@ import { FilesUploadControlComponent } from './components/files-upload-control/f
     FeedbackFormComponent,
     CustomeCollapseStepComponent,
     SafeHtmlPipe,
-    MultipleSelectionComponent
+    MultipleSelectionComponent,
+    FilesUploadControlComponent
   ],
   imports: [
     RouterModule,

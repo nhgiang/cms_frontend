@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Lesson } from 'types/models/course';
 import { BaseApi } from './base-api';
 
 @Injectable({
@@ -14,14 +15,14 @@ export class LessonApiService extends BaseApi {
   }
 
   getLessonByCourse(courseId: string) {
-    return this.httpClient.get<any>(this.createUrl(`/find-by-course/${courseId}`));
+    return this.httpClient.get<Lesson[]>(this.createUrl(`/find-by-course/${courseId}`));
   }
 
   deleteLesson(id: string) {
-    return this.httpClient.delete<any>(this.createUrl(`/${id}`));
+    return this.httpClient.delete<Lesson>(this.createUrl(`/${id}`));
   }
 
   editLesson(id, body) {
-    return this.httpClient.put<any>(this.createUrl(`/${id}`), body);
+    return this.httpClient.put<Lesson>(this.createUrl(`/${id}`), body);
   }
 }

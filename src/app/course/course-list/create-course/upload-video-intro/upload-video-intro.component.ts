@@ -1,4 +1,4 @@
-import { Component, forwardRef, Injector, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, forwardRef, Injector, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { NgControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import * as getYouTubeId from 'get-youtube-id';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -23,7 +23,7 @@ import { AbstractControlDirective } from '@shared/controls/abstract-control.dire
   ]
 })
 export class UploadVideoIntroComponent extends AbstractControlDirective implements OnInit, OnChanges {
-
+  @ViewChild('inputUpload', { static: false }) inputUpload: ElementRef;
   @Input() isUploadLink: boolean;
   displayPreview = false;
   displayPreviewYT = false;
@@ -69,7 +69,8 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
       this.fileVideo = null;
       return this.notification.error('Thất bại', 'Vui lòng chọn đúng định dạng file');
     }
-    if (this.fileVideo) {
+    console.log(file)
+    if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (event) => {
@@ -79,6 +80,7 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
     }
     this.fileVideo = file;
     this.onChangeFn(this.fileVideo);
+    this.inputUpload.nativeElement.value = '';
   }
 
   removeVideo() {

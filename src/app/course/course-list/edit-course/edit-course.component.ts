@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { CourseApiService } from '@shared/api/course.api.service';
+import { FeedbackApiService } from '@shared/api/feedback.api.service';
 import { SkillsApiService } from '@shared/api/skills.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
@@ -14,7 +15,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { iif, of } from 'rxjs';
 import { map, tap, switchMap, finalize } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
-import { Course } from 'types/models/course';
+import { Course, Feedback } from 'types/models/course';
 import { VideoAsset } from 'types/typemodel';
 
 @Component({
@@ -30,6 +31,7 @@ export class EditCourseComponent implements OnInit {
   isUploadLink = true;
   course: Course;
   isLoading = false;
+  feedbacks: Feedback[];
   constructor(
     fb: FormBuilder,
     private teacherApiService: TeacherApiService,
@@ -39,8 +41,8 @@ export class EditCourseComponent implements OnInit {
     private skillsApiService: SkillsApiService,
     private storageApiService: StorageApiService,
     private notification: NzNotificationService,
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private feedbackApi: FeedbackApiService
   ) {
     this.form = fb.group({
       photo: [null, Validators.required],
@@ -57,10 +59,13 @@ export class EditCourseComponent implements OnInit {
 
   ngOnInit(): void {
     const courseId = this.route.snapshot.paramMap.get('courseId');
-    this.courseApiService.getById(courseId).subscribe(res => {
-      this.course = res;
-      this.form.patchValue(res)
-    })
+    this.courseApiService.getById(courseId).pipe(switchMap(course => {
+      this.course = course;
+      this.form.patchValue(course);
+      return this.feedbackApi.getByCourse(course.id);
+    })).subscribe(res => {
+      this.feedbacks = res;
+    });
     this.previewPhoto();
   }
 
@@ -119,8 +124,36 @@ export class EditCourseComponent implements OnInit {
   }
 
   addFeedback() {
-    this.modalService.create({
-      nzContent: FeedbackFormComponent
+    const modalRef = this.modalService.create({
+      nzContent: FeedbackFormComponent,
+      nzComponentParams: {
+        courseId: this.course.id
+      }
+    });
+    modalRef.componentInstance.refresh.pipe(switchMap(() => {
+      return this.feedbackApi.getByCourse(this.course.id);
+    })).subscribe(res => {
+      this.feedbacks = res;
+    });
+  }
+
+  editFeedback(id) {
+    const modalRef = this.modalService.create({
+      nzContent: FeedbackFormComponent,
+      nzComponentParams: {
+        feedbackId: id
+      }
+    });
+    modalRef.componentInstance.refresh.pipe(switchMap(() => {
+      return this.feedbackApi.getByCourse(this.course.id);
+    })).subscribe(res => {
+      this.feedbacks = res;
+    });
+  }
+
+  deleteFeedback(id) {
+    this.feedbackApi.delete(id).subscribe(() => {
+      this.notification.success('Thành công', 'Xóa thông tin đánh giá của học viên thành công!')
     });
   }
 }

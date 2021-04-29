@@ -7,6 +7,7 @@ import { LessonApiService } from '@shared/api/lesson.api.service';
 import { Lesson } from 'types/models/course';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { UnitsApiService } from '@shared/api/units.api.service';
 
 @Component({
   selector: 'app-custome-collapse-step',
@@ -33,6 +34,7 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
     private notification: NzNotificationService,
     private router: Router,
     private route: ActivatedRoute,
+    private unitApi: UnitsApiService,
     @Optional() public noAnimation?: NzNoAnimationDirective,
   ) {
     super(nzConfigService, cdr, nzCollapseComponent, elementRef, noAnimation);
@@ -75,7 +77,10 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
     this.router.navigate([`lesson/${this.data.id}/unit/${id}/${unitType}`], { relativeTo: this.route });
   }
 
-  deleteUnit(e) {
-    e.stopPropagation();
+  deleteUnit(id) {
+    this.unitApi.deleteUnit(id).subscribe(() => {
+      this.refresh.emit();
+      this.notification.success('Thành công', 'Xóa thông tin bài giảng thành công!');
+    });
   }
 }

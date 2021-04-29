@@ -109,24 +109,41 @@
     </div>
   </form>
 </nz-card>
-<div class="row">
-  <div class="col-6">
-    <div class="card-body p-0">
-      <app-learning-path></app-learning-path>
-    </div>
-  </div>
-  <div class="col-6">
-    <div class="card-body">
-      bbb
-    </div>
-    <div class="card-body">
-      <div class="title">
-        <h5 class="mb-0">Đánh giá học viên</h5>
-        <span (click)="addFeedback()"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+<nz-card nzTitle="Bước 2: Thiết lập nội dung khoá học">
+  <div class="row">
+    <div class="col-7">
+      <div class="card-body p-0">
+        <app-learning-path [courseId]="course?.id"></app-learning-path>
       </div>
     </div>
-    <div class="card-body">
-      bbb
+    <div class="col-5">
+      <div class="card-body">
+        <div class="title px-3 py-2">
+          <h5 class="mb-0">Đánh giá học viên</h5>
+          <span (click)="addFeedback()"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+        </div>
+        <div class="feedbacks px-3">
+          <div *ngFor="let feedback of feedbacks"
+            class="feedback d-flex align-items-center py-3 justify-content-between">
+            <nz-avatar [nzShape]="'square'" [nzSize]="68" [nzIcon]="'user'" [nzSrc]="feedback.photo"></nz-avatar>
+            <div class="ml-3 feedback-content">
+              <h5 class="mb-0" (click)="editFeedback(feedback?.id)">{{feedback?.studentName}}</h5>
+              <div class="truncate-2 text-muted">{{feedback?.content}}</div>
+            </div>
+            <div class="text-muted">
+              <span [confirmation]="'Bạn có chắc chắn muốn xóa thông tin đánh giá của học viên này?'" (confirmed)="deleteFeedback()">
+                <i nz-icon nzType="close-circle" nzTheme="fill" style="font-size: 20px;"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="title  px-3 py-2">
+          <h5 class="mb-0">Cấp chứng chỉ</h5>
+          <span><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</nz-card>

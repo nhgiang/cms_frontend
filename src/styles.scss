@@ -38,6 +38,16 @@
   overflow: hidden;
 }
 
+.truncate-2{
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  height: inherit;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .truncate-1{
   display: -webkit-box;
   word-wrap: break-word;
@@ -59,4 +69,12 @@
     display: flex;
     justify-content: space-between;
   }
+}
+
+.text-bold {
+  font-weight: $font-weight-bold;
+}
+
+.text-semibold {
+  font-weight: $font-weight-semibold;
 }

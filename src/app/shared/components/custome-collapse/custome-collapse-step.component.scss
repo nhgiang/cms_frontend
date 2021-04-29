@@ -21,5 +21,15 @@
   position: relative;
   .common-action {
     font-size: 16px;
+    span {
+      cursor: pointer;
+    }
+  }
+  .icon {
+    font-size: 16px;
+    color: #2F80ED;
+  }
+  .title {
+    font-weight: 600;
   }
 }

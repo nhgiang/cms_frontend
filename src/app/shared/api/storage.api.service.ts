@@ -15,6 +15,7 @@ export class StorageApiService extends BaseApi {
       return of(file as string);
     }
     const form = new FormData();
+    console.log(file)
     form.append('file', file, fileName || ((file as any).name || 'unknownfile'));
     return this.httpClient
       .post<any>(this.createUrl('/upload'), form)
@@ -22,19 +23,18 @@ export class StorageApiService extends BaseApi {
   }
 
   uploadFiles(files: Blob[] | File[] | string[] | any[]): Observable<string[]> {
-    if (!files.some(file => typeof file !== 'string')) {
+    if (!files || !files.some(file => typeof file !== 'string')) {
       return of(files as string[]);
     }
     const form = new FormData();
     let fileNames = [];
     files.forEach(file => {
       if (typeof file !== 'string') {
-        form.append('file', file, (file.name || 'unknownfile'));
+        form.append('files', file, (file.name || 'unknownfile'));
       } else {
         fileNames.push(file);
       }
     });
-
     return this.httpClient
       .post<any>(this.createUrl('/uploads'), form)
       .pipe(map((res: any[]) => {

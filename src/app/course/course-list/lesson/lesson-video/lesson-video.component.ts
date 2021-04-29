@@ -8,7 +8,7 @@ import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { forkJoin } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { finalize, switchMap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 
 @Component({
@@ -22,6 +22,7 @@ export class LessonVideoComponent implements OnInit, OnChanges {
   @Input() unit: any;
   lessonId: string;
   AssetType = AssetType;
+  courseId: string;
 
   constructor(
     private fb: FormBuilder,
@@ -29,12 +30,13 @@ export class LessonVideoComponent implements OnInit, OnChanges {
     private unitApi: UnitsApiService,
     private router: Router,
     private notification: NzNotificationService,
-    private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.lessonId = this.route.snapshot.paramMap.get('lessonId');
+    this.courseId = this.route.snapshot.paramMap.get('courseId');
+
     this.buildForm();
   }
 
@@ -46,8 +48,9 @@ export class LessonVideoComponent implements OnInit, OnChanges {
 
   submit() {
     Ultilities.validateForm(this.form);
+    this.isLoading = true;
     forkJoin({
-      file: this.storageApi.uploadFile(this.form.value.file),
+      file: this.storageApi.uploadFiles(this.form.value.file),
       video: this.storageApi.uploadVideo(this.form.value.video)
     }).pipe(switchMap(({ file, video }) => {
       const data = {
@@ -57,10 +60,10 @@ export class LessonVideoComponent implements OnInit, OnChanges {
         video: typeof video === 'string' ? video : video.path,
         attachment: file
       };
-      return this.unitApi.createUnit(data);
-    })).subscribe(() => {
-      this.router.navigate(['/course-management/course/create']);
-      this.notification.success('Thành công', 'Thêm mới video bài giảng thành công!')
+      return this.unit ? this.unitApi.editUnit(this.route.snapshot.paramMap.get('unitId'), data) : this.unitApi.createUnit(data);
+    }), finalize(() => this.isLoading = false)).subscribe(() => {
+      this.router.navigate(['/course-management/course/edit', this.courseId]);
+      this.notification.success('Thành công', `${this.unit ? 'Cập nhật' : 'Thêm mới'} video bài giảng thành công!`);
     });
   }
 

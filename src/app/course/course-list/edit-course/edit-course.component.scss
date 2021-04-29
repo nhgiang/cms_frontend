@@ -29,13 +29,13 @@
 }
 .card-body {
   border: 1px solid #edf2f9;
-  padding: 1rem;
   margin-bottom: 1.25rem;
   background-color: #ffffff;
 }
 
 .title {
   position: relative;
+  border-bottom: 1px solid #edf2f9;
   span {
     position: absolute;
     top: 50%;
@@ -47,5 +47,17 @@
     &.add-step {
       right: 20px
     }
+  }
+}
+.feedback {
+  .feedback-content {
+    width: calc(100% - 110px);
+    align-self: flex-start;
+    h5 {
+      cursor: pointer;
+    }
+  }
+  &:not(:last-child) {
+    border-bottom: 1px solid #EDF2F9;
   }
 }

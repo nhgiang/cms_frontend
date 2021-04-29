@@ -57,7 +57,7 @@ export interface Faq {
   answer: string;
 }
 
-export interface Feedback {
+export interface SettingFeedback {
   studentName: string;
   courseName: string;
   photo: string;

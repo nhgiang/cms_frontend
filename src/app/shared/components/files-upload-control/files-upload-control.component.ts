@@ -12,12 +12,12 @@ import { v4 } from 'uuid';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FileUploadControlComponent),
+      useExisting: forwardRef(() => FilesUploadControlComponent),
       multi: true,
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: FileUploadControlComponent,
+      useExisting: FilesUploadControlComponent,
       multi: true,
     }
   ]

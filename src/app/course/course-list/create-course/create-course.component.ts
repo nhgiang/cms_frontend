@@ -27,7 +27,6 @@ export class CreateCourseComponent implements OnInit {
   photoUrl: string;
   videoUpload: any;
   isUploadLink = true;
-  id: string;
   isLoading = false;
   constructor(
     fb: FormBuilder,
@@ -85,13 +84,12 @@ export class CreateCourseComponent implements OnInit {
         return of(true);
       }),
       switchMap(() => {
-        return (this.id) ? this.courseApiService.update(this.id, this.form.value) : this.courseApiService.create(this.form.value);
+        return this.courseApiService.create(this.form.value);
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(res => {
       this.notification.success('Thành công', '');
-      this.id = res.id;
-      this.router.navigate([`/course-management/course/edit/${res.id}`])
+      this.router.navigate([`/course-management/course/edit/${res.id}`]);
     });
   }
 
@@ -110,12 +108,6 @@ export class CreateCourseComponent implements OnInit {
         return;
       }
       this.photoUrl = null;
-    });
-  }
-
-  addFeedback() {
-    this.modalService.create({
-      nzContent: FeedbackFormComponent
     });
   }
 }

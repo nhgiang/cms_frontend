@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { LessonApiService } from '@shared/api/lesson.api.service';
 import { TValidators } from '@shared/extentions/validators';
@@ -11,8 +11,8 @@ import { Lesson } from 'types/models/course';
   templateUrl: './learning-path.component.html',
   styleUrls: ['./learning-path.component.scss']
 })
-export class LearningPathComponent implements OnInit {
-  @Input() courseId = 'c2841ab5-0ed9-4598-bcbb-8bdff3f05bce';
+export class LearningPathComponent implements OnInit, OnChanges {
+  @Input() courseId: string;
   isAddStep: boolean;
   lessonTitle: FormControl;
   lessons: Lesson[] = [];
@@ -21,15 +21,21 @@ export class LearningPathComponent implements OnInit {
     private notification: NzNotificationService
   ) { }
 
+
   ngOnInit(): void {
     this.lessonTitle = new FormControl(null, [TValidators.required]);
-    this.lessonApi.getLessonByCourse(this.courseId).subscribe(lessons => {
-      this.lessons = lessons;
-    });
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.courseId.currentValue) {
+      this.lessonApi.getLessonByCourse(this.courseId).subscribe(lessons => {
+        this.lessons = lessons;
+      });
+    }
   }
 
   addLesson() {
-    console.log(this.lessonTitle)
     if (this.lessonTitle.invalid) {
       return;
     }

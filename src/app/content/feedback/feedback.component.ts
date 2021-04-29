@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SettingApiService } from '@shared/api/setting.api.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { Feedback } from 'types/typemodel';
+import { SettingFeedback } from 'types/typemodel';
 import { FeedbackCreateComponent } from './feedback-create/feedback-create.component';
 import { FeedbackUpdateComponent } from './feedback-update/feedback-update.component';
 import { cloneDeep } from 'lodash-es';
@@ -14,7 +14,7 @@ import { cloneDeep } from 'lodash-es';
 })
 export class FeedbackComponent implements OnInit {
   isLoading: boolean;
-  feedbacks: Feedback[];
+  feedbacks: SettingFeedback[];
 
   constructor(
     private settingApi: SettingApiService,

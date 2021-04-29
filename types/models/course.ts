@@ -32,3 +32,24 @@ export interface UnitAndTest {
   totalQuestion: number;
   created: Date;
 }
+
+export interface Feedback {
+  id: string;
+  created: Date;
+  lastModified: Date;
+  courseId: string;
+  courseName: string;
+  studentName: string;
+  content: string;
+  photo: string;
+}
+
+export interface Unit {
+  id: string;
+  lessionId: string;
+  title: string;
+  description: string;
+  duration: 0;
+  video: string;
+  attachments: string[];
+}

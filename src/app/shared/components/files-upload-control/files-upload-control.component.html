@@ -2,9 +2,9 @@
   <i class="far fa-cloud-upload"></i>
   Chọn file
 </label>
-<div class="d-flex" *ngIf="fileNames">
+<div class="d-flex mt-3" *ngIf="fileNames.length">
   <ul class="list-unstyled">
-    <li *ngFor="let fileName of fileNames; let index = index;">
+    <li class="d-inline-block mr-2" *ngFor="let fileName of fileNames; let index = index;">
       <span class="text-primary">{{ fileName }}</span>
       <a class="ml-2 pointer" (click)="remove(index)">
         <i class="far fa-trash-alt"></i>
@@ -12,4 +12,4 @@
     </li>
   </ul>
 </div>
-<input [id]="inputId" class="ghost" type="file" (change)="onFileChanged($event)" [multiple]="true">
+<input [id]="inputId" class="d-none" type="file" (change)="onFileChanged($event)" [multiple]="true">

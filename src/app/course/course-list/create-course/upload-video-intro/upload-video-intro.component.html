@@ -9,9 +9,8 @@
       allowfullscreen></iframe>
   </div>
   <div *ngIf="!isUploadLink">
-    <label [for]="'videoIntro'"><a nz-button nzType="primary" class="w-25 mb-4">Upload</a></label>
-    <input id="videoIntro" class="d-none" (change)="uploadVideo($event.target.files[0])" [(ngModel)]="fileVideo"
-      type="file">
+    <label *ngIf="!displayPreview" [for]="'videoIntro'"><a nz-button nzType="primary" class="w-25 mb-4">Upload</a></label>
+    <input id="videoIntro" class="d-none" (change)="uploadVideo($event.target.files[0])" #inputUpload type="file">
     <div *ngIf="displayPreview" class="video-player" style="height: 315px; width: 560px;">
       <i nz-icon nzType="close-circle" nzTheme="fill" (click)="removeVideo()"></i>
       <video width="560" height="315" controls #video autoplay muted>

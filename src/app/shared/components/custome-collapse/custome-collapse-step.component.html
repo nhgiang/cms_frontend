@@ -9,12 +9,16 @@
     </div>
   </ng-container>
   <ng-template #stepName>
-    <div class="step-name">{{data?.title}}</div>
+    <div class="step-name text-semibold">{{data?.title}}</div>
     <div class="common-action">
       <span>
         <i nz-icon nzType="plus" nzTheme="outline" class="mr-4" (click)="addUnit($event)"></i>
+      </span>
+      <span>
         <i nz-icon nzType="edit" nzTheme="outline" class="mr-4" (click)="editLesson($event)"></i>
-        <i nz-icon nzType="close-circle" nzTheme="outline" (click)="deleteStep($event)"></i>
+      </span>
+      <span [confirmation]="'Bạn có chắc chắn muốn xóa bài giảng này không?'" (confirmed)="deleteStep($event)">
+        <i nz-icon nzType="close-circle" nzTheme="outline"></i>
       </span>
     </div>
   </ng-template>
@@ -22,13 +26,15 @@
 <div class="ant-collapse-content ng-trigger ng-trigger-collapseMotion" [class.ant-collapse-content-active]="nzActive"
   [@.disabled]="noAnimation?.nzNoAnimation" [@collapseMotion]="nzActive ? 'expanded' : 'hidden'">
   <div class="ant-collapse-content-box p-0">
-    <div *ngFor="let item of data?.unitsAndTests" class="activity">
-      <i nz-icon nzType="youtube" nzTheme="fill"></i>
-      <span>{{item?.title}}</span>
+    <div *ngFor="let item of data?.unitsAndTests" class="activity text-muted">
+      <i nz-icon nzType="youtube" class="icon mr-2" nzTheme="fill"></i>
+      <span class="title">{{item?.title}}</span>
       <div class="common-action">
         <span>
           <i nz-icon nzType="edit" nzTheme="outline" class="mr-4" (click)="editUnit(item?.id, item.type)"></i>
-          <i nz-icon nzType="close-circle" nzTheme="outline" (click)="deleteUnit($event)"></i>
+        </span>
+        <span [confirmation]="'Bạn có chắc chắn muốn xóa bài giảng này không?'" (confirmed)="deleteUnit(item?.id)">
+          <i nz-icon nzType="close-circle" nzTheme="outline"></i>
         </span>
       </div>
     </div>
