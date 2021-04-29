@@ -41,6 +41,7 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
   fileList: any[];
   image: FileModel;
   avatarUrl: string;
+  url: string;
   private modalRef: NzModalRef;
 
   constructor(
@@ -69,6 +70,8 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
   change(event) {
     if (!['start', 'progress'].includes(event.type)) {
       this.onChangeFn(this.fileList.map(x => x.url));
+      this.fileList.pop();
+      this.fileList.push({ url: this.url });
     }
   }
 
@@ -120,12 +123,7 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
       }),
       tap(path => {
         this.onChangeFn(this.fileList);
-        setTimeout(() => {
-          const lastFile = last(this.fileList);
-          lastFile.url = path;
-          lastFile.thumbUrl = path;
-          this.fileList = [...this.fileList] as any;
-        }, 30);
+        this.url = path as string;
       })
     );
   }
