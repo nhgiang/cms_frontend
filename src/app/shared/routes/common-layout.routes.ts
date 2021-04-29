@@ -32,7 +32,7 @@ export const CommonLayoutRoutes: Routes = [
     loadChildren: () => import('src/app/consulting/consulting.module').then(m => m.ConsultingModule),
     data: {
       headerDisplay: true,
-      title: 'Thông tin đánh giá'
+      title: 'Thông tin tư vấn'
     }
   }
 ];
