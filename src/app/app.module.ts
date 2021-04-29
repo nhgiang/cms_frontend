@@ -58,10 +58,10 @@ registerLocaleData(en);
       provide: LocationStrategy,
       useClass: PathLocationStrategy
     },
-    // {
-    //   provide: ErrorHandler,
-    //   useClass: ErrorHandlerService
-    // },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorHandlerService
+    },
     {
       provide: API_BASE_URL,
       useValue: environment.api
