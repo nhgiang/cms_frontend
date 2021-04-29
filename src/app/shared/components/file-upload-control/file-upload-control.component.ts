@@ -58,6 +58,11 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
       return;
     }
 
+    if (!this.validateSize(file)) {
+      this.messageService.error(`Vui lòng chọn đúng kích cỡ file`);
+      return;
+    }
+
     this.file = file;
     const reader = new FileReader();
     reader.readAsDataURL(this.file);

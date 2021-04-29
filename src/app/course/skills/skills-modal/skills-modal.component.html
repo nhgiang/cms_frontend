@@ -2,7 +2,7 @@
   <div>
     <div>
       <nz-form-item>
-        <nz-form-control [nzErrorTip]="'Vui lòng chọn file dưới 1 mb'">
+        <nz-form-control>
           <app-file-upload-control [maxSize]="1000000" [fileType]="assetType.Image" [customLabel]="true"
             formControlName="icon">
             <div class="media mb-3">
