@@ -13,9 +13,17 @@
         <div class="col-6">
           <nz-form-item>
             <nz-form-label class="text-left" [nzSpan]="8" nzRequired>Email khách hàng</nz-form-label>
-            <nz-form-control nzErrorTip="Vui lòng nhập email khách hàng">
+            <nz-form-control [nzErrorTip]="errorEmail">
               <input nz-input formControlName="email" autocomplete="false" placeholder="Nhập email khách hàng" />
             </nz-form-control>
+            <ng-template #errorEmail>
+              <ng-container *ngIf="form.get('email').hasError('required')">
+                Vui lòng nhập email khách hàng
+              </ng-container>
+              <ng-container *ngIf="form.get('email').hasError('emailRules')">
+                Email không hợp lệ
+              </ng-container>
+            </ng-template>
           </nz-form-item>
         </div>
       </div>
@@ -23,9 +31,17 @@
         <div class="col-6">
           <nz-form-item>
             <nz-form-label class="text-left" [nzSpan]="8" nzRequired>Số điện thoại</nz-form-label>
-            <nz-form-control nzErrorTip="Vui lòng nhập số điện thoại">
+            <nz-form-control [nzErrorTip]="errorPhone">
               <input nz-input formControlName="phoneNumber" autocomplete="false" placeholder="Nhập số điện thoại" />
             </nz-form-control>
+            <ng-template #errorPhone>
+              <ng-container *ngIf="form.get('email').hasError('required')">
+                Vui lòng nhập số điện thoại khách hàng
+              </ng-container>
+              <ng-container *ngIf="form.get('email').hasError('phoneNumber')">
+                Số điện thoại không hợp lệ
+              </ng-container>
+            </ng-template>
           </nz-form-item>
         </div>
         <div class="col-6">

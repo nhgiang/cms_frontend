@@ -56,7 +56,7 @@ export class ConsultingInformationEditComponent implements OnInit {
   buildForm() {
     this.form = this.fb.group({
       name: [null, TValidators.required],
-      email: [null, TValidators.required],
+      email: [null, [TValidators.required, TValidators.emailRules]],
       phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]],
       courseInterested: [null, TValidators.required],
       note: [null],
