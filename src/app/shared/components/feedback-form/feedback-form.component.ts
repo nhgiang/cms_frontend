@@ -31,9 +31,11 @@ export class FeedbackFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    this.feedbackApi.getById(this.feedbackId).subscribe(feedback => {
-      this.form.patchValue(feedback);
-    });
+    if (this.feedbackId) {
+      this.feedbackApi.getById(this.feedbackId).subscribe(feedback => {
+        this.form.patchValue(feedback);
+      });
+    }
   }
 
   buildForm() {
