@@ -1,5 +1,5 @@
 <div>
-  <div *ngIf="isUploadLink">
+  <div *ngIf="isUploadLink === VideoType.Youtube">
     <nz-form-control>
       <input nz-input class="mb-4" [(ngModel)]="linkYoutubeInput" (keyup)="changeLink($event.target.value)"
         placeholder="Nhập link video giới thiệu">
@@ -8,7 +8,7 @@
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen></iframe>
   </div>
-  <div *ngIf="!isUploadLink">
+  <div *ngIf="isUploadLink === VideoType.Vimeo">
     <label *ngIf="!displayPreview" [for]="'videoIntro'"><a nz-button nzType="primary" class="w-25 mb-4">Upload</a></label>
     <input id="videoIntro" class="d-none" (change)="uploadVideo($event.target.files[0])" #inputUpload type="file">
     <div *ngIf="displayPreview" class="video-player" style="height: 315px; width: 560px;">

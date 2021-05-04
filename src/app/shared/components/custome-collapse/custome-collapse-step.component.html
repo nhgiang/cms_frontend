@@ -28,7 +28,7 @@
   <div class="ant-collapse-content-box p-0">
     <div *ngFor="let item of data?.unitsAndTests;let index = index" class="activity text-muted">
       <i nz-icon nzType="youtube" class="icon mr-2" nzTheme="fill"></i>
-      <span class="title">{{data.order}}.{{index+1}} {{item?.title}}</span>
+      <span class="title">{{data?.order}}.{{index+1}} {{item?.title}} ({{item?.duration | timeDuration}} phút)</span>
       <div class="common-action">
         <span>
           <i nz-icon nzType="edit" nzTheme="outline" class="mr-4" (click)="editUnit(item?.id, item.type)"></i>
