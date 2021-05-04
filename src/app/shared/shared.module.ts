@@ -22,6 +22,8 @@ import { FeedbackFormComponent } from './components/feedback-form/feedback-form.
 import { CustomeCollapseStepComponent } from './components/custome-collapse/custome-collapse-step.component';
 import { SafeHtmlPipe } from './pipes/safeHtml.pipe';
 import { MultipleSelectionComponent } from './controls/multiple-selection/multiple-selection.component';
+import { FilesUploadControlComponent } from './components/files-upload-control/files-upload-control.component';
+import { ImageCropperControlComponent } from './components/image-cropper-control/image-cropper-control.component';
 
 @NgModule({
   exports: [
@@ -46,7 +48,9 @@ import { MultipleSelectionComponent } from './controls/multiple-selection/multip
     FeedbackFormComponent,
     CustomeCollapseStepComponent,
     SafeHtmlPipe,
-    MultipleSelectionComponent
+    MultipleSelectionComponent,
+    FilesUploadControlComponent,
+    ImageCropperControlComponent
   ],
   imports: [
     RouterModule,
@@ -71,7 +75,9 @@ import { MultipleSelectionComponent } from './controls/multiple-selection/multip
     FeedbackFormComponent,
     CustomeCollapseStepComponent,
     SafeHtmlPipe,
-    MultipleSelectionComponent
+    MultipleSelectionComponent,
+    FilesUploadControlComponent,
+    ImageCropperControlComponent
   ],
   providers: [
     ThemeConstantService

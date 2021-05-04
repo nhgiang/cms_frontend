@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, forwardRef, OnInit, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
 import { isFunction } from 'lodash-es';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -27,7 +28,12 @@ export class UploadVideoComponent extends AbstractControlDirective implements On
   process = 0;
   file: File;
   maxSize = 100_000_000;
-  constructor(private messageService: NzMessageService) {
+
+  get content() {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
+  }
+
+  constructor(private messageService: NzMessageService,    private sanitizer: DomSanitizer) {
     super();
   }
   ngAfterViewInit(): void {

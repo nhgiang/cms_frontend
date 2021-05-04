@@ -14,7 +14,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { iif, of } from 'rxjs';
 import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
-import { Step } from 'types/models/course';
+import { VideoAsset } from 'types/typemodel';
 
 @Component({
   selector: 'app-create-course',
@@ -27,8 +27,6 @@ export class CreateCourseComponent implements OnInit {
   photoUrl: string;
   videoUpload: any;
   isUploadLink = true;
-  steps: Step[] = [];
-  id: string;
   isLoading = false;
   constructor(
     fb: FormBuilder,
@@ -73,25 +71,25 @@ export class CreateCourseComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    iif(() => (this.form.controls.photo.value instanceof File),
+    iif(() => (this.form.controls.photo.value instanceof Blob),
       this.storageApiService.uploadFile(this.form.get('photo').value).pipe(tap(res => this.form.controls.photo.setValue(res))),
       of(true)
     ).pipe(
       switchMap(() => {
         if (this.form.get('videoIntro').value instanceof File) {
-          return this.storageApiService.uploadVideo(this.form.get('videoIntro').value).pipe(tap((data) => {
-            this.form.get('videoIntro').setValue(data);
+          return this.storageApiService.uploadVideo(this.form.get('videoIntro').value).pipe(tap(data => {
+            this.form.get('videoIntro').patchValue((data as VideoAsset).path);
           }));
         }
         return of(true);
       }),
       switchMap(() => {
-        return (this.id) ? this.courseApiService.update(this.id, this.form.value) : this.courseApiService.create(this.form.value);
+        return this.courseApiService.create(this.form.value);
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(res => {
       this.notification.success('Thành công', '');
-      this.id = res.id;
+      this.router.navigate([`/course-management/course/edit/${res.id}`]);
     });
   }
 
@@ -111,21 +109,6 @@ export class CreateCourseComponent implements OnInit {
       }
       this.photoUrl = null;
     });
-  }
-
-  addFeedback() {
-    this.modalService.create({
-      nzContent: FeedbackFormComponent
-    });
-  }
-
-  addStep() {
-    const item = {
-      name: 'bước 1',
-      order: 1,
-      id: '1'
-    }
-    this.steps.push(item as Step);
   }
 }
 

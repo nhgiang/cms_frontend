@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Faq, Feedback, SettingTeacher } from 'types/typemodel';
+import { Faq, SettingFeedback, SettingTeacher } from 'types/typemodel';
 import { BaseApi } from './base-api';
 
 @Injectable({
@@ -24,8 +24,8 @@ export class SettingApiService extends BaseApi {
   };
 
   feedbacks = {
-    get: () => this.httpClient.get<Feedback[]>(this.createUrl('-feedbacks')),
-    post: (body: Feedback[]) => this.httpClient.post(this.createUrl('-feedbacks/upsert'), body)
+    get: () => this.httpClient.get<SettingFeedback[]>(this.createUrl('-feedbacks')),
+    post: (body: SettingFeedback[]) => this.httpClient.post(this.createUrl('-feedbacks/upsert'), body)
   };
 
   teacher = {

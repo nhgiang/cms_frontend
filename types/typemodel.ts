@@ -57,7 +57,7 @@ export interface Faq {
   answer: string;
 }
 
-export interface Feedback {
+export interface SettingFeedback {
   studentName: string;
   courseName: string;
   photo: string;
@@ -112,4 +112,10 @@ export interface CourseType {
   created: Date;
   lastModified: Date;
   name: string;
+}
+
+export interface VideoAsset {
+  path: string;
+  duration: number;
+  size?: number;
 }

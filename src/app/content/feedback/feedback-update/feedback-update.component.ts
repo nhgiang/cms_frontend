@@ -7,7 +7,7 @@ import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
-import { Feedback, FileModel } from 'types/typemodel';
+import { SettingFeedback, FileModel } from 'types/typemodel';
 import { trimData } from 'utils/common';
 
 @Component({
@@ -21,7 +21,7 @@ export class FeedbackUpdateComponent implements OnInit {
   image: FileModel;
   isLoading: boolean;
   index: number;
-  feedbacks: Feedback[];
+  feedbacks: SettingFeedback[];
 
   constructor(
     private fb: FormBuilder,

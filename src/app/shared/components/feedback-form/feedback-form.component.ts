@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { SettingApiService } from '@shared/api/setting.api.service';
+import { FeedbackApiService } from '@shared/api/feedback.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { finalize, switchMap } from 'rxjs/operators';
 import { FileModel } from 'types/typemodel';
+import { trimData } from 'utils/common';
 
 @Component({
   selector: 'app-feedback-form',
@@ -14,31 +15,33 @@ import { FileModel } from 'types/typemodel';
   styleUrls: ['./feedback-form.component.scss']
 })
 export class FeedbackFormComponent implements OnInit {
-  @Input() feedback: any;
-  @Output() created = new EventEmitter();
+  @Input() feedbackId: string;
+  @Input() courseId: string;
+  @Output() refresh = new EventEmitter();
   form: FormGroup;
   image: FileModel;
   isLoading: boolean;
 
   constructor(
     private fb: FormBuilder,
-    private settingApi: SettingApiService,
+    private feedbackApi: FeedbackApiService,
     private storageApi: StorageApiService,
-    private modalRef: NzModalRef,
+    private modalRef: NzModalRef
   ) { }
 
   ngOnInit(): void {
     this.buildForm();
-    if (this.feedback) {
-      this.form.patchValue(this.feedback)
-    }
+    this.feedbackApi.getById(this.feedbackId).subscribe(feedback => {
+      this.form.patchValue(feedback);
+    });
   }
 
   buildForm() {
     this.form = this.fb.group({
       studentName: [null, [TValidators.textRange(1, 200)]],
       content: [null, [TValidators.textRange(1, 200)]],
-      photo: [null, TValidators.required]
+      photo: [null, TValidators.required],
+      courseId: [this.courseId]
     });
   }
 
@@ -58,15 +61,17 @@ export class FeedbackFormComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.storageApi.uploadFile(this.image.file, this.image.fileName).pipe(switchMap(url => {
+    this.storageApi.uploadFile(this.image?.file ?? this.form.value.photo, this.image?.fileName).pipe(switchMap(url => {
       this.form.get('photo').setValue(url);
       const data = {
         ...this.form.value
       };
-      return this.settingApi.feedbacks.post(data);
+      return this.feedbackId ? this.feedbackApi.edit(this.feedbackId, trimData(data)) : this.feedbackApi.create(trimData(data));
     }), finalize(() => {
       this.isLoading = false;
+    })).subscribe(() => {
+      this.refresh.emit();
       this.modalRef.close();
-    })).subscribe(() => this.created.emit());
+    });
   }
 }

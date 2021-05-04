@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { VideoAsset } from 'types/typemodel';
 import { BaseApi } from './base-api';
 
 @Injectable({
@@ -10,10 +11,12 @@ export class StorageApiService extends BaseApi {
   endpoint = 'files';
 
   uploadFile(file: Blob | File | string, fileName?: string): Observable<string> {
+    console.log(file)
     if (!file || typeof file === 'string') {
       return of(file as string);
     }
     const form = new FormData();
+    console.log(file)
     form.append('file', file, fileName || ((file as any).name || 'unknownfile'));
     return this.httpClient
       .post<any>(this.createUrl('/upload'), form)
@@ -21,19 +24,18 @@ export class StorageApiService extends BaseApi {
   }
 
   uploadFiles(files: Blob[] | File[] | string[] | any[]): Observable<string[]> {
-    if (!files.some(file => typeof file !== 'string')) {
+    if (!files || !files.some(file => typeof file !== 'string')) {
       return of(files as string[]);
     }
     const form = new FormData();
     let fileNames = [];
     files.forEach(file => {
       if (typeof file !== 'string') {
-        form.append('file', file, (file.name || 'unknownfile'));
+        form.append('files', file, (file.name || 'unknownfile'));
       } else {
         fileNames.push(file);
       }
     });
-
     return this.httpClient
       .post<any>(this.createUrl('/uploads'), form)
       .pipe(map((res: any[]) => {
@@ -42,14 +44,12 @@ export class StorageApiService extends BaseApi {
       }));
   }
 
-  uploadVideo(file: Blob | File | string, fileName?: string): Observable<any> {
+  uploadVideo(file: Blob | File | string, fileName?: string): Observable<VideoAsset | string> {
     if (!file || typeof file === 'string') {
       return of(file as string);
     }
     const form = new FormData();
     form.append('file', file, fileName || ((file as any).name || 'unknownfile'));
-    return this.httpClient
-      .post<any>(this.createUrl('/upload-video'), form)
-      .pipe(map((result: { path: string }) => result.path));
+    return this.httpClient.post<VideoAsset>(this.createUrl('/upload-video'), form);
   }
 }

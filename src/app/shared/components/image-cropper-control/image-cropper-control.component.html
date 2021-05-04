@@ -1,0 +1,19 @@
+<div class="media mb-3">
+  <div class="image-cropper">
+    <label for="inputId">
+      <div class="avatar">
+        <img class="upload" [src]="imageUrl" alt="image upload"
+          *ngIf="imageUrl">
+        <div class="upload" *ngIf="!imageUrl">+upload</div>
+      </div>
+    </label>
+  </div>
+  <div class="m-l-20 m-r-20">
+    <label class="label-avatar">Chọn ảnh đại diện cho khoá học</label>
+    <p class="opacity-07 font-size-12 m-b-0">
+      Kích thước đề xuất: 120x120 <br>
+      Max file size: 5MB
+    </p>
+  </div>
+</div>
+<input #attachment id="inputId" type="file" accept="image/*" class="d-none" (change)="onFileChanged($event)">
