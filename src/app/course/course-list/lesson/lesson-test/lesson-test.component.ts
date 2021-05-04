@@ -20,6 +20,7 @@ export class LessonTestComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.form.valueChanges.subscribe(console.log);
   }
 
   buildForm() {
@@ -27,7 +28,7 @@ export class LessonTestComponent implements OnInit {
       lessionId: [],
       title: null,
       point: null,
-      questions: this.fb.array([])
+      questions: null
     });
   }
 

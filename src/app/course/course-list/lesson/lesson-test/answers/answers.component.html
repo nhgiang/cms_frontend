@@ -14,8 +14,8 @@
       </nz-form-control>
     </nz-form-item>
 
-    <ng-container *ngIf="answerType === 'Single'">
-      <nz-radio-group class="d-flex flex-column" formArrayName="answers">
+    <ng-container *ngIf="answerType === 'Single'" formArrayName="answers" >
+      <nz-radio-group class="d-flex flex-column" [(ngModel)]="corectAnswer" [ngModelOptions]="{standalone: true}" (ngModelChange)="change($event)">
         <ng-container [formGroupName]="i" *ngFor="let item of items; let i=index">
           <div class="d-flex align-items-center mt-2 row">
             <label nz-radio [nzValue]="i" class="col-1"></label>
