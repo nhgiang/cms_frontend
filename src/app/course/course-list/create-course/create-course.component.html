@@ -8,12 +8,11 @@
 
     <nz-form-item class="row">
       <nz-form-label class="text-left input-space" nzRequired>Video giới thiệu</nz-form-label>
-      <nz-radio-group nzAutoFocus [(ngModel)]="isUploadLink" [ngModelOptions]="{standalone: true}"
-        class="d-flex align-items-center row">
-        <nz-radio-button nz-radio [nzValue]="true">
+      <nz-radio-group nzAutoFocus class="d-flex align-items-center row" formControlName="videoIntroType">
+        <nz-radio-button nz-radio [nzValue]="VideoType.Youtube">
           Nhập link youtube
         </nz-radio-button>
-        <nz-radio-button nz-radio [nzValue]="false">
+        <nz-radio-button nz-radio [nzValue]="VideoType.Vimeo">
           Tải lên file video
         </nz-radio-button>
       </nz-radio-group>
@@ -23,7 +22,7 @@
       <label class="text-left input-space"></label>
       <nz-form-control nzErrorTip="Vui lòng upload hoặc nhập link video giới thiệu">
         <div class="d-flex justify-content-between">
-          <app-upload-video-intro class="w-100" formControlName="videoIntro" [isUploadLink]="isUploadLink">
+          <app-upload-video-intro class="w-100" formControlName="videoIntro" [isUploadLink]="form.value.videoIntroType">
           </app-upload-video-intro>
         </div>
       </nz-form-control>
