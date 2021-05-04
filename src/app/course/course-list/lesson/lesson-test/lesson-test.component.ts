@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-lesson-test',
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LessonTestComponent implements OnInit {
 
-  constructor() { }
+  questionType: 'Single' | 'Multiple';
+  correctAnswer: string[];
+  form: FormGroup;
+  answer = [1, 2, 3, 4];
+
+  constructor(
+    private fb: FormBuilder
+  ) {
+    this.buildForm();
+  }
 
   ngOnInit() {
+  }
+
+  buildForm() {
+    this.form = this.fb.group({
+      lessionId: [],
+      title: null,
+      point: null,
+      questions: this.fb.array([])
+    });
   }
 
 }

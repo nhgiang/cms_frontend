@@ -1,0 +1,42 @@
+<nz-card>
+  <form [formGroup]="form">
+    <div class="d-flex justify-content-between">
+      <div class="title-question">Câu hỏi 1</div>
+      <nz-radio-group class="text-right" [(ngModel)]="answerType" formControlName="type">
+        <label nz-radio nzValue="Single">Câu hỏi 1 lựa chọn</label>
+        <label nz-radio nzValue="Multiple">Câu hỏi nhiều lựa chọn</label>
+      </nz-radio-group>
+    </div>
+    <nz-form-item class="col-12 mt-3">
+      <nz-form-label class="text-left input-space" nzRequired>Nội dung câu hỏi</nz-form-label>
+      <nz-form-control nzErrorTip="Nhập nội dung câu trả lời">
+        <textarea nz-input rows="3" formControlName="question" placeholder="Nội dung câu hỏi"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+
+    <ng-container *ngIf="answerType === 'Single'">
+      <nz-radio-group class="d-flex flex-column" formArrayName="answers">
+        <ng-container [formGroupName]="i" *ngFor="let item of items; let i=index">
+          <div class="d-flex align-items-center mt-2 row">
+            <label nz-radio [nzValue]="i" class="col-1"></label>
+            <nz-form-control nzErrorTip="Nhập nội dung câu trả lời">
+              <textarea nz-input rows="3" formControlName="answer" placeholder="Nội dung câu trả lời"></textarea>
+            </nz-form-control>
+          </div>
+        </ng-container>
+      </nz-radio-group>
+    </ng-container>
+    <ng-container *ngIf="answerType === 'Multiple'">
+      <nz-checkbox-wrapper class="d-flex flex-column" formArrayName="answers">
+        <ng-container [formGroupName]="i" *ngFor="let item of items; let i=index">
+          <div class="d-flex align-items-center mt-2 row">
+            <label nz-checkbox [nzValue]="i" class="col-1"></label>
+            <nz-form-control nzErrorTip="Nhập nội dung câu trả lời">
+              <textarea nz-input rows="3" formControlName="answer" placeholder="Nội dung câu trả lời"></textarea>
+            </nz-form-control>
+          </div>
+        </ng-container>
+      </nz-checkbox-wrapper>
+    </ng-container>
+  </form>
+</nz-card>

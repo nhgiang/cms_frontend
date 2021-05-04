@@ -1,3 +1,19 @@
-<p>
-  lesson-test works!
-</p>
+<div class="mx-2">
+  <form [formGroup]="form">
+    <div class="row">
+      <nz-form-item class="col-6">
+        <nz-form-label class="text-left input-space" nzRequired>Tiêu đề</nz-form-label>
+        <nz-form-control nzErrorTip="Nhập tiêu đề">
+          <input nz-input type="text" formControlName="title" placeholder="Tiêu đề">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="col-6">
+        <nz-form-label class="text-left input-space" nzRequired>Số điểm</nz-form-label>
+        <nz-form-control nzErrorTip="Nhập số điểm">
+          <input nz-input type="number" formControlName="point" placeholder="Số điểm">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <app-answers formControlName="questions"></app-answers>
+  </form>
+</div>
