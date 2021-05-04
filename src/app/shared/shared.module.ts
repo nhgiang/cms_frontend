@@ -24,6 +24,7 @@ import { SafeHtmlPipe } from './pipes/safeHtml.pipe';
 import { MultipleSelectionComponent } from './controls/multiple-selection/multiple-selection.component';
 import { FilesUploadControlComponent } from './components/files-upload-control/files-upload-control.component';
 import { ImageCropperControlComponent } from './components/image-cropper-control/image-cropper-control.component';
+import { TimeDurationPipe } from './pipes/time-duration.pipe';
 
 @NgModule({
   exports: [
@@ -50,7 +51,8 @@ import { ImageCropperControlComponent } from './components/image-cropper-control
     SafeHtmlPipe,
     MultipleSelectionComponent,
     FilesUploadControlComponent,
-    ImageCropperControlComponent
+    ImageCropperControlComponent,
+    TimeDurationPipe
   ],
   imports: [
     RouterModule,
@@ -77,7 +79,8 @@ import { ImageCropperControlComponent } from './components/image-cropper-control
     SafeHtmlPipe,
     MultipleSelectionComponent,
     FilesUploadControlComponent,
-    ImageCropperControlComponent
+    ImageCropperControlComponent,
+    TimeDurationPipe
   ],
   providers: [
     ThemeConstantService

@@ -21,7 +21,7 @@ export class AuthorizeGuard implements CanActivate {
         this.tokenService.refreshTokenFn();
         return user.role === 'Admin';
       }),
-      catchError(() => {
+      catchError(e => {
         this.router.navigate(['/authentication/login']);
         return of(false);
       }));

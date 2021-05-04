@@ -1,6 +1,6 @@
 <div class="title px-3 py-2">
-  <h5 class="mb-0">Chương học</h5>
-  <span (click)="isAddStep = !isAddStep"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+  <h5 class="mb-0">Chương học <span class="text-danger">*</span></h5>
+  <span class="item-add" (click)="isAddStep = !isAddStep"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
 </div>
 <div class="steps p-3" *ngIf="lessons?.length || isAddStep">
   <nz-collapse>
