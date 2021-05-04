@@ -23,6 +23,7 @@ import { CustomeCollapseStepComponent } from './components/custome-collapse/cust
 import { SafeHtmlPipe } from './pipes/safeHtml.pipe';
 import { MultipleSelectionComponent } from './controls/multiple-selection/multiple-selection.component';
 import { FilesUploadControlComponent } from './components/files-upload-control/files-upload-control.component';
+import { ImageCropperControlComponent } from './components/image-cropper-control/image-cropper-control.component';
 
 @NgModule({
   exports: [
@@ -48,7 +49,8 @@ import { FilesUploadControlComponent } from './components/files-upload-control/f
     CustomeCollapseStepComponent,
     SafeHtmlPipe,
     MultipleSelectionComponent,
-    FilesUploadControlComponent
+    FilesUploadControlComponent,
+    ImageCropperControlComponent
   ],
   imports: [
     RouterModule,
@@ -74,7 +76,8 @@ import { FilesUploadControlComponent } from './components/files-upload-control/f
     CustomeCollapseStepComponent,
     SafeHtmlPipe,
     MultipleSelectionComponent,
-    FilesUploadControlComponent
+    FilesUploadControlComponent,
+    ImageCropperControlComponent
   ],
   providers: [
     ThemeConstantService

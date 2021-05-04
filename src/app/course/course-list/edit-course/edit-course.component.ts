@@ -84,7 +84,7 @@ export class EditCourseComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    iif(() => (this.form.controls.photo.value instanceof File),
+    iif(() => (this.form.value.photo instanceof Blob),
       this.storageApiService.uploadFile(this.form.get('photo').value).pipe(tap(res => this.form.controls.photo.setValue(res))),
       of(true)
     ).pipe(
