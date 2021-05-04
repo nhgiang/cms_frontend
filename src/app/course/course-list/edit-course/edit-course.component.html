@@ -2,27 +2,7 @@
   <form [formGroup]="form" (ngSubmit)="submit()">
     <nz-form-item class="row">
       <nz-form-control nzErrorTip="File phải là file ảnh và nhỏ hơn 5mb">
-        <app-file-upload-control [maxSize]="5000000" [fileType]="assetType.Image" [customLabel]="true"
-          formControlName="photo">
-          <div class="media mb-3">
-            <div class="image-cropper">
-              <label [for]="'fileUpload'">
-                <div class="avatar">
-                  <img class="upload" [src]="photoUrl || form.controls.photo.value" alt="image upload"
-                    *ngIf="form.controls.photo.value">
-                  <div class="upload" *ngIf="!form.controls.photo.value">+upload</div>
-                </div>
-              </label>
-            </div>
-            <div class="m-l-20 m-r-20">
-              <nz-form-label nzRequired class="label-avatar">Chọn ảnh đại diện cho khoá học</nz-form-label>
-              <p class="opacity-07 font-size-12 m-b-0">
-                Kích thước đề xuất: 120x120 <br>
-                Max file size: 5MB
-              </p>
-            </div>
-          </div>
-        </app-file-upload-control>
+        <app-image-cropper-control formControlName="photo" [aspectRatio]="1440/750"></app-image-cropper-control>
       </nz-form-control>
     </nz-form-item>
 
@@ -103,7 +83,7 @@
         </app-multiple-selection>
       </nz-form-control>
     </nz-form-item>
-
+ 
     <div class="w-100 d-flex justify-content-end">
       <button nz-button [nzType]="'primary'" type="submit" [nzLoading]="isLoading">Lưu dữ liệu</button>
     </div>

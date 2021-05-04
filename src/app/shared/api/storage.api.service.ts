@@ -11,6 +11,7 @@ export class StorageApiService extends BaseApi {
   endpoint = 'files';
 
   uploadFile(file: Blob | File | string, fileName?: string): Observable<string> {
+    console.log(file)
     if (!file || typeof file === 'string') {
       return of(file as string);
     }

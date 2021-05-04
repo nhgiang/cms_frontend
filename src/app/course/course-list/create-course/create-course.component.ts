@@ -71,14 +71,14 @@ export class CreateCourseComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    iif(() => (this.form.controls.photo.value instanceof File),
+    iif(() => (this.form.controls.photo.value instanceof Blob),
       this.storageApiService.uploadFile(this.form.get('photo').value).pipe(tap(res => this.form.controls.photo.setValue(res))),
       of(true)
     ).pipe(
       switchMap(() => {
         if (this.form.get('videoIntro').value instanceof File) {
           return this.storageApiService.uploadVideo(this.form.get('videoIntro').value).pipe(tap(data => {
-            this.form.get('videoIntro').patchValue((data as VideoAsset).path)
+            this.form.get('videoIntro').patchValue((data as VideoAsset).path);
           }));
         }
         return of(true);

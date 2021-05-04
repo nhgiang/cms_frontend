@@ -30,7 +30,12 @@ export class LearningPathComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.courseId.currentValue) {
       this.lessonApi.getLessonByCourse(this.courseId).subscribe(lessons => {
-        this.lessons = lessons;
+        this.lessons = lessons.map((lesson, i) => {
+          return {
+            ...lesson,
+            order: i + 1
+          };
+        });
       });
     }
   }

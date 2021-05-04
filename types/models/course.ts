@@ -20,6 +20,7 @@ export interface Lesson extends Entity {
   courseId: string;
   title: string;
   unitsAndTests: UnitAndTest[];
+  order: number;
 }
 
 export interface UnitAndTest {
