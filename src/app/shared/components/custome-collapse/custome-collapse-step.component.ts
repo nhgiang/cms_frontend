@@ -48,11 +48,12 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
     this.isEdit = !this.isEdit;
   }
 
-  deleteStep(e) {
-    e.stopPropagation();
+  deleteStep() {
     this.lessonApi.deleteLesson(this.data.id).subscribe(() => {
       this.refresh.emit();
       this.notification.success('Thành công', 'Xóa thông tin chương học thành công!')
+    },err => {
+      this.notification.success('Thất bại', 'Không thể xóa chương học đã tồn tại bài học!')
     });
   }
 

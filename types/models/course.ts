@@ -11,6 +11,7 @@ export interface Course extends Entity {
   totalStudent: number;
   videoIntroType: VideoType;
   videoIntro: string;
+  index: number
 }
 export interface Specialization extends Entity {
   name: string;
