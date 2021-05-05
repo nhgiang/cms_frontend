@@ -25,4 +25,8 @@ export class CourseApiService extends BaseApi {
   getById(id: string): Observable<Course> {
     return this.httpClient.get<Course>(this.createUrl(`/${id}`));
   }
+
+  getInfoOfCourseHottest(params) {
+    return this.httpClient.get<QueryResult<Course>>(this.createUrl(''), { params });
+  }
 }

@@ -14,12 +14,16 @@
           <tr *ngFor="let item of form.controls; let i = index" [formGroup]="item">
             <td>Top {{ i + 1 }}</td>
             <td>
-              <select-advance placeholder="Chọn khóa học" [getOptionsFn]="courses" style="min-width: 220px"
+              <select-advance placeholder="Chọn khóa học" [getOptionsFn]="courses$" style="min-width: 220px"
                 formControlName="courseId">
               </select-advance>
             </td>
-            <td></td>
-            <td></td>
+            <td>
+              <span *ngIf="courses">{{courses[i]?.view}}</span>
+            </td>
+            <td>
+              <span *ngIf="courses">{{courses[i]?.purchase}}</span>
+            </td>
           </tr>
         </tbody>
       </nz-table>

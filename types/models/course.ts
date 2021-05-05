@@ -8,6 +8,8 @@ export interface Course extends Entity {
   studentPrice: number;
   partnerPrice: number;
   totalStudent: number;
+  view: number;
+  purchase: number;
 }
 export interface Specialization extends Entity {
   name: string;
