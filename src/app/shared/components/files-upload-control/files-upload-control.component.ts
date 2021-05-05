@@ -4,6 +4,7 @@ import { AssetType, FileUploadErrors } from 'types/enums';
 import { FileUploadControlComponent } from '../file-upload-control/file-upload-control.component';
 import { isFunction } from 'lodash-es';
 import { v4 } from 'uuid';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-files-upload-control',
@@ -30,21 +31,33 @@ export class FilesUploadControlComponent implements OnInit, ControlValueAccessor
   files: File[] = [];
   fileNames: string[] = [];
   private onChangeFn: Function;
-  isValidFile = true;
   inputId: string;
-  constructor() { }
+
+  constructor(
+    private messageService: NzMessageService
+  ) { }
 
   ngOnInit() {
     this.inputId = `file-input-${v4()}`;
   }
 
   onFileChanged(event: any) {
-    this.isValidFile = true;
+
     const input = (event.target as HTMLInputElement);
-    this.files = [];
-    for (let i = 0; i < input.files.length; i++) {
-      this.files.push(input.files[i]);
+    if (!input) {
+      return;
     }
+    const files = [];
+
+    for (let i = 0; i < input.files.length; i++) {
+      files.push(input.files[i]);
+    }
+
+    if (files.some(file => file.type !== 'application/pdf')) {
+      this.messageService.error('Vui lòng chọn đúng định dạng file')
+      return;
+    }
+    this.files = files;
     input.value = '';
     this.fileNames = this.files.map(t => t.name);
     if (isFunction(this.onChangeFn)) {
