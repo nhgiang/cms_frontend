@@ -35,6 +35,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
   loadMore$: Subject<any>;
   q: string;
   @Input() getOptionsFn: (params: ParamsSelectAdvance | any) => Observable<Option[]>;
+  @Input() width: string;
   @Output() readonly csClear = new EventEmitter<void>();
 
   constructor(

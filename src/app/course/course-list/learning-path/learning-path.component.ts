@@ -62,6 +62,7 @@ export class LearningPathComponent implements OnInit, OnChanges {
         };
       });
       this.isAddStep = false;
+      this.lessonTitle.setValue(null);
     }, err => {
       this.notification.error('Thất bại', 'Tên chương bị trùng trong hệ thống khoá học!');
     });

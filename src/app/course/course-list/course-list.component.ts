@@ -68,8 +68,8 @@ export class CourseListComponent extends DataTableContainer<Course> implements O
   }
 
   ngOnInit() {
-    super.ngOnInit();
     this.buildForm();
+    super.ngOnInit();
     this.search.valueChanges.pipe(debounceTime(500)).subscribe(value => {
       this.onSearchParamsChanged(value);
     });
@@ -104,5 +104,10 @@ export class CourseListComponent extends DataTableContainer<Course> implements O
       typeId: [null],
       userId: [null],
     });
+  }
+
+  readRouteParams(params: { [key: string]: any }) {
+    super.readRouteParams(params);
+    this.search.patchValue(params);
   }
 }

@@ -13,20 +13,14 @@
               </ng-template>
             </nz-form-control>
           </nz-form-item>
-          <nz-form-item class="mr-3">
-            <nz-form-control>
-              <select-advance placeholder="Chọn loại khóa học" [getOptionsFn]="type$" formControlName="typeId"
-                style="min-width: 220px;">
-              </select-advance>
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-control>
-              <select-advance placeholder="Chọn giảng viên" [getOptionsFn]="teacher$" formControlName="userId"
-                style="min-width: 220px;">
-              </select-advance>
-            </nz-form-control>
-          </nz-form-item>
+          <div class="m-b-10 m-r-20 d-flex">
+            <select-advance [width]="'220px'" class="select-advance" placeholder="Chọn loại khóa học" [getOptionsFn]="type$" formControlName="typeId">
+            </select-advance>
+          </div>
+          <div class="m-b-10 m-r-20 d-flex">
+            <select-advance [width]="'220px'" class="select-advance" placeholder="Chọn giảng viên" [getOptionsFn]="teacher$" formControlName="userId">
+            </select-advance>
+          </div>
         </div>
       </div>
       <div class="col-4 text-right">
@@ -59,8 +53,8 @@
           </div>
         </td>
         <td>{{item?.typeName}}</td>
-        <td>{{item?.studentPrice}}</td>
-        <td>{{item?.partnerPrice}}</td>
+        <td>{{item?.studentPrice | number}}đ</td>
+        <td>{{item?.partnerPrice | number}}đ</td>
         <td>{{item?.totalStudent}}</td>
         <td>{{item?.created | date: 'dd/MM/YYYY'}}</td>
       </tr>
