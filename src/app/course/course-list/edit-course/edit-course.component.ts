@@ -171,6 +171,8 @@ export class EditCourseComponent implements OnInit {
   publish() {
     this.courseApiService.publish(this.course.id).subscribe(() => {
       this.notification.success('Thành công', 'Công khai khóa học thành công!')
+    }, err => {
+      this.notification.success('Thất bại', 'Khóa học phải có bài giảng mới có thể công khai!');
     });
   }
 }
