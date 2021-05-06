@@ -1,8 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Host, Input, OnChanges, OnInit, Optional, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { TValidators } from '@shared/extentions/validators';
 import { DestroyService } from '@shared/services/destroy.service';
 import { cloneDeep } from 'lodash-es';
+import { NzCollapsePanelComponent, NzCollapseComponent } from 'ng-zorro-antd/collapse';
+import { collapseMotion } from 'ng-zorro-antd/core/animation';
+import { NzConfigService } from 'ng-zorro-antd/core/config';
+import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
 
 @Component({
   selector: 'app-answers',
@@ -10,9 +14,15 @@ import { cloneDeep } from 'lodash-es';
   styleUrls: ['./answers.component.scss'],
   providers: [
     DestroyService
-  ]
+  ],
+  animations: [collapseMotion],
+  // tslint:disable-next-line: no-host-metadata-property
+  host: {
+    '[class.ant-collapse-item-active]': 'nzActive',
+    '[class.ant-collapse-item-disabled]': 'nzDisabled'
+  }
 })
-export class AnswersComponent implements OnInit, OnChanges {
+export class AnswersComponent extends NzCollapsePanelComponent implements OnInit, OnChanges {
 
   @Input() items = [1, 2, 3, 4];
   @Input() questionType: 'Single' | 'Multiple' = 'Single';
@@ -24,9 +34,15 @@ export class AnswersComponent implements OnInit, OnChanges {
   form: FormGroup;
 
   constructor(
+    public nzConfigService: NzConfigService,
+    cdr: ChangeDetectorRef,
+    @Host() nzCollapseComponent: NzCollapseComponent,
+    elementRef: ElementRef,
     private fb: FormBuilder,
     private destroy: DestroyService,
+    @Optional() public noAnimation?: NzNoAnimationDirective,
   ) {
+    super(nzConfigService, cdr, nzCollapseComponent, elementRef, noAnimation);
     this.buildForm();
   }
 

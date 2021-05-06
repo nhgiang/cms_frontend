@@ -88,8 +88,7 @@ export class LessonTestComponent implements OnInit {
   }
 
   removeQuestion(index: number) {
-    const result = this.form.get('questions').value as any[];
-    this.listQuestions = result.filter((_, i) => i !== index);
+    this.listQuestions = this.listQuestions?.filter((_, i) => i !== index);
   }
 
 }
