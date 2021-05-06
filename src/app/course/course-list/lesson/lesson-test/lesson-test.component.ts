@@ -6,7 +6,6 @@ import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
 import { AnswersComponent } from './answers/answers.component';
-import { cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'app-lesson-test',
