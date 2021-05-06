@@ -31,7 +31,7 @@
     [nzLoading]="isloading" [(nzPageIndex)]="page" nzTableLayout="fixed">
     <thead>
       <tr>
-        <th [nzWidth]="'70px'">ID</th>
+        <th [nzWidth]="'70px'" scope="col">ID</th>
         <ng-container *ngFor="let item of metaData">
           <th scope="col" [nzColumnKey]="item.key">{{item.name}}</th>
         </ng-container>

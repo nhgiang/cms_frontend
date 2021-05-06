@@ -28,14 +28,6 @@
                 <nz-form-control nzErrorTip="Nội dung phải trong khoảng từ 1-1000 kí tự">
                   <textarea nz-input [nzAutosize]="{ minRows: 3, maxRows: 10 }" class="w-100 border-0"
                     style="resize: none;" formControlName="content"></textarea>
-                  <!-- <ng-template #errorTip let-control>
-                    <ng-container *ngIf="control.hasError('required')">
-                      Nội dung không được để trống
-                    </ng-container>
-                    <ng-container *ngIf="control.hasError('maxLength')">
-                      Nội dung không được quá 1000 kí tự
-                    </ng-container>
-                  </ng-template> -->
                 </nz-form-control>
               </nz-form-item>
             </div>

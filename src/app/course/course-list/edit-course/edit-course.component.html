@@ -2,38 +2,17 @@
   <form [formGroup]="form" (ngSubmit)="submit()">
     <nz-form-item class="row">
       <nz-form-control nzErrorTip="File phải là file ảnh và nhỏ hơn 5mb">
-        <app-file-upload-control [maxSize]="5000000" [fileType]="assetType.Image" [customLabel]="true"
-          formControlName="photo">
-          <div class="media mb-3">
-            <div class="image-cropper">
-              <label [for]="'fileUpload'">
-                <div class="avatar">
-                  <img class="upload" [src]="photoUrl || form.controls.photo.value" alt="image upload"
-                    *ngIf="form.controls.photo.value">
-                  <div class="upload" *ngIf="!form.controls.photo.value">+upload</div>
-                </div>
-              </label>
-            </div>
-            <div class="m-l-20 m-r-20">
-              <nz-form-label nzRequired class="label-avatar">Chọn ảnh đại diện cho khoá học</nz-form-label>
-              <p class="opacity-07 font-size-12 m-b-0">
-                Kích thước đề xuất: 120x120 <br>
-                Max file size: 5MB
-              </p>
-            </div>
-          </div>
-        </app-file-upload-control>
+        <app-image-cropper-control formControlName="photo" [aspectRatio]="1440/750"></app-image-cropper-control>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item class="row">
       <nz-form-label class="text-left input-space" nzRequired>Video giới thiệu</nz-form-label>
-      <nz-radio-group nzAutoFocus [(ngModel)]="isUploadLink" [ngModelOptions]="{standalone: true}"
-        class="d-flex align-items-center row">
-        <nz-radio-button nz-radio [nzValue]="true">
+      <nz-radio-group nzAutoFocus formControlName="videoIntroType" class="d-flex align-items-center row">
+        <nz-radio-button nz-radio [nzValue]="VideoType.Youtube">
           Nhập link youtube
         </nz-radio-button>
-        <nz-radio-button nz-radio [nzValue]="false">
+        <nz-radio-button nz-radio [nzValue]="VideoType.Vimeo">
           Tải lên file video
         </nz-radio-button>
       </nz-radio-group>
@@ -43,7 +22,7 @@
       <label class="text-left input-space"></label>
       <nz-form-control nzErrorTip="Vui lòng upload hoặc nhập link video giới thiệu">
         <div class="d-flex justify-content-between">
-          <app-upload-video-intro class="w-100" formControlName="videoIntro" [isUploadLink]="isUploadLink">
+          <app-upload-video-intro class="w-100" formControlName="videoIntro" [isUploadLink]="form.value.videoIntroType">
           </app-upload-video-intro>
         </div>
       </nz-form-control>
@@ -99,7 +78,8 @@
     <nz-form-item>
       <nz-form-label class="text-left input-space" nzRequired>Kỹ năng</nz-form-label>
       <nz-form-control nzErrorTip="Chọn kỹ năng đạt được cho khóa học">
-        <app-multiple-selection [getOptionsFn]="skills" formControlName="skills" placeholder="Chọn kĩ năng đạt được">
+        <app-multiple-selection [maxMultipleCount]="4" [getOptionsFn]="skills" formControlName="skills"
+          placeholder="Chọn kĩ năng đạt được">
         </app-multiple-selection>
       </nz-form-control>
     </nz-form-item>
@@ -131,7 +111,8 @@
               <div class="truncate-2 text-muted">{{feedback?.content}}</div>
             </div>
             <div class="text-muted">
-              <span [confirmation]="'Bạn có chắc chắn muốn xóa thông tin đánh giá của học viên này?'" (confirmed)="deleteFeedback()">
+              <span [confirmation]="'Bạn có chắc chắn muốn xóa thông tin đánh giá của học viên này?'"
+                (confirmed)="deleteFeedback(feedback?.id)">
                 <i nz-icon nzType="close-circle" nzTheme="fill" style="font-size: 20px;"></i>
               </span>
             </div>
@@ -147,3 +128,6 @@
     </div>
   </div>
 </nz-card>
+<div class="text-right" *ngIf="!course?.published">
+  <button nz-button nzType="primary" (click)="publish()">Công khai khóa học</button>
+</div>

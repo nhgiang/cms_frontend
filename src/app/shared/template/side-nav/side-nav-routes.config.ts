@@ -121,6 +121,11 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Câu hỏi thường gặp',
         submenu: []
       },
+      {
+        path: 'hottest-course',
+        title: 'Khóa học hot nhất',
+        submenu: []
+      },
     ]
   },
   {

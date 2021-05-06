@@ -14,9 +14,11 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { iif, of } from 'rxjs';
 import { map, tap, switchMap, finalize } from 'rxjs/operators';
-import { AssetType } from 'types/enums';
+import { AssetType, VideoType } from 'types/enums';
 import { Course, Feedback } from 'types/models/course';
 import { VideoAsset } from 'types/typemodel';
+import { omit } from 'lodash-es';
+import { trimData } from 'utils/common';
 
 @Component({
   selector: 'app-edit-course',
@@ -32,6 +34,7 @@ export class EditCourseComponent implements OnInit {
   course: Course;
   isLoading = false;
   feedbacks: Feedback[];
+  VideoType = VideoType;
   constructor(
     fb: FormBuilder,
     private teacherApiService: TeacherApiService,
@@ -53,7 +56,8 @@ export class EditCourseComponent implements OnInit {
       description: [null, TValidators.required],
       studentPrice: [null, Validators.required],
       partnerPrice: [null, Validators.required],
-      skills: [[], [Validators.required]]
+      skills: [[], [Validators.required]],
+      videoIntroType: [VideoType.Youtube, Validators.required]
     });
   }
 
@@ -61,7 +65,10 @@ export class EditCourseComponent implements OnInit {
     const courseId = this.route.snapshot.paramMap.get('courseId');
     this.courseApiService.getById(courseId).pipe(switchMap(course => {
       this.course = course;
-      this.form.patchValue(course);
+      this.form.get('videoIntroType').patchValue(course.videoIntroType);
+      setTimeout(() => {
+        this.form.patchValue(omit(course, ['videoIntroType']));
+      });
       return this.feedbackApi.getByCourse(course.id);
     })).subscribe(res => {
       this.feedbacks = res;
@@ -84,7 +91,7 @@ export class EditCourseComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    iif(() => (this.form.controls.photo.value instanceof File),
+    iif(() => (this.form.value.photo instanceof Blob),
       this.storageApiService.uploadFile(this.form.get('photo').value).pipe(tap(res => this.form.controls.photo.setValue(res))),
       of(true)
     ).pipe(
@@ -97,7 +104,7 @@ export class EditCourseComponent implements OnInit {
         return of(true);
       }),
       switchMap(() => {
-        return this.courseApiService.update(this.course.id, this.form.value);
+        return this.courseApiService.update(this.course.id, trimData(this.form.value));
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(res => {
@@ -152,8 +159,18 @@ export class EditCourseComponent implements OnInit {
   }
 
   deleteFeedback(id) {
-    this.feedbackApi.delete(id).subscribe(() => {
+    console.log(id);
+    this.feedbackApi.delete(id).pipe(switchMap(() => {
+      return this.feedbackApi.getByCourse(this.course.id);
+    })).subscribe(res => {
+      this.feedbacks = res;
       this.notification.success('Thành công', 'Xóa thông tin đánh giá của học viên thành công!')
+    });
+  }
+
+  publish() {
+    this.courseApiService.publish(this.course.id).subscribe(() => {
+      this.notification.success('Thành công', 'Công khai khóa học thành công!')
     });
   }
 }

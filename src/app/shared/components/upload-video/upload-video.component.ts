@@ -19,7 +19,7 @@ import { AssetType, UploaderStatus } from 'types/enums';
   ]
 })
 export class UploadVideoComponent extends AbstractControlDirective implements OnInit, AfterViewInit {
-  @ViewChild('video', { static: true }) video: ElementRef;
+  @ViewChild('video', { static: false }) video: ElementRef;
   UploaderStatus = UploaderStatus;
   AssetType = AssetType;
   status: UploaderStatus = UploaderStatus.NotSelected;
@@ -33,7 +33,7 @@ export class UploadVideoComponent extends AbstractControlDirective implements On
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
   }
 
-  constructor(private messageService: NzMessageService,    private sanitizer: DomSanitizer) {
+  constructor(private messageService: NzMessageService, private sanitizer: DomSanitizer) {
     super();
   }
   ngAfterViewInit(): void {
@@ -77,6 +77,7 @@ export class UploadVideoComponent extends AbstractControlDirective implements On
     if (isFunction(this.onChangeFn)) {
       this.onChangeFn(this.file);
     }
+    this.video.nativeElement.value = '';
   }
 
   removeVideo() {

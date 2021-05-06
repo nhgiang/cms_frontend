@@ -36,14 +36,14 @@ const routes: Routes = [
                 path: 'unit',
                 component: LessonComponent,
                 data: {
-                  title: 'Thêm bài giảng',
+                  title: 'Thêm bài học',
                 }
               },
               {
                 path: 'unit/:unitId/:unitType',
                 component: LessonComponent,
                 data: {
-                  title: 'Cập nhật bài giảng',
+                  title: 'Cập nhật bài học',
                 }
               }
             ]
