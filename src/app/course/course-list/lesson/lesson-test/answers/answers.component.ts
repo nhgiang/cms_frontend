@@ -1,54 +1,63 @@
-import { ChangeDetectorRef, Component, forwardRef, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { TValidators } from '@shared/extentions/validators';
 import { DestroyService } from '@shared/services/destroy.service';
-import { takeUntil } from 'rxjs/operators';
+import { cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'app-answers',
   templateUrl: './answers.component.html',
   styleUrls: ['./answers.component.scss'],
   providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => AnswersComponent),
-      multi: true
-    },
-    {
-      provide: NG_VALIDATORS,
-      useExisting: AnswersComponent,
-      multi: true
-    },
     DestroyService
   ]
 })
-export class AnswersComponent extends AbstractControlDirective implements OnInit {
+export class AnswersComponent implements OnInit, OnChanges {
 
   @Input() items = [1, 2, 3, 4];
-  @Input() answerType: 'Single' | 'Multiple' = 'Single';
+  @Input() questionType: 'Single' | 'Multiple' = 'Single';
+  @Input() index: number;
+  @Input() deleteAble: boolean;
+  @Input() question: any;
+  @Output() deleteQuestion = new EventEmitter();
+  correctAnswer: number;
   form: FormGroup;
-  corectAnswer = 0;
 
   constructor(
     private fb: FormBuilder,
     private destroy: DestroyService,
-    private cdr: ChangeDetectorRef
   ) {
-    super();
-    this.form = this.fb.group({
-      question: null,
-      type: this.answerType,
-      answers: this.fb.array(this.items.map(() => this.fb.group({
-        answer: [null, TValidators.required],
-        isCorrect: [false, Validators.required]
-      })))
-    });
+    this.buildForm();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const question = changes.question?.currentValue;
+    if (question) {
+      this.form.patchValue(question);
+      question.answers?.map((answer, i) => {
+        if (answer.isCorrect) {
+          this.correctAnswer = i;
+        }
+      })
+    }
+  }
+
+  get answerControlArray() {
+    return this.form.get('answers') as FormArray;
   }
 
   ngOnInit(): void {
-    this.form.valueChanges.pipe(takeUntil(this.destroy)).subscribe(data => {
-      this.onChangeFn(data);
+    this.form.valueChanges.subscribe(console.log)
+  }
+
+  protected buildForm(): void {
+    this.form = this.fb.group({
+      question: [null, TValidators.required],
+      type: [this.questionType],
+      answers: this.fb.array(this.items.map(() => this.fb.group({
+        answer: [null],
+        isCorrect: [false]
+      })), { validators: TValidators.requiredAnswer })
     });
   }
 
@@ -58,5 +67,32 @@ export class AnswersComponent extends AbstractControlDirective implements OnInit
     });
   }
 
-  validate() { }
+  updateTypeQuestion(value: string) {
+    if (value === 'Single') {
+      (this.form.get('answers') as FormArray).controls.forEach((control) => {
+        control.get('isCorrect').setValue(false);
+        this.correctAnswer = null;
+      });
+    }
+  }
+
+  getData() {
+    const value = cloneDeep(this.form.value);
+    value.answers = value.answers.filter(t => t.answer);
+    return value;
+  }
+
+  validate() {
+    Object.keys(this.answerControlArray.controls).forEach(field => {
+      const control = this.answerControlArray.get(field);
+      if (control instanceof AbstractControl) {
+        control.markAsDirty();
+        control.updateValueAndValidity();
+      }
+    });
+    if (this.form.invalid) {
+      return false;
+    }
+    return true;
+  }
 }
