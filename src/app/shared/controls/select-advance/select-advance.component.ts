@@ -2,6 +2,7 @@ import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@ang
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Option } from '@shared/interfaces/option.type';
 import { DestroyService } from '@shared/services/destroy.service';
+import { isArray, isEmpty, uniqBy } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import { concatMap, debounceTime, distinctUntilChanged, finalize, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AbstractControlDirective } from '../abstract-control.directive';
@@ -28,7 +29,6 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
 
   isLoading = false;
   page = 1;
-  ids = [];
   timeout: any;
   isDone = false;
   options = [];
@@ -54,6 +54,8 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
 
   writeValue(obj: any) {
     super.writeValue(obj);
+    if (isEmpty(obj)) return;
+    this.getOptionsFn({ page: 1, ids: isArray(obj) ? obj : [obj] }).subscribe(data => this.options = uniqBy([...this.options, ...data], 'value'));
   }
 
   onSearch() {
@@ -66,7 +68,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
         this.page = 1;
         this.isLoading = true;
       }),
-      switchMap(q => this.getOptionsFn({ page: 1, q, ids: this.ids }).pipe(finalize(() => this.isLoading = false))),
+      switchMap(q => this.getOptionsFn({ page: 1, q }).pipe(finalize(() => this.isLoading = false))),
       takeUntil(this.destroy)
     ).subscribe(data => {
       this.options = data;
@@ -76,7 +78,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
   loadMore(): void {
     this.loadMore$.pipe(
       tap(() => this.isLoading = true),
-      concatMap(() => this.getOptionsFn({ page: ++this.page, q: this.q, ids: this.ids }).pipe(finalize(() => this.isLoading = false))),
+      concatMap(() => this.getOptionsFn({ page: ++this.page, q: this.q }).pipe(finalize(() => this.isLoading = false))),
       takeUntil(this.destroy)
     ).subscribe(this.pushToOption);
   }

@@ -15,7 +15,7 @@ export abstract class DataTableContainer<T> implements OnInit {
   page = 1;
   isloading: boolean;
   params: { [key: string]: any } = {};
-  quantity = 2;
+  quantity = 10;
   order: string;
   metaData: DataTableColumnMetaData[] = [];
   protected refreshTrigger = new Subject();

@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DestroyService } from '@shared/services/destroy.service';
 import { SelectAdvanceComponent } from '../select-advance/select-advance.component';
@@ -16,14 +16,6 @@ import { SelectAdvanceComponent } from '../select-advance/select-advance.compone
     DestroyService
   ],
 })
-export class MultipleSelectionComponent extends SelectAdvanceComponent implements OnChanges {
+export class MultipleSelectionComponent extends SelectAdvanceComponent {
   @Input() maxMultipleCount: number;
-  @Input() findByIds: any[];
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.findByIds?.currentValue) {
-      this.ids = changes.findByIds?.currentValue;
-      this.search$.next(this.q);
-    }
-  }
 }
