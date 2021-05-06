@@ -12,8 +12,11 @@
         <input class="mr-3" type="text" nz-input [formControl]="lessonTitle">
       </nz-form-control>
     </nz-form-item>
-    <span class="submit" (click)="addLesson()">
+    <span class="submit ml-3" (click)="addLesson()">
       <i nz-icon nzType="check" nzTheme="outline"></i>
+    </span>
+    <span (click)="isAddStep = false" class="ml-3 submit">
+      <i nz-icon nzType="close-circle" nzTheme="outline"></i>
     </span>
   </div>
 </div>

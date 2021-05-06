@@ -8,8 +8,7 @@
 
     <nz-form-item class="row">
       <nz-form-label class="text-left input-space" nzRequired>Video giới thiệu</nz-form-label>
-      <nz-radio-group nzAutoFocus formControlName="videoIntroType"
-        class="d-flex align-items-center row">
+      <nz-radio-group nzAutoFocus formControlName="videoIntroType" class="d-flex align-items-center row">
         <nz-radio-button nz-radio [nzValue]="VideoType.Youtube">
           Nhập link youtube
         </nz-radio-button>
@@ -79,11 +78,12 @@
     <nz-form-item>
       <nz-form-label class="text-left input-space" nzRequired>Kỹ năng</nz-form-label>
       <nz-form-control nzErrorTip="Chọn kỹ năng đạt được cho khóa học">
-        <app-multiple-selection [maxMultipleCount]="4" [getOptionsFn]="skills" formControlName="skills" placeholder="Chọn kĩ năng đạt được">
+        <app-multiple-selection [maxMultipleCount]="4" [getOptionsFn]="skills" formControlName="skills"
+          placeholder="Chọn kĩ năng đạt được">
         </app-multiple-selection>
       </nz-form-control>
     </nz-form-item>
- 
+
     <div class="w-100 d-flex justify-content-end">
       <button nz-button [nzType]="'primary'" type="submit" [nzLoading]="isLoading">Lưu dữ liệu</button>
     </div>
@@ -111,7 +111,8 @@
               <div class="truncate-2 text-muted">{{feedback?.content}}</div>
             </div>
             <div class="text-muted">
-              <span [confirmation]="'Bạn có chắc chắn muốn xóa thông tin đánh giá của học viên này?'" (confirmed)="deleteFeedback()">
+              <span [confirmation]="'Bạn có chắc chắn muốn xóa thông tin đánh giá của học viên này?'"
+                (confirmed)="deleteFeedback(feedback?.id)">
                 <i nz-icon nzType="close-circle" nzTheme="fill" style="font-size: 20px;"></i>
               </span>
             </div>
@@ -127,4 +128,6 @@
     </div>
   </div>
 </nz-card>
-<button nz-button nzType="primary">Công khai khóa học</button>
+<div class="text-right" *ngIf="!course?.published">
+  <button nz-button nzType="primary" (click)="publish()">Công khai khóa học</button>
+</div>
