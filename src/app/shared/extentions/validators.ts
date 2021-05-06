@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 export class TValidators extends Validators {
 
   static confirmPasswordValidator(control: AbstractControl): ValidationErrors {
@@ -77,7 +77,7 @@ export class TValidators extends Validators {
   }
 
   static required(control: AbstractControl): ValidationErrors {
-    if (!control.value || !control.value?.trim()) {
+    if (!control.value || TValidators.trimData(!control.value)) {
       return {
         required: true
       };
@@ -97,5 +97,13 @@ export class TValidators extends Validators {
       return data.trim();
     }
     return data;
+  }
+
+  static requiredAnswer = (form: FormArray) => {
+    const answers = form.value;
+    if (answers.filter(t => t.answer).length < 3 || answers.filter(t => t.isCorrect) < 1) {
+      return { requiredAnswer: true };
+    }
+    return null;
   }
 }

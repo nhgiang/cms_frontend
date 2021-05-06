@@ -17,6 +17,8 @@ import { LearningPathComponent } from './course-list/learning-path/learning-path
 import { LessonComponent } from './course-list/lesson/lesson.component';
 import { LessonVideoComponent } from './course-list/lesson/lesson-video/lesson-video.component';
 import { EditCourseComponent } from './course-list/edit-course/edit-course.component';
+import { LessonTestComponent } from './course-list/lesson/lesson-test/lesson-test.component';
+import { AnswersComponent } from './course-list/lesson/lesson-test/answers/answers.component';
 
 @NgModule({
   imports: [
@@ -39,7 +41,9 @@ import { EditCourseComponent } from './course-list/edit-course/edit-course.compo
     LearningPathComponent,
     LessonComponent,
     LessonVideoComponent,
-    EditCourseComponent
+    EditCourseComponent,
+    LessonTestComponent,
+    AnswersComponent
   ]
 })
 export class CourseModule { }

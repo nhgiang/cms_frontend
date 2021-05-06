@@ -6,7 +6,8 @@
           <app-lesson-video [unit]="unit"></app-lesson-video>
         </nz-tab>
         <nz-tab nzTitle="Bài test trắc nghiệm" *ngIf="!unitType || unitType === UnitAndTest.Test">
-          Bài test trắc nghiệm
+          <app-lesson-test>
+          </app-lesson-test>
         </nz-tab>
       </nz-tabset>
     </div>
