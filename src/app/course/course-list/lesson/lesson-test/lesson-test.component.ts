@@ -20,6 +20,8 @@ export class LessonTestComponent implements OnInit {
   form: FormGroup;
   lessonTestId: string;
   loading: boolean;
+  courseId: string;
+
   listQuestions: any[] = [{}];
 
   constructor(
@@ -31,6 +33,7 @@ export class LessonTestComponent implements OnInit {
   ) {
     this.buildForm();
     this.lessonTestId = this.route.snapshot.paramMap.get('unitId');
+    this.courseId = this.route.snapshot.paramMap.get('courseId');
   }
 
   ngOnInit() {
