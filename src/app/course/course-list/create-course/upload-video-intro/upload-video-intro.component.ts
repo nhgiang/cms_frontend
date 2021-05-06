@@ -1,9 +1,10 @@
-import { Component, ElementRef, forwardRef, Injector, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { NgControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import * as getYouTubeId from 'get-youtube-id';
+import { Component, ElementRef, forwardRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { NgControl, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
+import * as getYouTubeId from 'get-youtube-id';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { VideoType } from 'types/enums';
 
 @Component({
   selector: 'app-upload-video-intro',
@@ -24,7 +25,7 @@ import { AbstractControlDirective } from '@shared/controls/abstract-control.dire
 })
 export class UploadVideoIntroComponent extends AbstractControlDirective implements OnInit, OnChanges {
   @ViewChild('inputUpload', { static: false }) inputUpload: ElementRef;
-  @Input() isUploadLink: boolean;
+  @Input() isUploadLink: VideoType;
   displayPreview = false;
   displayPreviewYT = false;
   url: string | ArrayBuffer;
@@ -32,6 +33,7 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
   fileVideo: File | null;
   ngControl: NgControl;
   @Input() url1: string;
+  VideoType = VideoType;
   constructor(
     private sanitizer: DomSanitizer,
     private notification: NzNotificationService,
@@ -41,16 +43,21 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
 
   writeValue(obj: any) {
     if (obj) {
-      this.linkYoutubeInput = obj;
-      this.changeLink(obj)
+      if (this.isUploadLink === VideoType.Youtube) {
+        this.linkYoutubeInput = obj;
+        this.changeLink(obj);
+      } else {
+        this.url = obj;
+        this.displayPreview = true;
+      }
     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.isUploadLink.currentValue) {
-      this.onChangeFn(this.linkYoutubeInput);
-    } else {
+    if (changes.isUploadLink.currentValue === VideoType.Vimeo) {
       this.onChangeFn(this.fileVideo);
+    } else {
+      this.onChangeFn(this.linkYoutubeInput);
     }
   }
 
@@ -60,7 +67,7 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
   changeLink(link: string) {
     const id = getYouTubeId.default(link);
     this.displayPreviewYT = !!id;
-    this.url1 = `https://www.youtube.com/embed/${id}`
+    this.url1 = `https://www.youtube.com/embed/${id}`;
     this.onChangeFn(link);
   }
 
@@ -69,7 +76,6 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
       this.fileVideo = null;
       return this.notification.error('Thất bại', 'Vui lòng chọn đúng định dạng file');
     }
-    console.log(file)
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -91,10 +97,10 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
   }
 
   validate() {
-    if (this.isUploadLink && !getYouTubeId.default(this.linkYoutubeInput)) {
+    if (this.isUploadLink === VideoType.Youtube && !getYouTubeId.default(this.linkYoutubeInput)) {
       return { required: true };
     }
-    if (!this.isUploadLink && !this.fileVideo) {
+    if (this.isUploadLink === VideoType.Vimeo && !this.url) {
       return { required: true };
     }
     return null;

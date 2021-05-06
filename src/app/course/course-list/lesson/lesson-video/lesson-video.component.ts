@@ -50,7 +50,7 @@ export class LessonVideoComponent implements OnInit, OnChanges {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
     forkJoin({
-      file: this.storageApi.uploadFiles(this.form.value.file),
+      file: this.storageApi.uploadFiles(this.form.value.attachments),
       video: this.storageApi.uploadVideo(this.form.value.video)
     }).pipe(switchMap(({ file, video }) => {
       const data = {
@@ -58,7 +58,7 @@ export class LessonVideoComponent implements OnInit, OnChanges {
         lessionId: this.lessonId,
         duration: typeof video === 'string' ? this.unit.duration : video.duration,
         video: typeof video === 'string' ? video : video.path,
-        attachment: file
+        attachments: file
       };
       return this.unit ? this.unitApi.editUnit(this.route.snapshot.paramMap.get('unitId'), data) : this.unitApi.createUnit(data);
     }), finalize(() => this.isLoading = false)).subscribe(() => {
@@ -71,7 +71,7 @@ export class LessonVideoComponent implements OnInit, OnChanges {
     this.form = this.fb.group({
       title: [null, TValidators.required],
       video: [null, Validators.required],
-      file: [null]
+      attachments: [null]
     });
   }
 }

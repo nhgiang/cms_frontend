@@ -30,12 +30,20 @@ export class LearningPathComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.courseId.currentValue) {
       this.lessonApi.getLessonByCourse(this.courseId).subscribe(lessons => {
-        this.lessons = lessons;
+        this.lessons = lessons.map((lesson, i) => {
+          return {
+            ...lesson,
+            order: i + 1
+          };
+        });
       });
     }
   }
 
   addLesson() {
+    this.lessonTitle.markAsDirty();
+    this.lessonTitle.updateValueAndValidity();
+
     if (this.lessonTitle.invalid) {
       return;
     }
@@ -47,8 +55,15 @@ export class LearningPathComponent implements OnInit, OnChanges {
       return this.lessonApi.getLessonByCourse(this.courseId);
     })).subscribe(lessons => {
       this.notification.success('Thành công', 'Thêm mới chương học thành công!');
-      this.lessons = lessons;
+      this.lessons = lessons.map((lesson, i) => {
+        return {
+          ...lesson,
+          order: i + 1
+        };
+      });
       this.isAddStep = false;
+    }, err => {
+      this.notification.error('Thất bại', 'Tên chương bị trùng trong hệ thống khoá học!');
     });
   }
 
