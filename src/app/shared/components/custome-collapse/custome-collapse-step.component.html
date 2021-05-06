@@ -6,6 +6,9 @@
       <span class="submit ml-3" (click)="editLesson($event)">
         <i nz-icon nzType="check" style="font-size: 19px;" nzTheme="outline"></i>
       </span>
+      <span (click)="isEdit = false" class="ml-3">
+        <i nz-icon nzType="close-circle" style="font-size: 19px;" nzTheme="outline"></i>
+      </span>
     </div>
   </ng-container>
   <ng-template #stepName>

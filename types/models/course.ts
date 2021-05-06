@@ -9,9 +9,11 @@ export interface Course extends Entity {
   studentPrice: number;
   partnerPrice: number;
   totalStudent: number;
+  view: number;
+  purchase: number;
   videoIntroType: VideoType;
   videoIntro: string;
-  index: number
+  index: number;
 }
 export interface Specialization extends Entity {
   name: string;

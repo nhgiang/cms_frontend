@@ -1,0 +1,36 @@
+<nz-card>
+  <div class="row">
+    <div class="col-12">
+      <nz-table [nzData]="[1, 2, 3]" [nzShowPagination]="false">
+        <thead>
+          <tr>
+            <th scope="col">Thứ tự</th>
+            <th scope="col">Khóa học</th>
+            <th scope="col">Lượt xem</th>
+            <th scope="col">Lượt mua</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of form.controls; let i = index" [formGroup]="item">
+            <td>Top {{ i + 1 }}</td>
+            <td>
+              <select-advance placeholder="Chọn khóa học" [getOptionsFn]="courses$" style="min-width: 220px"
+                formControlName="courseId">
+              </select-advance>
+            </td>
+            <td>
+              <span *ngIf="courses">{{courses[i]?.view}}</span>
+            </td>
+            <td>
+              <span *ngIf="courses">{{courses[i]?.purchase}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <div class="text-right mt-4">
+        <button nz-button nzType="primary" (click)="submit()" class="mr-3">Lưu lại</button>
+        <button nz-button nzType="primary" nzGhost [routerLink]="['/dashboard/home']">Quay lại</button>
+      </div>
+    </div>
+  </div>
+</nz-card>

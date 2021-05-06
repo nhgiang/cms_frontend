@@ -159,7 +159,11 @@ export class EditCourseComponent implements OnInit {
   }
 
   deleteFeedback(id) {
-    this.feedbackApi.delete(id).subscribe(() => {
+    console.log(id);
+    this.feedbackApi.delete(id).pipe(switchMap(() => {
+      return this.feedbackApi.getByCourse(this.course.id);
+    })).subscribe(res => {
+      this.feedbacks = res;
       this.notification.success('Thành công', 'Xóa thông tin đánh giá của học viên thành công!')
     });
   }

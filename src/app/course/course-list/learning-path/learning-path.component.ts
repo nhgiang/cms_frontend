@@ -41,6 +41,9 @@ export class LearningPathComponent implements OnInit, OnChanges {
   }
 
   addLesson() {
+    this.lessonTitle.markAsDirty();
+    this.lessonTitle.updateValueAndValidity();
+
     if (this.lessonTitle.invalid) {
       return;
     }
@@ -57,7 +60,7 @@ export class LearningPathComponent implements OnInit, OnChanges {
           ...lesson,
           order: i + 1
         };
-      });;
+      });
       this.isAddStep = false;
     }, err => {
       this.notification.error('Thất bại', 'Tên chương bị trùng trong hệ thống khoá học!');

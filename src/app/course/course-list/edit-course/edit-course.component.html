@@ -111,7 +111,7 @@
               <div class="truncate-2 text-muted">{{feedback?.content}}</div>
             </div>
             <div class="text-muted">
-              <span [confirmation]="'Bạn có chắc chắn muốn xóa thông tin đánh giá của học viên này?'" (confirmed)="deleteFeedback()">
+              <span [confirmation]="'Bạn có chắc chắn muốn xóa thông tin đánh giá của học viên này?'" (confirmed)="deleteFeedback(feedback?.id)">
                 <i nz-icon nzType="close-circle" nzTheme="fill" style="font-size: 20px;"></i>
               </span>
             </div>

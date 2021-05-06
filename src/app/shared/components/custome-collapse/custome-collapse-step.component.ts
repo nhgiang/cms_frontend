@@ -52,7 +52,7 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
     this.lessonApi.deleteLesson(this.data.id).subscribe(() => {
       this.refresh.emit();
       this.notification.success('Thành công', 'Xóa thông tin chương học thành công!')
-    },err => {
+    }, err => {
       this.notification.success('Thất bại', 'Không thể xóa chương học đã tồn tại bài học!')
     });
   }
@@ -71,6 +71,8 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
       this.notification.success('Thành công', 'Cập nhật thông tin chương học thành công');
       this.isEdit = false;
       this.markForCheck();
+    }, err => {
+      this.notification.error('Thất bại', 'Tên chương bị trùng trong hệ thống khoá học!');
     });
   }
 
