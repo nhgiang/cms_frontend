@@ -6,15 +6,15 @@ import { CourseApiService } from '@shared/api/course.api.service';
 import { SkillsApiService } from '@shared/api/skills.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
-import { FeedbackFormComponent } from '@shared/components/feedback-form/feedback-form.component';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { iif, of } from 'rxjs';
 import { finalize, map, switchMap, tap } from 'rxjs/operators';
-import { AssetType } from 'types/enums';
-import { Step } from 'types/models/course';
+import { AssetType, VideoType } from 'types/enums';
+import { VideoAsset } from 'types/typemodel';
+import { trimData } from 'utils/common';
 
 @Component({
   selector: 'app-create-course',
@@ -27,9 +27,8 @@ export class CreateCourseComponent implements OnInit {
   photoUrl: string;
   videoUpload: any;
   isUploadLink = true;
-  steps: Step[] = [];
-  id: string;
   isLoading = false;
+  VideoType = VideoType;
   constructor(
     fb: FormBuilder,
     private teacherApiService: TeacherApiService,
@@ -50,7 +49,8 @@ export class CreateCourseComponent implements OnInit {
       description: [null, TValidators.required],
       studentPrice: [null, Validators.required],
       partnerPrice: [null, Validators.required],
-      skills: [[], [Validators.required]]
+      skills: [[], [Validators.required]],
+      videoIntroType: [VideoType.Youtube, Validators.required]
     });
   }
 
@@ -73,25 +73,25 @@ export class CreateCourseComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    iif(() => (this.form.controls.photo.value instanceof File),
+    iif(() => (this.form.controls.photo.value instanceof Blob),
       this.storageApiService.uploadFile(this.form.get('photo').value).pipe(tap(res => this.form.controls.photo.setValue(res))),
       of(true)
     ).pipe(
       switchMap(() => {
         if (this.form.get('videoIntro').value instanceof File) {
-          return this.storageApiService.uploadVideo(this.form.get('videoIntro').value).pipe(tap((data) => {
-            this.form.get('videoIntro').setValue(data);
+          return this.storageApiService.uploadVideo(this.form.get('videoIntro').value).pipe(tap(data => {
+            this.form.get('videoIntro').patchValue((data as VideoAsset).path);
           }));
         }
         return of(true);
       }),
       switchMap(() => {
-        return (this.id) ? this.courseApiService.update(this.id, this.form.value) : this.courseApiService.create(this.form.value);
+        return this.courseApiService.create(trimData(this.form.value));
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(res => {
       this.notification.success('Thành công', '');
-      this.id = res.id;
+      this.router.navigate([`/course-management/course/edit/${res.id}`]);
     });
   }
 
@@ -111,21 +111,6 @@ export class CreateCourseComponent implements OnInit {
       }
       this.photoUrl = null;
     });
-  }
-
-  addFeedback() {
-    this.modalService.create({
-      nzContent: FeedbackFormComponent
-    });
-  }
-
-  addStep() {
-    const item = {
-      name: 'bước 1',
-      order: 1,
-      id: '1'
-    }
-    this.steps.push(item as Step);
   }
 }
 

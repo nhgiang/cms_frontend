@@ -129,7 +129,7 @@
 
 .ant-tabs-ink-bar {
   height: 2px;
-  background: $tabs-theme-color;
+  // background: $tabs-theme-color;
 }
 
 .ant-tabs-large {
@@ -147,7 +147,7 @@
 .ant-tabs-tab {
   &.ant-tabs-tab-active {
     .ant-tabs-tab-btn {
-      color: $tabs-theme-color;
+      // color: $tabs-theme-color;
       font-weight: $font-weight-semibold;
     }
   }

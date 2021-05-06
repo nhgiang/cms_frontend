@@ -14,6 +14,11 @@ import { SpecializationsEditComponent } from './specializations/specializations-
 import { SpecializationsCreateComponent } from './specializations/specializations-create/specializations-create.component';
 import { UploadVideoIntroComponent } from './course-list/create-course/upload-video-intro/upload-video-intro.component';
 import { LearningPathComponent } from './course-list/learning-path/learning-path.component';
+import { LessonComponent } from './course-list/lesson/lesson.component';
+import { LessonVideoComponent } from './course-list/lesson/lesson-video/lesson-video.component';
+import { EditCourseComponent } from './course-list/edit-course/edit-course.component';
+import { LessonTestComponent } from './course-list/lesson/lesson-test/lesson-test.component';
+import { AnswersComponent } from './course-list/lesson/lesson-test/answers/answers.component';
 
 @NgModule({
   imports: [
@@ -33,7 +38,12 @@ import { LearningPathComponent } from './course-list/learning-path/learning-path
     SpecializationsEditComponent,
     SpecializationsCreateComponent,
     UploadVideoIntroComponent,
-    LearningPathComponent
+    LearningPathComponent,
+    LessonComponent,
+    LessonVideoComponent,
+    EditCourseComponent,
+    LessonTestComponent,
+    AnswersComponent
   ]
 })
 export class CourseModule { }

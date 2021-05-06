@@ -26,3 +26,13 @@ export enum ContactStatus {
   NotContactedYet = 'NotContactedYet',
   Contacted = 'Contacted'
 }
+
+export enum UnitAndTest {
+  Unit = 'Unit',
+  Test = 'Test',
+}
+
+export enum VideoType {
+  Youtube = 'Youtube',
+  Vimeo = 'Vimeo',
+}

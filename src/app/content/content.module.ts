@@ -12,6 +12,7 @@ import { TeacherComponent } from './teacher/teacher.component';
 import { TeacherCreateComponent } from './teacher/teacher-create/teacher-create.component';
 import { TeacherUpdateComponent } from './teacher/teacher-update/teacher-update.component';
 import { VideoIntroComponent } from './video-intro/video-intro.component';
+import { HottestCourseComponent } from './hottest-course/hottest-course.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { VideoIntroComponent } from './video-intro/video-intro.component';
     TeacherComponent,
     TeacherCreateComponent,
     TeacherUpdateComponent,
-    VideoIntroComponent
+    VideoIntroComponent,
+    HottestCourseComponent
   ],
   imports: [
     CommonModule,

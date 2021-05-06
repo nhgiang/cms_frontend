@@ -28,19 +28,19 @@
     </div>
     <nz-form-item>
       <nz-form-label class="text-left" nzRequired [nzSpan]="6">Tên học viên</nz-form-label>
-      <nz-form-control [nzErrorTip]="'Tên học viên chỉ từ 1 đến 200 ký tự'">
+      <nz-form-control [nzErrorTip]="'Vui lòng nhập tên học viên'">
         <input nz-input formControlName="studentName" placeholder="Nhập tên học viên">
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSpan]="6" class="text-left" nzRequired>Đánh giá</nz-form-label>
-      <nz-form-control [nzErrorTip]="'Nội dung đánh giá chỉ từ 1 đến 200 ký tự'">
+      <nz-form-control [nzErrorTip]="'Vui lòng nhập nội dung đánh giá'">
         <textarea nz-input formControlName="content" placeholder="Nhập đánh giá học viên" rows="3"
           style="resize: none;"></textarea>
       </nz-form-control>
     </nz-form-item>
   </div>
   <div *nzModalFooter>
-    <button nz-button nzType="primary" (click)="submit()" type="submit" [nzLoading]="isLoading">Xác nhận</button>
+    <button nz-button [disabled]="form.invalid" nzType="primary" (click)="submit()" type="submit" [nzLoading]="isLoading">Xác nhận</button>
   </div>
 </form>

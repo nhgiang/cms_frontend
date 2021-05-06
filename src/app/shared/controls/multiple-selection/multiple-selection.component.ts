@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DestroyService } from '@shared/services/destroy.service';
 import { SelectAdvanceComponent } from '../select-advance/select-advance.component';
@@ -17,4 +17,5 @@ import { SelectAdvanceComponent } from '../select-advance/select-advance.compone
   ],
 })
 export class MultipleSelectionComponent extends SelectAdvanceComponent {
+  @Input() maxMultipleCount: number;
 }
