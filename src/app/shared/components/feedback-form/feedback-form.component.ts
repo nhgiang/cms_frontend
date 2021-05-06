@@ -5,6 +5,7 @@ import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
 import { FileModel } from 'types/typemodel';
 import { trimData } from 'utils/common';
@@ -26,7 +27,8 @@ export class FeedbackFormComponent implements OnInit {
     private fb: FormBuilder,
     private feedbackApi: FeedbackApiService,
     private storageApi: StorageApiService,
-    private modalRef: NzModalRef
+    private modalRef: NzModalRef,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -40,8 +42,8 @@ export class FeedbackFormComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
-      studentName: [null, [TValidators.textRange(1, 200)]],
-      content: [null, [TValidators.textRange(1, 200)]],
+      studentName: [null, [TValidators.required]],
+      content: [null, [TValidators.required]],
       photo: [null, TValidators.required],
       courseId: [this.courseId]
     });
@@ -73,6 +75,7 @@ export class FeedbackFormComponent implements OnInit {
       this.isLoading = false;
     })).subscribe(() => {
       this.refresh.emit();
+      this.notification.success('Thành công', `${this.feedbackId ? 'Cập nhật' : 'Thêm mới'} đánh giá học viên thành công`);
       this.modalRef.close();
     });
   }
