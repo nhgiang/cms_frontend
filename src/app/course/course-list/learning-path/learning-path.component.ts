@@ -69,7 +69,12 @@ export class LearningPathComponent implements OnInit, OnChanges {
 
   refresh() {
     this.lessonApi.getLessonByCourse(this.courseId).subscribe(lessons => {
-      this.lessons = lessons;
+      this.lessons = lessons.map((lesson, i) => {
+        return {
+          ...lesson,
+          order: i + 1
+        };
+      });
     });
   }
 }
