@@ -92,6 +92,9 @@
     border-radius: $input-border-radius;
     padding: 1px $select-tag-margin-y;
     // height: $select-height + 0.125rem;
+    .ant-select-selection-search {
+      margin-inline-start: 3px;
+    }
   }
 
   .ant-select-selection-item {

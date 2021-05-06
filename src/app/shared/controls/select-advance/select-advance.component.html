@@ -1,4 +1,4 @@
-<nz-select class="w-100" [(ngModel)]="controlValue" (ngModelChange)="onChangeFn($event)" (nzScrollToBottom)="loadMore$.next()"
+<nz-select [ngStyle]="{'width': width || '100%' }" [(ngModel)]="controlValue" (ngModelChange)="onChangeFn($event)" (nzScrollToBottom)="loadMore$.next()"
   [nzServerSearch]="true" (nzOnSearch)="search$.next($event)" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
   nzAllowClear nzShowSearch [nzLoading]="isLoading" [nzClearIcon]="clearIconTpl">
   <nz-option *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.label">
