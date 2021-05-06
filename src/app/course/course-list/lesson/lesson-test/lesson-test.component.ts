@@ -29,7 +29,8 @@ export class LessonTestComponent implements OnInit {
     private unitTestApi: UnitTestApiService,
     private notification: NzNotificationService,
     private activatedRoute: ActivatedRoute,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
     this.buildForm();
     this.lessonTestId = this.route.snapshot.paramMap.get('unitId');
@@ -78,10 +79,12 @@ export class LessonTestComponent implements OnInit {
     if (this.lessonTestId) {
       this.unitTestApi.update(this.lessonTestId, this.form.value).pipe(finalize(() => this.loading = false)).subscribe(res => {
         this.notification.success('Thành Công', 'Cập nhật bài test thành công');
+        this.router.navigate(['/course-management/course/edit', this.courseId]);
       });
     } else {
       this.unitTestApi.create(this.form.value).pipe(finalize(() => this.loading = false)).subscribe(res => {
         this.notification.success('Thành Công', 'Tạo mới bài test thành công');
+        this.router.navigate(['/course-management/course/edit', this.courseId]);
       });
     }
   }
