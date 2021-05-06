@@ -6,6 +6,7 @@ import { IPaginate } from '@shared/interfaces/paginate.type';
 import { omitBy } from 'lodash';
 import { isNil } from 'ng-zorro-antd/core/util';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { merge } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Course } from 'types/models/course';
 
@@ -36,8 +37,9 @@ export class HottestCourseComponent implements OnInit {
     //   });
     //   return this.courseApi.getInfoOfCourseHottest({ ids });
     // })).subscribe(res => {
-    //   this.courses = res.items;
     // });
+    // this.courses = res.items;
+    // merge(this.form.valueChanges,  )
     // this.settingApi.hottestCoruse.get().pipe(
     //   switchMap(res => {
     //     const ids = res.filter(x => x.courseId).map(({ courseId }) => {

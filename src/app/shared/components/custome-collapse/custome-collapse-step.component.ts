@@ -53,7 +53,7 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
       this.refresh.emit();
       this.notification.success('Thành công', 'Xóa thông tin chương học thành công!')
     }, err => {
-      this.notification.success('Thất bại', 'Không thể xóa chương học đã tồn tại bài học!')
+      this.notification.error('Thất bại', 'Không thể xóa chương học đã tồn tại bài học!')
     });
   }
 

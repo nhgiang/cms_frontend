@@ -10,6 +10,7 @@ import { DataTableColumnMetaData, QueryResult } from 'types/typemodel';
 import { Option } from '@shared/interfaces/option.type';
 import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { CourseApiService } from '@shared/api/course.api.service';
+import { pickBy } from 'lodash';
 
 @Component({
   selector: 'app-course-list',
@@ -108,6 +109,16 @@ export class CourseListComponent extends DataTableContainer<Course> implements O
 
   readRouteParams(params: { [key: string]: any }) {
     super.readRouteParams(params);
-    this.search.patchValue(params);
+    const a = pickBy(params, (value, key) => {
+      const formSearch = Object.keys(this.search.value);
+      if (formSearch.includes(key) && this.search.value[key] !== value) {
+        console.log(this.search.value[key], value)
+        return true;
+      }
+      return false;
+    });
+    Object.keys(a).forEach(field => {
+      this.search.get(field).patchValue(a[field]);
+    })
   }
 }
