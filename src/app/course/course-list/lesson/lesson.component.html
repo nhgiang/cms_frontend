@@ -1,7 +1,7 @@
 <nz-card>
   <div class="row">
     <div class="col-12">
-      <nz-tabset [nzSelectedIndex]='1'>
+      <nz-tabset>
         <nz-tab nzTitle="Video bài giảng" *ngIf="!unitType || unitType === UnitAndTest.Unit">
           <app-lesson-video [unit]="unit"></app-lesson-video>
         </nz-tab>

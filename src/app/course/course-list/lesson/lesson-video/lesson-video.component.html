@@ -19,7 +19,8 @@
     </nz-form-control>
   </nz-form-item>
   <div class="d-flex">
-    <button nz-button nzType="primary" class=" ml-auto mr-3" nzGhost [routerLink]="['/course-management/course/edit',this.courseId]">Hủy
+    <button nz-button nzType="primary" class=" ml-auto mr-3" nzGhost
+      [routerLink]="['/course-management/course/edit',this.courseId]">Hủy
       bỏ</button>
     <button [disabled]="form.invalid" nz-button nzType="primary" [nzLoading]="isLoading">Xác nhận</button>
   </div>
