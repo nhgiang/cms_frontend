@@ -1,7 +1,7 @@
 <nz-card>
   <div class="row">
     <div class="col-12">
-      <nz-table [nzData]="[1, 2, 3]" [nzShowPagination]="false">
+      <nz-table [nzData]="form.controls" [nzShowPagination]="false">
         <thead>
           <tr>
             <th scope="col">Thứ tự</th>
@@ -19,10 +19,10 @@
               </select-advance>
             </td>
             <td>
-              <!-- <span *ngIf="courses"></span> -->
+              {{ objKey[item.get('courseId').value]?.view }}
             </td>
             <td>
-              <!-- <span *ngIf="courses">{{courses[i]?.purchase}}</span> -->
+              {{ objKey[item.get('courseId').value]?.purchase }}
             </td>
           </tr>
         </tbody>
