@@ -28,6 +28,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
 
   isLoading = false;
   page = 1;
+  ids = [];
   timeout: any;
   isDone = false;
   options = [];
@@ -65,7 +66,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
         this.page = 1;
         this.isLoading = true;
       }),
-      switchMap(q => this.getOptionsFn({ page: 1, q }).pipe(finalize(() => this.isLoading = false))),
+      switchMap(q => this.getOptionsFn({ page: 1, q, ids: this.ids }).pipe(finalize(() => this.isLoading = false))),
       takeUntil(this.destroy)
     ).subscribe(data => {
       this.options = data;
@@ -75,7 +76,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
   loadMore(): void {
     this.loadMore$.pipe(
       tap(() => this.isLoading = true),
-      concatMap(() => this.getOptionsFn({ page: ++this.page, q: this.q }).pipe(finalize(() => this.isLoading = false))),
+      concatMap(() => this.getOptionsFn({ page: ++this.page, q: this.q, ids: this.ids }).pipe(finalize(() => this.isLoading = false))),
       takeUntil(this.destroy)
     ).subscribe(this.pushToOption);
   }

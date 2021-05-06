@@ -11,11 +11,12 @@
   </div>
   <div class="ant-collapse-content ng-trigger ng-trigger-collapseMotion" [class.ant-collapse-content-active]="nzActive"
     [@.disabled]="noAnimation?.nzNoAnimation" [@collapseMotion]="nzActive ? 'expanded' : 'hidden'">
-    <div class="ant-collapse-content-box p-3">
+    <div class="ant-collapse-content-box p-3 bg-content">
       <nz-form-item class="col-12 mt-3 px-0">
         <nz-form-label class="text-left input-space" nzRequired>Nội dung câu hỏi</nz-form-label>
         <nz-form-control nzErrorTip="Nhập nội dung câu trả lời">
-          <textarea nz-input rows="3" formControlName="question" placeholder="Nội dung câu hỏi"></textarea>
+          <textarea style="resize: none;" nz-input rows="3" formControlName="question"
+            placeholder="Nội dung câu hỏi"></textarea>
         </nz-form-control>
       </nz-form-item>
       <ng-container formArrayName="answers">
@@ -32,11 +33,12 @@
           <ng-container [formGroupName]="i" *ngFor="let item of items; let i=index">
             <div class="d-flex align-items-center mt-2">
               <div style="width: 120px">
-                <label nz-radio [nzDisabled]="form.get('answers')[i]?.answer.value" [nzValue]="i"
+                <label nz-radio [nzDisabled]="!form.get('answers').value[i].answer" [nzValue]="i"
                   class="d-flex justify-content-center"></label>
               </div>
               <nz-form-control>
-                <textarea nz-input rows="3" formControlName="answer" placeholder="Nội dung câu trả lời"></textarea>
+                <textarea style="resize: none;" nz-input rows="3" formControlName="answer"
+                  placeholder="Nội dung câu trả lời"></textarea>
               </nz-form-control>
             </div>
           </ng-container>
@@ -45,11 +47,12 @@
           <ng-container [formGroupName]="i" *ngFor="let item of items; let i=index">
             <div class="d-flex align-items-center mt-2">
               <div style="width: 120px">
-                <label formControlName="isCorrect" [nzDisabled]="form.get('answers')[i]?.answer.value" nz-checkbox
+                <label formControlName="isCorrect" [nzDisabled]="!form.get('answers').value[i].answer" nz-checkbox
                   [nzValue]="i" class="d-flex justify-content-center"></label>
               </div>
               <nz-form-control nzErrorTip="Nhập nội dung câu trả lời">
-                <textarea nz-input rows="3" formControlName="answer" placeholder="Nội dung câu trả lời"></textarea>
+                <textarea style="resize: none;" nz-input rows="3" formControlName="answer"
+                  placeholder="Nội dung câu trả lời"></textarea>
               </nz-form-control>
             </div>
           </ng-container>
@@ -66,62 +69,3 @@
     </div>
   </div>
 </form>
-<!-- <nz-card>
-  <form [formGroup]="form">
-    <div class="d-flex justify-content-between">
-      <div class="title-question">Câu hỏi {{ index + 1 }}</div>
-      <nz-radio-group class="text-right" (ngModelChange)="updateTypeQuestion($event)" formControlName="type">
-        <label nz-radio nzValue="Single">Câu hỏi 1 lựa chọn</label>
-        <label nz-radio nzValue="Multiple">Câu hỏi nhiều lựa chọn</label>
-      </nz-radio-group>
-    </div>
-    <nz-form-item class="col-12 mt-3">
-      <nz-form-label class="text-left input-space" nzRequired>Nội dung câu hỏi</nz-form-label>
-      <nz-form-control nzErrorTip="Nhập nội dung câu trả lời">
-        <textarea nz-input rows="3" formControlName="question" placeholder="Nội dung câu hỏi"></textarea>
-      </nz-form-control>
-    </nz-form-item>
-
-    <ng-container formArrayName="answers">
-      <div class="d-flex">
-        <div class="title-input">
-          <span class="asterisks">*</span> Đáp án đúng
-        </div>
-        <div class="title-input ml-4">
-          <span class="asterisks">*</span> Nội dung đáp án
-        </div>
-      </div>
-      <nz-radio-group *ngIf="form.get('type').value === 'Single'" class="d-flex flex-column" [(ngModel)]="correctAnswer"
-        [ngModelOptions]="{standalone: true}" (ngModelChange)="change($event)">
-        <ng-container [formGroupName]="i" *ngFor="let item of items; let i=index">
-          <div class="d-flex align-items-center mt-2 row">
-            <label nz-radio [nzDisabled]="form.get('answers')[i]?.answer.value" [nzValue]="i" class="col-1"></label>
-            <nz-form-control>
-              <textarea nz-input rows="3" formControlName="answer" placeholder="Nội dung câu trả lời"></textarea>
-            </nz-form-control>
-          </div>
-        </ng-container>
-      </nz-radio-group>
-      <nz-checkbox-wrapper *ngIf="form.get('type').value === 'Multiple'" class="d-flex flex-column">
-        <ng-container [formGroupName]="i" *ngFor="let item of items; let i=index">
-          <div class="d-flex align-items-center mt-2 row">
-            <label formControlName="isCorrect" [nzDisabled]="form.get('answers')[i]?.answer.value" nz-checkbox
-              [nzValue]="i" class="col-1"></label>
-            <nz-form-control nzErrorTip="Nhập nội dung câu trả lời">
-              <textarea nz-input rows="3" formControlName="answer" placeholder="Nội dung câu trả lời"></textarea>
-            </nz-form-control>
-          </div>
-        </ng-container>
-      </nz-checkbox-wrapper>
-    </ng-container>
-    <div *ngIf="form.get('answers')?.invalid && form.get('answers')?.dirty" class="error mt-3">Phải có ít nhất 3 câu trả
-      lời
-      và 1 câu trả lời đúng
-    </div>
-    <div class="d-flex justify-content-end mt-2">
-      <button nzType="primary" [disabled]="deleteAble" nz-button type="button" (click)="deleteQuestion.emit(index)">Xóa
-        câu hỏi</button>
-    </div>
-
-  </form>
-</nz-card> -->
