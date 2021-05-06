@@ -83,8 +83,8 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
     ).subscribe(this.pushToOption);
   }
 
-  private pushToOption = (data: any[]) => {
-    this.options = this.options.concat(data);
+  private pushToOption = (data: Option<any>[]) => {
+    this.options = uniqBy([...this.options, ...data], 'value');
   }
 
   onClear() {
