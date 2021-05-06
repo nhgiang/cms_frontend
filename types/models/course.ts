@@ -14,6 +14,7 @@ export interface Course extends Entity {
   videoIntroType: VideoType;
   videoIntro: string;
   index: number;
+  published: boolean;
 }
 export interface Specialization extends Entity {
   name: string;

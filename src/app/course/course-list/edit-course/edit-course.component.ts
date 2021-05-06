@@ -167,4 +167,10 @@ export class EditCourseComponent implements OnInit {
       this.notification.success('Thành công', 'Xóa thông tin đánh giá của học viên thành công!')
     });
   }
+
+  publish() {
+    this.courseApiService.publish(this.course.id).subscribe(() => {
+      this.notification.success('Thành công', 'Công khai khóa học thành công!')
+    });
+  }
 }

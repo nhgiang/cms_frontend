@@ -82,11 +82,11 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
       reader.onload = (event) => {
         this.url = event.target.result;
         this.displayPreview = true;
+        this.onChangeFn(this.fileVideo);
       };
+      this.fileVideo = file;
+      this.inputUpload.nativeElement.value = '';
     }
-    this.fileVideo = file;
-    this.onChangeFn(this.fileVideo);
-    this.inputUpload.nativeElement.value = '';
   }
 
   removeVideo() {

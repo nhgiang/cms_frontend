@@ -29,46 +29,46 @@ export class HottestCourseComponent implements OnInit {
     this.dummy = Array(10).fill(0);
     this.form = this.fb.array(this.dummy.map(() => this.fb.group({
       courseId: [null]
-    })))
-    this.form.valueChanges.pipe(switchMap(res => {
-      const ids = res.filter(x => x.courseId).map(({ courseId }) => {
-        return courseId
-      })
-      return this.courseApi.getInfoOfCourseHottest({ ids })
-    })).subscribe(res => {
-      this.courses = res.items;
-    })
-    this.settingApi.hottestCoruse.get().pipe(
-      switchMap(res => {
-        const ids = res.filter(x => x.courseId).map(({ courseId }) => {
-          return courseId
-        })
-        return this.courseApi.getInfoOfCourseHottest({ ids: ids });
-      }),
-      map(res => { return res.items }))
-      .subscribe(res => {
-        this.courses = res;
-        this.form.patchValue(res.map(course => {
-          return { courseId: course.id }
-        }))
-        console.log(this.form.value)
-      })
+    })));
+    // this.form.valueChanges.pipe(switchMap(res => {
+    //   const ids = res.filter(x => x.courseId).map(({ courseId }) => {
+    //     return courseId;
+    //   });
+    //   return this.courseApi.getInfoOfCourseHottest({ ids });
+    // })).subscribe(res => {
+    //   this.courses = res.items;
+    // });
+    // this.settingApi.hottestCoruse.get().pipe(
+    //   switchMap(res => {
+    //     const ids = res.filter(x => x.courseId).map(({ courseId }) => {
+    //       return courseId;
+    //     });
+    //     return this.courseApi.getInfoOfCourseHottest({ ids: ids });
+    //   }),
+    //   map(res => { return res.items; }))
+    //   .subscribe(res => {
+    //     this.courses = res;
+    //     this.form.patchValue(res.map(course => {
+    //       return { courseId: course.id };
+    //     }));
+    //     console.log(this.form.value);
+    //   });
   }
 
   courses$ = (params: IPaginate) => {
     return this.courseApi.getList(params).pipe(map(res => res.items.map(x => {
       return { value: x.id, label: x.name };
-    })))
+    })));
   }
 
   submit() {
     // console.log(this.form.value)
     const data = this.form.value.map(x => {
       const obj = omitBy(x, isNil);
-      return { courseId: obj }
-    }).filter(x => Object.keys(x).length > 0)
+      return { courseId: obj };
+    }).filter(x => Object.keys(x).length > 0);
     this.settingApi.hottestCoruse.post(data).subscribe(() => {
-      this.notification.success('Thành công', '')
+      this.notification.success('Thành công', '');
     });
   }
 }

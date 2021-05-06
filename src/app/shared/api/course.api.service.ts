@@ -29,4 +29,8 @@ export class CourseApiService extends BaseApi {
   getInfoOfCourseHottest(params) {
     return this.httpClient.get<QueryResult<Course>>(this.createUrl(''), { params });
   }
+
+  publish(id) {
+    return this.httpClient.patch(this.createUrl(`/${id}/publish`), null)
+  }
 }
