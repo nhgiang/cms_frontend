@@ -77,7 +77,7 @@ export class TValidators extends Validators {
   }
 
   static required(control: AbstractControl): ValidationErrors {
-    if (!control.value || TValidators.trimData(!control.value)) {
+    if (!control.value || !TValidators.trimData(control.value)) {
       return {
         required: true
       };

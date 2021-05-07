@@ -17,14 +17,14 @@ export const CommonLayoutRoutes: Routes = [
     path: 'contact',
     loadChildren: () => import('src/app/contact/contact.module').then(m => m.ContactModule),
     data: {
-      title: 'Quản lí nội dung liên hệ'
+      title: 'Quản lý nội dung liên hệ'
     }
   },
   {
     path: 'course-management',
     loadChildren: () => import('src/app/course/course.module').then(m => m.CourseModule),
     data: {
-      title: 'Quản lí khóa học'
+      title: 'Quản lý khóa học'
     }
   },
   {

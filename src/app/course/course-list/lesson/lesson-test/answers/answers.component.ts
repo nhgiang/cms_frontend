@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Host, Input, OnChanges, OnInit, Optional, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { DestroyService } from '@shared/services/destroy.service';
 import { cloneDeep } from 'lodash-es';
@@ -7,6 +8,8 @@ import { NzCollapsePanelComponent, NzCollapseComponent } from 'ng-zorro-antd/col
 import { collapseMotion } from 'ng-zorro-antd/core/animation';
 import { NzConfigService } from 'ng-zorro-antd/core/config';
 import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
+import { trimData } from 'utils/common';
+import { isEmpty } from 'lodash-es';
 
 @Component({
   selector: 'app-answers',
@@ -22,7 +25,7 @@ import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
     '[class.ant-collapse-item-disabled]': 'nzDisabled'
   }
 })
-export class AnswersComponent extends NzCollapsePanelComponent implements OnInit, OnChanges {
+export class AnswersComponent extends NzCollapsePanelComponent implements OnInit {
 
   @Input() questionType: 'Single' | 'Multiple' = 'Single';
   @Input() index: number;
@@ -45,15 +48,21 @@ export class AnswersComponent extends NzCollapsePanelComponent implements OnInit
     this.buildForm();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    const question = changes.question?.currentValue;
-    if (question) {
-      this.answers = question.answers || this.answers;
-      if (question.answers) {
-        this.buildForm();
-      }
-      this.form.patchValue(question);
-      question.answers?.map((answer, i) => {
+  get answerControlArray() {
+    return this.form.get('answers') as FormArray;
+  }
+
+  ngOnInit(): void {
+    if (isEmpty(this.question)) {
+      this.answerControlArray.push(this.answersControl());
+      this.answerControlArray.push(this.answersControl());
+    } else {
+      this.answers = this.question.answers;
+      this.answers.forEach((_, i) => {
+        this.answerControlArray.push(this.answersControl());
+      });
+      this.form.patchValue(this.question);
+      this.question.answers?.map((answer, i) => {
         if (answer.isCorrect) {
           this.correctAnswer = i;
         }
@@ -61,21 +70,11 @@ export class AnswersComponent extends NzCollapsePanelComponent implements OnInit
     }
   }
 
-  get answerControlArray() {
-    return this.form.get('answers') as FormArray;
-  }
-
-  ngOnInit(): void {
-  }
-
   buildForm(): void {
     this.form = this.fb.group({
       question: [null, TValidators.required],
       type: [this.questionType],
-      answers: this.fb.array(this.answers.map(x => this.fb.group({
-        answer: [x.answer],
-        isCorrect: [x.isCorrect]
-      })), { validators: TValidators.requiredAnswer })
+      answers: this.fb.array([], { validators: TValidators.requiredAnswer })
     });
   }
 
@@ -125,5 +124,16 @@ export class AnswersComponent extends NzCollapsePanelComponent implements OnInit
       return false;
     }
     return true;
+  }
+
+  submit() {
+    Ultilities.validateForm(this.form);
+  }
+
+  answersControl() {
+    return this.fb.group({
+      answer: [null],
+      isCorrect: [false]
+    });
   }
 }
