@@ -15,4 +15,8 @@ export class Ultilities {
     }
   }
 
+  static formatterVND = (val: number) => {
+    // const numberFormat = parseInt(String(val).replace(this.currencyChars, ''));
+  };
+  static parserVND = (val: string) => val.replace(' VND', '');
 }

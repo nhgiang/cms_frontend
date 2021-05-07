@@ -101,7 +101,7 @@ export class TValidators extends Validators {
 
   static requiredAnswer = (form: FormArray) => {
     const answers = form.value;
-    if (answers.filter(t => t.answer).length < 3 || answers.filter(t => t.isCorrect) < 1) {
+    if (answers.filter(t => t.answer).length < 2 || answers.filter(t => t.isCorrect) < 1) {
       return { requiredAnswer: true };
     }
     return null;

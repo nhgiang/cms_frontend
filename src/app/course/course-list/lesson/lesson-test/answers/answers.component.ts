@@ -24,12 +24,12 @@ import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
 })
 export class AnswersComponent extends NzCollapsePanelComponent implements OnInit, OnChanges {
 
-  @Input() items = [1, 2, 3, 4];
   @Input() questionType: 'Single' | 'Multiple' = 'Single';
   @Input() index: number;
-  @Input() deleteAble: boolean;
+  @Input() deletable: boolean;
   @Input() question: any;
   @Output() deleteQuestion = new EventEmitter();
+  answers = [{ answer: '', isCorrect: false }, { answer: '', isCorrect: false }];
   correctAnswer: number;
   form: FormGroup;
 
@@ -39,7 +39,6 @@ export class AnswersComponent extends NzCollapsePanelComponent implements OnInit
     @Host() nzCollapseComponent: NzCollapseComponent,
     elementRef: ElementRef,
     private fb: FormBuilder,
-    private destroy: DestroyService,
     @Optional() public noAnimation?: NzNoAnimationDirective,
   ) {
     super(nzConfigService, cdr, nzCollapseComponent, elementRef, noAnimation);
@@ -49,12 +48,16 @@ export class AnswersComponent extends NzCollapsePanelComponent implements OnInit
   ngOnChanges(changes: SimpleChanges): void {
     const question = changes.question?.currentValue;
     if (question) {
+      this.answers = question.answers || this.answers;
+      if (question.answers) {
+        this.buildForm();
+      }
       this.form.patchValue(question);
       question.answers?.map((answer, i) => {
         if (answer.isCorrect) {
           this.correctAnswer = i;
         }
-      })
+      });
     }
   }
 
@@ -65,26 +68,26 @@ export class AnswersComponent extends NzCollapsePanelComponent implements OnInit
   ngOnInit(): void {
   }
 
-  protected buildForm(): void {
+  buildForm(): void {
     this.form = this.fb.group({
       question: [null, TValidators.required],
       type: [this.questionType],
-      answers: this.fb.array(this.items.map(() => this.fb.group({
-        answer: [null],
-        isCorrect: [false]
+      answers: this.fb.array(this.answers.map(x => this.fb.group({
+        answer: [x.answer],
+        isCorrect: [x.isCorrect]
       })), { validators: TValidators.requiredAnswer })
     });
   }
 
   change(value: any) {
-    (this.form.get('answers') as FormArray).controls.forEach((control, index) => {
+    this.answerControlArray.controls.forEach((control, index) => {
       control.get('isCorrect').setValue(index === value);
     });
   }
 
   updateTypeQuestion(value: string) {
     if (value === 'Single') {
-      (this.form.get('answers') as FormArray).controls.forEach((control) => {
+      this.answerControlArray.controls.forEach((control) => {
         control.get('isCorrect').setValue(false);
         this.correctAnswer = null;
       });
@@ -95,6 +98,19 @@ export class AnswersComponent extends NzCollapsePanelComponent implements OnInit
     const value = cloneDeep(this.form.value);
     value.answers = value.answers.filter(t => t.answer);
     return value;
+  }
+
+  addAnswer() {
+    this.answers.push({ answer: '', isCorrect: false });
+    this.answerControlArray.push(this.fb.group({
+      answer: [null],
+      isCorrect: [false]
+    }));
+  }
+
+  removeAnswer() {
+    this.answers = this.answers.slice(0, this.answers.length - 1);
+    this.answerControlArray.removeAt(this.answers.length - 1);
   }
 
   validate() {

@@ -108,7 +108,7 @@ export class EditCourseComponent implements OnInit {
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(res => {
-      this.notification.success('Thành công', '');
+      this.notification.success('Thành công', 'Cập nhật thông tin chi tiết khóa học thành công!');
     });
   }
 
