@@ -3,7 +3,8 @@
     (click)="clickHeader()">
     <div class="d-flex justify-content-between py-3">
       <h5 class="title-question mb-0">Câu hỏi {{ index + 1 }}</h5>
-      <div *ngIf="deletable" (click)="deleteQuestion.emit(index)" class="text-right" style="cursor: pointer;">
+      <div (confirmed)="deleteQuestion.emit(index)" [confirmation]="'Bạn chắc chắn muốn xóa câu hỏi này không?'"
+        *ngIf="deletable" class="text-right" style="cursor: pointer;">
         <i style="font-size: 20px;" nz-icon nzType="close" nzTheme="outline"></i>
       </div>
     </div>
@@ -18,7 +19,7 @@
       </nz-radio-group>
       <nz-form-item class="col-12 mt-3 px-0">
         <nz-form-label class="text-left input-space" nzRequired>Nội dung câu hỏi</nz-form-label>
-        <nz-form-control nzErrorTip="Nhập nội dung câu trả lời">
+        <nz-form-control nzErrorTip="Vui lòng nhập nội dung câu hỏi">
           <textarea style="resize: none;" nz-input rows="3" formControlName="question"
             placeholder="Nội dung câu hỏi"></textarea>
         </nz-form-control>
@@ -37,7 +38,7 @@
           <ng-container [formGroupName]="i" *ngFor="let item of answers; let i=index">
             <div class="d-flex align-items-center mt-2">
               <div style="width: 120px">
-                <label nz-radio [nzDisabled]="!form.get('answers').value[i].answer" [nzValue]="i"
+                <label nz-radio [nzDisabled]="!answerControlArray.value[i]?.answer?.trim()" [nzValue]="i"
                   class="d-flex justify-content-center"></label>
               </div>
               <nz-form-control>
@@ -51,8 +52,8 @@
           <ng-container [formGroupName]="i" *ngFor="let item of answers; let i=index">
             <div class="d-flex align-items-center mt-2">
               <div style="width: 120px">
-                <label formControlName="isCorrect" [nzDisabled]="!form.get('answers').value[i].answer" nz-checkbox
-                  [nzValue]="i" class="d-flex justify-content-center"></label>
+                <label formControlName="isCorrect" [nzDisabled]="!answerControlArray.value[i]?.answer?.trim()"
+                  nz-checkbox [nzValue]="i" class="d-flex justify-content-center"></label>
               </div>
               <nz-form-control nzErrorTip="Nhập nội dung câu trả lời">
                 <textarea style="resize: none;" nz-input rows="3" formControlName="answer"
@@ -67,10 +68,9 @@
       </div>
       <div class="d-flex justify-content-end mt-2">
         <button nzType="primary" [disabled]="answers?.length <= 2" nz-button type="button" nzGhost
-          (click)="removeAnswer()">Xóa
-          câu trả lời</button>
+          (click)="removeAnswer()">Xóa đáp án</button>
         <button class="ml-2" nzType="primary" [disabled]="answers?.length >= 4" nz-button type="button"
-          (click)="addAnswer()">Thêm câu trả lời</button>
+          (click)="addAnswer()">Thêm đáp án</button>
 
       </div>
     </div>

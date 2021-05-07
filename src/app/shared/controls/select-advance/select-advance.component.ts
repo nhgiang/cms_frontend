@@ -48,7 +48,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
     this.loadMore$ = new Subject<any>();
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.optionsDisabled.currentValue) {
+    if (changes.optionsDisabled?.currentValue) {
       this.handleDisabledOption();
     }
   }
