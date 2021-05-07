@@ -29,6 +29,9 @@ const routes: Routes = [
   },
   {
     path: 'lecturer',
+    data: {
+      title: 'Quản lý người dùng'
+    },
     children: [
       {
         path: '',

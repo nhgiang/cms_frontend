@@ -55,8 +55,8 @@ export class LessonTestComponent implements OnInit {
   buildForm() {
     this.form = this.fb.group({
       lessionId: [this.activatedRoute.snapshot.params.lessonId],
-      title: [null, TValidators.required],
-      point: [null, TValidators.required],
+      title: [null, [TValidators.required]],
+      point: [null, [TValidators.required, TValidators.min(1)]],
       questions: []
     });
   }
