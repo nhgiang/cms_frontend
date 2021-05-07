@@ -5,6 +5,7 @@ import { UnitTestApiService } from '@shared/api/unit-test.api.service';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
+import { trimData } from 'utils/common';
 import { AnswersComponent } from './answers/answers.component';
 
 @Component({
@@ -64,6 +65,7 @@ export class LessonTestComponent implements OnInit {
     let invalid = false;
     const questions = [];
     this.questions.map(x => {
+      x.submit();
       if (!x.validate()) {
         invalid = true;
       }
@@ -81,7 +83,7 @@ export class LessonTestComponent implements OnInit {
         this.router.navigate(['/course-management/course/edit', this.courseId]);
       });
     } else {
-      this.unitTestApi.create(this.form.value).pipe(finalize(() => this.loading = false)).subscribe(res => {
+      this.unitTestApi.create(trimData(this.form.value)).pipe(finalize(() => this.loading = false)).subscribe(res => {
         this.notification.success('Thành Công', 'Tạo mới bài test thành công');
         this.router.navigate(['/course-management/course/edit', this.courseId]);
       });

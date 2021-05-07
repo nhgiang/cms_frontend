@@ -63,7 +63,7 @@ const routes: Routes = [
     path: 'skills',
     component: SkillsComponent,
     data: {
-      title: 'Danh sách kĩ năng'
+      title: 'Danh sách kỹ năng'
     },
   },
   {
