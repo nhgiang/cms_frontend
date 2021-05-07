@@ -25,6 +25,7 @@ import { MultipleSelectionComponent } from './controls/multiple-selection/multip
 import { FilesUploadControlComponent } from './components/files-upload-control/files-upload-control.component';
 import { ImageCropperControlComponent } from './components/image-cropper-control/image-cropper-control.component';
 import { TimeDurationPipe } from './pipes/time-duration.pipe';
+import { CurrencyInputDirective } from './directives/currency-input.directive';
 
 @NgModule({
   exports: [
@@ -52,7 +53,8 @@ import { TimeDurationPipe } from './pipes/time-duration.pipe';
     MultipleSelectionComponent,
     FilesUploadControlComponent,
     ImageCropperControlComponent,
-    TimeDurationPipe
+    TimeDurationPipe,
+    CurrencyInputDirective
   ],
   imports: [
     RouterModule,
@@ -80,7 +82,8 @@ import { TimeDurationPipe } from './pipes/time-duration.pipe';
     MultipleSelectionComponent,
     FilesUploadControlComponent,
     ImageCropperControlComponent,
-    TimeDurationPipe
+    TimeDurationPipe,
+    CurrencyInputDirective
   ],
   providers: [
     ThemeConstantService

@@ -29,6 +29,8 @@ export class CreateCourseComponent implements OnInit {
   isUploadLink = true;
   isLoading = false;
   VideoType = VideoType;
+  formatterVND = Ultilities.formatterVND;
+  parserVND = Ultilities.parserVND;
   constructor(
     fb: FormBuilder,
     private teacherApiService: TeacherApiService,
