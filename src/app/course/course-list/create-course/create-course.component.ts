@@ -43,14 +43,14 @@ export class CreateCourseComponent implements OnInit {
     private router: Router
   ) {
     this.form = fb.group({
-      photo: [null, Validators.required],
+      photo: [null, TValidators.required],
       videoIntro: [null],
       name: [null, TValidators.required],
       userId: [null, TValidators.required],
       typeId: [null, TValidators.required],
       description: [null, TValidators.required],
-      studentPrice: [null, Validators.required],
-      partnerPrice: [null, Validators.required],
+      studentPrice: [null, [Validators.required, Validators.min(0)]],
+      partnerPrice: [null, [Validators.required, Validators.min(0) ]],
       skills: [[], [Validators.required]],
       videoIntroType: [VideoType.Youtube, Validators.required]
     });

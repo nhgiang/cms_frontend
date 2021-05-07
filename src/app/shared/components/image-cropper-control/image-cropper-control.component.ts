@@ -22,7 +22,8 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 export class ImageCropperControlComponent extends AbstractControlDirective implements OnInit {
   @ViewChild('attachment', { static: false }) attachment: ElementRef;
   @Input() maxSize = 5_000_000;
-  @Input() aspectRatio = 1;
+  @Input() width: number;
+  @Input() height: number;
   inputId: string;
   imageUrl: string;
 
@@ -61,7 +62,7 @@ export class ImageCropperControlComponent extends AbstractControlDirective imple
       nzContent: ImageCropperModalComponent,
       nzComponentParams: {
         imageFile: file,
-        aspectRatio: this.aspectRatio,
+        aspectRatio: this.width / this.height,
       }
     });
     modalRef.componentInstance.cropped.subscribe(imageCropped => {
