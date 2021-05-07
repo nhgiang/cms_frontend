@@ -3,15 +3,19 @@
     (click)="clickHeader()">
     <div class="d-flex justify-content-between py-3">
       <h5 class="title-question mb-0">Câu hỏi {{ index + 1 }}</h5>
-      <nz-radio-group class="text-right" (ngModelChange)="updateTypeQuestion($event)" formControlName="type">
-        <label nz-radio nzValue="Single">Câu hỏi 1 lựa chọn</label>
-        <label nz-radio nzValue="Multiple">Câu hỏi nhiều lựa chọn</label>
-      </nz-radio-group>
+      <div *ngIf="deletable" (click)="deleteQuestion.emit(index)" class="text-right" style="cursor: pointer;">
+        <i style="font-size: 20px;" nz-icon nzType="close" nzTheme="outline"></i>
+      </div>
     </div>
   </div>
   <div class="ant-collapse-content ng-trigger ng-trigger-collapseMotion" [class.ant-collapse-content-active]="nzActive"
     [@.disabled]="noAnimation?.nzNoAnimation" [@collapseMotion]="nzActive ? 'expanded' : 'hidden'">
     <div class="ant-collapse-content-box p-3 bg-content">
+      <nz-radio-group class="d-flex justify-content-end" (ngModelChange)="updateTypeQuestion($event)"
+        formControlName="type">
+        <label nz-radio nzValue="Single">Câu hỏi 1 lựa chọn</label>
+        <label nz-radio nzValue="Multiple">Câu hỏi nhiều lựa chọn</label>
+      </nz-radio-group>
       <nz-form-item class="col-12 mt-3 px-0">
         <nz-form-label class="text-left input-space" nzRequired>Nội dung câu hỏi</nz-form-label>
         <nz-form-control nzErrorTip="Nhập nội dung câu trả lời">
@@ -30,7 +34,7 @@
         </div>
         <nz-radio-group *ngIf="form.get('type').value === 'Single'" class="d-flex flex-column"
           [(ngModel)]="correctAnswer" [ngModelOptions]="{standalone: true}" (ngModelChange)="change($event)">
-          <ng-container [formGroupName]="i" *ngFor="let item of items; let i=index">
+          <ng-container [formGroupName]="i" *ngFor="let item of answers; let i=index">
             <div class="d-flex align-items-center mt-2">
               <div style="width: 120px">
                 <label nz-radio [nzDisabled]="!form.get('answers').value[i].answer" [nzValue]="i"
@@ -44,7 +48,7 @@
           </ng-container>
         </nz-radio-group>
         <nz-checkbox-wrapper *ngIf="form.get('type').value === 'Multiple'" class="d-flex flex-column">
-          <ng-container [formGroupName]="i" *ngFor="let item of items; let i=index">
+          <ng-container [formGroupName]="i" *ngFor="let item of answers; let i=index">
             <div class="d-flex align-items-center mt-2">
               <div style="width: 120px">
                 <label formControlName="isCorrect" [nzDisabled]="!form.get('answers').value[i].answer" nz-checkbox
@@ -58,13 +62,16 @@
           </ng-container>
         </nz-checkbox-wrapper>
       </ng-container>
-      <div *ngIf="form.get('answers')?.invalid && form.get('answers')?.dirty" class="error mt-3">Phải có ít nhất 3 câu
+      <div *ngIf="form.get('answers')?.invalid && form.get('answers')?.dirty" class="error mt-3">Phải có ít nhất 2 câu
         trả lời và 1 câu trả lời đúng
       </div>
       <div class="d-flex justify-content-end mt-2">
-        <button nzType="primary" [disabled]="deleteAble" nz-button type="button"
-          (click)="deleteQuestion.emit(index)">Xóa
-          câu hỏi</button>
+        <button nzType="primary" [disabled]="answers?.length <= 2" nz-button type="button" nzGhost
+          (click)="removeAnswer()">Xóa
+          câu trả lời</button>
+        <button class="ml-2" nzType="primary" [disabled]="answers?.length >= 4" nz-button type="button"
+          (click)="addAnswer()">Thêm câu trả lời</button>
+
       </div>
     </div>
   </div>

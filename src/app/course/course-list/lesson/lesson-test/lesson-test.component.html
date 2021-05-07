@@ -17,7 +17,7 @@
     <ng-container formArrayName="questions">
       <nz-collapse nzAccordion>
         <app-answers *ngFor="let question of listQuestions;let i=index" [question]="question" [index]="i"
-          [deleteAble]="listQuestions.value <= 1" (deleteQuestion)="removeQuestion($event)">
+          [deletable]="listQuestions.length > 1" (deleteQuestion)="removeQuestion($event)">
         </app-answers>
       </nz-collapse>
     </ng-container>
