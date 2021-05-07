@@ -11,6 +11,9 @@
     display: flex;
     justify-content: space-between;
     width: 280px;
+    @include screen-laptop-only {
+      width: $side-nav-width-laptop;
+  }
     .desktop-toggle {
       @include screen-tablet {
         display: none;

@@ -1,7 +1,7 @@
 <nz-card>
   <form [formGroup]="search">
     <div class="row">
-      <div class="col-8">
+      <div class="col-10">
         <div class="d-md-flex">
           <nz-form-item class="mr-3">
             <nz-form-control>
@@ -25,7 +25,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4 text-right">
+      <div class="col-2 text-right">
         <a nz-button nzType="primary" [routerLink]="['/course-management/course/create']">Thêm mới</a>
       </div>
     </div>
@@ -46,7 +46,7 @@
     <tbody>
       <tr *ngFor="let item of items">
         <td>#{{item?.index}}</td>
-        <td>
+        <td class="text-nowrap">
           <a [routerLink]="['../course/edit', item.id]">{{item?.name}}</a>
         </td>
         <td>
