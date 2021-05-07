@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Host, Input, OnChanges, OnInit, Optional, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Host, Input, OnInit, Optional, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
@@ -8,7 +8,6 @@ import { NzCollapsePanelComponent, NzCollapseComponent } from 'ng-zorro-antd/col
 import { collapseMotion } from 'ng-zorro-antd/core/animation';
 import { NzConfigService } from 'ng-zorro-antd/core/config';
 import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
-import { trimData } from 'utils/common';
 import { isEmpty } from 'lodash-es';
 
 @Component({
