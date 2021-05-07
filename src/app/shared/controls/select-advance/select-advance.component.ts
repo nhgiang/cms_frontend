@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Option } from '@shared/interfaces/option.type';
 import { DestroyService } from '@shared/services/destroy.service';
@@ -25,8 +25,12 @@ export interface ParamsSelectAdvance {
     DestroyService
   ],
 })
-export class SelectAdvanceComponent extends AbstractControlDirective implements OnInit {
-
+export class SelectAdvanceComponent extends AbstractControlDirective implements OnInit, OnChanges {
+  @Input() getOptionsFn: (params: ParamsSelectAdvance | any) => Observable<Option[]>;
+  @Input() width: string;
+  @Input() optionsDisabled: any[];
+  @Input() hasNullOption: boolean;
+  @Output() readonly csClear = new EventEmitter<void>();
   isLoading = false;
   page = 1;
   timeout: any;
@@ -35,9 +39,6 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
   search$: Subject<string>;
   loadMore$: Subject<any>;
   q: string;
-  @Input() getOptionsFn: (params: ParamsSelectAdvance | any) => Observable<Option[]>;
-  @Input() width: string;
-  @Output() readonly csClear = new EventEmitter<void>();
 
   constructor(
     protected destroy: DestroyService
@@ -45,6 +46,11 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
     super();
     this.search$ = new Subject<string>();
     this.loadMore$ = new Subject<any>();
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.optionsDisabled.currentValue) {
+      this.handleDisabledOption();
+    }
   }
 
   ngOnInit() {
@@ -55,7 +61,12 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
   writeValue(obj: any) {
     super.writeValue(obj);
     if (isEmpty(obj)) return;
-    this.getOptionsFn({ page: 1, ids: isArray(obj) ? obj : [obj] }).subscribe(data => this.options = uniqBy([...this.options, ...data], 'value'));
+    this.getOptionsFn({ page: 1, ids: isArray(obj) ? obj : [obj] }).pipe(
+      tap(data => {
+        this.options = uniqBy([...this.options, ...data], 'value');
+        this.handleDisabledOption();
+      }))
+      .subscribe();
   }
 
   onSearch() {
@@ -72,6 +83,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
       takeUntil(this.destroy)
     ).subscribe(data => {
       this.options = data;
+      this.handleDisabledOption();
     });
   }
 
@@ -85,10 +97,22 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
 
   private pushToOption = (data: Option<any>[]) => {
     this.options = uniqBy([...this.options, ...data], 'value');
+    this.handleDisabledOption();
   }
 
   onClear() {
     this.csClear.emit();
   }
 
+  handleDisabledOption() {
+    if (!this.optionsDisabled) {
+      return;
+    }
+    this.options = this.options.map(option => {
+      return {
+        ...option,
+        disabled: this.optionsDisabled.some(t => t.courseId === option.value)
+      };
+    });
+  }
 }

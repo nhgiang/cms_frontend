@@ -72,6 +72,7 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
   }
 
   uploadVideo(file: File) {
+    this.inputUpload.nativeElement.value = '';
     if (file.type.split('/')[0] !== 'video') {
       this.fileVideo = null;
       return this.notification.error('Thất bại', 'Vui lòng chọn đúng định dạng file');
@@ -85,7 +86,6 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
         this.onChangeFn(this.fileVideo);
       };
       this.fileVideo = file;
-      this.inputUpload.nativeElement.value = '';
     }
   }
 

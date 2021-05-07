@@ -6,7 +6,7 @@
 				<label [for]="'cropperImageFeedback'" >
 					<div class="avatar">
 						<img [src]="this.feedbacks[this.index].photo" alt="image" *ngIf="this.feedbacks[this.index].photo">
-						<div class="upload" *ngIf="!this.feedbacks[this.index].photo">+upload</div>
+						<div class="upload" *ngIf="!this.feedbacks[this.index].photo">+Upload</div>
 					</div>
 				</label>
 				<input [id]="'cropperImageFeedback'" type="file" class="d-none" (change)="cropperRef.set($event)"

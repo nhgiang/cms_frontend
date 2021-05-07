@@ -5,9 +5,9 @@
         <thead>
           <tr>
             <th scope="col">Thứ tự</th>
-            <th scope="col">Khóa học</th>
-            <th scope="col">Lượt xem</th>
-            <th scope="col">Lượt mua</th>
+            <th scope="col" [nzWidth]="'50%'">Khóa học</th>
+            <th scope="col" class="text-center">Lượt xem</th>
+            <th scope="col" class="text-center">Lượt mua</th>
           </tr>
         </thead>
         <tbody>
@@ -15,13 +15,13 @@
             <td>Top {{ i + 1 }}</td>
             <td>
               <select-advance placeholder="Chọn khóa học" [getOptionsFn]="courses$" style="min-width: 220px"
-                formControlName="courseId">
+                formControlName="courseId" [optionsDisabled]="form.value" [hasNullOption]="true">
               </select-advance>
             </td>
-            <td>
+            <td class="text-center">
               {{ objKey[item.get('courseId').value]?.view }}
             </td>
-            <td>
+            <td class="text-center">
               {{ objKey[item.get('courseId').value]?.purchase }}
             </td>
           </tr>

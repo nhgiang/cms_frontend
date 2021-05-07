@@ -8,6 +8,7 @@ import { Lesson } from 'types/models/course';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { UnitsApiService } from '@shared/api/units.api.service';
+import { UnitAndTest } from 'types/enums';
 
 @Component({
   selector: 'app-custome-collapse-step',
@@ -25,6 +26,7 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
   @Input() data: Lesson;
   @Output() refresh = new EventEmitter();
   isEdit: boolean;
+  UnitAndTest = UnitAndTest;
   constructor(
     public nzConfigService: NzConfigService,
     cdr: ChangeDetectorRef,
