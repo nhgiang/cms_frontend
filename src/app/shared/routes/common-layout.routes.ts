@@ -7,11 +7,17 @@ export const CommonLayoutRoutes: Routes = [
   },
   {
     path: 'user',
-    loadChildren: () => import('src/app/user/user.module').then(m => m.UserModule)
+    loadChildren: () => import('src/app/user/user.module').then(m => m.UserModule),
+    data: {
+      title: 'Quản lý người dùng'
+    },
   },
   {
     path: 'content',
-    loadChildren: () => import('src/app/content/content.module').then(m => m.ContentModule)
+    loadChildren: () => import('src/app/content/content.module').then(m => m.ContentModule),
+    data: {
+      title: 'Quản lý nội dung website'
+    },
   },
   {
     path: 'contact',

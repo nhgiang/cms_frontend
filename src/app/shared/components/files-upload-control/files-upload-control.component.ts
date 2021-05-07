@@ -59,8 +59,7 @@ export class FilesUploadControlComponent implements OnInit, ControlValueAccessor
       this.messageService.error('Vui lòng chọn đúng định dạng file');
       return;
     }
-    this.files = files;
-    input.value = '';
+    this.files.push(...files);
     this.fileNames = this.files.map(t => t.name);
     if (isFunction(this.onChangeFn)) {
       this.onChangeFn(this.files);
