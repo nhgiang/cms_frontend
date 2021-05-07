@@ -9,9 +9,17 @@
       </nz-form-item>
       <nz-form-item class="col-6">
         <nz-form-label class="text-left input-space" nzRequired>Số điểm</nz-form-label>
-        <nz-form-control nzErrorTip="Nhập số điểm">
+        <nz-form-control [nzErrorTip]="errorPoint">
           <input nz-input type="number" formControlName="point" placeholder="Số điểm">
         </nz-form-control>
+        <ng-template #errorPoint>
+          <ng-container *ngIf="form.get('point').hasError('required')">
+            Nhập số điểm
+          </ng-container>
+          <ng-container *ngIf="form.get('point').hasError('min')">
+            Số điểm phải lớn hơn 1
+          </ng-container>
+        </ng-template>
       </nz-form-item>
     </div>
     <ng-container formArrayName="questions">
