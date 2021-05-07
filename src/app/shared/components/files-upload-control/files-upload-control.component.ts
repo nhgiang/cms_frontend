@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
 import { AssetType, FileUploadErrors } from 'types/enums';
 import { FileUploadControlComponent } from '../file-upload-control/file-upload-control.component';
@@ -24,6 +24,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   ]
 })
 export class FilesUploadControlComponent implements OnInit, ControlValueAccessor {
+  @ViewChild('input', { static: false }) input: ElementRef;
   @Input() fileType: AssetType;
   @Input() public maxSize = 0;
   private currentTypes: any[];
@@ -53,8 +54,9 @@ export class FilesUploadControlComponent implements OnInit, ControlValueAccessor
       files.push(input.files[i]);
     }
 
+    this.input.nativeElement.value = '';
     if (files.some(file => file.type !== 'application/pdf')) {
-      this.messageService.error('Vui lòng chọn đúng định dạng file')
+      this.messageService.error('Vui lòng chọn đúng định dạng file');
       return;
     }
     this.files = files;
@@ -66,19 +68,11 @@ export class FilesUploadControlComponent implements OnInit, ControlValueAccessor
   }
 
   remove(index?: number) {
-    // if (index || index === 0) {
     this.files.splice(index, 1);
     this.fileNames = this.files.map(t => t.name);
     if (isFunction(this.onChangeFn)) {
       this.onChangeFn(this.files);
     }
-    // } else {
-    //   this.file = undefined;
-    //   this.fileName = undefined;
-    //   if (isFunction(this.onChangeFn)) {
-    //     this.onChangeFn(this.file);
-    //   }
-    // }
   }
 
   writeValue(file) {

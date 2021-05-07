@@ -1,7 +1,7 @@
 <nz-card nzTitle="Bước 1: Thiết lập thông tin cơ bản">
   <form [formGroup]="form" (ngSubmit)="submit()">
     <nz-form-item class="row">
-      <nz-form-control nzErrorTip="File phải là file ảnh và nhỏ hơn 5mb">
+      <nz-form-control nzErrorTip="File phải là file ảnh và nhỏ hơn 5MB">
         <app-image-cropper-control formControlName="photo" [aspectRatio]="1440/750"></app-image-cropper-control>
       </nz-form-control>
     </nz-form-item>

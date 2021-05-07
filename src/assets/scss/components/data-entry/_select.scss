@@ -98,8 +98,8 @@
   }
 
   .ant-select-selection-item {
-    height: $select-tag-height;
-    line-height: $select-tag-height - 0.125rem;
+    height: $select-tag-height + 0.5rem;
+    line-height: $select-tag-height + 0.25rem;
     margin-top: $select-tag-margin-y;
     margin-right: $select-tag-margin-x;
     margin-bottom: $select-tag-margin-y;
