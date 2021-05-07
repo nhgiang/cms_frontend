@@ -53,6 +53,7 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
 
   onFileChanged($event) {
     const file = ($event.target as HTMLInputElement).files[0];
+    this.attachment.nativeElement.value = '';
     if (file.type.split('/')[0] !== 'image') {
       this.messageService.error(`Vui lòng chọn đúng định dạng file`);
       return;
@@ -72,7 +73,6 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
         this.onChangeFn(this.file);
       }
     };
-    this.attachment.nativeElement.value = '';
   }
 
   removeFile() {

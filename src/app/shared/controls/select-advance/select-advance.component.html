@@ -1,7 +1,11 @@
-<nz-select [ngStyle]="{'width': width || '100%' }" [(ngModel)]="controlValue" (ngModelChange)="onChangeFn($event)" (nzScrollToBottom)="loadMore$.next()"
-  [nzServerSearch]="true" (nzOnSearch)="search$.next($event)" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
-  nzAllowClear nzShowSearch [nzLoading]="isLoading" [nzClearIcon]="clearIconTpl">
-  <nz-option *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.label">
+<nz-select [ngStyle]="{'width': width || '100%' }" [(ngModel)]="controlValue" (ngModelChange)="onChangeFn($event)"
+  (nzScrollToBottom)="loadMore$.next()" [nzServerSearch]="true" (nzOnSearch)="search$.next($event)"
+  [nzPlaceHolder]="placeholder" [nzDisabled]="disabled" nzAllowClear nzShowSearch [nzLoading]="isLoading"
+  [nzClearIcon]="clearIconTpl">
+  <nz-option *ngIf="hasNullOption" [nzValue]="null" [nzLabel]="'Không có'"> </nz-option>
+  <nz-option *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.label"
+    [nzDisabled]="option?.disabled">
+    {{option.disabled}}
   </nz-option>
   <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
     <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...

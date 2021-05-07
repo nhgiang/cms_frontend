@@ -45,6 +45,7 @@ export class ImageCropperControlComponent extends AbstractControlDirective imple
 
   onFileChanged(e: InputEvent) {
     const file = (e.target as HTMLInputElement).files[0];
+    this.attachment.nativeElement.value = '';
     if (!file) {
       return;
     }
@@ -73,6 +74,5 @@ export class ImageCropperControlComponent extends AbstractControlDirective imple
         }
       };
     });
-    this.attachment.nativeElement.value = '';
   }
 }

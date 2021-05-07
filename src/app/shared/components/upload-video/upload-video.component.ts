@@ -51,6 +51,7 @@ export class UploadVideoComponent extends AbstractControlDirective implements On
 
   onFileChanged($event) {
     this.file = ($event.target as HTMLInputElement).files[0];
+    this.video.nativeElement.value = '';
     if (!this.file) {
       return;
     }
@@ -77,7 +78,6 @@ export class UploadVideoComponent extends AbstractControlDirective implements On
     if (isFunction(this.onChangeFn)) {
       this.onChangeFn(this.file);
     }
-    this.video.nativeElement.value = '';
   }
 
   removeVideo() {

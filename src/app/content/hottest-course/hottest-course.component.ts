@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { CourseApiService } from '@shared/api/course.api.service';
 import { SettingApiService } from '@shared/api/setting.api.service';
@@ -32,6 +32,7 @@ export class HottestCourseComponent implements OnInit {
   courses$ = (params: IPaginate) => {
     return this.courseApi.getList(params).pipe(
       tap(res => res.items.forEach(course => this.objKey[course.id] = course)),
+      // tslint:disable-next-line: max-line-length
       map(res => res.items.map(x => ({ value: x.id, label: x.name })))
     );
   }
