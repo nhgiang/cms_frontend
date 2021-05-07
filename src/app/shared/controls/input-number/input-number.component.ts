@@ -1,6 +1,7 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, forwardRef, HostListener, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControlDirective } from '../abstract-control.directive';
 
 @Component({
   selector: 'input-number',
@@ -15,22 +16,36 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
     DecimalPipe
   ],
 })
-export class InputNumberComponent implements OnInit {
+export class InputNumberComponent extends AbstractControlDirective implements OnInit {
 
-  demoValue = 100;
-  formatter = (value: number) => {
-    try {
-      return `${this.decimalPipe.transform(value)} đ`;
-    } catch (error) {
-      return '';
-    }
-  }
-  parser = (value: string) => value.replace(' đ', '');
+  initValue = 0;
+  currencyChars = new RegExp('[\.,]', 'g');
 
   constructor(
     private decimalPipe: DecimalPipe
   ) {
-    // super();
+    super();
+  }
+
+  formatter = (value: number) => {
+    try {
+      if (!value || Number(value < 0)) { return `0 đ`; }
+      // tslint:disable-next-line: radix
+      return `${this.decimalPipe.transform(parseInt(String(value).replace(this.currencyChars, '')))} đ`;
+    } catch (error) {
+      return 0;
+    }
+  }
+  parser = (value: string) => value.trim().replace(' đ', '');
+
+  writeValue(obj) {
+    if (obj) {
+      this.initValue = obj;
+    }
+  }
+
+  onFocus() {
+    this.initValue = 0;
   }
 
   ngOnInit() {

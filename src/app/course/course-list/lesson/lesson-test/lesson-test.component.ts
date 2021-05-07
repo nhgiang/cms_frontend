@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, Inject, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UnitTestApiService } from '@shared/api/unit-test.api.service';
@@ -6,15 +6,18 @@ import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
 import { trimData } from 'utils/common';
-import { AnswersComponent } from './answers/answers.component';
+import { QuestionComponent } from './question/question.component';
 
 @Component({
   selector: 'app-lesson-test',
   templateUrl: './lesson-test.component.html',
-  styleUrls: ['./lesson-test.component.scss']
+  styleUrls: ['./lesson-test.component.scss'],
+  providers: [
+    { provide: Window, useValue: window }
+  ]
 })
 export class LessonTestComponent implements OnInit {
-  @ViewChildren(AnswersComponent) questions: QueryList<AnswersComponent>;
+  @ViewChildren(QuestionComponent) questions: QueryList<QuestionComponent>;
   questionType: 'Single' | 'Multiple';
   correctAnswer: string[];
   form: FormGroup;
@@ -31,6 +34,7 @@ export class LessonTestComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private route: ActivatedRoute,
     private router: Router,
+    @Inject(Window) private window: Window
   ) {
     this.buildForm();
     this.lessonTestId = this.route.snapshot.paramMap.get('unitId');
@@ -64,8 +68,9 @@ export class LessonTestComponent implements OnInit {
   submit() {
     let invalid = false;
     const questions = [];
+    const invalidPosition = [];
     this.questions.map(x => {
-      x.submit();
+      invalidPosition.push(x.submit());
       if (!x.validate()) {
         invalid = true;
       }
@@ -73,6 +78,7 @@ export class LessonTestComponent implements OnInit {
       questions.push(x.getData());
     });
     if (invalid) {
+      this.window.scrollTo({ top: invalidPosition.find(x => x !== 0) });
       return;
     }
     this.form.controls.questions.setValue(questions);

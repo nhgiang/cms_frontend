@@ -64,17 +64,13 @@
       <nz-form-item class="col-6">
         <nz-form-label class="text-left input-space" nzRequired>Giá cho học viên</nz-form-label>
         <nz-form-control nzErrorTip="Nhập giá cho học viên">
-          <!-- <input type="text" currency-input nz-input formControlName="studentPrice" placeholder="Giá cho học viên"> -->
-          <input-number></input-number>
-          <!-- <nz-input-number nz-input class="w-100" formControlName="studentPrice" [nzFormatter]="formatterVND"
-            [nzParser]="parserVND"> -->
-          <!-- </nz-input-number> -->
+          <input-number formControlName="studentPrice" placeholder="Nhập giá cho học viên" class="w-100"></input-number>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item class="col-6">
         <nz-form-label class="text-left input-space" nzRequired>Giá cho đối tác</nz-form-label>
         <nz-form-control nzErrorTip="Nhập giá cho đối tác">
-          <input nz-input type="text" formControlName="partnerPrice" placeholder="Nhập Giá cho đối tác">
+          <input-number formControlName="partnerPrice" placeholder="Nhập giá cho đối tác" class="w-100"></input-number>
         </nz-form-control>
       </nz-form-item>
     </div>

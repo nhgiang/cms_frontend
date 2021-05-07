@@ -1,1 +1,10 @@
- <nz-input-number [(ngModel)]="demoValue" [nzStep]="1" [nzFormatter]="formatter" [nzParser]="parser"></nz-input-number>
+ <nz-input-number class="w-100"
+  [(ngModel)]="initValue"
+  (ngModelChange)="onModelChange($event)"
+  [nzMin]="1"
+  [nzStep]="1"
+  [nzFormatter]="formatter"
+  [nzParser]="parser"
+  [nzPlaceHolder]='placeholder'
+  (nzFocus)="onFocus()"
+></nz-input-number>

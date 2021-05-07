@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Host, Input, OnInit, Optional, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Host, Input, OnInit, Optional, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
@@ -11,9 +11,9 @@ import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
 import { isEmpty } from 'lodash-es';
 
 @Component({
-  selector: 'app-answers',
-  templateUrl: './answers.component.html',
-  styleUrls: ['./answers.component.scss'],
+  selector: 'app-question',
+  templateUrl: './question.component.html',
+  styleUrls: ['./question.component.scss'],
   providers: [
     DestroyService
   ],
@@ -24,13 +24,14 @@ import { isEmpty } from 'lodash-es';
     '[class.ant-collapse-item-disabled]': 'nzDisabled'
   }
 })
-export class AnswersComponent extends NzCollapsePanelComponent implements OnInit {
+export class QuestionComponent extends NzCollapsePanelComponent implements OnInit {
 
   @Input() questionType: 'Single' | 'Multiple' = 'Single';
   @Input() index: number;
   @Input() deletable: boolean;
   @Input() question: any;
   @Output() deleteQuestion = new EventEmitter();
+  @ViewChild('question') questionEle: ElementRef<any>;
   answers = [{ answer: '', isCorrect: false }, { answer: '', isCorrect: false }];
   correctAnswer: number;
   form: FormGroup;
@@ -126,7 +127,13 @@ export class AnswersComponent extends NzCollapsePanelComponent implements OnInit
   }
 
   submit() {
-    Ultilities.validateForm(this.form);
+    if (this.form.invalid) { this.nzActive = true; }
+    // tslint:disable-next-line: forin
+    for (const key in this.form.controls) {
+      this.form.controls[key].markAsDirty();
+      this.form.controls[key].updateValueAndValidity();
+    }
+    return this.form.invalid ? this.questionEle.nativeElement.offsetTop : 0;
   }
 
   answersControl() {

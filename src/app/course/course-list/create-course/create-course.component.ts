@@ -50,7 +50,7 @@ export class CreateCourseComponent implements OnInit {
       typeId: [null, TValidators.required],
       description: [null, TValidators.required],
       studentPrice: [null, [Validators.required, Validators.min(0)]],
-      partnerPrice: [null, [Validators.required, Validators.min(0) ]],
+      partnerPrice: [null, [Validators.required, Validators.min(0)]],
       skills: [[], [Validators.required]],
       videoIntroType: [VideoType.Youtube, Validators.required]
     });
@@ -73,6 +73,8 @@ export class CreateCourseComponent implements OnInit {
   }
 
   submit() {
+    console.log(this.form);
+
     Ultilities.validateForm(this.form);
     this.isLoading = true;
     iif(() => (this.form.controls.photo.value instanceof Blob),
