@@ -78,7 +78,7 @@ export class LessonTestComponent implements OnInit {
     this.form.controls.questions.setValue(questions);
     this.loading = true;
     if (this.lessonTestId) {
-      this.unitTestApi.update(this.lessonTestId, this.form.value).pipe(finalize(() => this.loading = false)).subscribe(res => {
+      this.unitTestApi.update(this.lessonTestId, trimData(this.form.value)).pipe(finalize(() => this.loading = false)).subscribe(res => {
         this.notification.success('Thành Công', 'Cập nhật bài test thành công');
         this.router.navigate(['/course-management/course/edit', this.courseId]);
       });
