@@ -11,12 +11,10 @@ export class StorageApiService extends BaseApi {
   endpoint = 'files';
 
   uploadFile(file: Blob | File | string, fileName?: string): Observable<string> {
-    console.log(file)
     if (!file || typeof file === 'string') {
       return of(file as string);
     }
     const form = new FormData();
-    console.log(file)
     form.append('file', file, fileName || ((file as any).name || 'unknownfile'));
     return this.httpClient
       .post<any>(this.createUrl('/upload'), form)

@@ -61,8 +61,7 @@ export class LecturerComponent extends DataTableContainer<User> implements OnIni
     this.buildform();
     super.ngOnInit();
     this.search.valueChanges.pipe(
-      debounceTime(500),
-      distinctUntilKeyChanged('q')
+      debounceTime(500)
     ).subscribe(params => {
       this.onSearchParamsChanged(params);
     });
