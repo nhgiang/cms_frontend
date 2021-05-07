@@ -63,7 +63,6 @@ export class AnswersComponent extends NzCollapsePanelComponent implements OnInit
   }
 
   ngOnInit(): void {
-    this.form.valueChanges.subscribe(console.log)
   }
 
   protected buildForm(): void {

@@ -159,7 +159,6 @@ export class EditCourseComponent implements OnInit {
   }
 
   deleteFeedback(id) {
-    console.log(id);
     this.feedbackApi.delete(id).pipe(switchMap(() => {
       return this.feedbackApi.getByCourse(this.course.id);
     })).subscribe(res => {

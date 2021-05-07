@@ -11,8 +11,6 @@ export class Ultilities {
       form.controls[key].updateValueAndValidity();
     }
     if (form.invalid) {
-      console.log(form);
-
       throw new InvalidFormError();
     }
   }

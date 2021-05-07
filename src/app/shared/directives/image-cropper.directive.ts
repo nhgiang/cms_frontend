@@ -30,7 +30,6 @@ export class ImageCropperDirective {
     }
 
     const input = $event.target;
-    // console.log(input.files[0]);
     if (!input.files[0].type.startsWith('image/')) {
       this.alert.error('Đây không phải là một file ảnh');
       return;

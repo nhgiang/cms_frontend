@@ -41,7 +41,7 @@ export class CourseListComponent extends DataTableContainer<Course> implements O
       sortable: true,
     },
     {
-      key: 'partnerId',
+      key: 'partnerPrice',
       name: 'Giá đối tác',
       sortable: true,
     },
@@ -112,13 +112,12 @@ export class CourseListComponent extends DataTableContainer<Course> implements O
     const a = pickBy(params, (value, key) => {
       const formSearch = Object.keys(this.search.value);
       if (formSearch.includes(key) && this.search.value[key] !== value) {
-        console.log(this.search.value[key], value)
         return true;
       }
       return false;
     });
     Object.keys(a).forEach(field => {
       this.search.get(field).patchValue(a[field]);
-    })
+    });
   }
 }
