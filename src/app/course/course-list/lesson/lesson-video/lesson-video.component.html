@@ -13,7 +13,10 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label style="min-width:150px" class="text-left">Tài liệu đính kèm</nz-form-label>
+    <nz-form-label style="min-width:150px" class="text-left attachments-label">
+      <span>Tài liệu đính kèm:</span>
+      <div class="text-muted">(Định dạng pdf)</div>
+    </nz-form-label>
     <nz-form-control>
       <app-files-upload-control [fileType]="AssetType.File" formControlName="attachments"></app-files-upload-control>
     </nz-form-control>

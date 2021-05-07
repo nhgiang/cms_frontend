@@ -54,8 +54,8 @@ export class EditCourseComponent implements OnInit {
       userId: [null, TValidators.required],
       typeId: [null, TValidators.required],
       description: [null, TValidators.required],
-      studentPrice: [null, Validators.required],
-      partnerPrice: [null, Validators.required],
+      studentPrice: [null, [Validators.required, Validators.required]],
+      partnerPrice: [null, [Validators.required, Validators.required]],
       skills: [[], [Validators.required]],
       videoIntroType: [VideoType.Youtube, Validators.required]
     });
