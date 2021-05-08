@@ -69,9 +69,9 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
 
   change(event) {
     if (!['start', 'progress'].includes(event.type)) {
-      this.onChangeFn(this.fileList.map(x => x.url));
       this.fileList.pop();
       this.fileList.push({ url: this.url });
+      this.onChangeFn(this.fileList.map(x => x.url));
     }
   }
 
@@ -122,7 +122,7 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
         return this.storageApiService.uploadFile(image.file, image.fileName);
       }),
       tap(path => {
-        this.onChangeFn(this.fileList);
+        this.onChangeFn(this.fileList.map(x => x.url));
         this.url = path as string;
       })
     );

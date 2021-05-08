@@ -29,14 +29,14 @@ export class InputNumberComponent extends AbstractControlDirective implements On
 
   formatter = (value: number) => {
     try {
-      if (!value || Number(value < 0)) { return `0 đ`; }
+      // if (!value || Number(value < 0)) { return `0 đ`; }
       // tslint:disable-next-line: radix
-      return `${this.decimalPipe.transform(parseInt(String(value).replace(this.currencyChars, '')))} đ`;
+      return `${this.decimalPipe.transform(parseInt(String(value).replace(this.currencyChars, '')))}`;
     } catch (error) {
       return 0;
     }
   }
-  parser = (value: string) => value.trim().replace(' đ', '');
+  parser = (value: string) => value.trim();
 
   writeValue(obj) {
     if (obj) {
@@ -44,9 +44,9 @@ export class InputNumberComponent extends AbstractControlDirective implements On
     }
   }
 
-  onFocus() {
-    this.initValue = 0;
-  }
+  // onFocus() {
+  //   this.initValue = 0;
+  // }
 
   ngOnInit() {
   }
