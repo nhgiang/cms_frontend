@@ -1,8 +1,7 @@
 import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
 import { AssetType, FileUploadErrors } from 'types/enums';
-import { FileUploadControlComponent } from '../file-upload-control/file-upload-control.component';
-import { isFunction } from 'lodash-es';
+import { isFunction, isNil, omitBy } from 'lodash-es';
 import { v4 } from 'uuid';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
@@ -60,17 +59,27 @@ export class FilesUploadControlComponent implements OnInit, ControlValueAccessor
       return;
     }
     this.files.push(...files);
-    this.fileNames = this.files.map(t => t.name);
+    const a = this.fileNames.filter(fileName => {
+      return this.files.filter(t => t.name === fileName).length === 0;
+    })
+    this.fileNames = [...this.fileNames, ...this.files.map(t => {
+      if (!this.fileNames.includes(t.name)) {
+        return t.name
+      }
+    })].filter(t => !isNil(t));
     if (isFunction(this.onChangeFn)) {
-      this.onChangeFn(this.files);
+      this.onChangeFn([...this.files, ...a]);
     }
   }
 
   remove(index?: number) {
-    this.files.splice(index, 1);
-    this.fileNames = this.files.map(t => t.name);
+    this.files = this.files.filter(t => t.name !== this.fileNames[index]);
+    this.fileNames.splice(index, 1)
     if (isFunction(this.onChangeFn)) {
-      this.onChangeFn(this.files);
+      const a = this.fileNames.filter(fileName => {
+        return this.files.filter(t => t.name === fileName).length === 0;
+      })
+      this.onChangeFn([...this.files, ...a]);
     }
   }
 
