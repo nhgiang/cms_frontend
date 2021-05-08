@@ -13,7 +13,7 @@
           <input nz-input type="number" formControlName="point" placeholder="Số điểm">
         </nz-form-control>
         <ng-template #errorPoint>
-          <ng-container *ngIf="form.get('point').hasError('required')">
+          <ng-container *ngIf="form.get('point').hasError('required') && form.get('point').value !== 0">
             Nhập số điểm
           </ng-container>
           <ng-container *ngIf="form.get('point').hasError('min')">
@@ -24,9 +24,9 @@
     </div>
     <ng-container formArrayName="questions">
       <nz-collapse nzAccordion>
-        <app-answers *ngFor="let question of listQuestions;let i=index" [question]="question" [index]="i"
+        <app-question *ngFor="let question of listQuestions;let i=index" [question]="question" [index]="i"
           [deletable]="listQuestions.length > 1" (deleteQuestion)="removeQuestion($event)">
-        </app-answers>
+        </app-question>
       </nz-collapse>
     </ng-container>
     <button class="mt-2" nz-button nzType="primary" type="button" color="primary" (click)="addQuestion()">Thêm câu

@@ -26,6 +26,7 @@ import { FilesUploadControlComponent } from './components/files-upload-control/f
 import { ImageCropperControlComponent } from './components/image-cropper-control/image-cropper-control.component';
 import { TimeDurationPipe } from './pipes/time-duration.pipe';
 import { CurrencyInputDirective } from './directives/currency-input.directive';
+import { InputNumberComponent } from './controls/input-number/input-number.component';
 
 @NgModule({
   exports: [
@@ -54,7 +55,8 @@ import { CurrencyInputDirective } from './directives/currency-input.directive';
     FilesUploadControlComponent,
     ImageCropperControlComponent,
     TimeDurationPipe,
-    CurrencyInputDirective
+    CurrencyInputDirective,
+    InputNumberComponent
   ],
   imports: [
     RouterModule,
@@ -83,7 +85,8 @@ import { CurrencyInputDirective } from './directives/currency-input.directive';
     FilesUploadControlComponent,
     ImageCropperControlComponent,
     TimeDurationPipe,
-    CurrencyInputDirective
+    CurrencyInputDirective,
+    InputNumberComponent
   ],
   providers: [
     ThemeConstantService
