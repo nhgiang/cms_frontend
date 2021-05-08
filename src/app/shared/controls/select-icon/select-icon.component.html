@@ -1,6 +1,6 @@
 <nz-select [(ngModel)]="controlValue" (ngModelChange)="onChangeFn($event)" (nzScrollToBottom)="loadMore$.next()"
   [nzServerSearch]="true" (nzOnSearch)="search$.next($event)" [nzPlaceHolder]="placeholder" [nzDisabled]="disabled"
-  nzAllowClear nzShowSearch [nzLoading]="isLoading">
+  [nzOptionHeightPx]="50" nzAllowClear nzShowSearch [nzLoading]="isLoading">
   <nz-option nzCustomContent *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.label"
     [nzDisabled]="option?.disabled">
     <div class="d-flex align-items-center">
