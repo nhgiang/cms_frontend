@@ -46,8 +46,6 @@ export class SkillsModalComponent implements OnInit {
   ngOnInit() {
     if (this.data) { this.form.patchValue(this.data); }
     this.form.get('icon').valueChanges.subscribe(icon => {
-      console.log(icon);
-
       this.iconUrl = icon ? icon : null;
     });
   }
@@ -57,19 +55,9 @@ export class SkillsModalComponent implements OnInit {
   }
 
   submit() {
-
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    iif(() => this.form.controls.icon.value instanceof File,
-      this.storageApiService.uploadFile(this.form.get('icon').value),
-      of(true)
-    ).pipe(
-      switchMap(data => {
-        if (typeof data === 'string') {
-          this.form.controls.icon.setValue(data);
-        }
-        return this.api(trimData(this.form.value));
-      }),
+    this.api(trimData(this.form.value)).pipe(
       finalize(() => this.isLoading = false)
     ).subscribe(
       () => {
