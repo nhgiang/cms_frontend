@@ -27,6 +27,7 @@ import { ImageCropperControlComponent } from './components/image-cropper-control
 import { TimeDurationPipe } from './pipes/time-duration.pipe';
 import { CurrencyInputDirective } from './directives/currency-input.directive';
 import { InputNumberComponent } from './controls/input-number/input-number.component';
+import { SelectIconComponent } from './controls/select-icon/select-icon.component';
 
 @NgModule({
   exports: [
@@ -56,7 +57,8 @@ import { InputNumberComponent } from './controls/input-number/input-number.compo
     ImageCropperControlComponent,
     TimeDurationPipe,
     CurrencyInputDirective,
-    InputNumberComponent
+    InputNumberComponent,
+    SelectIconComponent
   ],
   imports: [
     RouterModule,
@@ -86,7 +88,8 @@ import { InputNumberComponent } from './controls/input-number/input-number.compo
     ImageCropperControlComponent,
     TimeDurationPipe,
     CurrencyInputDirective,
-    InputNumberComponent
+    InputNumberComponent,
+    SelectIconComponent
   ],
   providers: [
     ThemeConstantService
