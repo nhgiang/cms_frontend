@@ -22,6 +22,7 @@ export class StorageApiService extends BaseApi {
   }
 
   uploadFiles(files: Blob[] | File[] | string[] | any[]): Observable<string[]> {
+    console.log(files)
     if (!files || !files.some(file => typeof file !== 'string')) {
       return of(files as string[]);
     }
