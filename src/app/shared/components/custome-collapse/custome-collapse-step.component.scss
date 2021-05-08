@@ -1,0 +1,35 @@
+.common-action {
+  font-size: 19px;
+  position: absolute;
+  display: flex;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.ant-collapse-header {
+  border-bottom: 1px solid #edf2f9;
+  input {
+    width: calc(100% - 105px);
+  }
+}
+.ant-collapse-content-active {
+  border-bottom: 1px solid #edf2f9;
+  border-top: none !important;
+}
+.activity {
+  padding: 8px 16px;
+  position: relative;
+  .common-action {
+    font-size: 16px;
+    span {
+      cursor: pointer;
+    }
+  }
+  .icon {
+    font-size: 16px;
+    color: #2F80ED;
+  }
+  .title {
+    font-weight: 600;
+  }
+}

@@ -1,0 +1,29 @@
+.title {
+  position: relative;
+  border-bottom: 1px solid #edf2f9;
+  .item-add {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 16px;
+    color: #000000;
+    font-size: 24px;
+    cursor: pointer;
+    &.add-step {
+      right: 20px;
+    }
+  }
+}
+.add-step {
+  background-color: #fafafa;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  .submit {
+    font-size: 19px;
+    cursor: pointer;
+  }
+  .step-title {
+    width: calc(100% - 50px);
+  }
+}

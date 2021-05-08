@@ -1,5 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { identity, pickBy } from 'lodash';
 import { API_BASE_URL } from './base-url';
 
 @Injectable()
@@ -16,13 +17,8 @@ export abstract class BaseApi {
     return `${this.hostUrl}/${this.endpoint}`;
   }
 
-  protected createParams(params: { [key: string]: any }): HttpParams {
-    return Object.keys(params).reduce((m, k) => {
-      if (params[k] != null && params[k].length !== 0) {
-        return m.set(k, params[k]);
-      }
-      return m;
-    }, new HttpParams());
+  protected createParams(params: { [key: string]: any }) {
+    return pickBy(params, identity); // TODO: Giang xem lại chỗ này xem sao nhé
   }
 
 

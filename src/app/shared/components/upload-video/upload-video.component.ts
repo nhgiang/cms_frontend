@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
-import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AfterViewInit, Component, ElementRef, forwardRef, OnInit, ViewChild } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
 import { isFunction } from 'lodash-es';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { AssetType, FileUploadErrors, UploaderStatus } from 'types/enums';
+import { AssetType, UploaderStatus } from 'types/enums';
 
 @Component({
   selector: 'app-upload-video',
@@ -18,7 +19,7 @@ import { AssetType, FileUploadErrors, UploaderStatus } from 'types/enums';
   ]
 })
 export class UploadVideoComponent extends AbstractControlDirective implements OnInit, AfterViewInit {
-  @ViewChild('video', { static: true }) video: ElementRef;
+  @ViewChild('video', { static: false }) video: ElementRef;
   UploaderStatus = UploaderStatus;
   AssetType = AssetType;
   status: UploaderStatus = UploaderStatus.NotSelected;
@@ -26,7 +27,13 @@ export class UploadVideoComponent extends AbstractControlDirective implements On
   url: any;
   process = 0;
   file: File;
-  constructor(private messageService: NzMessageService) {
+  maxSize = 100_000_000;
+
+  get content() {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
+  }
+
+  constructor(private messageService: NzMessageService, private sanitizer: DomSanitizer) {
     super();
   }
   ngAfterViewInit(): void {
@@ -44,11 +51,17 @@ export class UploadVideoComponent extends AbstractControlDirective implements On
 
   onFileChanged($event) {
     this.file = ($event.target as HTMLInputElement).files[0];
+    this.video.nativeElement.value = '';
     if (!this.file) {
       return;
     }
     if (this.file.type !== 'video/mp4') {
       this.messageService.error(`Chỉ cho phép video định dạng mp4`);
+      return;
+    }
+
+    if (this.file.size > this.maxSize) {
+      this.messageService.error(`Chỉ cho phép video có kích thước  nhỏ hơn 100MB`);
       return;
     }
 

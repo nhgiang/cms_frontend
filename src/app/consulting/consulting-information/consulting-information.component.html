@@ -1,0 +1,63 @@
+<nz-card>
+  <div class="row">
+    <div class="col-12">
+      <form nz-form [formGroup]="search">
+        <div class="d-md-flex">
+          <div class="m-b-10 m-r-20">
+            <nz-input-group [nzPrefix]="prefixTemplate" style="min-width: 350px;">
+              <input type="text" nz-input placeholder="Tìm kiếm email, tên và số điện thoại" formControlName="q">
+            </nz-input-group>
+            <ng-template #prefixTemplate>
+              <i nz-icon nzType="search" class="opacity-05"></i>
+            </ng-template>
+          </div>
+          <div class="m-b-10 m-r-20 d-flex align-items-center">
+            <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn trạng thái" formControlName="status">
+              <nz-option nzLabel="Tất cả" [nzValue]="null"></nz-option>
+              <nz-option nzLabel="Chưa liên hệ" [nzValue]="ContactStatus.NotContactedYet"></nz-option>
+              <nz-option nzLabel="Đã liên hệ" [nzValue]="ContactStatus.Contacted"></nz-option>
+            </nz-select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <nz-table [nzData]="items" [nzShowTotal]="totalTemplate" [nzNoResult]="empty" [nzFrontPagination]="false"
+    [nzPageSize]="quantity" [nzTotal]="meta?.totalItems" [(nzPageIndex)]="page"
+    (nzQueryParams)="onParamsChanged($event)" [nzLoading]="isloading" nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <ng-container *ngFor="let item of metaData">
+          <th *ngIf="item.sortable" [nzSortFn]="item.sortable" scope="col" [nzColumnKey]="item.key"
+            [nzSortOrder]="item.sortOrder">{{item.name}}</th>
+          <th *ngIf="!item.sortable" scope="col" [nzColumnKey]="item.key">{{item.name}}</th>
+        </ng-container>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>{{item?.index}}</td>
+        <td>{{item?.name}}</td>
+        <td>{{item?.email}}</td>
+        <td>{{item?.phoneNumber}}</td>
+        <td>{{item?.created| date: 'dd/MM/yyyy'}}</td>
+        <td>{{item?.courseInterested}}</td>
+        <td>{{item?.statusTransformed}}</td>
+        <td>
+          <div class="d-flex justify-content-end">
+            <a [routerLink]="['/consulting/information',item?.id]" class="m-r-5" nz-button nzType="default"
+              nzShape="circle" nz-tooltip nzTooltipTitle="Chỉnh sửa">
+              <i nz-icon nzType="edit" theme="outline"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
+<ng-template #totalTemplate let-total> Total: {{ total }} </ng-template>

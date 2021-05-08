@@ -1,0 +1,12 @@
+//todo
+::ng-deep .attachments-label {
+  overflow: unset;
+  label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    &::after {
+      content: ''
+    }
+  } 
+} 

@@ -1,5 +1,6 @@
-import { AbstractControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 export class TValidators extends Validators {
+
   static confirmPasswordValidator(control: AbstractControl): ValidationErrors {
     const group = control as FormGroup;
     if (!group.controls.password.value) {
@@ -69,9 +70,40 @@ export class TValidators extends Validators {
       return null;
     }
     const value = control.value && control.value.trim();
-    const regex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+    const regex = /^(84|0[3|5|7|8|9])+([0-9]{8})$/;
     return regex.test(value) ? null : {
       phoneNumber: true
     };
+  }
+
+  static required(control: AbstractControl): ValidationErrors {
+    if (!control.value || !TValidators.trimData(control.value)) {
+      return {
+        required: true
+      };
+    }
+    return null;
+  }
+
+  static maxLength(length: number): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors => {
+      if (!control.value) { return null; }
+      return this.trimData(control.value)?.length > length ? { maxLength: true } : null;
+    };
+  }
+
+  static trimData(data: any): any {
+    if (data && typeof data === 'string') {
+      return data.trim();
+    }
+    return data;
+  }
+
+  static requiredAnswer = (form: FormArray) => {
+    const answers = form.value;
+    if (answers.filter(t => t.answer).length < 2 || answers.filter(t => t.isCorrect) < 1) {
+      return { requiredAnswer: true };
+    }
+    return null;
   }
 }

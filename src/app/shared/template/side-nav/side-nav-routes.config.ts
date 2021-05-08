@@ -29,20 +29,52 @@ export const ROUTES: SideNavInterface[] = [
     ]
   },
   {
-    path: '',
+    path: 'course-management',
     title: 'Quản lý khóa học',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'book',
-    submenu: []
+    submenu: [
+      {
+        path: 'course',
+        title: 'Danh sách khóa học',
+        submenu: []
+      },
+      {
+        path: 'type',
+        title: 'Loại khóa học',
+        submenu: []
+      },
+      {
+        path: 'skills',
+        title: 'Kỹ năng đạt được',
+        submenu: []
+      },
+      {
+        path: 'd',
+        title: 'Template chứng chỉ',
+        submenu: []
+      },
+      {
+        path: 'specialization',
+        title: 'Chuyên môn',
+        submenu: []
+      },
+    ]
   },
   {
-    path: '',
+    path: 'consulting',
     title: 'Tư vấn đánh giá',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'profile',
-    submenu: []
+    submenu: [
+      {
+        path: 'information',
+        title: 'Thông tin tư vấn',
+        submenu: []
+      },
+    ]
   },
   {
     path: '',
@@ -70,29 +102,31 @@ export const ROUTES: SideNavInterface[] = [
         submenu: []
       },
       {
+        path: 'feedbacks',
+        title: 'Đánh giá học viên',
+        submenu: []
+      },
+      {
+        path: 'video-intro',
+        title: 'Video giới thiệu',
+        submenu: []
+      },
+      {
+        path: 'teacher',
+        title: 'Giảng viên',
+        submenu: []
+      },
+      {
         path: 'faq',
         title: 'Câu hỏi thường gặp',
         submenu: []
       },
       {
-        path: 'feedbacks',
-        title: 'Đánh giá học viên',
+        path: 'hottest-course',
+        title: 'Khóa học hot nhất',
         submenu: []
       },
-      // {
-      //   path: 'video-intro',
-      //   title: 'Video giới thiệu',
-      //   submenu: []
-      // }
     ]
-  },
-  {
-    path: '',
-    title: 'Quản lý sự kiện',
-    iconType: 'nzIcon',
-    iconTheme: 'outline',
-    icon: 'calendar',
-    submenu: []
   },
   {
     path: 'contact',
@@ -101,26 +135,21 @@ export const ROUTES: SideNavInterface[] = [
     iconTheme: 'outline',
     icon: 'profile',
     submenu: [
-      // {
-      //   path: 'video',
-      //   title: 'Video Intro',
-      //   submenu: []
-      // },
-      // {
-      //   path: 'about-us',
-      //   title: 'Về chúng tôi',
-      //   submenu: []
-      // },
-      // {
-      //   path: 'contact-management',
-      //   title: 'Liên hệ',
-      //   submenu: []
-      // },
-      // {
-      //   path: 'story',
-      //   title: 'Câu truyện',
-      //   submenu: []
-      // }
+      {
+        path: 'video',
+        title: 'Video giới thiệu',
+        submenu: []
+      },
+      {
+        path: 'about-us',
+        title: 'Về chúng tôi',
+        submenu: []
+      },
+      {
+        path: 'story',
+        title: 'Câu chuyện',
+        submenu: []
+      }
     ]
   },
   {

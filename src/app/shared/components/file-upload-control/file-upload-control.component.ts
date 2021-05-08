@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
 import { AssetType, FileUploadErrors, UploaderStatus } from 'types/enums';
@@ -24,8 +24,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   ]
 })
 export class FileUploadControlComponent extends AbstractControlDirective implements OnInit {
+  @ViewChild('attachment', { static: false }) attachment: ElementRef;
   @Input() fileType: AssetType;
   @Input() maxSize: number;
+  @Input() customLabel = false;
   AssetType = AssetType;
   url: any;
   file: File;
@@ -43,8 +45,7 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
     super();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   writeValue(obj: any) {
     this.url = obj;
@@ -52,10 +53,17 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
 
   onFileChanged($event) {
     const file = ($event.target as HTMLInputElement).files[0];
+    this.attachment.nativeElement.value = '';
     if (file.type.split('/')[0] !== 'image') {
       this.messageService.error(`Vui lòng chọn đúng định dạng file`);
       return;
     }
+
+    if (!this.validateSize(file)) {
+      this.messageService.error(`Vui lòng chọn đúng kích cỡ file`);
+      return;
+    }
+
     this.file = file;
     const reader = new FileReader();
     reader.readAsDataURL(this.file);
@@ -77,7 +85,7 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
   initExtentionFile(assetType: AssetType) {
     switch (assetType) {
       case AssetType.Image:
-        this.currentTypes = ['jpg', 'jpeg', 'png', 'svg'];
+        this.currentTypes = ['image'];
         break;
       case AssetType.undefined:
         this.currentTypes = [];
@@ -93,7 +101,7 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
       return null;
     }
     if (this.fileType) {
-      const isValidType = !this.validateType(this.file?.name);
+      const isValidType = !this.validateType(this.file?.type);
       if (isValidType) {
         errors.push(FileUploadErrors.Type);
       }
@@ -124,9 +132,8 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
     if (this.fileType) {
       this.initExtentionFile(this.fileType);
     }
-    const types = url.split('.');
-    const extension = types[types.length - 1];
-    return this.currentTypes.indexOf(extension) >= 0;
+    const types = url.split('/')[0];
+    return this.currentTypes.indexOf(types) >= 0;
   }
 
   private validateSize(file: File) {

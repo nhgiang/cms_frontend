@@ -1,0 +1,15 @@
+<nz-card>
+  <div class="row">
+    <div class="col-12">
+      <nz-tabset>
+        <nz-tab nzTitle="Video bài giảng" *ngIf="!unitType || unitType === UnitAndTest.Unit">
+          <app-lesson-video [unit]="unit"></app-lesson-video>
+        </nz-tab>
+        <nz-tab nzTitle="Bài test trắc nghiệm" *ngIf="!unitType || unitType === UnitAndTest.Test">
+          <app-lesson-test>
+          </app-lesson-test>
+        </nz-tab>
+      </nz-tabset>
+    </div>
+  </div>
+</nz-card>

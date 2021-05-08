@@ -1,16 +1,14 @@
 <div class="clearfix">
-  <nz-upload
-    nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-    nzListType="picture-card"
-    [(nzFileList)]="fileList"
-    [nzShowButton]="fileList?.length < 8"
-    [nzPreview]="handlePreview">
+  <nz-upload [nzAction]="upload" nzListType="picture-card" [(nzFileList)]="fileList"
+    [nzShowButton]="fileList?.length < maxLength" [nzPreview]="handlePreview" (nzChange)="change($event)"
+    [nzBeforeUpload]="beforeUpload" [nzRemove]="remove">
     <div>
       <i nz-icon nzType="plus"></i>
       <div style="margin-top: 8px">Upload</div>
     </div>
   </nz-upload>
-  <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible = false">
+  <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+    (nzOnCancel)="previewVisible = false">
     <ng-template #modalContent>
       <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
     </ng-template>

@@ -1,0 +1,53 @@
+<form [formGroup]="form" nz-form>
+  <div>
+    <div>
+      <nz-form-item>
+        <nz-form-control>
+          <app-file-upload-control [maxSize]="1000000" [fileType]="assetType.Image" [customLabel]="true"
+            formControlName="icon">
+            <div class="media mb-3">
+              <div class="image-cropper">
+                <label [for]="'fileUpload'">
+                  <div class="avatar">
+                    <img class="upload" [src]="iconUrl || form.controls.icon.value" alt="image upload"
+                      *ngIf="form.controls.icon.value">
+                    <div class="upload" *ngIf="!form.controls.icon.value">+Upload</div>
+                  </div>
+                </label>
+              </div>
+              <div class="m-l-20 m-r-20">
+                <nz-form-label nzRequired class="label-avatar">Chọn icon</nz-form-label>
+                <p class="opacity-07 font-size-10 m-b-0">
+                  Kích thước đề xuất: 120x120 <br>
+                  Max file size: 1MB
+                </p>
+              </div>
+            </div>
+          </app-file-upload-control>
+        </nz-form-control>
+      </nz-form-item>
+      <div *ngIf="form.controls.icon.hasError('required') && form.controls.icon.dirty"
+        class="ant-form-item-explain ant-form-item-explain-error">
+        Vui lòng tải icon lên
+      </div>
+    </div>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" class="text-left" nzRequired>Tên kỹ năng</nz-form-label>
+      <nz-form-control nzErrorTip="Tên kỹ năng phải từ 1 đến 200 ký tự">
+        <input nz-input formControlName="name" placeholder="Nhập tên kỹ năng">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" class="text-left" nzRequired>Mô tả</nz-form-label>
+      <nz-form-control nzErrorTip="Nội dung mô tả phải từ 1 đến 500 ký tự">
+        <textarea nz-input formControlName="description" placeholder="Nhập mô tả kỹ năng" rows="3"
+          style="resize: none;"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="submit()" type="submit" [disabled]="form.invalid"
+      [nzLoading]="isLoading">Xác
+      nhận</button>
+  </div>
+</form>

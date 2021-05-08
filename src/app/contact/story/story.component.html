@@ -1,4 +1,48 @@
-<nz-card style="width:100%;height: 80vh;" [nzBordered]="false">
-  <app-pictures-wall-upload></app-pictures-wall-upload>
+<nz-card class="w-100 card-wrap">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row form-wrap">
+      <div class="col-5">
+        <nz-card class="w-100 text-footer color-1">
+          <div class="w-100 underline mb-4 pb-4">
+            <h6>Hình ảnh minh họa</h6>
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Phải upload ít nhất 3 ảnh">
+                <app-pictures-wall-upload [maxLength]="15" [maxSize]="5000000" formControlName="images">
+                </app-pictures-wall-upload>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div>
+            Size tối đa mỗi tấm ảnh là 5MB<br />
+            Số lượng tối đa là 15 tấm ảnh
+          </div>
+        </nz-card>
+      </div>
 
+      <div class="col-7">
+        <nz-card>
+          <div class="underline mb-4 pb-4">
+            <h5>Câu chuyện về doanh nghiệp</h5>
+            <div class="text-content w-100">
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Nội dung phải trong khoảng từ 1-1000 kí tự">
+                  <textarea nz-input [nzAutosize]="{ minRows: 3, maxRows: 10 }" class="w-100 border-0"
+                    style="resize: none;" formControlName="content"></textarea>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+          <div class="text-footer color-85">
+            Câu chuyện là phần tự truyện ngắn nói về quá trình phát triển của doanh nghiệp, hoặc nói về
+            các đặc điểm nổi bật của doanh nghiệp.
+          </div>
+        </nz-card>
+      </div>
+    </div>
+
+    <div class="d-flex">
+      <button nz-button nzGhost [routerLink]="['/dashboard/home']" nzType="primary" class="ml-auto mr-4">Hủy bỏ</button>
+      <button nz-button nzType="primary" type="submit" [nzLoading]="isLoading">Xác nhận</button>
+    </div>
+  </form>
 </nz-card>

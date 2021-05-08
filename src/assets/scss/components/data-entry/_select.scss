@@ -91,12 +91,15 @@
     border: 1px solid $input-border-color;
     border-radius: $input-border-radius;
     padding: 1px $select-tag-margin-y;
-    height: $select-height + 0.125rem;
+    // height: $select-height + 0.125rem;
+    .ant-select-selection-search {
+      margin-inline-start: 3px;
+    }
   }
 
   .ant-select-selection-item {
-    height: $select-tag-height;
-    line-height: $select-tag-height - 0.125rem;
+    height: $select-tag-height + 0.5rem;
+    line-height: $select-tag-height + 0.25rem;
     margin-top: $select-tag-margin-y;
     margin-right: $select-tag-margin-x;
     margin-bottom: $select-tag-margin-y;

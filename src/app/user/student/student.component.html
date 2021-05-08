@@ -24,16 +24,13 @@
   </div>
   <nz-table [nzShowTotal]="totalTemplate" [nzNoResult]="empty" #productsListTable [nzData]="items"
     [nzTotal]="meta?.totalItems" [nzFrontPagination]="false" [nzPageSize]="quantity" [nzPageIndex]="page"
-    [nzLoading]="isloading" nzTableLayout="fixed" (nzPageIndexChange)="onPageChanged($event)">
+    [nzLoading]="isloading" nzTableLayout="fixed" (nzQueryParams)="onParamsChanged($event)">
     <thead>
       <tr>
         <th scope="col" [nzWidth]="'70px'">ID</th>
-        <th scope="col">Người dùng</th>
-        <th scope="col">Email</th>
-        <th scope="col">Phone</th>
-        <th scope="col">Khóa học đã mua</th>
-        <th scope="col">Tổng tiến độ</th>
-        <th scope="col">Tích điểm</th>
+        <ng-container *ngFor="let item of metaData">
+          <th scope="col" [nzColumnKey]="item.key">{{item.name}}</th>
+        </ng-container>
         <th scope="col" [nzWidth]="'120px'">Trạng thái</th>
       </tr>
     </thead>

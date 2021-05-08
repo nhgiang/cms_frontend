@@ -1,0 +1,49 @@
+<div role="tab" [attr.aria-expanded]="nzActive" class="ant-collapse-header px-3 align-items-center"
+  (click)="clickHeader()">
+  <ng-container *ngIf="isEdit;else stepName;">
+    <div class="d-flex align-items-center">
+      <input class="step-name" type="text" nz-input [(ngModel)]="data.title">
+      <span class="submit ml-3" (click)="editLesson($event)">
+        <i nz-icon nzType="check" style="font-size: 19px;" nzTheme="outline"></i>
+      </span>
+      <span (click)="isEdit = false" class="ml-3">
+        <i nz-icon nzType="close-circle" style="font-size: 19px;" nzTheme="outline"></i>
+      </span>
+    </div>
+  </ng-container>
+  <ng-template #stepName>
+    <div class="step-name text-semibold">{{data.order}}. {{data?.title}}</div>
+    <div class="common-action">
+      <span>
+        <i nz-icon nzType="plus" nzTheme="outline" class="mr-4" (click)="addUnit($event)"></i>
+      </span>
+      <span>
+        <i nz-icon nzType="edit" nzTheme="outline" class="mr-4" (click)="editLesson($event)"></i>
+      </span>
+      <span [confirmation]="'Bạn có chắc chắn muốn xóa chương học này không?'" (confirmed)="deleteStep()">
+        <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+      </span>
+    </div>
+  </ng-template>
+</div>
+<div class="ant-collapse-content ng-trigger ng-trigger-collapseMotion" [class.ant-collapse-content-active]="nzActive"
+  [@.disabled]="noAnimation?.nzNoAnimation" [@collapseMotion]="nzActive ? 'expanded' : 'hidden'">
+  <div class="ant-collapse-content-box p-0">
+    <div *ngFor="let item of data?.unitsAndTests;let index = index" class="activity text-muted">
+      <i nz-icon nzType="youtube" class="icon mr-2" nzTheme="fill"  *ngIf="item.type === UnitAndTest.Unit"></i>
+      <i nz-icon nzType="question-circle" class="icon mr-2"  nzTheme="fill" *ngIf="item.type === UnitAndTest.Test"></i>
+      <span class="title">{{data?.order}}.{{index+1}} {{item?.title}} 
+        <span *ngIf="item.type === UnitAndTest.Unit">({{item?.duration | timeDuration}} phút)</span>
+        <span *ngIf="item.type === UnitAndTest.Test">({{item?.questions.length}} câu hỏi - {{item?.point}} điểm)</span>
+      </span>
+      <div class="common-action">
+        <span>
+          <i nz-icon nzType="edit" nzTheme="outline" class="mr-4" (click)="editUnit(item?.id, item.type)"></i>
+        </span>
+        <span [confirmation]="'Bạn có chắc chắn muốn xóa bài giảng này không?'" (confirmed)="deleteUnit(item?.id)">
+          <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

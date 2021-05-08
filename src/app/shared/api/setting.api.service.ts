@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Faq, Feedback } from 'types/typemodel';
+import { Faq, SettingFeedback, SettingTeacher } from 'types/typemodel';
 import { BaseApi } from './base-api';
 
 @Injectable({
@@ -24,12 +24,37 @@ export class SettingApiService extends BaseApi {
   };
 
   feedbacks = {
-    get: () => this.httpClient.get<Feedback[]>(this.createUrl('-feedbacks')),
-    post: (body: Feedback[]) => this.httpClient.post(this.createUrl('-feedbacks/upsert'), body)
+    get: () => this.httpClient.get<SettingFeedback[]>(this.createUrl('-feedbacks')),
+    post: (body: SettingFeedback[]) => this.httpClient.post(this.createUrl('-feedbacks/upsert'), body)
+  };
+
+  teacher = {
+    get: () => this.httpClient.get<SettingTeacher>(this.createUrl('-teachers')),
+    post: (body) => this.httpClient.post(this.createUrl('-teachers'), body)
   };
 
   videoIntro = {
     get: () => this.httpClient.get<any>(this.createUrl('-video-intro')),
     post: (body) => this.httpClient.post(this.createUrl('-video-intro'), body)
   };
+
+  aboutUs = {
+    get: () => this.httpClient.get<any>(this.createUrl('-about-us')),
+    post: (body) => this.httpClient.post(this.createUrl('-about-us'), body)
+  };
+
+  videoIntroContact = {
+    get: () => this.httpClient.get<any>(this.createUrl('-video-intro-contact')),
+    post: (body) => this.httpClient.post(this.createUrl('-video-intro-contact'), body)
+  };
+
+  stories = {
+    get: () => this.httpClient.get<any>(this.createUrl('-stories')),
+    post: (body: any) => this.httpClient.post(this.createUrl('-stories'), body)
+  };
+
+  hottestCoruse = {
+    get: () => this.httpClient.get<any>(this.createUrl('-hottest-courses')),
+    post: (body: any) => this.httpClient.post(this.createUrl('-hottest-courses'), body)
+  }
 }

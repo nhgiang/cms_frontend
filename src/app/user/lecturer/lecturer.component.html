@@ -13,7 +13,8 @@
             </ng-template>
           </div>
           <div class="m-b-10 m-r-20 d-flex align-items-center">
-            <select-advance placeholder="Chọn chuyên môn" [getOptionsFn]="specializations" style="min-width: 220px;" formControlName="specializationId">
+            <select-advance placeholder="Chọn chuyên môn" [getOptionsFn]="specializations" style="min-width: 220px;"
+              formControlName="specializationId">
             </select-advance>
           </div>
         </div>
@@ -26,16 +27,14 @@
     </div>
   </div>
   <nz-table [nzShowTotal]="totalTemplate" [nzNoResult]="empty" #productsListTable [nzFrontPagination]="false"
-    [nzData]="items" [nzTotal]="meta?.totalItems" (nzPageIndexChange)="onPageChanged($event)" [nzPageSize]="quantity"
+    [nzData]="items" [nzTotal]="meta?.totalItems" (nzQueryParams)="onParamsChanged($event)" [nzPageSize]="quantity"
     [nzLoading]="isloading" [(nzPageIndex)]="page" nzTableLayout="fixed">
     <thead>
       <tr>
-        <th [nzWidth]="'70px'">ID</th>
-        <th scope="col">Tên giảng viên</th>
-        <th scope="col">Chuyên môn</th>
-        <th scope="col">Email</th>
-        <th scope="col">Phone</th>
-        <th scope="col">Mô tả</th>
+        <th [nzWidth]="'70px'" scope="col">ID</th>
+        <ng-container *ngFor="let item of metaData">
+          <th scope="col" [nzColumnKey]="item.key">{{item.name}}</th>
+        </ng-container>
         <th scope="col" [nzWidth]="'120px'"></th>
       </tr>
     </thead>
@@ -55,7 +54,7 @@
         <td class="text-md-right">
           <div class="d-flex">
             <a [routerLink]="[item?.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
-              nzTooltipTitle="Cập nhật">
+              nzTooltipTitle="Chỉnh sửa">
               <i nz-icon nzType="edit" theme="outline"></i>
             </a>
             <div (confirmed)="deleteTeacher(item?.id)"

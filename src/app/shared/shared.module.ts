@@ -18,6 +18,15 @@ import { SelectAdvanceComponent } from './controls/select-advance/select-advance
 import { PicturesWallUploadComponent } from './controls/pictures-wall-upload/pictures-wall-upload.component';
 import { UploadVideoComponent } from './components/upload-video/upload-video.component';
 import { FileUploadControlComponent } from './components/file-upload-control/file-upload-control.component';
+import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
+import { CustomeCollapseStepComponent } from './components/custome-collapse/custome-collapse-step.component';
+import { SafeHtmlPipe } from './pipes/safeHtml.pipe';
+import { MultipleSelectionComponent } from './controls/multiple-selection/multiple-selection.component';
+import { FilesUploadControlComponent } from './components/files-upload-control/files-upload-control.component';
+import { ImageCropperControlComponent } from './components/image-cropper-control/image-cropper-control.component';
+import { TimeDurationPipe } from './pipes/time-duration.pipe';
+import { CurrencyInputDirective } from './directives/currency-input.directive';
+import { InputNumberComponent } from './controls/input-number/input-number.component';
 
 @NgModule({
   exports: [
@@ -38,7 +47,16 @@ import { FileUploadControlComponent } from './components/file-upload-control/fil
     SelectAdvanceComponent,
     PicturesWallUploadComponent,
     UploadVideoComponent,
-    FileUploadControlComponent
+    FileUploadControlComponent,
+    FeedbackFormComponent,
+    CustomeCollapseStepComponent,
+    SafeHtmlPipe,
+    MultipleSelectionComponent,
+    FilesUploadControlComponent,
+    ImageCropperControlComponent,
+    TimeDurationPipe,
+    CurrencyInputDirective,
+    InputNumberComponent
   ],
   imports: [
     RouterModule,
@@ -46,6 +64,7 @@ import { FileUploadControlComponent } from './components/file-upload-control/fil
     ZorroAntdModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     SearchPipe,
@@ -58,7 +77,16 @@ import { FileUploadControlComponent } from './components/file-upload-control/fil
     SelectAdvanceComponent,
     PicturesWallUploadComponent,
     UploadVideoComponent,
-    FileUploadControlComponent
+    FileUploadControlComponent,
+    FeedbackFormComponent,
+    CustomeCollapseStepComponent,
+    SafeHtmlPipe,
+    MultipleSelectionComponent,
+    FilesUploadControlComponent,
+    ImageCropperControlComponent,
+    TimeDurationPipe,
+    CurrencyInputDirective,
+    InputNumberComponent
   ],
   providers: [
     ThemeConstantService

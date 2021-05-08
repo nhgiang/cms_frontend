@@ -1,81 +1,78 @@
 <nz-card>
-  <form [formGroup]="form" (ngSubmit)="submit()" nz-form>
-    <h5 class="title">Mục liên hệ</h5>
-    <nz-form-item>
-      <nz-form-label class="text-left align-self-center" [nzSpan]="3" nzRequired>Địa chỉ
-      </nz-form-label>
-      <nz-form-control [nzErrorTip]="'Vui lòng nhập địa chỉ'">
-        <textarea nz-input rows="3" formControlName="address" placeholder="Nhập địa chỉ"></textarea>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label class="text-left" [nzSpan]="3" nzRequired>Email</nz-form-label>
-      <nz-form-control [nzErrorTip]="errorEmailTpl">
-        <input nz-input formControlName="email" placeholder="Nhập số lượng khóa học" />
-      </nz-form-control>
-      <ng-template #errorEmailTpl let-control>
-        <ng-container *ngIf="control.hasError('required')">
-          Vui lòng nhập email
-        </ng-container>
-        <ng-container *ngIf="control.hasError('emailRules')">
-          Email không đúng định dạng
-        </ng-container>
-      </ng-template>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label class="text-left" [nzSpan]="3" nzRequired>Số điện thoại</nz-form-label>
-      <nz-form-control [nzErrorTip]="errorPhoneTpl">
-        <input nz-input formControlName="phoneNumber" placeholder="Nhập số điện thoại" />
-      </nz-form-control>
-      <ng-template #errorPhoneTpl let-control>
-        <ng-container *ngIf="control.hasError('required')">
-          Vui lòng nhập số điện thoại
-        </ng-container>
-        <ng-container *ngIf="control.hasError('onlyNumber')">
-          Số điện thoại chỉ bao gồm số
-        </ng-container>
-        <ng-container *ngIf="control.hasError('phoneNumber')">
-          Số điện thoại không hợp lệ
-        </ng-container>
-      </ng-template>
-    </nz-form-item>
-    <div class="underline"></div>
-    <h5 class="title">Mục social</h5>
-    <nz-form-item>
-      <nz-form-label class="text-left" [nzSpan]="3" nzRequired>Link facebook</nz-form-label>
-      <nz-form-control [nzErrorTip]="errorFacebookTpl">
-        <input nz-input formControlName="facebook" placeholder="Nhập link facebook" />
-      </nz-form-control>
-      <ng-template #errorFacebookTpl let-control>
-        <ng-container *ngIf="control.hasError('required')">
-          Vui lòng nhập link facebook
-        </ng-container>
-        <ng-container *ngIf="control.hasError('link')">
-          Sai định dạng đường dẫn
-        </ng-container>
-      </ng-template>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label class="text-left" [nzSpan]="3" nzRequired>Link youtube</nz-form-label>
-      <nz-form-control [nzErrorTip]="errorYoutubeTpl">
-        <input nz-input formControlName="youtube" placeholder="Nhập số lượng bài giảng" />
-      </nz-form-control>
-      <ng-template #errorYoutubeTpl let-control>
-        <ng-container *ngIf="control.hasError('required')">
-          Vui lòng nhập link youtube
-        </ng-container>
-        <ng-container *ngIf="control.hasError('link')">
-          Sai định dạng đường dẫn
-        </ng-container>
-      </ng-template>
-    </nz-form-item>
-    <div class="text-right">
-      <button type="submit" nz-button nzType="primary" [nzLoading]="isLoading">
-        Lưu
-      </button>
-      <button class="ml-4" [routerLink]="['/dashboard/home']" type="button" nz-button nzType="primary" nzGhost>
-        Quay lại
-      </button>
-    </div>
-  </form>
+    <form [formGroup]="form" (ngSubmit)="submit()" nz-form>
+        <h5 class="title">Mục liên hệ</h5>
+        <nz-form-item>
+            <nz-form-label class="text-left align-self-center" [nzSpan]="3" nzRequired>Địa chỉ
+            </nz-form-label>
+            <nz-form-control [nzErrorTip]="'Vui lòng nhập địa chỉ'">
+                <textarea nz-input rows="3" formControlName="address" placeholder="Nhập địa chỉ"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="3" nzRequired>Email</nz-form-label>
+            <nz-form-control [nzErrorTip]="errorEmailTpl">
+                <input nz-input formControlName="email" placeholder="Nhập số lượng khóa học" />
+            </nz-form-control>
+            <ng-template #errorEmailTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Vui lòng nhập email
+                </ng-container>
+                <ng-container *ngIf="control.hasError('emailRules')">
+                    Email không đúng định dạng
+                </ng-container>
+            </ng-template>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="3" nzRequired>Số điện thoại</nz-form-label>
+            <nz-form-control [nzErrorTip]="errorPhoneTpl">
+                <input nz-input formControlName="phoneNumber" placeholder="Nhập số điện thoại" />
+            </nz-form-control>
+            <ng-template #errorPhoneTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Vui lòng nhập số điện thoại
+                </ng-container>
+                <ng-container *ngIf="control.hasError('phoneNumber')">
+                    Số điện thoại không hợp lệ
+                </ng-container>
+            </ng-template>
+        </nz-form-item>
+        <div class="underline"></div>
+        <h5 class="title">Mục social</h5>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="3" nzRequired>Link facebook</nz-form-label>
+            <nz-form-control [nzErrorTip]="errorFacebookTpl">
+                <input nz-input formControlName="facebook" placeholder="Nhập link facebook" />
+            </nz-form-control>
+            <ng-template #errorFacebookTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Vui lòng nhập link facebook
+                </ng-container>
+                <ng-container *ngIf="control.hasError('link')">
+                    Sai định dạng đường dẫn
+                </ng-container>
+            </ng-template>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="3" nzRequired>Link youtube</nz-form-label>
+            <nz-form-control [nzErrorTip]="errorYoutubeTpl">
+                <input nz-input formControlName="youtube" placeholder="Nhập số lượng bài giảng" />
+            </nz-form-control>
+            <ng-template #errorYoutubeTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Vui lòng nhập link youtube
+                </ng-container>
+                <ng-container *ngIf="control.hasError('link')">
+                    Sai định dạng đường dẫn
+                </ng-container>
+            </ng-template>
+        </nz-form-item>
+        <div class="text-right">
+            <button type="submit" nz-button nzType="primary" [nzLoading]="isLoading">
+                Lưu
+            </button>
+            <button class="ml-4" [routerLink]="['/dashboard/home']" type="button" nz-button nzType="primary" nzGhost>
+                Quay lại
+            </button>
+        </div>
+    </form>
 </nz-card>

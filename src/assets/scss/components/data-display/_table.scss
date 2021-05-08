@@ -2,6 +2,7 @@
   font-size: $font-size-base;
   line-height: $line-height-base;
   color: $table-color;
+  overflow-x: auto;
 
   &.ant-table-bordered {
 
@@ -30,6 +31,7 @@
         color: $gray-dark;
         font-weight: $font-weight-semibold;
         background: $table-head-bg;
+        white-space: nowrap;
       }
     }
   }

@@ -1,0 +1,22 @@
+<div class="title px-3 py-2">
+  <h5 class="mb-0">Chương học <span class="text-danger">*</span></h5>
+  <span class="item-add" (click)="isAddStep = !isAddStep"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+</div>
+<div class="steps p-3" *ngIf="lessons?.length || isAddStep">
+  <nz-collapse>
+    <app-custome-collapse-step *ngFor="let lesson of lessons" [data]="lesson" (refresh)="refresh()"></app-custome-collapse-step>
+  </nz-collapse>
+  <div class="add-step" *ngIf="isAddStep">
+    <nz-form-item class="step-title mb-0">
+      <nz-form-control [nzErrorTip]="'Vui lòng nhập tên chương học'">
+        <input class="mr-3" type="text" nz-input [formControl]="lessonTitle">
+      </nz-form-control>
+    </nz-form-item>
+    <span class="submit ml-3" (click)="addLesson()">
+      <i nz-icon nzType="check" nzTheme="outline"></i>
+    </span>
+    <span (click)="isAddStep = false" class="ml-3 submit">
+      <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+    </span>
+  </div>
+</div>

@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingApiService } from '@shared/api/setting.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { forkJoin } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { finalize, switchMap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 import { VideoIntro } from 'types/typemodel';
+
 @Component({
   selector: 'app-video-intro',
   templateUrl: './video-intro.component.html',
@@ -16,11 +18,12 @@ import { VideoIntro } from 'types/typemodel';
 export class VideoIntroComponent implements OnInit {
   form: FormGroup;
   AssetType = AssetType;
-  isloading: boolean
+  isloading: boolean;
   constructor(
     private fb: FormBuilder,
     private storageApi: StorageApiService,
-    private settingApi: SettingApiService
+    private settingApi: SettingApiService,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -33,14 +36,14 @@ export class VideoIntroComponent implements OnInit {
   buildForm() {
     this.form = this.fb.group({
       title: [null, TValidators.required],
-      image: [null, TValidators.required],
+      image: [null, Validators.required],
       video: [null]
     });
   }
 
   submit() {
     Ultilities.validateForm(this.form);
-
+    this.isloading = true;
     forkJoin({
       image: this.storageApi.uploadFile(this.form.value.image),
       video: this.storageApi.uploadFile(this.form.value.video)
@@ -50,13 +53,10 @@ export class VideoIntroComponent implements OnInit {
         video,
         title: this.form.value.title.trim()
       };
-      return this.settingApi.videoIntro.post(data);
-    })).subscribe(res => {
-      this
+      return this.settingApi.videoIntro.post(data).pipe();
+    }), finalize(() => this.isloading = false)).subscribe(res => {
+      this.notification.success('Thành công', 'Cập nhật thông tin video giới thiệu thành công');
     });
   }
-}
-function VideoIntro(res: any, VideoIntro: any) {
-  throw new Error('Function not implemented.');
 }
 
