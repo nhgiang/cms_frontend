@@ -24,7 +24,10 @@
               </div>
             </div>
           </app-file-upload-control> -->
-          <app-select-icon [getOptionsFn]="icons" placeholder="Chọn icon" formControlName="icon"></app-select-icon>
+          <div class="d-flex align-items-center">
+            <div class="w-25" style="width: 50px; height:100px"><img class="upload" style="width:100%;height:100%" [src]="iconUrl | safeHtml" alt="ảnh"></div>
+            <app-select-icon class="w-75 ml-2" [getOptionsFn]="icons" placeholder="Chọn icon" formControlName="icon" ></app-select-icon>
+          </div>
         </nz-form-control>
       </nz-form-item>
       <div *ngIf="form.controls.icon.hasError('required') && form.controls.icon.dirty"

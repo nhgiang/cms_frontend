@@ -46,19 +46,9 @@ export class SkillsModalComponent implements OnInit {
   ngOnInit() {
     if (this.data) { this.form.patchValue(this.data); }
     this.form.get('icon').valueChanges.subscribe(icon => {
-      if (icon) {
-        if (typeof icon !== 'string') {
-          const reader = new FileReader();
-          reader.readAsDataURL(icon);
-          reader.onload = (event) => {
-            this.iconUrl = event.target.result as string;
-          };
-        } else {
-          this.iconUrl = icon;
-        }
-        return;
-      }
-      this.iconUrl = null;
+      console.log(icon);
+
+      this.iconUrl = icon ? icon : null;
     });
   }
 
