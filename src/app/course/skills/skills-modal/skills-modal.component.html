@@ -3,7 +3,7 @@
     <div>
       <nz-form-item>
         <nz-form-control>
-          <app-file-upload-control [maxSize]="1000000" [fileType]="assetType.Image" [customLabel]="true"
+          <!-- <app-file-upload-control [maxSize]="1000000" [fileType]="assetType.Image" [customLabel]="true"
             formControlName="icon">
             <div class="media mb-3">
               <div class="image-cropper">
@@ -23,7 +23,12 @@
                 </p>
               </div>
             </div>
-          </app-file-upload-control>
+          </app-file-upload-control> -->
+          <div class="d-flex align-items-center">
+            <div *ngIf="form.get('icon').value" class="w-25" style="width: 50px; height:100px"><img style="width:100%;height:100%" [src]="form.get('icon').value | safeHtml" alt="ảnh"></div>
+            <div style="width: 50px; height:100px" class="w-25 upload" *ngIf="!form.get('icon').value"></div>
+            <app-select-icon class="w-75 ml-2" [getOptionsFn]="icons" placeholder="Chọn icon" formControlName="icon" ></app-select-icon>
+          </div>
         </nz-form-control>
       </nz-form-item>
       <div *ngIf="form.controls.icon.hasError('required') && form.controls.icon.dirty"
