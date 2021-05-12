@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { CourseTypesApiService } from '@shared/api/course-types.api.service';
+import { PostTypesApiService } from '@shared/api/post-types.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
@@ -8,11 +8,11 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-course-type-edit',
-  templateUrl: './course-type-edit.component.html',
-  styleUrls: ['./course-type-edit.component.scss']
+  selector: 'app-blog-type-edit',
+  templateUrl: './blog-type-edit.component.html',
+  styleUrls: ['./blog-type-edit.component.scss']
 })
-export class CourseTypeEditComponent implements OnInit {
+export class BlogTypeEditComponent implements OnInit {
   @Input() id: string;
   @Output() edited = new EventEmitter();
   form: FormGroup;
@@ -20,14 +20,14 @@ export class CourseTypeEditComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private courseTypesApi: CourseTypesApiService,
+    private postTypesApi: PostTypesApiService,
     private notification: NzNotificationService,
     private modalRef: NzModalRef
   ) { }
 
   ngOnInit(): void {
     this.buildForm();
-    this.courseTypesApi.getById(this.id).subscribe(res => {
+    this.postTypesApi.getById(this.id).subscribe(res => {
       this.form.patchValue(res);
     });
   }
@@ -45,9 +45,9 @@ export class CourseTypeEditComponent implements OnInit {
       id: this.id
     };
     this.loading = true;
-    this.courseTypesApi.update(this.id, data).pipe(finalize(() => this.loading = false)).subscribe(() => {
+    this.postTypesApi.update(this.id, data).pipe(finalize(() => this.loading = false)).subscribe(() => {
       this.modalRef.close();
-      this.notification.success('Thành công', 'Cập nhật loại khóa học thành công');
+      this.notification.success('Thành công', 'Cập nhật loại bài viết thành công');
       this.edited.emit();
     });
   }

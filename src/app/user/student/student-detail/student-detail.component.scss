@@ -6,3 +6,10 @@
     }
   }
 }
+.list-info {
+  li {
+    p:after {
+      content: '\200B';
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<nz-card>
+  <div class="ant-card-body">
+    <div class="row">
+      <div class="col-12 text-right">
+        <button nz-button nzType="primary" (click)="addItem()">Thêm mới</button>
+      </div>
+    </div>
+    <nz-table [nzData]="items" [nzLoading]="isloading" (nzQueryParams)="onParamsChanged($event)" [(nzPageIndex)]="page"
+      [nzPageSize]="quantity" [nzTotal]="meta?.totalItems" [nzFrontPagination]="false" [nzShowTotal]="totalTemplate" >
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Tên loại bài viết</th>
+          <th scope="col" [nzWidth]="'120px'"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td>#{{item?.index}}</td>
+          <td>{{item?.name}}</td>
+          <td>
+            <div class="d-flex">
+              <a (click)="editItem(item?.id)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
+                nzTooltipTitle="Chỉnh sửa">
+                <i nz-icon nzType="edit" theme="outline"></i>
+              </a>
+              <div (confirmed)="deleteTeacher(item?.id)"
+                [confirmation]="'Bạn có chắc muốn xóa thông tin loại khóa học này hay không?'">
+                <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
+                  <i nz-icon nzType="close" nzTheme="outline"></i>
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</nz-card>
+<ng-template #totalTemplate let-total> Total: {{ total }} </ng-template>

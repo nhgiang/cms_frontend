@@ -15,6 +15,7 @@ import { Course } from 'types/models/course';
 export class HottestCourseComponent implements OnInit {
   form: FormArray;
   objKey: { [key: string]: Course } = {};
+  optionsDisabled: any[];
   constructor(
     private courseApi: CourseApiService,
     private fb: FormBuilder,
@@ -27,6 +28,13 @@ export class HottestCourseComponent implements OnInit {
       courseId: [null]
     })));
     this.settingApi.hottestCoruse.get().subscribe(res => this.form.patchValue(res));
+    this.form.valueChanges.subscribe(value => {
+      this.optionsDisabled = value.map(t => {
+        return {
+          id: t.courseId
+        };
+      });
+    });
   }
 
   courses$ = (params: IPaginate) => {
@@ -38,6 +46,7 @@ export class HottestCourseComponent implements OnInit {
   }
 
   submit() {
+    console.log(this.form.value)
     this.settingApi.hottestCoruse.post(this.form.value).subscribe(() => {
       this.notification.success('Thành công', '');
     });
