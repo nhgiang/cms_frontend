@@ -47,7 +47,7 @@ export class BlogHottestComponent implements OnInit {
   }
 
   submit() {
-    this.settingApi.hottestCoruse.post(this.form.value).subscribe(() => {
+    this.settingApi.hottestBlog.post(this.form.value).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật thông tin bài viết hot nhất thành công');
     });
   }
