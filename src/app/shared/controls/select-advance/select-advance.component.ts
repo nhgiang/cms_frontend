@@ -115,7 +115,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
     this.options = this.options.map(option => {
       return {
         ...option,
-        disabled: this.optionsDisabled.some(t => t.courseId === option.value)
+        disabled: this.optionsDisabled.some(t => t.id === option.value)
       };
     });
   }

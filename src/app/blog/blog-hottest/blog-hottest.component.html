@@ -7,22 +7,22 @@
             <th scope="col">Thứ tự</th>
             <th scope="col" [nzWidth]="'50%'">Khóa học</th>
             <th scope="col" class="text-center">Lượt xem</th>
-            <th scope="col" class="text-center">Lượt mua</th>
+            <th scope="col" class="text-center">Ngày xuất bản</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of form.controls; let i = index" [formGroup]="item">
             <td>Top {{ i + 1 }}</td>
             <td>
-              <select-advance placeholder="Chọn khóa học" [getOptionsFn]="courses$" style="min-width: 220px"
-                formControlName="courseId" [optionsDisabled]="optionsDisabled" [hasNullOption]="true">
+              <select-advance placeholder="Chọn khóa học" [getOptionsFn]="blog$" style="min-width: 220px"
+                formControlName="blogId" [optionsDisabled]="optionsDisabled" [hasNullOption]="true">
               </select-advance>
             </td>
             <td class="text-center">
-              {{ objKey[item.get('courseId').value]?.view }}
+              {{ objKey[item.get('blogId').value]?.view }}
             </td>
             <td class="text-center">
-              {{ objKey[item.get('courseId').value]?.purchase }}
+              {{ objKey[item.get('blogId').value]?.created | date: 'dd/MM/YYYY'}}
             </td>
           </tr>
         </tbody>
