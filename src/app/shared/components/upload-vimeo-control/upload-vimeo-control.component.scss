@@ -1,0 +1,32 @@
+.upload-label {
+  background-color: #fafafa;
+  padding: 20px 0;
+  cursor: pointer;
+  .file-type {
+    color: #72849A;
+  }
+  i {
+    color: #2F80ED;
+    font-size: 32px;
+  }
+}
+.video-player {
+  width: fit-content;
+  position: relative;
+  i {
+    color: #72849A;
+    font-size: 30px;
+    top: 10px;
+    right: 10px;
+    position: absolute;
+    z-index: 2;
+    cursor: pointer;
+  }
+}
+.file-selected {
+  background-color: #fafafa;
+  i {
+    color: #2F80ED;
+    font-size: 32px;
+  }
+}
