@@ -19,7 +19,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
         // check token còn hạn mà bị 401
-        if (moment((jwt_decode(localStorage.getItem('token')) as ITokenDecode).exp, 'x').isBefore(moment(new Date()))) {
+        if (localStorage.getItem('token') && moment((jwt_decode(localStorage.getItem('token')) as ITokenDecode).exp, 'x').isBefore(moment(new Date()), 'millisecond')) {
           this.notification.warning('', 'Tài khoản của bạn đã được đăng nhập ở một thiết bị khác hoặc đã bị tạm khóa!');
         }
         localStorage.clear();
