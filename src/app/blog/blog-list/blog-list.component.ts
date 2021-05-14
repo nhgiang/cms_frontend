@@ -43,13 +43,13 @@ export class BlogListComponent extends DataTableContainer<any> implements OnInit
   }
 
   deleteItem(id) {
-    this.postsApi.delete(id).pipe(tap(() => this.refreshTrigger.next())).subscribe(() => {
+    this.postsApi.delete(id).pipe(tap(() => this.refresh())).subscribe(() => {
       this.notification.success('Thành công', 'Xóa thông tin bài viết thành công!');
     });
   }
 
   readRouteParams(params: { [key: string]: any }) {
     super.readRouteParams(params);
-    this.q.patchValue(params.q, { emitEvent: false })
+    this.q.patchValue(params?.q, { emitEvent: false });
   }
 }

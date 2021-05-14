@@ -32,9 +32,12 @@
             <div class="m-b-15">
               <div class="d-flex align-items-center">
                 <div class="d-flex align-items-center">
-                  <nz-avatar  nzIcon="user" [nzSize]="32" [nzSrc]="item?.authorAvatar">
+                  <nz-avatar nzIcon="user" [nzSize]="32" [nzSrc]="item?.authorAvatar">
                   </nz-avatar>
-                  <div class="m-l-10"><span class="text-gray font-weight-semibold">{{item?.authorName}}</span></div>
+                  <div class="m-l-10">
+                    <span class="text-gray font-weight-semibold" *ngIf="item?.authorName">{{item?.authorName}}</span>
+                    <span class="text-gray font-weight-semibold" *ngIf="!item?.authorName">{{item?.authorEmail}}</span>
+                  </div>
                 </div>
                 <div class="text-gray">
                   <nz-divider nzType="vertical"></nz-divider>
@@ -62,4 +65,6 @@
   </ng-container>
 </nz-card>
 <ng-template #totalTemplate let-total> Total: {{ total }} </ng-template>
-<ng-template #empty><nz-empty></nz-empty></ng-template>
+<ng-template #empty>
+  <nz-empty></nz-empty>
+</ng-template>
