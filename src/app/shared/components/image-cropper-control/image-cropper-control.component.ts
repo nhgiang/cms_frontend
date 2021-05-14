@@ -24,9 +24,11 @@ export class ImageCropperControlComponent extends AbstractControlDirective imple
   @Input() maxSize = 5_000_000;
   @Input() width: number;
   @Input() height: number;
+  @Input() showAction: boolean;
+  @Input() isRequired = true;
   inputId: string;
   imageUrl: string;
-
+  previewVisible: boolean;
   constructor(
     private messageService: NzMessageService,
     private modalService: NzModalService
@@ -75,5 +77,10 @@ export class ImageCropperControlComponent extends AbstractControlDirective imple
         }
       };
     });
+  }
+
+  handleRemove() {
+    this.imageUrl = null;
+    this.onChangeFn(null);
   }
 }

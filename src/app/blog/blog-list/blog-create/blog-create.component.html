@@ -1,26 +1,11 @@
 <nz-card>
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <div class="media align-items-center mb-4" [class.ant-form-item-has-error]="form.controls.coverImage.invalid && form.controls.coverImage.dirty">
-      <app-file-upload-control [customLabel]="true" formControlName="coverImage" (uploaded)="uploaded($event)">
-        <div class="d-flex">
-          <div class="image-cropper">
-            <label for="fileUpload">
-              <div class="avatar">
-                <img class="upload" [src]="imageUrl" alt="image upload" *ngIf="imageUrl">
-                <div class="upload" *ngIf="!imageUrl">+Upload</div>
-              </div>
-            </label>
-          </div>
-          <div class="m-l-20 m-r-20">
-            <label class="label-avatar">Chọn ảnh đại diện cho bài viết <span style="color: #de4436">*</span></label>
-            <p class="opacity-07 font-size-12 m-b-0">
-              Kích thước đề xuất: 357x200 <br>
-              Max file size: 5MB
-            </p>
-            <div *ngIf="form.controls.coverImage.invalid && form.controls.coverImage.dirty" class="ant-form-item-explain ant-form-item-explain-error">Vui lòng tải lên ảnh đại diện bài viết</div>
-          </div>
-        </div>
-      </app-file-upload-control>
+    <div class="media align-items-start mb-4 flex-column d-flex"
+      [class.ant-form-item-has-error]="form.controls.coverImage.invalid && form.controls.coverImage.dirty">
+      <app-image-cropper-control formControlName="coverImage" [width]="357" [height]="200" [showAction]="true">
+      </app-image-cropper-control>
+      <div *ngIf="form.controls.coverImage.invalid && form.controls.coverImage.dirty"
+        class="ant-form-item-explain ant-form-item-explain-error">Vui lòng tải lên ảnh đại diện bài viết</div>
     </div>
     <div class="row">
       <div class="col-6">
@@ -44,7 +29,8 @@
     <nz-form-item>
       <nz-form-label nzSpan="3" class="text-left" nzRequired>Giới thiệu ngắn</nz-form-label>
       <nz-form-control [nzErrorTip]="'Giới thiệu ngắn phải từ 1 đến 255 ký tự'">
-        <textarea nz-input formControlName="description" placeholder="Nhập giới thiệu ngắn, tối đa 255 ký tự"></textarea>
+        <textarea nz-input formControlName="description"
+          placeholder="Nhập giới thiệu ngắn, tối đa 255 ký tự"></textarea>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item class="flex-column">
