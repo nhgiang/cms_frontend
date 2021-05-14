@@ -28,6 +28,7 @@ import { TimeDurationPipe } from './pipes/time-duration.pipe';
 import { CurrencyInputDirective } from './directives/currency-input.directive';
 import { InputNumberComponent } from './controls/input-number/input-number.component';
 import { SelectIconComponent } from './controls/select-icon/select-icon.component';
+import { UploadVimeoControlComponent } from './components/upload-vimeo-control/upload-vimeo-control.component';
 
 @NgModule({
   exports: [
@@ -58,7 +59,8 @@ import { SelectIconComponent } from './controls/select-icon/select-icon.componen
     TimeDurationPipe,
     CurrencyInputDirective,
     InputNumberComponent,
-    SelectIconComponent
+    SelectIconComponent,
+    UploadVimeoControlComponent
   ],
   imports: [
     RouterModule,
@@ -89,7 +91,8 @@ import { SelectIconComponent } from './controls/select-icon/select-icon.componen
     TimeDurationPipe,
     CurrencyInputDirective,
     InputNumberComponent,
-    SelectIconComponent
+    SelectIconComponent,
+    UploadVimeoControlComponent
   ],
   providers: [
     ThemeConstantService
