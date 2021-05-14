@@ -1,15 +1,22 @@
 <div class="media mb-3">
-  <div class="image-cropper">
+  <div class="image-cropper" [class.has-image]="imageUrl && showAction">
     <label for="inputId">
       <div class="avatar">
-        <img class="upload" [src]="imageUrl" alt="image upload"
-          *ngIf="imageUrl">
+        <img class="upload" [src]="imageUrl" alt="image upload" *ngIf="imageUrl">
         <div class="upload" *ngIf="!imageUrl">+Upload</div>
       </div>
     </label>
+    <div class="actions" *ngIf="imageUrl && showAction">
+      <span (click)="previewVisible = true">
+        <i class="mr-3" nz-icon nzType="eye" nzTheme="outline"></i>
+      </span>
+      <span (confirmed)="handleRemove()" [confirmation]="'Bạn có chắc chắn muốn xóa ảnh này không?'">
+        <i nz-icon nzType="delete" nzTheme="outline"></i>
+      </span>
+    </div>
   </div>
   <div class="m-l-20 m-r-20">
-    <label class="label-avatar">Chọn ảnh đại diện cho khoá học</label>
+    <label class="label-avatar">Chọn ảnh đại diện cho khoá học  <span *ngIf="isRequired" class="text-danger">*</span></label>
     <p class="opacity-07 font-size-12 m-b-0">
       Kích thước đề xuất: {{width}}x{{height}} <br>
       Max file size: 5MB
@@ -17,3 +24,10 @@
   </div>
 </div>
 <input #attachment id="inputId" type="file" accept="image/*" class="d-none" (change)="onFileChanged($event)">
+
+<nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+  (nzOnCancel)="previewVisible = false">
+  <ng-template #modalContent>
+    <img [src]="imageUrl" [ngStyle]="{ width: '100%' }" />
+  </ng-template>
+</nz-modal>
