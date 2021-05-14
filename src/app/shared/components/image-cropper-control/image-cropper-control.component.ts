@@ -69,11 +69,14 @@ export class ImageCropperControlComponent extends AbstractControlDirective imple
     });
     modalRef.componentInstance.cropped.subscribe(imageCropped => {
       const reader = new FileReader();
+      const file: any = imageCropped.file;
+      file.name = imageCropped.fileName;
+      file.lastModifiedDate = new Date();
       reader.readAsDataURL(imageCropped.file);
       reader.onload = (event) => {
         this.imageUrl = event.target.result as string;
         if (isFunction(this.onChangeFn)) {
-          this.onChangeFn(imageCropped.file);
+          this.onChangeFn(file);
         }
       };
     });
