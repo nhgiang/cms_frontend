@@ -68,12 +68,12 @@ export class StorageApiService extends BaseApi {
     let videoId;
     return this.createUploadUrl({ name: file.name, size: file.size }).pipe(
       switchMap(res => {
-        videoId = res.link.split('/').slice(-1)[0];
+        videoId = res.id;
         const blob = this.file.slice(0, this.chunkSize);
         return this.uploadToVimeo(res, blob, 0);
       }),
       switchMap(_ => {
-        return this.httpClient.get<{ duration: number, link: string }>(this.createUrl(`/get-video/${videoId}`));
+        return this.httpClient.get<{ duration: number, id: string }>(this.createUrl(`/get-video/${videoId}`));
       })
     );
   }
