@@ -13,7 +13,6 @@ export class StorageApiService extends BaseApi {
   private file: File;
   chunkSize = 200_000_000;
   uploadFile(file: Blob | File | string, fileName?: string): Observable<string> {
-    console.log(file);
     if (!file || typeof file === 'string') {
       return of(file as string);
     }

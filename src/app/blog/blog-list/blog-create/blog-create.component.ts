@@ -66,7 +66,6 @@ export class BlogCreateComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    console.log()
     this.storageApi.uploadFile(this.form.value.coverImage).pipe(switchMap(url => {
       const body = this.form.value;
       body.coverImage = url;
