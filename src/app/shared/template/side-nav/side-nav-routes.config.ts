@@ -161,28 +161,12 @@ export const ROUTES: SideNavInterface[] = [
     submenu: []
   },
   {
-    path: 'blog',
+    path: '',
     title: 'Quản lý bài đăng',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'calendar',
-    submenu: [
-      {
-        path: 'type',
-        title: 'Loại bài viết',
-        submenu: []
-      },
-      {
-        path: 'blog-management',
-        title: 'Danh sách bài viết',
-        submenu: []
-      },
-      {
-        path: 'hottest',
-        title: 'Bài viết hot nhất',
-        submenu: []
-      }
-    ]
+    submenu: []
   },
   {
     path: '',

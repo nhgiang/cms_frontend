@@ -19,8 +19,4 @@ export class UnitTestApiService extends BaseApi {
   update(id: string, body = {}): Observable<any> {
     return this.httpClient.put(this.createUrl(`/${id}`), body);
   }
-
-  delete(id: string) {
-    return this.httpClient.delete(this.createUrl(`/${id}`))
-  }
 }

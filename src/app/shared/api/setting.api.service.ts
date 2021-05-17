@@ -56,10 +56,5 @@ export class SettingApiService extends BaseApi {
   hottestCoruse = {
     get: () => this.httpClient.get<any>(this.createUrl('-hottest-courses')),
     post: (body: any) => this.httpClient.post(this.createUrl('-hottest-courses'), body)
-  };
-
-  hottestBlog = {
-    get: () => this.httpClient.get<any>(this.createUrl('-hottest-blogs')),
-    post: (body: any) => this.httpClient.post(this.createUrl('-hottest-blogs'), body)
-  };
+  }
 }

@@ -60,7 +60,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
 
   writeValue(obj: any) {
     super.writeValue(obj);
-    if (isEmpty(obj)) { return; }
+    if (isEmpty(obj)) return;
     this.getOptionsFn({ page: 1, ids: isArray(obj) ? obj : [obj] }).pipe(
       tap(data => {
         this.options = uniqBy([...this.options, ...data], 'value');
@@ -79,8 +79,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
         this.page = 1;
         this.isLoading = true;
       }),
-      // tslint:disable-next-line: max-line-length
-      switchMap(q => this.getOptionsFn({ page: 1, q }).pipe(finalize(() => this.isLoading = false), tap((res) => { if (res.length > 0) { ++this.page; } }))),
+      switchMap(q => this.getOptionsFn({ page: 1, q }).pipe(finalize(() => this.isLoading = false))),
       takeUntil(this.destroy)
     ).subscribe(data => {
       this.options = data;
@@ -91,10 +90,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
   loadMore(): void {
     this.loadMore$.pipe(
       tap(() => this.isLoading = true),
-      // tslint:disable-next-line: max-line-length
-      concatMap(() => this.getOptionsFn({ page: this.page, q: this.q }).pipe(finalize(() => this.isLoading = false), tap(res => {
-        this.page++;
-      }))),
+      concatMap(() => this.getOptionsFn({ page: ++this.page, q: this.q }).pipe(finalize(() => this.isLoading = false))),
       takeUntil(this.destroy)
     ).subscribe(this.pushToOption);
   }
@@ -115,7 +111,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
     this.options = this.options.map(option => {
       return {
         ...option,
-        disabled: this.optionsDisabled.some(t => t.id === option.value)
+        disabled: this.optionsDisabled.some(t => t.courseId === option.value)
       };
     });
   }

@@ -15,7 +15,7 @@
             <td>Top {{ i + 1 }}</td>
             <td>
               <select-advance placeholder="Chọn khóa học" [getOptionsFn]="courses$" style="min-width: 220px"
-                formControlName="courseId" [optionsDisabled]="optionsDisabled" [hasNullOption]="true">
+                formControlName="courseId" [optionsDisabled]="form.value" [hasNullOption]="true">
               </select-advance>
             </td>
             <td class="text-center">
@@ -28,8 +28,8 @@
         </tbody>
       </nz-table>
       <div class="text-right mt-4">
+        <button nz-button nzType="primary" (click)="submit()" class="mr-3">Lưu lại</button>
         <button nz-button nzType="primary" nzGhost [routerLink]="['/dashboard/home']">Quay lại</button>
-        <button nz-button nzType="primary" (click)="submit()" class="ml-3">Xác nhận</button>
       </div>
     </div>
   </div>

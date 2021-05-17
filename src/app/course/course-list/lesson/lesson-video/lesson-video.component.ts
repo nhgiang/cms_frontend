@@ -50,13 +50,13 @@ export class LessonVideoComponent implements OnInit, OnChanges {
     this.isLoading = true;
     forkJoin({
       file: this.storageApi.uploadFiles(this.form.value.attachments),
-      video: this.storageApi.uploadVideoFile(this.form.value.video)
+      video: this.storageApi.uploadVideo(this.form.value.video)
     }).pipe(switchMap(({ file, video }) => {
       const data = {
         title: this.form.value.title.trim(),
         lessionId: this.lessonId,
         duration: typeof video === 'string' ? this.unit.duration : video.duration,
-        video: typeof video === 'string' ? video : 'https://player.vimeo.com/video/' + video.id,
+        video: typeof video === 'string' ? video : video.path,
         attachments: file
       };
       return this.unit ? this.unitApi.editUnit(this.route.snapshot.paramMap.get('unitId'), data) : this.unitApi.createUnit(data);

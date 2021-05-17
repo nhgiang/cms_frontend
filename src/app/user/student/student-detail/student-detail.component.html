@@ -1,10 +1,10 @@
 <div class="container-fluid m-0">
   <nz-card>
     <div class="row align-items-center">
-      <div class="col-xl-7 col-md-6 d-flex justify-content-between">
+      <div class="col-md-7">
         <div class="d-md-flex align-items-center">
           <div class="text-center text-sm-left ">
-            <nz-avatar class="shadow-sm m-v-15" nzIcon="user" [nzSize]="111" [nzSrc]="user?.avatar"></nz-avatar>
+            <nz-avatar class="shadow-sm m-v-15"  nzIcon="user" [nzSize]="111" [nzSrc]="user?.avatar"></nz-avatar>
           </div>
           <div class="text-center text-sm-left m-v-15 p-l-30">
             <h4 class="m-b-0">{{user?.fullName}}</h4>
@@ -18,46 +18,46 @@
               [confirmation]="'Bạn có chắc chắn muốn khóa tài khoản học viên này không?'">{{ btnUserStatus }} </button>
           </div>
         </div>
-        <div class="d-md-block d-none border-left"></div>
       </div>
-      <div class="col-xl-5 col-md-6">
+      <div class="col-md-5">
         <div class="row">
-          <div class="col font-size-12">
-            <ul class="list-unstyled m-t-10 list-info">
+          <div class="d-md-block d-none border-left col-1"></div>
+          <div class="col font-size-10">
+            <ul class="list-unstyled m-t-10">
               <li class="row">
-                <p class="col-md-4 font-weight-semibold text-dark m-b-5">
+                <p class="col-sm-3 col-4 font-weight-semibold text-dark m-b-5">
                   <i class="m-r-10 text-primary" nz-icon nzType="mail" theme="outline"></i>
                   <span>Email: </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold"> {{ user?.email }}</p>
+                <p class="col font-weight-semibold"> {{ user?.email }}</p>
               </li>
               <li class="row">
-                <p class="col-md-4 font-weight-semibold text-dark m-b-5">
+                <p class="col-sm-3 col-4 font-weight-semibold text-dark m-b-5">
                   <i class="m-r-10 text-primary" nz-icon nzType="phone" theme="outline"></i>
                   <span>Số điện thoại: </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold">{{ user?.phoneNumber }}</p>
+                <p class="col font-weight-semibold">{{ user?.phoneNumber }}</p>
               </li>
               <li class="row">
-                <p class="col-md-4 font-weight-semibold text-dark m-b-5">
+                <p class="col-sm-3 col-4 font-weight-semibold text-dark m-b-5">
                   <i class="m-r-10 text-primary" nz-icon nzType="man" theme="outline"></i>
                   <span>Giới tính: </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold"> {{ user?.gender }}</p>
+                <p class="col font-weight-semibold"> {{ user?.gender }}</p>
               </li>
               <li class="row">
-                <p class="col-md-4 font-weight-semibold text-dark m-b-5">
+                <p class="col-sm-3 col-4 font-weight-semibold text-dark m-b-5">
                   <i class="m-r-10 text-primary" nz-icon nzType="calendar" theme="outline"></i>
                   <span>Ngày sinh: </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold">{{ user?.dateOfBirth | date: 'dd/MM/yyyy' }}</p>
+                <p class="col font-weight-semibold">{{ user?.dateOfBirth | date: 'dd/MM/yyyy' }}</p>
               </li>
               <li class="row">
-                <p class="col-md-4 font-weight-semibold text-dark m-b-5">
+                <p class="col-sm-3 col-4 font-weight-semibold text-dark m-b-5">
                   <i class="m-r-10 text-primary" nz-icon nzType="compass" theme="outline"></i>
                   <span>Địa chỉ : </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold"> {{ user?.address }}</p>
+                <p class="col font-weight-semibold"> {{ user?.address }}</p>
               </li>
             </ul>
           </div>
