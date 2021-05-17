@@ -1,5 +1,22 @@
 import { DecimalPipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, OnInit, Optional, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Output,
+  SimpleChanges,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NzInputNumberComponent } from 'ng-zorro-antd/input-number';
 import { Direction, Directionality } from '@angular/cdk/bidi';
@@ -36,7 +53,7 @@ export class InputNumberComponent implements ControlValueAccessor, AfterViewInit
   static ngAcceptInputType_nzDisabled: BooleanInput;
   static ngAcceptInputType_nzAutoFocus: BooleanInput;
   currencyChars = new RegExp('[\.,]', 'g');
-  private autoStepTimer?: number;
+  private autoStepTimer?: any;
   private parsedValue?: string | number;
   private value?: number;
   private destroy$ = new Subject<void>();
@@ -45,8 +62,8 @@ export class InputNumberComponent implements ControlValueAccessor, AfterViewInit
   disabledUp = false;
   disabledDown = false;
   dir: Direction = 'ltr';
-  onChange: OnChangeType = () => {};
-  onTouched: OnTouchedType = () => {};
+  onChange: OnChangeType = () => { };
+  onTouched: OnTouchedType = () => { };
   @Output() readonly nzBlur = new EventEmitter();
   @Output() readonly nzFocus = new EventEmitter();
   @ViewChild('inputElement', { static: true }) inputElement!: ElementRef<HTMLInputElement>;
