@@ -33,6 +33,6 @@ export class StoryComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.settingApi.stories.post(this.form.value).pipe(finalize(() => this.isLoading = false)).subscribe(() => this.notification.success('Thành Công', ''));
+    this.settingApi.stories.post(this.form.value).pipe(finalize(() => this.isLoading = false)).subscribe(() => this.notification.success('Thành Công', 'Cập nhật thông tin câu chuyện thành công'));
   }
 }
