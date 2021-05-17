@@ -40,13 +40,5 @@ export const CommonLayoutRoutes: Routes = [
       headerDisplay: true,
       title: 'Thông tin tư vấn'
     }
-  },
-  {
-    path: 'blog',
-    loadChildren: () => import('src/app/blog/blog.module').then(m => m.BlogModule),
-    data: {
-      headerDisplay: true,
-      title: 'Quản lý bài viết'
-    }
   }
 ];

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
 import { AssetType, FileUploadErrors, UploaderStatus } from 'types/enums';
@@ -26,9 +26,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class FileUploadControlComponent extends AbstractControlDirective implements OnInit {
   @ViewChild('attachment', { static: false }) attachment: ElementRef;
   @Input() fileType: AssetType;
-  @Input() maxSize = 5_000_000;
+  @Input() maxSize: number;
   @Input() customLabel = false;
-  @Output() uploaded = new EventEmitter();
   AssetType = AssetType;
   url: any;
   file: File;
@@ -70,7 +69,6 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
     reader.readAsDataURL(this.file);
     reader.onload = (event) => {
       this.url = event.target.result;
-      this.uploaded.emit(this.url);
       if (isFunction(this.onChangeFn)) {
         this.onChangeFn(this.file);
       }
