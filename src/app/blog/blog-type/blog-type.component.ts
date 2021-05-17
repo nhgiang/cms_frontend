@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { PostTypesApiService } from '@shared/api/post-types.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { BlogType, QueryResult } from 'types/typemodel';
 import { BlogTypeCreateComponent } from './blog-type-create/blog-type-create.component';
 import { BlogTypeEditComponent } from './blog-type-edit/blog-type-edit.component';
