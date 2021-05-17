@@ -73,8 +73,6 @@ export class CreateCourseComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form);
-
     Ultilities.validateForm(this.form);
     this.isLoading = true;
     iif(() => (this.form.controls.photo.value instanceof Blob),

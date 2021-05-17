@@ -46,9 +46,8 @@ export class HottestCourseComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form.value)
     this.settingApi.hottestCoruse.post(this.form.value).subscribe(() => {
-      this.notification.success('Thành công', '');
+      this.notification.success('Thành công', 'Cập nhật thông tin khóa học hot nhất thành công!');
     });
   }
 }
