@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, ElementRef, forwardRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, OnInit, Output, ViewChild } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { UploaderStatus, AssetType } from 'types/enums';
-import { isFunction } from 'util';
 import Player from '@vimeo/player';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { UploaderStatus } from 'types/enums';
+import { isFunction } from 'util';
 
 @Component({
   selector: 'app-upload-vimeo-control',
@@ -22,6 +22,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 export class UploadVimeoControlComponent extends AbstractControlDirective implements OnInit, AfterViewInit {
   @ViewChild('vimeo', { static: false }) vimeo: ElementRef;
   @ViewChild('video', { static: false }) video: ElementRef;
+  @Output() duration = new EventEmitter();
   UploaderStatus = UploaderStatus;
   status: UploaderStatus = UploaderStatus.NotSelected;
   url: any;
@@ -48,7 +49,6 @@ export class UploadVimeoControlComponent extends AbstractControlDirective implem
       this.status = UploaderStatus.Selected;
       setTimeout(() => {
         this.player = new Player(this.vimeo.nativeElement, {
-          controls: false,
           id: this.url.split('/').slice(-1)[0]
         });
       });
