@@ -2,7 +2,7 @@
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="media align-items-start mb-4 flex-column d-flex"
       [class.ant-form-item-has-error]="form.controls.coverImage.invalid && form.controls.coverImage.dirty">
-      <app-image-cropper-control formControlName="coverImage" [width]="357" [height]="200" [showAction]="false">
+      <app-image-cropper-control formControlName="coverImage" [width]="357" [height]="200" [showAction]="true">
       </app-image-cropper-control>
       <div *ngIf="form.controls.coverImage.invalid && form.controls.coverImage.dirty"
         class="ant-form-item-explain ant-form-item-explain-error">Vui lòng tải lên ảnh đại diện bài viết</div>
