@@ -37,14 +37,14 @@ const routes: Routes = [
     path: 'type',
     component: BlogTypeComponent,
     data: {
-      title: 'Quản lý loại bài viết'
+      title: 'Danh sách loại bài viết'
     }
   },
   {
     path: 'hottest',
     component: BlogHottestComponent,
     data: {
-      title: 'Quản lý bài viết hot nhất'
+      title: 'Bài viết hot nhất'
     }
   }
 ];
