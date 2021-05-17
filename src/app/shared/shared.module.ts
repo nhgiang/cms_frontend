@@ -27,6 +27,8 @@ import { ImageCropperControlComponent } from './components/image-cropper-control
 import { TimeDurationPipe } from './pipes/time-duration.pipe';
 import { CurrencyInputDirective } from './directives/currency-input.directive';
 import { InputNumberComponent } from './controls/input-number/input-number.component';
+import { SelectIconComponent } from './controls/select-icon/select-icon.component';
+import { UploadVimeoControlComponent } from './components/upload-vimeo-control/upload-vimeo-control.component';
 
 @NgModule({
   exports: [
@@ -56,7 +58,9 @@ import { InputNumberComponent } from './controls/input-number/input-number.compo
     ImageCropperControlComponent,
     TimeDurationPipe,
     CurrencyInputDirective,
-    InputNumberComponent
+    InputNumberComponent,
+    SelectIconComponent,
+    UploadVimeoControlComponent
   ],
   imports: [
     RouterModule,
@@ -86,7 +90,9 @@ import { InputNumberComponent } from './controls/input-number/input-number.compo
     ImageCropperControlComponent,
     TimeDurationPipe,
     CurrencyInputDirective,
-    InputNumberComponent
+    InputNumberComponent,
+    SelectIconComponent,
+    UploadVimeoControlComponent
   ],
   providers: [
     ThemeConstantService

@@ -24,9 +24,11 @@ export class ImageCropperControlComponent extends AbstractControlDirective imple
   @Input() maxSize = 5_000_000;
   @Input() width: number;
   @Input() height: number;
+  @Input() showAction: boolean;
+  @Input() isRequired = true;
   inputId: string;
   imageUrl: string;
-
+  previewVisible: boolean;
   constructor(
     private messageService: NzMessageService,
     private modalService: NzModalService
@@ -67,13 +69,21 @@ export class ImageCropperControlComponent extends AbstractControlDirective imple
     });
     modalRef.componentInstance.cropped.subscribe(imageCropped => {
       const reader = new FileReader();
+      const file: any = imageCropped.file;
+      file.name = imageCropped.fileName;
+      file.lastModifiedDate = new Date();
       reader.readAsDataURL(imageCropped.file);
       reader.onload = (event) => {
         this.imageUrl = event.target.result as string;
         if (isFunction(this.onChangeFn)) {
-          this.onChangeFn(imageCropped.file);
+          this.onChangeFn(file);
         }
       };
     });
+  }
+
+  handleRemove() {
+    this.imageUrl = null;
+    this.onChangeFn(null);
   }
 }

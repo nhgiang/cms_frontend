@@ -1,6 +1,7 @@
+import { HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map, retry, switchMap, tap } from 'rxjs/operators';
 import { VideoAsset } from 'types/typemodel';
 import { BaseApi } from './base-api';
 
@@ -9,8 +10,10 @@ import { BaseApi } from './base-api';
 })
 export class StorageApiService extends BaseApi {
   endpoint = 'files';
-
+  private file: File;
+  chunkSize = 200_000_000;
   uploadFile(file: Blob | File | string, fileName?: string): Observable<string> {
+    console.log(file);
     if (!file || typeof file === 'string') {
       return of(file as string);
     }
@@ -22,7 +25,6 @@ export class StorageApiService extends BaseApi {
   }
 
   uploadFiles(files: Blob[] | File[] | string[] | any[]): Observable<string[]> {
-    console.log(files)
     if (!files || !files.some(file => typeof file !== 'string')) {
       return of(files as string[]);
     }
@@ -43,12 +45,59 @@ export class StorageApiService extends BaseApi {
       }));
   }
 
-  uploadVideo(file: Blob | File | string, fileName?: string): Observable<VideoAsset | string> {
+  uploadVideo(file: Blob | File | string, fileName?: string) {
     if (!file || typeof file === 'string') {
       return of(file as string);
     }
     const form = new FormData();
     form.append('file', file, fileName || ((file as any).name || 'unknownfile'));
-    return this.httpClient.post<VideoAsset>(this.createUrl('/upload-video'), form);
+    return this.httpClient.post<VideoAsset>(this.createUrl('/upload-video'), form).pipe(tap(console.log));
+  }
+
+  createUploadUrl(body: {
+    name: string,
+    size: number
+  }) {
+    return this.httpClient.post<any>(this.createUrl('/create-video'), body);
+  }
+
+  uploadVideoFile(file: File | string, fileName?: string) {
+    if (typeof file === 'string') {
+      return of(file);
+    }
+    this.file = file;
+    let videoId;
+    return this.createUploadUrl({ name: file.name, size: file.size }).pipe(
+      switchMap(res => {
+        videoId = res.id;
+        const blob = this.file.slice(0, this.chunkSize);
+        return this.uploadToVimeo(res, blob, 0);
+      }),
+      switchMap(_ => {
+        return this.httpClient.get<{ duration: number, id: string }>(this.createUrl(`/get-video/${videoId}`));
+      })
+    );
+  }
+
+  uploadToVimeo(res, file, offset?: number): Observable<any> {
+    if (offset < this.file.size) {
+      const headers = new HttpHeaders({
+        'Tus-Resumable': '1.0.0',
+        'Content-Type': 'application/offset+octet-stream',
+        'Upload-Offset': `${offset || 0}`,
+        'Accept': 'application/vnd.vimeo.*+json;version=3.4',
+      });
+
+      return this.httpClient.patch(`${res.uploadLink}`, file, {
+        headers,
+        observe: 'response'
+      }).pipe(filter(event => event.type === HttpEventType.Response), switchMap(t => {
+        const offSet = t.headers.get('upload-offset');
+        const blob = this.file.slice(+offSet, +offSet + this.chunkSize);
+        return this.uploadToVimeo(res, blob, +offSet);
+      }));
+    } else {
+      return of(null);
+    }
   }
 }

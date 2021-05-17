@@ -5,6 +5,7 @@ import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course-type-edit',
@@ -15,6 +16,7 @@ export class CourseTypeEditComponent implements OnInit {
   @Input() id: string;
   @Output() edited = new EventEmitter();
   form: FormGroup;
+  loading: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -42,7 +44,8 @@ export class CourseTypeEditComponent implements OnInit {
       name: this.form.value.name.trim(),
       id: this.id
     };
-    this.courseTypesApi.update(this.id, data).subscribe(() => {
+    this.loading = true;
+    this.courseTypesApi.update(this.id, data).pipe(finalize(() => this.loading = false)).subscribe(() => {
       this.modalRef.close();
       this.notification.success('Thành công', 'Cập nhật loại khóa học thành công');
       this.edited.emit();
