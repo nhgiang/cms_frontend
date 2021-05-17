@@ -25,7 +25,7 @@
                 <i nz-icon nzType="edit" theme="outline"></i>
               </a>
               <div (confirmed)="deleteTeacher(item?.id)"
-                [confirmation]="'Bạn có chắc muốn xóa thông tin loại khóa học này hay không?'">
+                [confirmation]="'Bạn có chắc muốn xóa thông tin loại bài viết này hay không?'">
                 <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
                   <i nz-icon nzType="close" nzTheme="outline"></i>
                 </a>
@@ -37,4 +37,4 @@
     </nz-table>
   </div>
 </nz-card>
-<ng-template #totalTemplate let-total> Total: {{ total }} </ng-template>
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>

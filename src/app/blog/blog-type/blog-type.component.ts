@@ -36,7 +36,7 @@ export class BlogTypeComponent extends DataTableContainer<BlogType> {
 
   deleteTeacher(id: string) {
     this.postTypeApi.delete(id).subscribe(() => {
-      this.notification.success('Thành công', 'Xóa thôn tin loại bài viết thành công!');
+      this.notification.success('Thành công', 'Xóa thông tin loại bài viết thành công!');
       this.refresh();
     });
   }
