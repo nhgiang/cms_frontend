@@ -42,6 +42,10 @@ export abstract class DataTableContainer<T> implements OnInit {
     this.refreshTrigger.next();
   }
 
+  onPageChanged(e) {
+    this.navigate({ ...this.currentParams, page: e });
+  }
+
   onSearchParamsChanged(params: { [key: string]: any }) {
     this.navigate({ ...this.currentParams, page: 1, ...params });
   }
