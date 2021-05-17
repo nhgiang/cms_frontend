@@ -179,7 +179,7 @@ export const ROUTES: SideNavInterface[] = [
       },
       {
         path: 'hottest',
-        title: 'Danh sách bài viết hot nhất',
+        title: 'Bài viết hot nhất',
         submenu: []
       }
     ]

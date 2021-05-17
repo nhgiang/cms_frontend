@@ -5,7 +5,7 @@
         <thead>
           <tr>
             <th scope="col">Thứ tự</th>
-            <th scope="col" [nzWidth]="'50%'">Khóa học</th>
+            <th scope="col" [nzWidth]="'50%'">Bài viết</th>
             <th scope="col" class="text-center">Lượt xem</th>
             <th scope="col" class="text-center">Ngày xuất bản</th>
           </tr>
@@ -14,7 +14,7 @@
           <tr *ngFor="let item of form.controls; let i = index" [formGroup]="item">
             <td>Top {{ i + 1 }}</td>
             <td>
-              <select-advance placeholder="Chọn khóa học" [getOptionsFn]="blog$" style="min-width: 220px"
+              <select-advance placeholder="Chọn bài viết" [getOptionsFn]="blog$" style="min-width: 220px"
                 formControlName="blogId" [optionsDisabled]="optionsDisabled" [hasNullOption]="true">
               </select-advance>
             </td>
