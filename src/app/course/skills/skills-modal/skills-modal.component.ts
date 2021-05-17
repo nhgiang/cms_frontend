@@ -61,7 +61,8 @@ export class SkillsModalComponent implements OnInit {
       finalize(() => this.isLoading = false)
     ).subscribe(
       () => {
-        this.notificationService.success('Thành công', '');
+        // tslint:disable-next-line: max-line-length
+        this.notificationService.success('Thành công', (this.type === 'edit') ? 'Cập nhật kĩ năng thành công' : 'Tạo mới kĩ năng thành công');
         this.modalRef.close(true);
       }
     );
