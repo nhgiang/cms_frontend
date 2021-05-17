@@ -47,7 +47,7 @@ export class BlogTypeEditComponent implements OnInit {
     this.loading = true;
     this.postTypesApi.update(this.id, data).pipe(finalize(() => this.loading = false)).subscribe(() => {
       this.modalRef.close();
-      this.notification.success('Thành công', 'Cập nhật loại bài viết thành công');
+      this.notification.success('Thành công', 'Cập nhật thông tin loại bài viết thành công');
       this.edited.emit();
     });
   }

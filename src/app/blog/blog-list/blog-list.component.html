@@ -53,7 +53,7 @@
                 [confirmation]="'Bạn có chắc chắn muốn xóa thông tin bài viết này không?'"
                 (confirmed)="deleteItem(item?.id)">Xóa</span>
               <button nzType="primary" nz-button [nzSize]="'small'" style="width: 100px" [routerLink]="[item?.id]">Chỉnh
-                xửa</button>
+                sửa</button>
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@
     </div>
   </ng-container>
 </nz-card>
-<ng-template #totalTemplate let-total> Total: {{ total }} </ng-template>
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>
 <ng-template #empty>
-  <nz-empty></nz-empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
 </ng-template>
