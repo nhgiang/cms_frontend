@@ -40,7 +40,7 @@
         <span>
           <i nz-icon nzType="edit" nzTheme="outline" class="mr-4" (click)="editUnit(item?.id, item.type)"></i>
         </span>
-        <span [confirmation]="'Bạn có chắc chắn muốn xóa bài giảng này không?'" (confirmed)="deleteUnit(item?.id)">
+        <span [confirmation]="'Bạn có chắc chắn muốn xóa bài giảng này không?'" (confirmed)="deleteUnit(item?.id, item?.type)">
           <i nz-icon nzType="close-circle" nzTheme="outline"></i>
         </span>
       </div>

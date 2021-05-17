@@ -56,7 +56,7 @@ export class LessonVideoComponent implements OnInit, OnChanges {
         title: this.form.value.title.trim(),
         lessionId: this.lessonId,
         duration: typeof video === 'string' ? this.unit.duration : video.duration,
-        video: typeof video === 'string' ? video : 'https://player.vimeo.com/' + video.id,
+        video: typeof video === 'string' ? video : 'https://player.vimeo.com/video/' + video.id,
         attachments: file
       };
       return this.unit ? this.unitApi.editUnit(this.route.snapshot.paramMap.get('unitId'), data) : this.unitApi.createUnit(data);
