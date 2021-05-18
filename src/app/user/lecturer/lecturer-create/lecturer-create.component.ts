@@ -63,6 +63,7 @@ export class LecturerCreateComponent implements OnInit {
         this.form.get('email').setErrors({ notUnique: true });
       }
     });
+
   }
 
   private getBase64(img: Blob | File, callback: (img: {}) => void): void {

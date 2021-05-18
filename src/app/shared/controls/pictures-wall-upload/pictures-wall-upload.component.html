@@ -10,7 +10,7 @@
   <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
     (nzOnCancel)="previewVisible = false">
     <ng-template #modalContent>
-      <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+      <img [src]="previewImage" [ngStyle]="{ width: '100%' }" alt="image" />
     </ng-template>
   </nz-modal>
 </div>

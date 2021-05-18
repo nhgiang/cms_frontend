@@ -1,7 +1,7 @@
 import { HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { filter, map, retry, switchMap, tap } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { VideoAsset } from 'types/typemodel';
 import { BaseApi } from './base-api';
 
@@ -84,7 +84,7 @@ export class StorageApiService extends BaseApi {
         'Tus-Resumable': '1.0.0',
         'Content-Type': 'application/offset+octet-stream',
         'Upload-Offset': `${offset || 0}`,
-        'Accept': 'application/vnd.vimeo.*+json;version=3.4',
+        Accept: 'application/vnd.vimeo.*+json;version=3.4',
       });
 
       return this.httpClient.patch(`${res.uploadLink}`, file, {

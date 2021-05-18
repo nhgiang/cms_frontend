@@ -16,6 +16,6 @@ export const trimData = (data: any) => {
       return trimData(e);
     });
   }
-  if (typeof data === 'string') { data.trim() };
+  if (typeof data === 'string') { data.trim(); }
   return data;
 };

@@ -31,6 +31,6 @@ export class CourseApiService extends BaseApi {
   }
 
   publish(id) {
-    return this.httpClient.patch(this.createUrl(`/${id}/publish`), null)
+    return this.httpClient.patch(this.createUrl(`/${id}/publish`), null);
   }
 }
