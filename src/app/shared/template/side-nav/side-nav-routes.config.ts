@@ -60,6 +60,11 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Chuyên môn',
         submenu: []
       },
+      {
+        path: 'certification',
+        title: 'Chứng chỉ',
+        submenu: []
+      },
     ]
   },
   {

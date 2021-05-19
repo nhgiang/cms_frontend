@@ -19,6 +19,7 @@ import { LessonVideoComponent } from './course-list/lesson/lesson-video/lesson-v
 import { EditCourseComponent } from './course-list/edit-course/edit-course.component';
 import { LessonTestComponent } from './course-list/lesson/lesson-test/lesson-test.component';
 import { QuestionComponent } from './course-list/lesson/lesson-test/question/question.component';
+import { CertificationComponent } from './certification/certification.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { QuestionComponent } from './course-list/lesson/lesson-test/question/que
     LessonVideoComponent,
     EditCourseComponent,
     LessonTestComponent,
-    QuestionComponent
+    QuestionComponent,
+    CertificationComponent
   ]
 })
 export class CourseModule { }

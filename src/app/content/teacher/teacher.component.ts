@@ -6,7 +6,7 @@ import { DestroyService } from '@shared/services/destroy.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Subject } from 'rxjs';
-import { debounceTime, skip, switchMap, takeUntil, takeWhile, tap } from 'rxjs/operators';
+import { debounceTime, skip, switchMap, takeUntil, takeWhile } from 'rxjs/operators';
 import { SettingTeacher } from 'types/typemodel';
 import { ContentStateService } from '../content-state.service';
 import { TeacherCreateComponent } from './teacher-create/teacher-create.component';

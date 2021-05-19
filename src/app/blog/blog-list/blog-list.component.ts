@@ -5,7 +5,7 @@ import { PostsApiService } from '@shared/api/posts.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
-import { debounceTime, finalize, tap } from 'rxjs/operators';
+import { debounceTime, tap } from 'rxjs/operators';
 import { QueryResult } from 'types/typemodel';
 
 @Component({
