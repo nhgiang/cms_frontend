@@ -16,11 +16,8 @@
     </div>
   </div>
   <div class="m-l-20 m-r-20">
-    <label class="label-avatar">Chọn ảnh đại diện cho khoá học  <span *ngIf="isRequired" class="text-danger">*</span></label>
-    <p class="opacity-07 font-size-12 m-b-0">
-      Kích thước đề xuất: {{width}}x{{height}} <br>
-      Max file size: 5MB
-    </p>
+    <!-- <ng-container *stringTemplateOutlet="hint">{{hint}}</ng-container> -->
+    <ng-content></ng-content>
   </div>
 </div>
 <input #attachment id="inputId" type="file" accept="image/*" class="d-none" (change)="onFileChanged($event)">

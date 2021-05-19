@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IconApiService } from '@shared/api/icon.api.service';
-import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { iif, Observable } from 'rxjs';
-import { of } from 'rxjs/internal/observable/of';
-import { finalize, map, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { finalize, map } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 import { ICourseSkills } from 'types/models/course-skills.model';
 import { trimData } from 'utils/common';
@@ -33,7 +31,6 @@ export class SkillsModalComponent implements OnInit {
     fb: FormBuilder,
     private modalRef: NzModalRef,
     private notificationService: NzNotificationService,
-    private storageApiService: StorageApiService,
     private iconApiService: IconApiService
   ) {
     this.form = fb.group({

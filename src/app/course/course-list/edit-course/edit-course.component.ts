@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { CourseApiService } from '@shared/api/course.api.service';
 import { FeedbackApiService } from '@shared/api/feedback.api.service';
@@ -10,14 +10,14 @@ import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { FeedbackFormComponent } from '@shared/components/feedback-form/feedback-form.component';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import { omit } from 'lodash-es';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { iif, of } from 'rxjs';
-import { map, tap, switchMap, finalize } from 'rxjs/operators';
+import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { AssetType, VideoType } from 'types/enums';
 import { Course, Feedback } from 'types/models/course';
 import { VideoAsset } from 'types/typemodel';
-import { omit } from 'lodash-es';
 import { trimData } from 'utils/common';
 
 @Component({
@@ -98,7 +98,7 @@ export class EditCourseComponent implements OnInit {
       switchMap(() => {
         if (this.form.get('videoIntro').value instanceof File) {
           return this.storageApiService.uploadVideo(this.form.get('videoIntro').value).pipe(tap(data => {
-            this.form.get('videoIntro').patchValue((data as VideoAsset).path)
+            this.form.get('videoIntro').patchValue((data as VideoAsset).path);
           }));
         }
         return of(true);
@@ -163,13 +163,13 @@ export class EditCourseComponent implements OnInit {
       return this.feedbackApi.getByCourse(this.course.id);
     })).subscribe(res => {
       this.feedbacks = res;
-      this.notification.success('Thành công', 'Xóa thông tin đánh giá của học viên thành công!')
+      this.notification.success('Thành công', 'Xóa thông tin đánh giá của học viên thành công!');
     });
   }
 
   publish() {
     this.courseApiService.publish(this.course.id).subscribe(() => {
-      this.notification.success('Thành công', 'Công khai khóa học thành công!')
+      this.notification.success('Thành công', 'Công khai khóa học thành công!');
     }, err => {
       this.notification.success('Thất bại', 'Khóa học phải có bài giảng mới có thể công khai!');
     });

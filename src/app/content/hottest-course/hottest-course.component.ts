@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { CourseApiService } from '@shared/api/course.api.service';
 import { SettingApiService } from '@shared/api/setting.api.service';

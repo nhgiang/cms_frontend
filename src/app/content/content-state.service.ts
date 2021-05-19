@@ -49,7 +49,7 @@ export class ContentStateService {
 
   updateDescripton(description: string) {
     const newSettingTeacherState = {
-      description: description,
+      description,
       teachers: [...this.setttingTeacher.teachers],
     };
     return this.settingApi.teacher

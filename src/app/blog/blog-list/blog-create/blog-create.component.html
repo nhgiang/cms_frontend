@@ -3,6 +3,11 @@
     <div class="media align-items-start mb-4 flex-column d-flex"
       [class.ant-form-item-has-error]="form.controls.coverImage.invalid && form.controls.coverImage.dirty">
       <app-image-cropper-control formControlName="coverImage" [width]="357" [height]="200" [showAction]="true">
+        <label class="label-avatar">Chọn ảnh đại diện cho bài viết <span class="text-danger">*</span></label>
+        <p class="opacity-07 font-size-12 m-b-0">
+          Kích thước đề xuất: 357x200 <br>
+          Max file size: 5MB
+        </p>
       </app-image-cropper-control>
       <div *ngIf="form.controls.coverImage.invalid && form.controls.coverImage.dirty"
         class="ant-form-item-explain ant-form-item-explain-error">Vui lòng tải lên ảnh đại diện bài viết</div>

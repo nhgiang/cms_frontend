@@ -8,7 +8,7 @@ import { Option } from '@shared/interfaces/option.type';
 import { IPaginate } from '@shared/interfaces/paginate.type';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilKeyChanged, map } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
 import { DataTableColumnMetaData, User } from 'types/typemodel';
 
 @Component({
