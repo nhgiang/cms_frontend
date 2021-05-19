@@ -1,6 +1,6 @@
 <div class="media mb-3">
   <div class="image-cropper" [class.has-image]="imageUrl && showAction">
-    <label for="inputId">
+    <label [for]="inputId">
       <div class="avatar">
         <img class="upload" [src]="imageUrl" alt="image upload" *ngIf="imageUrl">
         <div class="upload" *ngIf="!imageUrl">+Upload</div>
@@ -16,11 +16,10 @@
     </div>
   </div>
   <div class="m-l-20 m-r-20">
-    <!-- <ng-container *stringTemplateOutlet="hint">{{hint}}</ng-container> -->
     <ng-content></ng-content>
   </div>
 </div>
-<input #attachment id="inputId" type="file" accept="image/*" class="d-none" (change)="onFileChanged($event)">
+<input #attachment [id]="inputId" type="file" accept="image/*" class="d-none" (change)="onFileChanged($event)">
 
 <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
   (nzOnCancel)="previewVisible = false">

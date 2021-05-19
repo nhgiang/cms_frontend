@@ -45,25 +45,29 @@ export class CertificationComponent implements OnInit {
     this.certificateApi.get().subscribe((res: any) => {
       this.template = Mustache.render(res.template,
         {
-          ...res,
-          companyName: 'CÔNG TY TNHH TƯ VẤN VÀ ĐÀO TẠO BEAUTYUP',
           courseName: 'chăm sóc da cơ bản',
-          fullName: 'Lâm tiểu vy'
+          username: 'Lâm tiểu vy',
+          time: '24/02/2021',
+          signature: this.signature.imageUrl,
+          logo: this.logo.imageUrl,
+          companyName: res.companyName,
+          director: res.director,
+          address: res.address,
         });
       this.form.patchValue({ ...res }, { emitEvent: false });
     });
     this.form.valueChanges.subscribe(value => {
-      console.log(this.signature)
       setTimeout(() => {
         this.template = Mustache.render(value.template,
           {
             courseName: 'chăm sóc da cơ bản',
-            fullName: 'Lâm tiểu vy',
+            username: 'Lâm tiểu vy',
+            time: '24/02/2021',
             signature: this.signature.imageUrl,
             logo: this.logo.imageUrl,
-            companyName: value.companyName ?? 'CÔNG TY TNHH TƯ VẤN VÀ ĐÀO TẠO BEAUTYUP',
-            director: value.director ?? 'Trần Minh Tính',
-            address: value.address ?? 'Tp Hồ Chí Minh',
+            companyName: value.companyName,
+            director: value.director,
+            address: value.address,
           });
       });
     });
