@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CertificationApiService } from '@shared/api/certification.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { ImageCropperControlComponent } from '@shared/components/image-cropper-control/image-cropper-control.component';
+import { TValidators } from '@shared/extentions/validators';
 import Mustache from 'mustache';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { forkJoin } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
@@ -32,7 +34,8 @@ export class CertificationComponent implements OnInit {
     private fb: FormBuilder,
     private certificateApi: CertificationApiService,
     private sanitizer: DomSanitizer,
-    private storageApi: StorageApiService
+    private storageApi: StorageApiService,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -54,14 +57,15 @@ export class CertificationComponent implements OnInit {
       setTimeout(() => {
         this.template = Mustache.render(value.template,
           {
-            ...value,
-            companyName: 'CÔNG TY TNHH TƯ VẤN VÀ ĐÀO TẠO BEAUTYUP',
             courseName: 'chăm sóc da cơ bản',
             fullName: 'Lâm tiểu vy',
             signature: this.signature.imageUrl,
-            logo: this.logo.imageUrl
+            logo: this.logo.imageUrl,
+            companyName: value.companyName ?? 'CÔNG TY TNHH TƯ VẤN VÀ ĐÀO TẠO BEAUTYUP',
+            director: value.director ?? 'Trần Minh Tính',
+            address: value.address ?? 'Tp Hồ Chí Minh',
           });
-      })
+      });
     });
 
   }
@@ -83,18 +87,20 @@ export class CertificationComponent implements OnInit {
         ...this.form.value,
         logo: res.logo,
         signature: res.signature
-      }
+      };
       return this.certificateApi.update(data);
-    })).subscribe();
+    })).subscribe(() => {
+      this.notification.success('Thành công', 'Cập nhật thông tin chứng chỉ thành công');
+    });
   }
 
   builform() {
     this.form = this.fb.group({
-      logo: [],
-      signature: [],
-      companyName: [],
-      director: [],
-      address: [],
+      logo: [null, Validators.required],
+      signature: [null, TValidators.required],
+      companyName: [null, TValidators.textRange(1, 100)],
+      director: [null, TValidators.textRange(1, 30)],
+      address: [null, TValidators.textRange(1, 30)],
       template: []
     });
   }
