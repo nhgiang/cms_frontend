@@ -109,7 +109,7 @@ export class QuestionComponent extends NzCollapsePanelComponent implements OnIni
 
   removeAnswer() {
     this.answers = this.answers.slice(0, this.answers.length - 1);
-    this.answerControlArray.removeAt(this.answers.length - 1);
+    this.answerControlArray.removeAt(this.answers.length);
   }
 
   validate() {
