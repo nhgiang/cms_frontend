@@ -46,8 +46,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/plyr/dist/plyr.css"
+              "src/styles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
