@@ -28,6 +28,7 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
   @Input() fileType: AssetType;
   @Input() maxSize = 5_000_000;
   @Input() customLabel = false;
+  @Input() inputId: string;
   @Output() uploaded = new EventEmitter();
   AssetType = AssetType;
   url: any;
