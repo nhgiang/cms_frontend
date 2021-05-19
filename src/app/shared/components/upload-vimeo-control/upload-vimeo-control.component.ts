@@ -5,7 +5,7 @@ import { AbstractControlDirective } from '@shared/controls/abstract-control.dire
 import Player from '@vimeo/player';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UploaderStatus } from 'types/enums';
-import { isFunction } from 'util';
+import { isFunction } from 'lodash-es';
 
 @Component({
   selector: 'app-upload-vimeo-control',
