@@ -32,7 +32,6 @@ import { UploadVimeoControlComponent } from './components/upload-vimeo-control/u
 import { TemplateOutletDirective } from './directives/template-outlet.directive';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ToImagePipe } from './pipes/to-image.pipe';
-import { PlyrModule } from 'ngx-plyr';
 
 @NgModule({
   exports: [
@@ -74,8 +73,7 @@ import { PlyrModule } from 'ngx-plyr';
     ZorroAntdModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
-    PlyrModule
+    ReactiveFormsModule
   ],
   declarations: [
     SearchPipe,

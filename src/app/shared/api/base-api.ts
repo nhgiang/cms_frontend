@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { identity, pickBy } from 'lodash';
+import { identity, pickBy } from 'lodash-es';
 import { API_BASE_URL } from './base-url';
 
 @Injectable()
