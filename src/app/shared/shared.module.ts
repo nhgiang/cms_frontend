@@ -29,9 +29,10 @@ import { CurrencyInputDirective } from './directives/currency-input.directive';
 import { InputNumberComponent } from './controls/input-number/input-number.component';
 import { SelectIconComponent } from './controls/select-icon/select-icon.component';
 import { UploadVimeoControlComponent } from './components/upload-vimeo-control/upload-vimeo-control.component';
-import { ToImagePipe } from './pipes/to-image.pipe';
 import { TemplateOutletDirective } from './directives/template-outlet.directive';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { ToImagePipe } from './pipes/to-image.pipe';
+import { PlyrModule } from 'ngx-plyr';
 
 @NgModule({
   exports: [
@@ -73,7 +74,8 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
     ZorroAntdModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PlyrModule
   ],
   declarations: [
     SearchPipe,
