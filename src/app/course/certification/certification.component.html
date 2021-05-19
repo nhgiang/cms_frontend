@@ -4,7 +4,7 @@
       <div class="col-6">
         <nz-form-item class="mb-3">
           <nz-form-label nzSpan="4" class="text-left">Logo</nz-form-label>
-          <nz-form-control class="pt-2">
+          <nz-form-control class="pt-2" [nzErrorTip]="'vui lòng tải lên logo'">
             <app-image-cropper-control formControlName="logo" [allowCrop]="false" [showAction]="true" #logo>
               <label class="label-avatar">Chọn logo cho mẫu chứng chỉ <span class="text-danger">*</span></label>
               <p class="opacity-07 font-size-12 m-b-0">
@@ -16,7 +16,7 @@
         </nz-form-item>
         <nz-form-item class="mb-3">
           <nz-form-label nzSpan="4" class="text-left">Chữ ký</nz-form-label>
-          <nz-form-control class="pt-2">
+          <nz-form-control class="pt-2" [nzErrorTip]="'vui lòng tải lên chữ ký'">
             <app-image-cropper-control formControlName="signature" [allowCrop]="false" [showAction]="true" #signature>
               <label class="label-avatar">Chọn chữ ký cho mẫu chứng chỉ <span class="text-danger">*</span></label>
               <p class="opacity-07 font-size-12 m-b-0">
@@ -52,19 +52,19 @@
         </nz-form-item>
         <nz-form-item class="d-flex flex-column mb-3">
           <nz-form-label class="text-left">Tên công ty đại diện</nz-form-label>
-          <nz-form-control>
+          <nz-form-control [nzErrorTip]="'Tên công ty đại diện phải từ 1 đến 100 ký tự'">
             <input type="text" nz-input placeholder="Nhập vào tên công ty đại diện" formControlName="companyName">
           </nz-form-control>
         </nz-form-item>
         <nz-form-item class="d-flex flex-column mb-3">
           <nz-form-label class="text-left">Tên giám đốc</nz-form-label>
-          <nz-form-control>
+          <nz-form-control [nzErrorTip]="'Tên giám đốc phải từ 1 đến 30 ký tự'">
             <input type="text" nz-input placeholder="Nhập vào tên giám đốc" formControlName="director">
           </nz-form-control>
         </nz-form-item>
         <nz-form-item class="d-flex flex-column mb-3">
           <nz-form-label class="text-left">Địa điểm cấp chứng chỉ</nz-form-label>
-          <nz-form-control>
+          <nz-form-control [nzErrorTip]="'Địa điểm cấp chứng chỉ phải từ 1 đến 30 ký tự'">
             <input type="text" nz-input placeholder="Nhập vào địa điểm cấp chứng chỉ" formControlName="address">
           </nz-form-control>
         </nz-form-item>
