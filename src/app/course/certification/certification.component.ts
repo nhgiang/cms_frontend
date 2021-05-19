@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CertificationApiService } from '@shared/api/certification.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
+import { ImageCropperControlComponent } from '@shared/components/image-cropper-control/image-cropper-control.component';
 import Mustache from 'mustache';
 import { forkJoin } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -15,11 +16,14 @@ import { v4 } from 'uuid';
   styleUrls: ['./certification.component.scss']
 })
 export class CertificationComponent implements OnInit {
+  @ViewChild('signature', { static: false }) signature: ImageCropperControlComponent;
+  @ViewChild('logo', { static: false }) logo: ImageCropperControlComponent;
   form: FormGroup;
   template: string;
   AssetType = AssetType;
   logoId: string;
   signatureId: string;
+
   get templatePreview() {
     return this.template && this.sanitizer.bypassSecurityTrustHtml(`${this.template}`);
   }
@@ -43,17 +47,23 @@ export class CertificationComponent implements OnInit {
           courseName: 'chăm sóc da cơ bản',
           fullName: 'Lâm tiểu vy'
         });
-      this.form.patchValue({ ...res}, { emitEvent: false });
+      this.form.patchValue({ ...res }, { emitEvent: false });
     });
     this.form.valueChanges.subscribe(value => {
-      // this.template = Mustache.render(value.template,
-      //   {
-      //     ...value,
-      //     companyName: 'CÔNG TY TNHH TƯ VẤN VÀ ĐÀO TẠO BEAUTYUP',
-      //     courseName: 'chăm sóc da cơ bản',
-      //     fullName: 'Lâm tiểu vy'
-      //   });
+      console.log(this.signature)
+      setTimeout(() => {
+        this.template = Mustache.render(value.template,
+          {
+            ...value,
+            companyName: 'CÔNG TY TNHH TƯ VẤN VÀ ĐÀO TẠO BEAUTYUP',
+            courseName: 'chăm sóc da cơ bản',
+            fullName: 'Lâm tiểu vy',
+            signature: this.signature.imageUrl,
+            logo: this.logo.imageUrl
+          });
+      })
     });
+
   }
 
   submit() {

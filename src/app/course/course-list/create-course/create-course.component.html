@@ -2,7 +2,13 @@
   <form [formGroup]="form" (ngSubmit)="submit()">
     <nz-form-item class="row">
       <nz-form-control nzErrorTip="File phải là file ảnh và nhỏ hơn 5MB">
-        <app-image-cropper-control formControlName="photo" [height]="750" [width]="1440"></app-image-cropper-control>
+        <app-image-cropper-control formControlName="photo" [height]="750" [width]="1440">
+          <label class="label-avatar">Chọn ảnh đại diện cho khoá học <span class="text-danger">*</span></label>
+          <p class="opacity-07 font-size-12 m-b-0">
+            Kích thước đề xuất: 750x1440 <br>
+            Max file size: 5MB
+          </p>
+        </app-image-cropper-control>
       </nz-form-control>
     </nz-form-item>
 

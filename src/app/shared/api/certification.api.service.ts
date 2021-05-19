@@ -12,6 +12,6 @@ export class CertificationApiService extends BaseApi {
   }
 
   update(body) {
-    return this.httpClient.put(this.createUrl('/a1d85377-d81c-4375-a298-5ce7167a93bf'), body);
+    return this.httpClient.post(this.createUrl(''), body);
   }
 }
