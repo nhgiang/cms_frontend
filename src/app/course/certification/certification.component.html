@@ -3,10 +3,6 @@
     <div class="row">
       <div class="col-6">
         <nz-form-item class="mb-3">
-          <!-- <nz-form-label nzSpan="4" class="text-left"><span>:</span></nz-form-label> -->
-          <div class="text-left ant-form-item-label ant-col ant-col-4">
-            <label>Logo</label>
-          </div>
           <nz-form-control class="pt-2" [nzErrorTip]="'Vui lòng tải lên logo'">
             <app-image-cropper-control formControlName="logo" [allowCrop]="false" [showAction]="true" #logo>
               <label class="label-avatar">Chọn logo cho mẫu chứng chỉ <span class="text-danger">*</span></label>
@@ -18,9 +14,6 @@
           </nz-form-control>
         </nz-form-item>
         <nz-form-item class="mb-3">
-          <div class="text-left ant-form-item-label ant-col ant-col-4">
-            <label>Chữ ký</label>
-          </div>
           <nz-form-control class="pt-2" [nzErrorTip]="'Vui lòng tải lên chữ ký'">
             <app-image-cropper-control formControlName="signature" [allowCrop]="false" [showAction]="true" #signature>
               <label class="label-avatar">Chọn chữ ký cho mẫu chứng chỉ <span class="text-danger">*</span></label>

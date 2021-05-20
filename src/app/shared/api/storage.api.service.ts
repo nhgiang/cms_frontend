@@ -99,4 +99,8 @@ export class StorageApiService extends BaseApi {
       return of(null);
     }
   }
+
+  getVideo(id) {
+    return this.httpClient.get(this.createUrl(`/get-video/${id}`))
+  }
 }
