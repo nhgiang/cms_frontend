@@ -34,6 +34,7 @@ export class AuthenticationService {
 
   logout() {
     this.tokenService.destroySubject.next();
+    this.tokenService.destroySubject.complete();
     localStorage.clear();
     this.currentUserSubject.next(null);
   }
