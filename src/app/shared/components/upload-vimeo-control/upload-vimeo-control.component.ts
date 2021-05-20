@@ -6,6 +6,7 @@ import Player from '@vimeo/player';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UploaderStatus } from 'types/enums';
 import { isFunction } from 'lodash-es';
+import { StorageApiService } from '@shared/api/storage.api.service';
 
 @Component({
   selector: 'app-upload-vimeo-control',
@@ -29,6 +30,7 @@ export class UploadVimeoControlComponent extends AbstractControlDirective implem
   file: File;
   maxSize = 100_000_000;
   player: Player;
+  isAvailable: boolean;
 
   get content() {
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
@@ -36,7 +38,9 @@ export class UploadVimeoControlComponent extends AbstractControlDirective implem
 
   constructor(
     private messageService: NzMessageService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private storageApi: StorageApiService
+  ) {
     super();
   }
   ngAfterViewInit(): void {
@@ -47,9 +51,12 @@ export class UploadVimeoControlComponent extends AbstractControlDirective implem
     this.url = file;
     if (file) {
       this.status = UploaderStatus.Selected;
-      setTimeout(() => {
-        this.player = new Player(this.vimeo.nativeElement, {
-          id: this.url.split('/').slice(-1)[0]
+      this.storageApi.getVideo(this.url.split('/').slice(-1)[0]).subscribe((video: any) => {
+        this.isAvailable = (video.status === 'available');
+        setTimeout(() => {
+          this.player = new Player(this.vimeo.nativeElement, {
+            id: this.url.split('/').slice(-1)[0]
+          });
         });
       });
     }

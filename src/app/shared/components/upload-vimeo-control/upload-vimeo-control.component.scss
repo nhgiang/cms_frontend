@@ -30,3 +30,26 @@
     font-size: 32px;
   }
 }
+#horizon {
+  display: table;
+  height: 100%;
+  position: static;
+  width: 100%;
+  height:360px;
+  width: 480px;
+  background-color: #000000;
+}
+
+#sun {
+  display: table-cell;
+  vertical-align: middle;
+  position: static;
+  margin: 0 auto;
+  color: #ffffff;
+  font-size: 16px;
+  p{ 
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+  }
+}
