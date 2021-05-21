@@ -49,8 +49,10 @@ export class UploadVimeoControlComponent extends AbstractControlDirective implem
       this.status = UploaderStatus.Selected;
       setTimeout(() => {
         this.player = new Player(this.vimeo.nativeElement, {
-          id: this.url.split('/').slice(-1)[0]
+          id: this.url.split('/').slice(-1)[0],
+          loop: true,
         });
+        // this.player.loadVideo(this.url.split('/').slice(-1)[0])
       });
     }
 
