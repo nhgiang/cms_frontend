@@ -85,9 +85,14 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-
       <nz-form-item>
-        <nz-form-label class="text-left input-space" nzRequired>Kỹ năng</nz-form-label>
+        <div class="d-flex align-items-center input-space">
+          <nz-form-label class="text-left" nzRequired>
+            Kỹ năng
+          </nz-form-label>
+          <i nz-icon nzType="info-circle" nzTheme="outline" nz-tooltip
+            nzTooltipTitle="Chỉ cho phép chọn tối đa 4 kỹ năng"></i>
+        </div>
         <nz-form-control nzErrorTip="Chọn kỹ năng đạt được cho khóa học">
           <app-multiple-selection [maxMultipleCount]="4" [getOptionsFn]="skills" formControlName="skills"
             placeholder="Chọn kỹ năng đạt được">
