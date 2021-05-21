@@ -7,7 +7,7 @@ import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { IPaginate } from '@shared/interfaces/paginate.type';
-import { finalize, map, switchMap } from 'rxjs/operators';
+import { delay, finalize, map, switchMap } from 'rxjs/operators';
 import { FileModel } from 'types/typemodel';
 import { Option } from '@shared/interfaces/option.type';
 import { Observable } from 'rxjs';
@@ -47,6 +47,7 @@ export class LecturerCreateComponent implements OnInit {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
     this.storageApi.uploadFile(this.image.file ?? this.avatarUrl, this.image.fileName).pipe(
+      delay(3000),
       switchMap((url) => {
         const data = {
           avatar: url,
@@ -63,7 +64,6 @@ export class LecturerCreateComponent implements OnInit {
         this.form.get('email').setErrors({ notUnique: true });
       }
     });
-
   }
 
   private getBase64(img: Blob | File, callback: (img: {}) => void): void {

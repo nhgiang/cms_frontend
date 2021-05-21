@@ -19,6 +19,7 @@ export class TeacherCreateComponent implements OnInit {
   form: FormGroup;
   avatarUrl: string;
   image: FileModel;
+  isloading: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -26,7 +27,7 @@ export class TeacherCreateComponent implements OnInit {
     private storageApi: StorageApiService,
     private modalRef: NzModalRef,
     private notification: NzNotificationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -34,6 +35,7 @@ export class TeacherCreateComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
+    this.isloading = true;
     this.storageApi
       .uploadFile(this.image?.file, this.image.fileName)
       .pipe(
@@ -45,7 +47,10 @@ export class TeacherCreateComponent implements OnInit {
           };
           return this.contentState.createTeacher(trimData(data));
         }),
-        finalize(() => this.modalRef.close())
+        finalize(() => {
+          this.modalRef.close();
+          this.isloading = false;
+        })
       )
       .subscribe(() => {
         this.notification.success(

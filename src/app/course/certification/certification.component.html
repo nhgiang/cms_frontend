@@ -1,4 +1,5 @@
 <nz-card>
+  <nz-spin [nzSpinning]="isLoading"></nz-spin>
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="row">
       <div class="col-6">
@@ -91,7 +92,7 @@
     </div>
     <div class="text-center mt-4">
       <button nz-button nzType='primary' nzGhost class="mr-3" [routerLink]="['/dashboard/home']">Quay lại</button>
-      <button nz-button nzType='primary'>Xác nhận</button>
+      <button nz-button nzType='primary' [nzLoading]="isLoading">Xác nhận</button>
     </div>
   </form>
 </nz-card>

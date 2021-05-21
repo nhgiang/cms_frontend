@@ -1,34 +1,36 @@
 <nz-card>
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <nz-form-item>
-      <nz-form-label class="text-left" [nzSpan]="3">Title</nz-form-label>
-      <nz-form-control>
-        <div class="text-muted">[Mặc định]</div>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label class="text-left" [nzSpan]="3" >Image</nz-form-label>
-      <nz-form-control>
-        <div class="text-muted">[Mặc định]</div>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item class="align-items-center">
-      <nz-form-label class="text-left align-self-flex-end" [nzSpan]="3" nzRequired>Nội dung
-      </nz-form-label>
-      <nz-form-control [nzErrorTip]="'Nội dung chứa tối đa 1000 ký tự'">
-        <textarea nz-input rows="3" formControlName="content" [class.readonly]="!isEdit" placeholder="Nhập nội dung"
-          [readonly]="!isEdit"></textarea>
-      </nz-form-control>
-      <div>
-        <a class="ml-4" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Chỉnh sửa"
-          (click)="submit()" *ngIf="!isEdit">
-          <i nz-icon nzType="edit" theme="outline" *ngIf="!isEdit"></i>
-        </a>
-        <a class="ml-4" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Cập nhật"
-        (click)="submit()" *ngIf="isEdit">
-        <i nz-icon nzType="check" nzTheme="outline"></i>
-      </a>
-      </div>
-    </nz-form-item>
-  </form>
+  <nz-spin [nzSpinning]="isLoading">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="3">Title</nz-form-label>
+        <nz-form-control>
+          <div class="text-muted">[Mặc định]</div>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="3">Image</nz-form-label>
+        <nz-form-control>
+          <div class="text-muted">[Mặc định]</div>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="align-items-center">
+        <nz-form-label class="text-left align-self-flex-end" [nzSpan]="3" nzRequired>Nội dung
+        </nz-form-label>
+        <nz-form-control [nzErrorTip]="'Nội dung chứa tối đa 1000 ký tự'">
+          <textarea nz-input rows="3" formControlName="content" [class.readonly]="!isEdit" placeholder="Nhập nội dung"
+            [readonly]="!isEdit"></textarea>
+        </nz-form-control>
+        <div>
+          <a class="ml-4" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Chỉnh sửa"
+            (click)="submit()" *ngIf="!isEdit">
+            <i nz-icon nzType="edit" theme="outline" *ngIf="!isEdit"></i>
+          </a>
+          <a class="ml-4" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Cập nhật"
+            (click)="submit()" *ngIf="isEdit">
+            <i nz-icon nzType="check" nzTheme="outline"></i>
+          </a>
+        </div>
+      </nz-form-item>
+    </form>
+  </nz-spin>
 </nz-card>

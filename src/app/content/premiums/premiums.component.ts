@@ -43,7 +43,7 @@ export class PremiumsComponent implements OnInit {
     this.isLoading = true;
     this.settingApi.premiums.post(trimData(this.form.value)).pipe(
       finalize(() => this.isLoading = false)
-    ).subscribe(res => {
+    ).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật cấu hình ưu đãi thành công');
     });
   }
