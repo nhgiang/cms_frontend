@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import jwt_decode from 'jwt-decode';
-import { Observable, timer } from 'rxjs';
-import * as moment from 'moment';
-import { finalize, switchMap, takeUntil } from 'rxjs/operators';
 import { environment } from '@env';
-import { Subject } from 'rxjs';
+import jwt_decode from 'jwt-decode';
+import * as moment from 'moment';
+import { Observable, Subject, timer } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 export interface ITokenDecode {
   id: string;
