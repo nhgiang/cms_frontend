@@ -30,7 +30,7 @@ export class HottestCourseComponent implements OnInit {
     this.settingApi.hottestCoruse.get().subscribe(res => {
       const data = res.map(val => {
         return {
-          blogId: val.blogId || 0
+          courseId: val.blogId || 0
         };
       });
       this.form.patchValue(data, { emitEvent: false });
@@ -55,7 +55,7 @@ export class HottestCourseComponent implements OnInit {
   submit() {
     const body = this.form.value.map(val => {
       return {
-        blogId: val.blogId || null
+        courseId: val.blogId || null
       };
     });
     this.settingApi.hottestCoruse.post(body).subscribe(() => {

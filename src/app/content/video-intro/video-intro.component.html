@@ -1,46 +1,49 @@
 <nz-card>
-  <form [formGroup]="form" nz-form (ngSubmit)="submit()">
-    <div class="card-header">
-      <h5>
-        <span>Video intro</span>
-      </h5>
-    </div>
-    <nz-form-item>
-      <nz-form-label nzRequired>Tiêu đề video</nz-form-label>
-      <nz-form-control [nzErrorTip]="'Vui lòng nhập tiêu đề'">
-        <nz-input-group>
-          <textarea rows="4" formControlName="title" nz-input placeholder="Nhập tiêu đề video"></textarea>
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label nzRequired>Image poster</nz-form-label>
-      <nz-form-control [nzErrorTip]="errFileTemp">
-        <app-file-upload-control formControlName="image" [fileType]="AssetType.Image" [maxSize]="5000000">
-        </app-file-upload-control>
-      </nz-form-control>
-      <ng-template #errFileTemp let-control>
-        <ng-container *ngIf="control.hasError('required')">
-          Vui lòng tải ảnh lên
-        </ng-container>
-        <ng-container *ngIf="control.hasError('typeValidated')">
-          File ảnh không đúng định dạng
-        </ng-container>
-        <ng-container *ngIf="control.hasError('sizeValidated')">
-          Kích thước ảnh không được lớn hơn 5MB
-        </ng-container>
-      </ng-template>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label>Upload video</nz-form-label>
-      <nz-form-control>
-        <app-upload-video formControlName="video">
-        </app-upload-video>
-      </nz-form-control>
-    </nz-form-item>
-    <div class="text-right">
-      <button nz-button nzType="default" type="button" class="mr-3" [routerLink]="['/dashboard/home']">Quay lại</button>
-      <button nz-button nzType="primary" type="submit" [nzLoading]="isloading">Xác nhận</button>
-    </div>
-  </form>
+  <nz-spin [nzSpinning]="isloading">
+    <form [formGroup]="form" nz-form (ngSubmit)="submit()">
+      <div class="card-header">
+        <h5>
+          <span>Video intro</span>
+        </h5>
+      </div>
+      <nz-form-item>
+        <nz-form-label nzRequired>Tiêu đề video</nz-form-label>
+        <nz-form-control [nzErrorTip]="'Vui lòng nhập tiêu đề'">
+          <nz-input-group>
+            <textarea rows="4" formControlName="title" nz-input placeholder="Nhập tiêu đề video"></textarea>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>Image poster</nz-form-label>
+        <nz-form-control [nzErrorTip]="errFileTemp">
+          <app-file-upload-control formControlName="image" [fileType]="AssetType.Image" [maxSize]="5000000">
+          </app-file-upload-control>
+        </nz-form-control>
+        <ng-template #errFileTemp let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Vui lòng tải ảnh lên
+          </ng-container>
+          <ng-container *ngIf="control.hasError('typeValidated')">
+            File ảnh không đúng định dạng
+          </ng-container>
+          <ng-container *ngIf="control.hasError('sizeValidated')">
+            Kích thước ảnh không được lớn hơn 5MB
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Upload video</nz-form-label>
+        <nz-form-control>
+          <app-upload-video formControlName="video">
+          </app-upload-video>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="text-right">
+        <button nz-button nzType="default" type="button" class="mr-3" [routerLink]="['/dashboard/home']">Quay
+          lại</button>
+        <button nz-button nzType="primary" type="submit" [nzLoading]="isloading">Xác nhận</button>
+      </div>
+    </form>
+  </nz-spin>
 </nz-card>

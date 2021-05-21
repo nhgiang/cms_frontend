@@ -3,7 +3,7 @@ import { FormArray, FormBuilder } from '@angular/forms';
 import { PostsApiService } from '@shared/api/posts.api.service';
 import { SettingApiService } from '@shared/api/setting.api.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { map, tap } from 'rxjs/operators';
+import { finalize, map, tap } from 'rxjs/operators';
 import { Blog } from 'types/typemodel';
 
 @Component({
@@ -15,6 +15,7 @@ export class BlogHottestComponent implements OnInit {
   form: FormArray;
   objKey: { [key: string]: Blog } = {};
   optionsDisabled: any[];
+  isLoading: boolean;
   constructor(
     private fb: FormBuilder,
     private settingApi: SettingApiService,
@@ -32,7 +33,7 @@ export class BlogHottestComponent implements OnInit {
           blogId: t.blogId ?? 0
         };
       });
-      this.form.patchValue(data, { emitEvent: false});
+      this.form.patchValue(data, { emitEvent: false });
     });
     this.form.valueChanges.subscribe(value => {
       this.optionsDisabled = value.map(t => {
@@ -54,12 +55,13 @@ export class BlogHottestComponent implements OnInit {
   }
 
   submit() {
+    this.isLoading = true;
     const body = this.form.value.map(val => {
       return {
         blogId: val.blogId || null
       };
     });
-    this.settingApi.hottestBlog.post(body).subscribe(() => {
+    this.settingApi.hottestBlog.post(body).pipe(finalize(() => this.isLoading = false)).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật thông tin bài viết hot nhất thành công');
     });
   }

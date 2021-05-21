@@ -1,3 +1,4 @@
+<nz-spin [nzSpinning]="isLoading">
 <form [formGroup]="form" nz-form (ngSubmit)="submit()">
   <nz-form-item>
     <nz-form-label style="min-width:150px" nzRequired class="text-left">Tiêu đề bài học</nz-form-label>
@@ -28,3 +29,4 @@
     <button [disabled]="form.invalid" nz-button nzType="primary" [nzLoading]="isLoading">Xác nhận</button>
   </div>
 </form>
+</nz-spin>
