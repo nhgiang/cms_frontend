@@ -10,7 +10,7 @@ import { DataTableColumnMetaData, QueryResult } from 'types/typemodel';
 import { Option } from '@shared/interfaces/option.type';
 import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { CourseApiService } from '@shared/api/course.api.service';
-import { pickBy } from 'lodash';
+import { pickBy } from 'lodash-es';
 
 @Component({
   selector: 'app-course-list',
