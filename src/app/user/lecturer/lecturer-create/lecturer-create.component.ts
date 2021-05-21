@@ -47,7 +47,6 @@ export class LecturerCreateComponent implements OnInit {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
     this.storageApi.uploadFile(this.image.file ?? this.avatarUrl, this.image.fileName).pipe(
-      delay(3000),
       switchMap((url) => {
         const data = {
           avatar: url,
