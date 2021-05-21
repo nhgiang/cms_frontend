@@ -27,7 +27,14 @@ export class HottestCourseComponent implements OnInit {
     this.form = this.fb.array(Array(10).fill(0).map(() => this.fb.group({
       courseId: [null]
     })));
-    this.settingApi.hottestCoruse.get().subscribe(res => this.form.patchValue(res));
+    this.settingApi.hottestCoruse.get().subscribe(res => {
+      const data = res.map(val => {
+        return {
+          blogId: val.blogId || 0
+        };
+      });
+      this.form.patchValue(data, { emitEvent: false });
+    });
     this.form.valueChanges.subscribe(value => {
       this.optionsDisabled = value.map(t => {
         return {
@@ -46,7 +53,12 @@ export class HottestCourseComponent implements OnInit {
   }
 
   submit() {
-    this.settingApi.hottestCoruse.post(this.form.value).subscribe(() => {
+    const body = this.form.value.map(val => {
+      return {
+        blogId: val.blogId || null
+      };
+    });
+    this.settingApi.hottestCoruse.post(body).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật thông tin khóa học hot nhất thành công!');
     });
   }

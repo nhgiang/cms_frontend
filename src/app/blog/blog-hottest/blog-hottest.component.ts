@@ -26,7 +26,14 @@ export class BlogHottestComponent implements OnInit {
     this.form = this.fb.array(Array(3).fill(0).map(() => this.fb.group({
       blogId: [null]
     })));
-    this.settingApi.hottestBlog.get().subscribe(res => this.form.patchValue(res));
+    this.settingApi.hottestBlog.get().subscribe(res => {
+      const data = res.map(t => {
+        return {
+          blogId: t.blogId ?? 0
+        };
+      });
+      this.form.patchValue(data, { emitEvent: false});
+    });
     this.form.valueChanges.subscribe(value => {
       this.optionsDisabled = value.map(t => {
         return {
@@ -47,7 +54,12 @@ export class BlogHottestComponent implements OnInit {
   }
 
   submit() {
-    this.settingApi.hottestBlog.post(this.form.value).subscribe(() => {
+    const body = this.form.value.map(val => {
+      return {
+        blogId: val.blogId || null
+      };
+    });
+    this.settingApi.hottestBlog.post(body).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật thông tin bài viết hot nhất thành công');
     });
   }

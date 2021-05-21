@@ -16,7 +16,7 @@
       <div class="video-player" style="height: 350;">
         <i nz-icon nzType="close-circle" nzTheme="fill" (confirmed)="removeVideo()" [confirmation]="'Bạn có chắc chắn muốn xóa video giới thiệu này không?'"></i>
         <video height="350" controls #video autoplay muted crossorigin>
-          <source [src]="'https://vimeo.com/548711562'" type="video/mp4">
+          <source [src]="content" type="video/mp4">
           <track kind="subtitles">
         </video>
       </div>
