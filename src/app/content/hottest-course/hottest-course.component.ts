@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { CourseApiService } from '@shared/api/course.api.service';
 import { SettingApiService } from '@shared/api/setting.api.service';
@@ -15,6 +15,7 @@ import { Course } from 'types/models/course';
 export class HottestCourseComponent implements OnInit {
   form: FormArray;
   objKey: { [key: string]: Course } = {};
+  optionsDisabled: any[];
   constructor(
     private courseApi: CourseApiService,
     private fb: FormBuilder,
@@ -26,7 +27,21 @@ export class HottestCourseComponent implements OnInit {
     this.form = this.fb.array(Array(10).fill(0).map(() => this.fb.group({
       courseId: [null]
     })));
-    this.settingApi.hottestCoruse.get().subscribe(res => this.form.patchValue(res));
+    this.settingApi.hottestCoruse.get().subscribe(res => {
+      const data = res.map(val => {
+        return {
+          blogId: val.blogId || 0
+        };
+      });
+      this.form.patchValue(data, { emitEvent: false });
+    });
+    this.form.valueChanges.subscribe(value => {
+      this.optionsDisabled = value.map(t => {
+        return {
+          id: t.courseId
+        };
+      });
+    });
   }
 
   courses$ = (params: IPaginate) => {
@@ -38,8 +53,13 @@ export class HottestCourseComponent implements OnInit {
   }
 
   submit() {
-    this.settingApi.hottestCoruse.post(this.form.value).subscribe(() => {
-      this.notification.success('Thành công', '');
+    const body = this.form.value.map(val => {
+      return {
+        blogId: val.blogId || null
+      };
+    });
+    this.settingApi.hottestCoruse.post(body).subscribe(() => {
+      this.notification.success('Thành công', 'Cập nhật thông tin khóa học hot nhất thành công!');
     });
   }
 }

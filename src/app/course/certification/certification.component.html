@@ -1,0 +1,97 @@
+<nz-card>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-6">
+        <nz-form-item class="mb-3">
+          <nz-form-control class="pt-2" [nzErrorTip]="'Vui lòng tải lên logo'">
+            <app-image-cropper-control formControlName="logo" [allowCrop]="false" [showAction]="true" #logo>
+              <label class="label-avatar">Chọn logo cho mẫu chứng chỉ <span class="text-danger">*</span></label>
+              <p class="opacity-07 font-size-12 m-b-0">
+                Định dạng ảnh <br>
+                Dung lượng tối đa: 5MB
+              </p>
+            </app-image-cropper-control>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="mb-3">
+          <nz-form-control class="pt-2" [nzErrorTip]="'Vui lòng tải lên chữ ký'">
+            <app-image-cropper-control formControlName="signature" [allowCrop]="false" [showAction]="true" #signature>
+              <label class="label-avatar">Chọn chữ ký cho mẫu chứng chỉ <span class="text-danger">*</span></label>
+              <p class="opacity-07 font-size-12 m-b-0">
+                Định dạng ảnh <br>
+                Dung lượng tối đa: 5MB
+              </p>
+            </app-image-cropper-control>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="d-flex flex-column mb-3">
+          <div class="text-left ant-form-item-label">
+            <label>Tên học viên</label>
+          </div>
+          <nz-form-control>
+            <input type="text" nz-input placeholder="Tự động" disabled>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="d-flex flex-column mb-3">
+          <div class="text-left ant-form-item-label">
+            <label>Tên khóa học</label>
+          </div>
+          <nz-form-control>
+            <input type="text" nz-input placeholder="Tự động" disabled>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="d-flex flex-column mb-3">
+          <div class="text-left ant-form-item-label">
+            <label>Thời gian cấp chứng chỉ</label>
+          </div>
+          <nz-form-control>
+            <input type="text" nz-input placeholder="Tự động" disabled>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="d-flex flex-column mb-3">
+          <div class="text-left ant-form-item-label">
+            <label>Loại chứng chỉ</label>
+          </div>
+          <nz-form-control>
+            <input type="text" nz-input placeholder="Tự động" disabled>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="d-flex flex-column mb-3">
+          <div class="text-left ant-form-item-label">
+            <label>Tên công ty đại diện</label>
+          </div>
+          <nz-form-control [nzErrorTip]="'Tên công ty đại diện phải từ 1 đến 100 ký tự'">
+            <input type="text" nz-input placeholder="Nhập vào tên công ty đại diện" formControlName="companyName">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="d-flex flex-column mb-3">
+          <div class="text-left ant-form-item-label">
+            <label>Tên giám đốc</label>
+          </div>
+          <nz-form-control [nzErrorTip]="'Tên giám đốc phải từ 1 đến 30 ký tự'">
+            <input type="text" nz-input placeholder="Nhập vào tên giám đốc" formControlName="director">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="d-flex flex-column mb-3">
+          <div class="text-left ant-form-item-label">
+            <label>Địa điểm cấp chứng chỉ</label>
+          </div>
+          <nz-form-control [nzErrorTip]="'Địa điểm cấp chứng chỉ phải từ 1 đến 30 ký tự'">
+            <input type="text" nz-input placeholder="Nhập vào địa điểm cấp chứng chỉ" formControlName="address">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-6">
+        <div class="preview" style="height: 100%">
+          <h5>Preview</h5>
+          <iframe width="100%" style="height: calc(100% - 32px);border: 1px solid #253D7F;"
+            [srcdoc]="template | safeHtml" frameborder="0"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <button nz-button nzType='primary' nzGhost class="mr-3" [routerLink]="['/dashboard/home']">Quay lại</button>
+      <button nz-button nzType='primary'>Xác nhận</button>
+    </div>
+  </form>
+</nz-card>

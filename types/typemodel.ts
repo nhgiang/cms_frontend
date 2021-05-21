@@ -112,10 +112,24 @@ export interface CourseType {
   created: Date;
   lastModified: Date;
   name: string;
+  index: number;
 }
 
 export interface VideoAsset {
   path: string;
   duration: number;
   size?: number;
+}
+
+export interface BlogType extends Entity {
+  name: string;
+  index: number;
+}
+
+export interface Blog extends Entity {
+  typeId: string;
+  title: string;
+  description: string;
+  coverImage: string;
+  authorName: string;
 }

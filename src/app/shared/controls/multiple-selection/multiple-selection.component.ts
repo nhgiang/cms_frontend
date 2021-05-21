@@ -1,6 +1,7 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DestroyService } from '@shared/services/destroy.service';
+import { NzOptionComponent, NzOptionContainerComponent, NzOptionItemComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { SelectAdvanceComponent } from '../select-advance/select-advance.component';
 
 @Component({
@@ -16,6 +17,10 @@ import { SelectAdvanceComponent } from '../select-advance/select-advance.compone
     DestroyService
   ],
 })
-export class MultipleSelectionComponent extends SelectAdvanceComponent {
+export class MultipleSelectionComponent extends SelectAdvanceComponent implements OnInit {
   @Input() maxMultipleCount: number;
+
+  ngOnInit() {
+    super.ngOnInit();
+  }
 }

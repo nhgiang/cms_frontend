@@ -6,7 +6,7 @@ export const trimData = (data: any) => {
       if (typeof data[k] === 'string') {
         data[k] = data[k] && data[k].trim();
       }
-      if (typeof data[k] === 'object') {
+      if (typeof data[k] === 'object' && data[k]) {
         trimData(data[k]);
       }
     });
@@ -16,6 +16,6 @@ export const trimData = (data: any) => {
       return trimData(e);
     });
   }
-  if (typeof data === 'string') { data.trim() };
+  if (typeof data === 'string') { data.trim(); }
   return data;
 };

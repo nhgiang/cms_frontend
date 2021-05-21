@@ -1,7 +1,7 @@
 import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
 import { AssetType, FileUploadErrors } from 'types/enums';
-import { isFunction, isNil, omitBy } from 'lodash-es';
+import { isFunction, isNil } from 'lodash-es';
 import { v4 } from 'uuid';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
@@ -30,6 +30,7 @@ export class FilesUploadControlComponent implements OnInit, ControlValueAccessor
   FileUploadErrors = FileUploadErrors;
   files: File[] = [];
   fileNames: string[] = [];
+  // tslint:disable-next-line: ban-types
   private onChangeFn: Function;
   inputId: string;
 
@@ -49,6 +50,7 @@ export class FilesUploadControlComponent implements OnInit, ControlValueAccessor
     }
     const files = [];
 
+    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < input.files.length; i++) {
       files.push(input.files[i]);
     }
@@ -61,10 +63,10 @@ export class FilesUploadControlComponent implements OnInit, ControlValueAccessor
     this.files.push(...files);
     const a = this.fileNames.filter(fileName => {
       return this.files.filter(t => t.name === fileName).length === 0;
-    })
+    });
     this.fileNames = [...this.fileNames, ...this.files.map(t => {
       if (!this.fileNames.includes(t.name)) {
-        return t.name
+        return t.name;
       }
     })].filter(t => !isNil(t));
     if (isFunction(this.onChangeFn)) {
@@ -74,11 +76,11 @@ export class FilesUploadControlComponent implements OnInit, ControlValueAccessor
 
   remove(index?: number) {
     this.files = this.files.filter(t => t.name !== this.fileNames[index]);
-    this.fileNames.splice(index, 1)
+    this.fileNames.splice(index, 1);
     if (isFunction(this.onChangeFn)) {
       const a = this.fileNames.filter(fileName => {
         return this.files.filter(t => t.name === fileName).length === 0;
-      })
+      });
       this.onChangeFn([...this.files, ...a]);
     }
   }

@@ -4,9 +4,9 @@ import { CourseListComponent } from './course-list/course-list.component';
 import { SkillsComponent } from './skills/skills.component';
 import { SpecializationsComponent } from './specializations/specializations.component';
 import { LessonComponent } from './course-list/lesson/lesson.component';
-import { UnitAndTest } from 'types/enums';
 import { CreateCourseComponent } from './course-list/create-course/create-course.component';
 import { EditCourseComponent } from './course-list/edit-course/edit-course.component';
+import { CertificationComponent } from './certification/certification.component';
 
 const routes: Routes = [
   {
@@ -78,6 +78,13 @@ const routes: Routes = [
     component: SpecializationsComponent,
     data: {
       title: 'Danh sách chuyên môn'
+    }
+  },
+  {
+    path: 'certification',
+    component: CertificationComponent,
+    data: {
+      title: 'Chứng chỉ'
     }
   }
 ];

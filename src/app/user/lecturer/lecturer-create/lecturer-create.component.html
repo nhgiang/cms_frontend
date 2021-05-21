@@ -1,5 +1,7 @@
 <nz-card nzTitle="Thông tin cơ bản">
-  <form nz-form [formGroup]="form" autocomplete="off">
+  <form [formGroup]="form" autocomplete="off">
+    <input type="text" name="email" class="d-none" />
+    <input type="password" name="password" style="border: none;padding: 0; width:0; height:0" />
     <div class="media align-items-center">
       <nz-avatar [nzSize]="80" nzIcon="user" [nzSrc]="avatarUrl"></nz-avatar>
       <div class="m-l-20 m-r-20">
@@ -25,7 +27,7 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="6" nzRequired>E-mail</nz-form-label>
           <nz-form-control [nzErrorTip]="errorEmailTpl">
-            <input nz-input formControlName="email" name="email" autocomplete="false" placeholder="Nhập Email" />
+            <input nz-input formControlName="email" placeholder="Nhập Email" name="email" autocomplete="chrome-off" />
           </nz-form-control>
           <ng-template #errorEmailTpl let-control>
             <ng-container *ngIf="control.hasError('required')">
@@ -46,7 +48,7 @@
           <nz-form-control [nzErrorTip]="errorPasswordTpl">
             <nz-input-group [nzPrefix]="prefixLock" [nzSuffix]="suffixPassword">
               <input [type]="isPasswordVisible ? 'text' : 'password'" nz-input formControlName="password"
-                placeholder="Nhập mật khẩu" required>
+                placeholder="Nhập mật khẩu" required autocomplete="off">
             </nz-input-group>
             <ng-template #errorPasswordTpl let-control>
               <ng-container *ngIf="control.hasError('required')">
@@ -87,7 +89,8 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="6" nzRequired>Chuyên môn</nz-form-label>
           <nz-form-control [nzErrorTip]="'Vui lòng chọn chuyên môn'">
-            <select-advance placeholder="Chọn chuyên môn" [getOptionsFn]="specializations" style="min-width: 220px;" formControlName="specializationId">
+            <select-advance placeholder="Chọn chuyên môn" [getOptionsFn]="specializations" style="min-width: 220px;"
+              formControlName="specializationId">
             </select-advance>
           </nz-form-control>
         </nz-form-item>
@@ -102,7 +105,8 @@
       </div>
     </div>
     <div class="text-center">
-      <button [disabled]="form.invalid || !avatarUrl" type="submit" nz-button nzType="primary" (click)="submitForm()" [nzLoading]="isLoading">
+      <button [disabled]="form.invalid || !avatarUrl" type="submit" nz-button nzType="primary" (click)="submitForm()"
+        [nzLoading]="isLoading">
         Tạo mới
       </button>
     </div>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -21,12 +21,16 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class ImageCropperControlComponent extends AbstractControlDirective implements OnInit {
   @ViewChild('attachment', { static: false }) attachment: ElementRef;
+  @Input() allowCrop = true;
   @Input() maxSize = 5_000_000;
   @Input() width: number;
   @Input() height: number;
+  @Input() showAction: boolean;
+  @Input() isRequired = true;
+  @Input() hint: TemplateRef<void>;
   inputId: string;
   imageUrl: string;
-
+  previewVisible: boolean;
   constructor(
     private messageService: NzMessageService,
     private modalService: NzModalService
@@ -58,22 +62,42 @@ export class ImageCropperControlComponent extends AbstractControlDirective imple
       this.messageService.error('Vui lòng chọn đúng kích cỡ file');
       return;
     }
-    const modalRef = this.modalService.create({
-      nzContent: ImageCropperModalComponent,
-      nzComponentParams: {
-        imageFile: file,
-        aspectRatio: this.width / this.height,
-      }
-    });
-    modalRef.componentInstance.cropped.subscribe(imageCropped => {
+    if (this.allowCrop) {
+      const modalRef = this.modalService.create({
+        nzContent: ImageCropperModalComponent,
+        nzComponentParams: {
+          imageFile: file,
+          aspectRatio: this.width / this.height,
+        }
+      });
+      modalRef.componentInstance.cropped.subscribe(imageCropped => {
+        const reader = new FileReader();
+        const fileCropped: any = imageCropped.file;
+        fileCropped.name = imageCropped.fileName;
+        fileCropped.lastModifiedDate = new Date();
+        reader.readAsDataURL(imageCropped.file);
+        reader.onload = (event) => {
+          this.imageUrl = event.target.result as string;
+          if (isFunction(this.onChangeFn)) {
+            this.onChangeFn(fileCropped);
+          }
+        };
+      });
+    } else {
       const reader = new FileReader();
-      reader.readAsDataURL(imageCropped.file);
+      reader.readAsDataURL(file);
       reader.onload = (event) => {
         this.imageUrl = event.target.result as string;
         if (isFunction(this.onChangeFn)) {
-          this.onChangeFn(imageCropped.file);
+          this.onChangeFn(file);
         }
       };
-    });
+    }
+
+  }
+
+  handleRemove() {
+    this.imageUrl = null;
+    this.onChangeFn(null);
   }
 }

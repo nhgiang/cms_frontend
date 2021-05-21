@@ -2,6 +2,6 @@
   [nzServerSearch]="true" (nzOnSearch)="search$.next($event)" [(ngModel)]="controlValue"
   (nzScrollToBottom)="loadMore$.next()" (ngModelChange)="onChangeFn($event)" [nzLoading]="isLoading"
   [nzDisabled]="disabled" [nzMaxMultipleCount]="maxMultipleCount" nzShowSearch>
-  <nz-option *ngFor="let item of options" [nzLabel]="item.label" [nzValue]="item.value"></nz-option>
+  <nz-option *ngFor="let item of options" [nzLabel]="item.label" [nzValue]="item.value" (click)="click()"></nz-option>
 </nz-select>
 <ng-template #tagPlaceHolder let-selectedList> và {{ selectedList.length }} nữa </ng-template>

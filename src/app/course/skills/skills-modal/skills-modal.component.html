@@ -3,27 +3,11 @@
     <div>
       <nz-form-item>
         <nz-form-control>
-          <app-file-upload-control [maxSize]="1000000" [fileType]="assetType.Image" [customLabel]="true"
-            formControlName="icon">
-            <div class="media mb-3">
-              <div class="image-cropper">
-                <label [for]="'fileUpload'">
-                  <div class="avatar">
-                    <img class="upload" [src]="iconUrl || form.controls.icon.value" alt="image upload"
-                      *ngIf="form.controls.icon.value">
-                    <div class="upload" *ngIf="!form.controls.icon.value">+Upload</div>
-                  </div>
-                </label>
-              </div>
-              <div class="m-l-20 m-r-20">
-                <nz-form-label nzRequired class="label-avatar">Chọn icon</nz-form-label>
-                <p class="opacity-07 font-size-10 m-b-0">
-                  Kích thước đề xuất: 120x120 <br>
-                  Max file size: 1MB
-                </p>
-              </div>
-            </div>
-          </app-file-upload-control>
+          <div class="d-flex align-items-center">
+            <div *ngIf="form.get('icon').value" class="w-25" style="width: 50px; height:100px"><img style="width:100%;height:100%" [src]="form.get('icon').value | safeUrl" alt="ảnh"></div>
+            <div style="width: 50px; height:100px" class="w-25 upload" *ngIf="!form.get('icon').value"></div>
+            <app-select-icon class="w-75 ml-2" [getOptionsFn]="icons" placeholder="Chọn icon" formControlName="icon" ></app-select-icon>
+          </div>
         </nz-form-control>
       </nz-form-item>
       <div *ngIf="form.controls.icon.hasError('required') && form.controls.icon.dirty"

@@ -42,6 +42,10 @@ export abstract class DataTableContainer<T> implements OnInit {
     this.refreshTrigger.next();
   }
 
+  onPageChanged(e) {
+    this.navigate({ ...this.currentParams, page: e });
+  }
+
   onSearchParamsChanged(params: { [key: string]: any }) {
     this.navigate({ ...this.currentParams, page: 1, ...params });
   }
@@ -54,7 +58,7 @@ export abstract class DataTableContainer<T> implements OnInit {
   protected abstract fetch(): Observable<QueryResult<T>>;
 
   protected subscribe() {
-    merge(this.refreshTrigger, this.route.params).pipe(
+    merge(...[this.refreshTrigger, this.route.params]).pipe(
       tap(this.readRouteParams.bind(this)),
       switchMap(() => {
         this.isloading = true;

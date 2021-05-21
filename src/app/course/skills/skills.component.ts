@@ -65,7 +65,7 @@ export class SkillsComponent extends DataTableContainer<ICourseSkills> implement
   deleteSkill(id: string) {
     this.skillsApiService.delete(id).subscribe(
       () => {
-        this.notificationService.success('Thành công', '');
+        this.notificationService.success('Thành công', 'Xóa kĩ năng thành công.');
         this.refreshTrigger.next();
       });
   }

@@ -6,9 +6,10 @@ import { NzConfigService } from 'ng-zorro-antd/core/config';
 import { LessonApiService } from '@shared/api/lesson.api.service';
 import { Lesson } from 'types/models/course';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UnitsApiService } from '@shared/api/units.api.service';
 import { UnitAndTest } from 'types/enums';
+import { UnitTestApiService } from '@shared/api/unit-test.api.service';
 
 @Component({
   selector: 'app-custome-collapse-step',
@@ -37,6 +38,7 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
     private router: Router,
     private route: ActivatedRoute,
     private unitApi: UnitsApiService,
+    private unitTestApi: UnitTestApiService,
     @Optional() public noAnimation?: NzNoAnimationDirective,
   ) {
     super(nzConfigService, cdr, nzCollapseComponent, elementRef, noAnimation);
@@ -53,9 +55,9 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
   deleteStep() {
     this.lessonApi.deleteLesson(this.data.id).subscribe(() => {
       this.refresh.emit();
-      this.notification.success('Thành công', 'Xóa thông tin chương học thành công!')
-    }, err => {
-      this.notification.error('Thất bại', 'Không thể xóa chương học đã tồn tại bài học!')
+      this.notification.success('Thành công', 'Xóa thông tin chương học thành công!');
+    }, _ => {
+      this.notification.error('Thất bại', 'Không thể xóa chương học đã tồn tại bài học!');
     });
   }
 
@@ -82,10 +84,18 @@ export class CustomeCollapseStepComponent extends NzCollapsePanelComponent imple
     this.router.navigate([`lesson/${this.data.id}/unit/${id}/${unitType}`], { relativeTo: this.route });
   }
 
-  deleteUnit(id) {
-    this.unitApi.deleteUnit(id).subscribe(() => {
-      this.refresh.emit();
-      this.notification.success('Thành công', 'Xóa thông tin bài giảng thành công!');
-    });
+  deleteUnit(id, unitType) {
+    if (unitType === UnitAndTest.Unit) {
+      this.unitApi.deleteUnit(id).subscribe(() => {
+        this.refresh.emit();
+        this.notification.success('Thành công', 'Xóa thông tin bài học thành công!');
+      });
+    }
+    if (unitType === UnitAndTest.Test) {
+      this.unitTestApi.delete(id).subscribe(() => {
+        this.refresh.emit();
+        this.notification.success('Thành công', 'Xóa thông tin bài học thành công!');
+      });
+    }
   }
 }

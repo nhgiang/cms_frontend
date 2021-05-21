@@ -1,6 +1,5 @@
 import { Component, ElementRef, forwardRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { NgControl, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
 import * as getYouTubeId from 'get-youtube-id';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -35,8 +34,7 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
   @Input() url1: string;
   VideoType = VideoType;
   constructor(
-    private sanitizer: DomSanitizer,
-    private notification: NzNotificationService,
+    private notification: NzNotificationService
   ) {
     super();
   }

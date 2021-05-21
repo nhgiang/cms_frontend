@@ -8,7 +8,6 @@ import { StorageApiService } from '@shared/api/storage.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { iif, of } from 'rxjs';
 import { finalize, map, switchMap, tap } from 'rxjs/operators';
@@ -35,7 +34,6 @@ export class CreateCourseComponent implements OnInit {
     fb: FormBuilder,
     private teacherApiService: TeacherApiService,
     private courseTypesApiService: CourseTypesApiService,
-    private modalService: NzModalService,
     private courseApiService: CourseApiService,
     private skillsApiService: SkillsApiService,
     private storageApiService: StorageApiService,
@@ -73,8 +71,6 @@ export class CreateCourseComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form);
-
     Ultilities.validateForm(this.form);
     this.isLoading = true;
     iif(() => (this.form.controls.photo.value instanceof Blob),
