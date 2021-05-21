@@ -7,15 +7,15 @@
       <div class="m-l-20 m-r-20">
         <h5 class="m-b-5 font-size-18">Thay đổi ảnh đại diện</h5>
         <p class="opacity-07 font-size-13 m-b-0">
-          Kích thước đề xuất: <br />
-          120x120 Max file size: 5MB
+          Kích thước đề xuất: 120x120 <br />
+          Max file size: 5MB
         </p>
       </div>
       <div class="image-cropper" #cropperRef="imageCropper" imageCropper [aspectRatio]="1 / 1"
         (cropped)="onCropped($event)">
         <button nz-button nzType="primary" class="p-0">
           <label [for]="'cropperImage'">
-            upload
+            Upload
           </label>
         </button>
         <input [id]="'cropperImage'" type="file" class="d-none" (change)="cropperRef.set($event)" accept="image/*" />
