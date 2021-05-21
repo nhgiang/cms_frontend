@@ -55,7 +55,7 @@ export class HottestCourseComponent implements OnInit {
   submit() {
     const body = this.form.value.map(val => {
       return {
-        courseId: val.blogId || null
+        courseId: val.courseId || null
       };
     });
     this.settingApi.hottestCoruse.post(body).subscribe(() => {
