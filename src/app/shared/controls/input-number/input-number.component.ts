@@ -51,7 +51,7 @@ import { takeUntil } from 'rxjs/operators';
   }
 })
 export class InputNumberComponent implements ControlValueAccessor, AfterViewInit, OnChanges, OnInit, OnDestroy {
-  @ViewChild('inputElement', { static: true }) inputElement!: ElementRef<HTMLInputElement>;
+  @ViewChild('inputElement', { static: true }) inputElement: ElementRef<HTMLInputElement>;
   @Input() nzSize: NzSizeLDSType = 'default';
   @Input() nzMin = -Infinity;
   @Input() nzMax = Infinity;
@@ -103,7 +103,7 @@ export class InputNumberComponent implements ControlValueAccessor, AfterViewInit
       val = `${this.getValidValue(val)}`;
     } else {
       // tslint:disable-next-line: no-non-null-assertion
-      val = this.value!;
+      val = this.value;
     }
     return this.toNumber(val);
   }
@@ -234,7 +234,7 @@ export class InputNumberComponent implements ControlValueAccessor, AfterViewInit
       return;
     }
     // tslint:disable-next-line: no-non-null-assertion
-    const value = this.getCurrentValidValue(this.parsedValue!) || 0;
+    const value = this.getCurrentValidValue(this.parsedValue) || 0;
     let val = 0;
     if (type === 'up') {
       val = this.upStep(value, ratio);
@@ -302,7 +302,7 @@ export class InputNumberComponent implements ControlValueAccessor, AfterViewInit
     // tslint:disable-next-line: deprecation
     } else if (e.keyCode === ENTER) {
       // tslint:disable-next-line: no-non-null-assertion
-      this.updateDisplayValue(this.value!);
+      this.updateDisplayValue(this.value);
     }
   }
 
@@ -352,7 +352,7 @@ export class InputNumberComponent implements ControlValueAccessor, AfterViewInit
         if (!focusOrigin) {
           this.isFocused = false;
           // tslint:disable-next-line: no-non-null-assertion
-          this.updateDisplayValue(this.value!);
+          this.updateDisplayValue(this.value);
           this.nzBlur.emit();
           Promise.resolve().then(() => this.onTouched());
         } else {
@@ -372,7 +372,7 @@ export class InputNumberComponent implements ControlValueAccessor, AfterViewInit
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.nzFormatter && !changes.nzFormatter.isFirstChange()) {
       // tslint:disable-next-line: no-non-null-assertion
-      const validValue = this.getCurrentValidValue(this.parsedValue!);
+      const validValue = this.getCurrentValidValue(this.parsedValue);
       this.setValue(validValue);
       this.updateDisplayValue(validValue);
     }

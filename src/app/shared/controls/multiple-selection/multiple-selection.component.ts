@@ -1,7 +1,6 @@
-import { Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DestroyService } from '@shared/services/destroy.service';
-import { NzOptionComponent, NzOptionContainerComponent, NzOptionItemComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { SelectAdvanceComponent } from '../select-advance/select-advance.component';
 
 @Component({
