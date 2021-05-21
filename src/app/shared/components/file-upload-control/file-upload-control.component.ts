@@ -62,7 +62,7 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
     }
 
     if (!this.validateSize(file)) {
-      this.messageService.error(`Vui lòng chọn đúng kích cỡ file`);
+      this.messageService.error(`Kích cỡ file khoogn được vượt quá 5MB`);
       return;
     }
 
