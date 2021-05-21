@@ -8,7 +8,7 @@ import { TValidators } from '@shared/extentions/validators';
 import Mustache from 'mustache';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { forkJoin } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { finalize, switchMap } from 'rxjs/operators';
 import { AssetType } from 'types/enums';
 import { v4 } from 'uuid';
 
@@ -25,6 +25,7 @@ export class CertificationComponent implements OnInit {
   AssetType = AssetType;
   logoId: string;
   signatureId: string;
+  isLoading: boolean;
 
   get templatePreview() {
     return this.template && this.sanitizer.bypassSecurityTrustHtml(`${this.template}`);
@@ -63,7 +64,7 @@ export class CertificationComponent implements OnInit {
             courseName: 'chăm sóc da cơ bản',
             username: 'Lâm tiểu vy',
             time: '24/02/2021',
-            signature:  typeof value.signature === 'string' ? value.signature : this.signature.imageUrl,
+            signature: typeof value.signature === 'string' ? value.signature : this.signature.imageUrl,
             logo: typeof value.logo === 'string' ? value.logo : this.logo.imageUrl,
             companyName: value.companyName,
             director: value.director,
@@ -83,17 +84,21 @@ export class CertificationComponent implements OnInit {
     if (this.form.invalid) {
       throw new Error();
     }
+    this.isLoading = true;
     forkJoin({
       logo: this.storageApi.uploadFile(this.form.value.logo),
       signature: this.storageApi.uploadFile(this.form.value.signature)
-    }).pipe(switchMap(res => {
-      const data = {
-        ...this.form.value,
-        logo: res.logo,
-        signature: res.signature
-      };
-      return this.certificateApi.update(data);
-    })).subscribe(() => {
+    }).pipe(
+      switchMap(res => {
+        const data = {
+          ...this.form.value,
+          logo: res.logo,
+          signature: res.signature
+        };
+        return this.certificateApi.update(data);
+      }),
+      finalize(() => this.isLoading = true)
+    ).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật thông tin chứng chỉ thành công');
     });
   }

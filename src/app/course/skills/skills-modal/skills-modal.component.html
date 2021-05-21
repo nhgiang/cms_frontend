@@ -1,37 +1,41 @@
-<form [formGroup]="form" nz-form>
-  <div>
+<nz-spin [nzSpinning]="isLoading">
+  <form [formGroup]="form" nz-form>
     <div>
+      <div>
+        <nz-form-item>
+          <nz-form-control>
+            <div class="d-flex align-items-center">
+              <div *ngIf="form.get('icon').value" class="w-25" style="width: 50px; height:100px"><img
+                  style="width:100%;height:100%" [src]="form.get('icon').value | safeUrl" alt="ảnh"></div>
+              <div style="width: 50px; height:100px" class="w-25 upload" *ngIf="!form.get('icon').value"></div>
+              <app-select-icon class="w-75 ml-2" [getOptionsFn]="icons" placeholder="Chọn icon" formControlName="icon">
+              </app-select-icon>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+        <div *ngIf="form.controls.icon.hasError('required') && form.controls.icon.dirty"
+          class="ant-form-item-explain ant-form-item-explain-error">
+          Vui lòng tải icon lên
+        </div>
+      </div>
       <nz-form-item>
-        <nz-form-control>
-          <div class="d-flex align-items-center">
-            <div *ngIf="form.get('icon').value" class="w-25" style="width: 50px; height:100px"><img style="width:100%;height:100%" [src]="form.get('icon').value | safeUrl" alt="ảnh"></div>
-            <div style="width: 50px; height:100px" class="w-25 upload" *ngIf="!form.get('icon').value"></div>
-            <app-select-icon class="w-75 ml-2" [getOptionsFn]="icons" placeholder="Chọn icon" formControlName="icon" ></app-select-icon>
-          </div>
+        <nz-form-label [nzSpan]="6" class="text-left" nzRequired>Tên kỹ năng</nz-form-label>
+        <nz-form-control nzErrorTip="Tên kỹ năng phải từ 1 đến 200 ký tự">
+          <input nz-input formControlName="name" placeholder="Nhập tên kỹ năng">
         </nz-form-control>
       </nz-form-item>
-      <div *ngIf="form.controls.icon.hasError('required') && form.controls.icon.dirty"
-        class="ant-form-item-explain ant-form-item-explain-error">
-        Vui lòng tải icon lên
-      </div>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" class="text-left" nzRequired>Mô tả</nz-form-label>
+        <nz-form-control nzErrorTip="Nội dung mô tả phải từ 1 đến 500 ký tự">
+          <textarea nz-input formControlName="description" placeholder="Nhập mô tả kỹ năng" rows="3"
+            style="resize: none;"></textarea>
+        </nz-form-control>
+      </nz-form-item>
     </div>
-    <nz-form-item>
-      <nz-form-label [nzSpan]="6" class="text-left" nzRequired>Tên kỹ năng</nz-form-label>
-      <nz-form-control nzErrorTip="Tên kỹ năng phải từ 1 đến 200 ký tự">
-        <input nz-input formControlName="name" placeholder="Nhập tên kỹ năng">
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSpan]="6" class="text-left" nzRequired>Mô tả</nz-form-label>
-      <nz-form-control nzErrorTip="Nội dung mô tả phải từ 1 đến 500 ký tự">
-        <textarea nz-input formControlName="description" placeholder="Nhập mô tả kỹ năng" rows="3"
-          style="resize: none;"></textarea>
-      </nz-form-control>
-    </nz-form-item>
-  </div>
-  <div *nzModalFooter>
-    <button nz-button nzType="primary" (click)="submit()" type="submit" [disabled]="form.invalid"
-      [nzLoading]="isLoading">Xác
-      nhận</button>
-  </div>
-</form>
+    <div *nzModalFooter>
+      <button nz-button nzType="primary" (click)="submit()" type="submit" [disabled]="form.invalid"
+        [nzLoading]="isLoading">Xác
+        nhận</button>
+    </div>
+  </form>
+</nz-spin>

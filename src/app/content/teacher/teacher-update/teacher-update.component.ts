@@ -20,14 +20,14 @@ export class TeacherUpdateComponent implements OnInit {
   teacher: SettingTeacherItem;
   form: FormGroup;
   image: FileModel;
-
+  isLoading: boolean;
   constructor(
     private fb: FormBuilder,
     private contentState: ContentStateService,
     private storageApi: StorageApiService,
     private modalRef: NzModalRef,
     private notification: NzNotificationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -39,6 +39,7 @@ export class TeacherUpdateComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
+    this.isLoading = true;
     this.storageApi
       .uploadFile(
         this.image?.file ?? this.form.value.avatar,
@@ -52,7 +53,10 @@ export class TeacherUpdateComponent implements OnInit {
           };
           return this.contentState.updateTeacher(trimData(data), this.index);
         }),
-        finalize(() => this.modalRef.close())
+        finalize(() => {
+          this.isLoading = false;
+          this.modalRef.close()
+        })
       )
       .subscribe(() => {
         this.notification.success(
