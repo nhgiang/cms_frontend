@@ -23,6 +23,7 @@ import { Error500Component } from './authentication/error500/error500.component'
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
 
+
 registerLocaleData(en);
 
 const ngZorroConfig: NzConfig = {
@@ -47,7 +48,7 @@ const ngZorroConfig: NzConfig = {
     NzBreadCrumbModule,
     TemplateModule,
     SharedModule,
-    NgChartjsModule
+    NgChartjsModule,
   ],
   providers: [
     {
