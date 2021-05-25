@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { SpecializationApiService } from '@shared/api/specialization.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
-import { Ultilities } from '@shared/extentions/ultilities';
+import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { IPaginate } from '@shared/interfaces/paginate.type';
 import { delay, finalize, map, switchMap } from 'rxjs/operators';

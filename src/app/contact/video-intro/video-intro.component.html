@@ -7,7 +7,7 @@
         </h5>
       </div>
       <nz-form-item>
-        <nz-form-label nzRequired>Tiêu đề video</nz-form-label>
+        <nz-form-label nzRequired class="label-space text-left">Tiêu đề video</nz-form-label>
         <nz-form-control [nzErrorTip]="'Vui lòng nhập tiêu đề'">
           <nz-input-group>
             <textarea rows="4" formControlName="title" nz-input placeholder="Nhập tiêu đề video"></textarea>
@@ -15,7 +15,7 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label nzRequired>Image poster</nz-form-label>
+        <nz-form-label nzRequired class="label-space text-left">Image poster</nz-form-label>
         <nz-form-control [nzErrorTip]="errFileTemp">
           <app-file-upload-control formControlName="image" [fileType]="AssetType.Image" [maxSize]="5000000">
           </app-file-upload-control>
@@ -33,7 +33,7 @@
         </ng-template>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label>Upload video</nz-form-label>
+        <nz-form-label class="label-space text-left">Upload video</nz-form-label>
         <nz-form-control>
           <app-upload-video formControlName="video">
           </app-upload-video>

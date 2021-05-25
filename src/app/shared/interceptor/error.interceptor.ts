@@ -22,7 +22,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.notification.warning('', 'Tài khoản của bạn đã được đăng nhập ở một thiết bị khác hoặc đã bị tạm khóa!');
         }
         localStorage.clear();
-        this.router.navigate(['/authentication/login']);
+        location.href = '/authentication/login';
       } else if ([403, 404, 500].includes(error.status)) {
         this.router.navigate(['/authentication/error', error.status]);
       }

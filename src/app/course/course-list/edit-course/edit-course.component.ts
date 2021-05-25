@@ -8,7 +8,7 @@ import { SkillsApiService } from '@shared/api/skills.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { FeedbackFormComponent } from '@shared/components/feedback-form/feedback-form.component';
-import { Ultilities } from '@shared/extentions/ultilities';
+import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { omit } from 'lodash-es';
 import { NzModalService } from 'ng-zorro-antd/modal';

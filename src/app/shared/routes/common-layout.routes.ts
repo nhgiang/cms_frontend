@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ConfigQuickContactComponent } from 'src/app/config-quick-contact/config-quick-contact.component';
 
 export const CommonLayoutRoutes: Routes = [
   {
@@ -47,6 +48,20 @@ export const CommonLayoutRoutes: Routes = [
     data: {
       headerDisplay: true,
       title: 'Quản lý bài viết'
+    }
+  },
+  {
+    path: 'order-managerment',
+    loadChildren: () => import('src/app/order/order.module').then(m => m.OrderModule),
+    data: {
+      title: 'Quản lý đơn hàng'
+    }
+  },
+  {
+    path: 'quick-contact',
+    component: ConfigQuickContactComponent,
+    data: {
+      title: 'Quản lý chat facebook'
     }
   }
 ];

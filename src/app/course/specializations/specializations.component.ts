@@ -37,7 +37,7 @@ export class SpecializationsComponent extends DataTableContainer<Specialization>
 
   deleteTeacher(id: string) {
     this.specialiationApi.delete(id).subscribe(() => {
-      this.notification.success('Thành công', 'Xóa loại khóa học thành công!');
+      this.notification.success('Thành công', 'Xóa thông tin chuyên môn thành công!');
       this.refresh();
     });
   }

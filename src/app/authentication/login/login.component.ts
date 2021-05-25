@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Ultilities } from '@shared/extentions/ultilities';
+import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { AuthenticationService } from '@shared/services/authentication.service';
 import { finalize } from 'rxjs/operators';

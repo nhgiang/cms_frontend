@@ -1,0 +1,18 @@
+<nz-card>
+  <nz-spin [nzSpinning]="isLoading">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <nz-form-item class="d-flex flex-column">
+        <div class="text-left ant-form-item-label">
+          <label>Mã ID fanpage</label>
+        </div>
+        <nz-form-control [nzErrorTip]="'Vui lòng điền mà ID fanpage của bạn'">
+          <input type="text" nz-input formControlName="fanpageId" placeholder="Điền mã ID fanpage của bạn">
+        </nz-form-control>
+      </nz-form-item>
+      <div class="text-center">
+        <button nz-button type="button" [routerLink]="['/dashboad/home']" nzType="primary" nzGhost>Quay lại</button>
+        <button nz-button nzType="primary" type="submit" class="ml-3">Xác nhận</button>
+      </div>
+    </form>
+  </nz-spin>
+</nz-card>

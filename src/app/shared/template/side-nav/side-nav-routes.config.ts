@@ -77,12 +77,18 @@ export const ROUTES: SideNavInterface[] = [
     ]
   },
   {
-    path: '',
-    title: 'Đơn hàng',
+    path: 'order-managerment',
+    title: 'Quản lý đơn hàng',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'profile',
-    submenu: []
+    submenu: [
+      {
+        path: 'order',
+        title: 'Danh sách đơn hàng',
+        submenu: []
+      }
+    ]
   },
   {
     path: 'content',
@@ -187,6 +193,14 @@ export const ROUTES: SideNavInterface[] = [
   {
     path: '',
     title: 'Quản lý đối tác',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'customer-service',
+    submenu: []
+  },
+  {
+    path: 'quick-contact',
+    title: 'Quản lý chat facebook',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'customer-service',
