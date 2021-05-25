@@ -6,7 +6,7 @@ import { API_BASE_URL } from '@shared/api/base-url';
 import { PostTypesApiService } from '@shared/api/post-types.api.service';
 import { PostsApiService } from '@shared/api/posts.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
-import { Ultilities } from '@shared/extentions/ultilities';
+import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, map, switchMap } from 'rxjs/operators';

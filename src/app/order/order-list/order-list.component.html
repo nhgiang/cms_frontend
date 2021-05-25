@@ -1,0 +1,73 @@
+<nz-card>
+  <div class="row m-b-30">
+    <div class="col-lg-12">
+      <form nz-form [formGroup]="search">
+        <div class="d-md-flex">
+          <div class="m-b-10 m-r-20">
+            <nz-input-group style="min-width: 275px;" [nzPrefix]="prefixTemplate">
+              <input type="text" nz-input placeholder="Tìm kiếm theo họ tên, email hoặc số điện thoại"
+                formControlName="q">
+            </nz-input-group>
+            <ng-template #prefixTemplate>
+              <i nz-icon nzType="search" class="opacity-05"></i>
+            </ng-template>
+          </div>
+          <div class="m-b-10 m-r-20 d-flex align-items-center">
+            <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn trạng thái" formControlName="status">
+              <nz-option nzLabel="All" nzValue=""></nz-option>
+              <nz-option [nzLabel]="''" [nzValue]="''"></nz-option>
+              <nz-option [nzLabel]="''" [nzValue]="''"></nz-option>
+            </nz-select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <nz-table [nzShowTotal]="totalTemplate" [nzNoResult]="empty" #productsListTable [nzFrontPagination]="false"
+    [nzData]="items" [nzTotal]="meta?.totalItems" (nzQueryParams)="onParamsChanged($event)" [nzPageSize]="quantity"
+    [nzLoading]="isloading" [(nzPageIndex)]="page" nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th [nzWidth]="'70px'" scope="col">ID</th>
+        <th scope="col">Tên khách hàng</th>
+        <th scope="col">Email khách hàng</th>
+        <th scope="col">Tên sản phẩm</th>
+        <th scope="col">Trạng thái</th>
+        <th scope="col">Giá mua</th>
+        <th scope="col">Thời gian mua</th>
+        <th scope="col" [nzWidth]="'70px'"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of productsListTable.data;  let i=index">
+        <td>#{{item?.index}}</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item?.avatar"></nz-avatar>
+            <span class="m-l-10">{{item?.fullName}}</span>
+          </div>
+        </td>
+        <td nzEllipsis>{{item?.email}}</td>
+        <td nzEllipsis>{{item?.itemName}}</td>
+        <td>
+          <nz-badge [nzColor]="item.status | option:studentStatusOptions:'color'"
+          [nzText]="item.status | option:studentStatusOptions"></nz-badge>
+        </td>
+        <td>{{item?.price}}</td>
+        <td>{{item?.created | date: 'dd/MM/YYYY HH:MM'}}</td>
+        <td class="text-md-right">
+          <div class="d-flex">
+            <a [routerLink]="['/order-managerment/order',item?.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
+              nzTooltipTitle="Chỉnh sửa">
+              <i nz-icon nzType="edit" theme="outline"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>

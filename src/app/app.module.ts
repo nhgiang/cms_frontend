@@ -22,6 +22,7 @@ import { Error404Component } from './authentication/error404/error404.component'
 import { Error500Component } from './authentication/error500/error500.component';
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
+import { ConfigQuickContactComponent } from './config-quick-contact/config-quick-contact.component';
 
 
 registerLocaleData(en);
@@ -39,7 +40,8 @@ const ngZorroConfig: NzConfig = {
     CommonLayoutComponent,
     FullLayoutComponent,
     Error404Component,
-    Error500Component
+    Error500Component,
+    ConfigQuickContactComponent
   ],
   imports: [
     BrowserModule,
