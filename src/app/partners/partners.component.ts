@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Partner, Meta } from 'types/typemodel';
 import { PartnersApiService } from '@shared/api/partners.api.service';
-import { finalize, debounceTime } from 'rxjs/operators';
+import { finalize, debounceTime, switchMap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { Observable, Observer } from 'rxjs';
 
 @Component({
   selector: 'app-partners',
@@ -16,26 +17,37 @@ export class PartnersComponent implements OnInit {
   constructor(private partnersApi: PartnersApiService) {}
 
   ngOnInit() {
-    this.fetch(1, undefined);
-    //fetch no queries on init
+    this.fetch(1, undefined) //fetch no queries on init
+      .subscribe(this.updateObserver());
+
     this.searchQuery = new FormControl('');
-    this.searchQuery.valueChanges.pipe(debounceTime(500)).subscribe((value) => {
-      this.fetch(1, value);
-    });
+    this.searchQuery.valueChanges
+      .pipe(
+        debounceTime(500),
+        switchMap((value) => this.fetch(1, value))
+      )
+      .subscribe(this.updateObserver());
   }
 
-  protected fetch(page, searchQuery) {
+  protected fetch(page, searchQuery): Observable<any> {
     this.isDataLoading = true;
-    this.partnersApi
+    return this.partnersApi
       .getList({ page: page, q: searchQuery })
-      .pipe(finalize(() => (this.isDataLoading = false)))
-      .subscribe((data) => {
+      .pipe(finalize(() => (this.isDataLoading = false)));
+  }
+
+  protected updateObserver(): Observer<any> {
+    return {
+      next: (data) => {
         this.meta = data.meta;
         this.partners = data.items;
-      });
+      },
+      error() {},
+      complete() {},
+    };
   }
 
   onPageIndexChange(page) {
-    this.fetch(page, this.searchQuery.value);
+    this.fetch(page, this.searchQuery.value).subscribe(this.updateObserver());
   }
 }

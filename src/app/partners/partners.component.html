@@ -20,6 +20,7 @@
     [nzTotal]="meta.totalItems"
     [nzNoResult]="empty"
     (nzPageIndexChange)="onPageIndexChange($event)"
+    [nzLoading]="isDataLoading"
   >
     <thead>
       <th>ID</th>
