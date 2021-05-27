@@ -31,6 +31,7 @@ import { SelectIconComponent } from './controls/select-icon/select-icon.componen
 import { UploadVimeoControlComponent } from './components/upload-vimeo-control/upload-vimeo-control.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ToImagePipe } from './pipes/to-image.pipe';
+import { NameTeacherPipe } from './pipes/name-teacher.pipe';
 
 @NgModule({
   exports: [
@@ -98,7 +99,8 @@ import { ToImagePipe } from './pipes/to-image.pipe';
     SelectIconComponent,
     UploadVimeoControlComponent,
     ToImagePipe,
-    SafeUrlPipe
+    SafeUrlPipe,
+    NameTeacherPipe
   ],
   providers: [
     ThemeConstantService

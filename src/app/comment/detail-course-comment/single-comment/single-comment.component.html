@@ -1,0 +1,24 @@
+<nz-comment [nzAuthor]="author">
+  <nz-avatar style="cursor: pointer;" (click)="navigate(data)" nz-comment-avatar nzIcon="user" [nzSrc]="data?.avatar">
+  </nz-avatar>
+  <nz-comment-content>
+    <div class="border p-2 position-relative" style="border-radius: 10px;">
+      <span [ngClass]="type === 'Comment' ? 'color-blue' : ''">{{ data?.content }}</span>
+      <div class="close-btn" style="cursor: pointer;"
+        confirmation="Khi comment chính bị xoá, các comment phụ sẽ bị xoá theo. Bạn có chắc chắn?"
+        (confirmed)="deleteItem(data?.id)"><i nz-icon nzType="close" nzTheme="outline"></i></div>
+    </div>
+  </nz-comment-content>
+  <ng-container *ngIf="children && children?.length">
+    <ng-container *ngFor="let item of children">
+      <div class="ml-2">
+        <app-single-comment (deleteData)="getList()" [data]="item" type="Reply"></app-single-comment>
+      </div>
+    </ng-container>
+    <a *ngIf="totalPage > pagination.page" class="d-flex justify-content-center" (click)="increasePage()">Xem thêm</a>
+  </ng-container>
+</nz-comment>
+
+<ng-template #author>
+  <a class="name" (click)="navigate(data)">{{data.fullName}}</a>
+</ng-template>

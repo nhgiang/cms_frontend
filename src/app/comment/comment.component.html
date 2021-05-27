@@ -1,0 +1,61 @@
+<nz-card>
+  <div class="ant-card-body">
+    <div class="row">
+      <form [formGroup]="search" nz-form>
+        <div class="d-md-flex">
+          <nz-form-item class="mr-3 col-7">
+            <nz-form-control>
+              <nz-input-group [nzPrefix]="prefixTemplate">
+                <input type="text" nz-input formControlName="q" placeholder="Tìm kiếm theo tên khóa học">
+              </nz-input-group>
+              <ng-template #prefixTemplate>
+                <i nz-icon nzType="search" class="opacity-05"></i>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+          <div class="m-b-10 m-r-20 d-flex">
+            <select-advance [width]="'220px'" class="select-advance" placeholder="Chọn loại khóa học"
+              [getOptionsFn]="type$" formControlName="typeId">
+            </select-advance>
+          </div>
+          <div class="m-b-10 m-r-20 d-flex">
+            <select-advance [width]="'220px'" class="select-advance" placeholder="Chọn giảng viên"
+              [getOptionsFn]="teacher$" formControlName="userId">
+            </select-advance>
+          </div>
+        </div>
+      </form>
+    </div>
+    <nz-table [nzData]="items" [nzLoading]="isloading" (nzQueryParams)="onParamsChanged($event)" [(nzPageIndex)]="page"
+      [nzPageSize]="quantity" [nzTotal]="meta?.totalItems" [nzFrontPagination]="false" [nzShowTotal]="totalTemplate">
+      <thead>
+        <tr>
+          <ng-container *ngFor="let col of metaData">
+            <th *ngIf="!col.sortable" scope="col">{{col.name}}</th>
+            <th *ngIf="col.sortable" scope="col" [nzSortFn]="col.sortable" [nzSortOrder]="col?.sortOrder"
+              [nzColumnKey]="col.key">
+              {{col.name}}</th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td>#{{item.index}}</td>
+          <td><a [routerLink]="item?.id">{{item?.courseName}}</a></td>
+          <td>
+            <div>
+              <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item.avatar"></nz-avatar>
+              {{item?.teacherName}}
+            </div>
+          </td>
+          <td>{{item?.typeName}}</td>
+          <td>{{item?.totalComment}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</nz-card>
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>

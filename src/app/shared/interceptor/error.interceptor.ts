@@ -18,7 +18,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
-        if (moment((jwt_decode(localStorage.getItem('token')) as ITokenDecode).exp, 'x').isBefore(moment(), 'seconds')) {
+        if (localStorage.getItem('token') && moment((jwt_decode(localStorage.getItem('token')) as ITokenDecode).exp, 'x').isBefore(moment(), 'seconds')) {
           this.notification.warning('', 'Tài khoản của bạn đã được đăng nhập ở một thiết bị khác hoặc đã bị tạm khóa!');
         }
         localStorage.clear();
