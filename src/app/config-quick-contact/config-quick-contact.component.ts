@@ -37,7 +37,7 @@ export class ConfigQuickContactComponent implements OnInit {
 
   buildform() {
     this.form = this.fb.group({
-      fanpageId: [null, [TValidators.required]]
+      fanpageId: [null, [TValidators.maxLength(20), TValidators.onlyNumber]]
     });
   }
 }

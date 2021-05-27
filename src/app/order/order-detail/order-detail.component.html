@@ -4,13 +4,13 @@
       <div class="col-xl-7 col-md-6 d-flex justify-content-between">
         <div class="d-md-flex align-items-center">
           <div class="text-center text-sm-left ">
-            <nz-avatar class="shadow-sm m-v-15" nzIcon="user" [nzSize]="111" [nzSrc]="order?.avatar"></nz-avatar>
+            <nz-avatar class="shadow-sm m-v-15" nzIcon="user" [nzSize]="111" [nzSrc]="order?.user.avatar"></nz-avatar>
           </div>
           <div class="text-center text-sm-left m-v-15 p-l-30">
-            <h4 class="m-b-0">{{order?.fullName || 'Nguyễn Văn Trung'}}</h4>
+            <h4 class="m-b-0">{{order?.user.fullName}}</h4>
             <p class="text-opacity font-size-13">
-              <nz-badge [nzColor]="order?.status | option:StudentStatusOptions:'color'"
-                [nzText]="order?.status | option:StudentStatusOptions"></nz-badge>
+              <nz-badge [nzColor]="order?.user.status | option:StudentStatusOptions:'color'"
+                [nzText]="order?.user.status | option:StudentStatusOptions"></nz-badge>
             </p>
             <p class="text-dark m-b-10">100 point</p>
           </div>
@@ -26,35 +26,35 @@
                   <i class="m-r-10 text-primary" nz-icon nzType="mail" theme="outline"></i>
                   <span>Email: </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold"> {{ order?.email }}</p>
+                <p class="col-md-8 font-weight-semibold"> {{ order?.user.email }}</p>
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
                   <i class="m-r-10 text-primary" nz-icon nzType="phone" theme="outline"></i>
                   <span>Số điện thoại: </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold">{{ order?.phoneNumber }}</p>
+                <p class="col-md-8 font-weight-semibold">{{ order?.user.phoneNumber }}</p>
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
                   <i class="m-r-10 text-primary" nz-icon nzType="man" theme="outline"></i>
                   <span>Giới tính: </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold"> {{ order?.gender }}</p>
+                <p class="col-md-8 font-weight-semibold"> {{ order?.user.gender }}</p>
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
                   <i class="m-r-10 text-primary" nz-icon nzType="calendar" theme="outline"></i>
                   <span>Ngày sinh: </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold">{{ order?.dateOfBirth | date: 'dd/MM/yyyy' }}</p>
+                <p class="col-md-8 font-weight-semibold">{{ order?.user.dateOfBirth | datetime }}</p>
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
                   <i class="m-r-10 text-primary" nz-icon nzType="compass" theme="outline"></i>
                   <span>Địa chỉ : </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold"> {{ order?.address }}</p>
+                <p class="col-md-8 font-weight-semibold"> {{ order?.user.address }}</p>
               </li>
             </ul>
           </div>
@@ -65,52 +65,62 @@
   <div class="row">
     <div class="col-6">
       <nz-card>
-        <form [formGroup]="form" nzLayout="vertical" class="ant-form-vertical">
-          <h5>Thông tin hóa đơn</h5>
-          <nz-form-item>
-            <nz-form-label class="text-left">Mã hoá đơn</nz-form-label>
-            <nz-form-control>
-              <input type="text" nz-input formControlName="transactionId">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label class="text-left">Thông tin ngân hàng</nz-form-label>
-            <nz-form-control [nzErrorTip]="'Địa điểm cấp chứng chỉ phải từ 1 đến 30 ký tự'">
-              <input type="text" nz-input placeholder="Nhập vào địa điểm cấp chứng chỉ" formControlName="bank">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label class="text-left">Mã giao dịch ngân hàng</nz-form-label>
-            <nz-form-control [nzErrorTip]="'Địa điểm cấp chứng chỉ phải từ 1 đến 30 ký tự'">
-              <input type="text" nz-input placeholder="Nhập vào địa điểm cấp chứng chỉ"
-                formControlName="bankTransactionId">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label class="text-left">Thời điểm giao dịch</nz-form-label>
-            <nz-form-control [nzErrorTip]="'Địa điểm cấp chứng chỉ phải từ 1 đến 30 ký tự'">
-              <input type="text" nz-input placeholder="Nhập vào địa điểm cấp chứng chỉ" formControlName="time">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label class="text-left">Số tiền giao dịch</nz-form-label>
-            <nz-form-control [nzErrorTip]="'Địa điểm cấp chứng chỉ phải từ 1 đến 30 ký tự'">
-              <input type="text" nz-input placeholder="Nhập vào địa điểm cấp chứng chỉ" formControlName="price">
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label class="text-left">Trạng thái đơn hàng</nz-form-label>
-            <nz-form-control [nzErrorTip]="'Địa điểm cấp chứng chỉ phải từ 1 đến 30 ký tự'">
-              <input type="text" nz-input placeholder="Nhập vào địa điểm cấp chứng chỉ" formControlName="status">
-            </nz-form-control>
-          </nz-form-item>
-        </form>
+        <nz-spin [nzSpinning]="isLoading">
+          <form [formGroup]="form" nzLayout="vertical" class="ant-form-vertical">
+            <h5>Thông tin hóa đơn</h5>
+            <nz-form-item>
+              <nz-form-label class="text-left">Mã hoá đơn</nz-form-label>
+              <nz-form-control>
+                <input type="text" nz-input formControlName="code">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label class="text-left">Thông tin ngân hàng</nz-form-label>
+              <nz-form-control [nzErrorTip]="'Vui lòng chọn thông tin ngân hàng'">
+                <nz-select formControlName="bankCode" [nzPlaceHolder]="'Chọn ngân hàng'">
+                  <nz-option [nzLabel]="item.bankCode" [nzValue]="item.bankCode" *ngFor="let item of paymentMethods">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label class="text-left">Mã giao dịch ngân hàng</nz-form-label>
+              <nz-form-control [nzErrorTip]="'Vui lòng nhập mã giao dịch ngân hàng'">
+                <input type="text" nz-input placeholder="Nhập mã giao dịch ngân hàng" formControlName="transactionCode">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label class="text-left">Thời điểm giao dịch</nz-form-label>
+              <nz-form-control [nzErrorTip]="'Vui lòng chọn thời điểm giao dịch'">
+                <nz-date-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="dd/MM/yyyy HH:mm"
+                  formControlName="transactionTime" nzPlaceHolder="Chọn thời điểm giao dịch" class="w-100">
+                </nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label class="text-left">Số tiền giao dịch</nz-form-label>
+              <nz-form-control [nzErrorTip]="'Vui lòng nhập số tiền giao dịch'">
+                <input-number formControlName="transactionAmount" placeholder="Nhập số tiền giao dịch" class="w-100">
+                </input-number>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label class="text-left">Trạng thái đơn hàng</nz-form-label>
+              <nz-form-control>
+                <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn trạng thái"
+                  formControlName="status">
+                  <nz-option [nzLabel]="item.label" [nzValue]="item.value" *ngFor="let item of invoiceStatusOptions"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-spin>
       </nz-card>
     </div>
     <div class="col-6">
       <nz-card>
         <h5>Thông tin sản phẩm</h5>
-        <nz-table [nzData]="[1,2,3]">
+        <nz-table #itemsTable [nzData]="order?.items" [nzShowPagination]="false">
           <thead>
             <tr>
               <th scope="col">STT</th>
@@ -121,35 +131,40 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of [1,2,3]">
-              <td>{{item}}</td>
-              <td>Tập huấn bí kíp tăng trưởng đột phát</td>
-              <td>800,000 đ</td>
-              <td>700,000 đ</td>
-              <td>3 tháng</td>
+            <tr *ngFor="let item of itemsTable.data;let index = index">
+              <td>{{index+1}}</td>
+              <td>{{item?.courseName}}</td>
+              <td>{{item?.price|number}} đ</td>
+              <td>{{item?.price|number}} đ</td>
+              <td>{{item?.days}} ngày</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="text-primary text-semibold">Tổng tiền</td>
+              <td></td>
+              <td class="text-primary text-semibold">{{ order?.totalPrice | number }} đ</td>
+              <td></td>
             </tr>
           </tbody>
         </nz-table>
       </nz-card>
       <nz-card>
         <h5>Thông tin thanh toán</h5>
-        <nz-table [nzData]="[1]" [nzShowPagination]="false">
-          <thead>
-            <tr>
-              <th scope="col">STT</th>
-              <th scope="col">Ngày mua</th>
-              <th scope="col">Hình thức thanh toán</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of [1]">
-              <td>{{item}}</td>
-              <td>Tập huấn bí kíp tăng trưởng đột phát</td>
-              <td>800,000 đ</td>
-            </tr>
-          </tbody>
-        </nz-table>
+        <div class="table">
+          <div class="t-head">
+            <div class="t-cell">Thời điểm tạo hoá đơn</div>
+            <div class="t-cell">Hình thức thanh toán</div>
+          </div>
+          <div class="t-row">
+            <div class="t-cell">{{order?.created | datetime: true}}</div>
+            <div class="t-cell">{{order?.bankCodePicked}}</div>
+          </div>
+        </div>
       </nz-card>
     </div>
+  </div>
+  <div class="text-right">
+    <button nz-button type="button" [routerLink]="['../']" nzType="primary" nzGhost>Quay lại</button>
+    <button nz-button nzType="primary" type="button" class="ml-3" (click)="submit()">Xác nhận</button>
   </div>
 </nz-spin>
