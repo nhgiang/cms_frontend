@@ -51,6 +51,14 @@ export const CommonLayoutRoutes: Routes = [
     }
   },
   {
+    path: 'events', 
+    loadChildren: () => import('src/app/events/events.module').then(m => m.EventsModule),
+    data: {
+      headerDisplay: true,
+      title: 'Quản lý sự kiện'
+    }
+  },
+  {
     path: 'order-managerment',
     loadChildren: () => import('src/app/order/order.module').then(m => m.OrderModule),
     data: {
