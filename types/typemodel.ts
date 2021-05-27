@@ -133,3 +133,9 @@ export interface Blog extends Entity {
   coverImage: string;
   authorName: string;
 }
+
+export interface EventType extends Entity {
+  partnerId: string;
+  title: string;
+  description: string;
+}

@@ -159,12 +159,23 @@ export const ROUTES: SideNavInterface[] = [
     ]
   },
   {
-    path: '',
+    path: 'events',
     title: 'Quản lý sự kiện',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'calendar',
-    submenu: []
+    submenu: [
+      {
+        path: 'list',
+        title: 'Danh sách sự kiện', 
+        submenu: []
+      },
+      {
+        path: 'organize', 
+        title: 'Phân loại sự kiện',
+        submenu: []
+      } 
+    ]
   },
   {
     path: 'blog',

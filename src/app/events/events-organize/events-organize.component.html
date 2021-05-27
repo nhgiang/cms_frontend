@@ -1,0 +1,74 @@
+<nz-card>
+  <div class="d-flex">
+    <button class="ml-auto" (click)="showCreateModal()" nz-button nzType="primary">
+      Thêm Sự Kiện
+    </button>
+  </div>
+
+  <nz-table [nzData]="events" [nzPageIndex]="meta?.currentPage" [nzLoading]="isDataLoading" [nzFrontPagination]="false" [nzPageSize]="10" [nzTotal]="meta?.totalItems"  (nzPageIndexChange)="onPageIndexChange($event)" [nzNoResult]="empty">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th class="w-100">Tên loại sự kiện</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let event of events; index as i">
+        <td>#{{ i + 1 }}</td>
+        <td class="w-100 d-flex align-items-center">
+          {{ event.title }}
+          <button
+            class="ml-auto mr-2"
+            nz-button
+            nzType="default"
+            nzShape="circle"
+            (click)="showEditModal(event)"
+          >
+            <i nz-icon nzType="edit"></i>
+          </button>
+          <button
+            nz-button
+            nzShape="circle"
+            (click)="deleteEvent(event)"
+          >
+            <i nz-icon nzType="close"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<ng-template #empty>
+  <nz-empty nzNotFoundContent="Không có dữ liệu"></nz-empty>
+</ng-template>
+
+<nz-modal
+  [(nzVisible)]="isModalVisible"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-template #modalTitle>Tên loại sự kiện</ng-template>
+  <ng-template #modalContent>
+    <form [formGroup]="form" id="modal_form" (ngSubmit)="submitEvent()">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Vui lòng nhập loại sự kiện">
+          <input
+            type="text"
+            formControlName="eventTitle"
+            nz-input
+            placeholder="Nhập loại sự kiện"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button type="submit" nz-button nzType="primary" form="modal_form" [disabled]="!form.valid">
+      Xác nhận
+    </button>
+  </ng-template>
+</nz-modal>
