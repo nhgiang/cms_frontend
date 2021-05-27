@@ -139,3 +139,13 @@ export interface EventType extends Entity {
   title: string;
   description: string;
 }
+
+export interface Partner extends Entity {
+  fullname: string;
+  phoneNumber: string;
+  email: string;
+  academyName: string;
+  address: string;
+  package: string;
+  numberOfParticipants: number;
+}

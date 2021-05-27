@@ -24,8 +24,5 @@
         "src/environments/environment"
       ]
     }
-  }, 
-  "angularCompilerOptions": {
-    "strictTemplates": true,
   }
 }

@@ -7,7 +7,7 @@ export const ROUTES: SideNavInterface[] = [
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'dashboard',
-    submenu: []
+    submenu: [],
   },
   {
     path: 'user',
@@ -19,14 +19,14 @@ export const ROUTES: SideNavInterface[] = [
       {
         path: 'student',
         title: 'Quản lý học viên',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'lecturer',
         title: 'Quản lý giảng viên',
-        submenu: []
+        submenu: [],
       },
-    ]
+    ],
   },
   {
     path: 'course-management',
@@ -38,29 +38,29 @@ export const ROUTES: SideNavInterface[] = [
       {
         path: 'course',
         title: 'Danh sách khóa học',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'type',
         title: 'Loại khóa học',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'skills',
         title: 'Kỹ năng đạt được',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'specialization',
         title: 'Chuyên môn',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'certification',
         title: 'Chứng chỉ',
-        submenu: []
+        submenu: [],
       },
-    ]
+    ],
   },
   {
     path: 'consulting',
@@ -72,9 +72,9 @@ export const ROUTES: SideNavInterface[] = [
       {
         path: 'information',
         title: 'Thông tin tư vấn',
-        submenu: []
+        submenu: [],
       },
-    ]
+    ],
   },
   {
     path: 'order-managerment',
@@ -86,9 +86,9 @@ export const ROUTES: SideNavInterface[] = [
       {
         path: 'order',
         title: 'Danh sách đơn hàng',
-        submenu: []
-      }
-    ]
+        submenu: [],
+      },
+    ],
   },
   {
     path: 'content',
@@ -100,39 +100,39 @@ export const ROUTES: SideNavInterface[] = [
       {
         path: 'premiums',
         title: 'Ưu đãi',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'footer',
         title: 'Footer',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'feedbacks',
         title: 'Đánh giá học viên',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'video-intro',
         title: 'Video giới thiệu',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'teacher',
         title: 'Giảng viên',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'faq',
         title: 'Câu hỏi thường gặp',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'hottest-course',
         title: 'Khóa học hot nhất',
-        submenu: []
+        submenu: [],
       },
-    ]
+    ],
   },
   {
     path: 'contact',
@@ -144,19 +144,19 @@ export const ROUTES: SideNavInterface[] = [
       {
         path: 'video',
         title: 'Video giới thiệu',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'about-us',
         title: 'Về chúng tôi',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'story',
         title: 'Câu chuyện',
-        submenu: []
-      }
-    ]
+        submenu: [],
+      },
+    ],
   },
   {
     path: 'events',
@@ -167,15 +167,15 @@ export const ROUTES: SideNavInterface[] = [
     submenu: [
       {
         path: 'list',
-        title: 'Danh sách sự kiện', 
-        submenu: []
+        title: 'Danh sách sự kiện',
+        submenu: [],
       },
       {
-        path: 'organize', 
+        path: 'organize',
         title: 'Phân loại sự kiện',
-        submenu: []
-      } 
-    ]
+        submenu: [],
+      },
+    ],
   },
   {
     path: 'blog',
@@ -187,27 +187,27 @@ export const ROUTES: SideNavInterface[] = [
       {
         path: 'type',
         title: 'Loại bài viết',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'blog-management',
         title: 'Danh sách bài viết',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'hottest',
         title: 'Bài viết hot nhất',
-        submenu: []
-      }
-    ]
+        submenu: [],
+      },
+    ],
   },
   {
-    path: '',
-    title: 'Quản lý đối tác',
+    path: 'partners',
+    title: 'Đối tác đăng ký',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'customer-service',
-    submenu: []
+    submenu: [],
   },
   {
     path: 'quick-contact',
@@ -215,6 +215,6 @@ export const ROUTES: SideNavInterface[] = [
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'customer-service',
-    submenu: []
-  }
+    submenu: [],
+  },
 ];
