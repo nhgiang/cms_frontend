@@ -1,0 +1,22 @@
+<nz-card class="w-100">
+  <form [formGroup]="form">
+    <div class="pb-3">{{this.data?.courseName}}</div>
+    <select-advance [nzAllowClear]="false" [width]="'220px'" class="select-advance" placeholder="Chọn khóa học"
+      [getOptionsFn]="lession$" formControlName="ids" (ngModelChange)="changeLession($event)"></select-advance>
+    <nz-divider></nz-divider>
+    <nz-form-item style="max-width: 300px;">
+      <nz-form-control>
+        <nz-input-group [nzPrefix]="prefixTemplate">
+          <input type="text" nz-input formControlName="q" placeholder="Tìm kiếm theo từ khóa">
+        </nz-input-group>
+        <ng-template #prefixTemplate>
+          <i nz-icon nzType="search" class="opacity-05"></i>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <ng-container *ngFor="let item of this.data">
+    <app-single-comment type="Comment" [search]="isSearch" (deleteData)="getList()" [data]="item"></app-single-comment>
+  </ng-container>
+  <a (click)="increasePage()" *ngIf="totalPage > pagination.page" class="d-flex justify-content-center">Xem thêm</a>
+</nz-card>

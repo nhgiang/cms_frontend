@@ -33,4 +33,8 @@ export class CourseApiService extends BaseApi {
   publish(id) {
     return this.httpClient.patch(this.createUrl(`/${id}/publish`), null);
   }
+
+  comment(params: any): Observable<any> {
+    return this.httpClient.get(this.createUrl('/comments'), { params: this.createParams(params) })
+  }
 }

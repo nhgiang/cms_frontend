@@ -30,6 +30,7 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
   @Input() width: string;
   @Input() optionsDisabled: any[];
   @Input() hasNullOption: boolean;
+  @Input() nzAllowClear = true;
   @Output() readonly csClear = new EventEmitter<void>();
   isLoading = false;
   page = 1;
@@ -91,7 +92,6 @@ export class SelectAdvanceComponent extends AbstractControlDirective implements 
   loadMore(): void {
     this.loadMore$.pipe(
       tap(() => this.isLoading = true),
-      // tslint:disable-next-line: max-line-length
       concatMap(() => this.getOptionsFn({ page: this.page, q: this.q }).pipe(finalize(() => this.isLoading = false), tap(res => {
         this.page++;
       }))),
