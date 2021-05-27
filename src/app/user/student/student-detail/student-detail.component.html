@@ -50,7 +50,7 @@
                   <i class="m-r-10 text-primary" nz-icon nzType="calendar" theme="outline"></i>
                   <span>Ngày sinh: </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold">{{ user?.dateOfBirth | date: 'dd/MM/yyyy' }}</p>
+                <p class="col-md-8 font-weight-semibold">{{ user?.dateOfBirth | datetime }}</p>
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">

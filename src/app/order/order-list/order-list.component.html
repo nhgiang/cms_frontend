@@ -5,19 +5,24 @@
         <div class="d-md-flex">
           <div class="m-b-10 m-r-20">
             <nz-input-group style="min-width: 275px;" [nzPrefix]="prefixTemplate">
-              <input type="text" nz-input placeholder="Tìm kiếm theo họ tên, email hoặc số điện thoại"
+              <input type="text" nz-input placeholder="Tìm kiếm tên khách hàng"
                 formControlName="q">
             </nz-input-group>
             <ng-template #prefixTemplate>
               <i nz-icon nzType="search" class="opacity-05"></i>
             </ng-template>
           </div>
-          <div class="m-b-10 m-r-20 d-flex align-items-center">
+          <div class="m-b-10 m-r-20">
             <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn trạng thái" formControlName="status">
-              <nz-option nzLabel="All" nzValue=""></nz-option>
-              <nz-option [nzLabel]="''" [nzValue]="''"></nz-option>
-              <nz-option [nzLabel]="''" [nzValue]="''"></nz-option>
+              <nz-option nzLabel="Tất cả" nzValue="null"></nz-option>
+              <nz-option [nzLabel]="item.label" [nzValue]="item.value" *ngFor="let item of invoiceStatusOptions"></nz-option>
             </nz-select>
+          </div>
+          <div class="m-b-10 m-r-20">
+            <nz-date-picker formControlName="startDate" nzPlaceHolder="Từ ngày"></nz-date-picker>
+          </div>
+          <div>
+            <nz-date-picker formControlName="endDate" nzPlaceHolder="Đên ngày"></nz-date-picker>
           </div>
         </div>
       </form>
@@ -39,26 +44,28 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of productsListTable.data;  let i=index">
-        <td>#{{item?.index}}</td>
+      <tr *ngFor="let invoice of productsListTable.data;  let i=index">
+        <td>#{{invoice?.index}}</td>
         <td>
           <div class="d-flex align-items-center">
-            <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item?.avatar"></nz-avatar>
-            <span class="m-l-10">{{item?.fullName}}</span>
+            <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="invoice?.user.avatar"></nz-avatar>
+            <span class="m-l-10">{{invoice?.user.fullName}}</span>
           </div>
         </td>
-        <td nzEllipsis>{{item?.email}}</td>
-        <td nzEllipsis>{{item?.itemName}}</td>
-        <td>
-          <nz-badge [nzColor]="item.status | option:studentStatusOptions:'color'"
-          [nzText]="item.status | option:studentStatusOptions"></nz-badge>
+        <td nzEllipsis>{{invoice?.user.email}}</td>
+        <td nzEllipsis>
+          <div *ngFor="let item of invoice?.items">{{item?.courseName}}</div>
         </td>
-        <td>{{item?.price}}</td>
-        <td>{{item?.created | date: 'dd/MM/YYYY HH:MM'}}</td>
+        <td>
+          <nz-badge [nzColor]="invoice.status | option:invoiceStatusOptions:'color'"
+            [nzText]="invoice.status | option:invoiceStatusOptions"></nz-badge>
+        </td>
+        <td>{{invoice?.totalPrice}}</td>
+        <td>{{invoice?.created | datetime: true}}</td>
         <td class="text-md-right">
           <div class="d-flex">
-            <a [routerLink]="['/order-managerment/order',item?.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
-              nzTooltipTitle="Chỉnh sửa">
+            <a [routerLink]="['/order-managerment/order',invoice?.id]" class="m-r-5" nz-button nzType="default"
+              nzShape="circle" nz-tooltip nzTooltipTitle="Chỉnh sửa">
               <i nz-icon nzType="edit" theme="outline"></i>
             </a>
           </div>
