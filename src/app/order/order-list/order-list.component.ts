@@ -1,22 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { InvoiceApiService } from '@shared/api/invoice.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
+import { isNil, omitBy } from 'lodash-es';
 import { Observable, of } from 'rxjs';
-import { QueryResult } from 'types/typemodel';
+import { debounceTime } from 'rxjs/operators';
+import { InvoiceStatus, InvoiceStatusOptions } from 'types/enums';
+import { Invoice, QueryResult } from 'types/typemodel';
 
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.scss']
 })
-export class OrderListComponent extends DataTableContainer<any> implements OnInit {
+export class OrderListComponent extends DataTableContainer<Invoice> implements OnInit {
   search: FormGroup;
-
+  invoiceStatusOptions = InvoiceStatusOptions;
+  invoiceStatus = InvoiceStatus;
   constructor(
     router: Router,
     route: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private invoiceApi: InvoiceApiService
   ) {
     super(route, router);
   }
@@ -24,29 +30,32 @@ export class OrderListComponent extends DataTableContainer<any> implements OnIni
   ngOnInit(): void {
     super.ngOnInit();
     this.buildform();
+    this.search.patchValue(this.params);
+    this.search.valueChanges.pipe(debounceTime(500)).subscribe(val => {
+      const params = {
+        ...val,
+        endDate: val.endDate && val.endDate.toISOString(),
+        startDate: val.startDate && val.startDate.toISOString()
+      };
+      this.onSearchParamsChanged(omitBy(params, isNil));
+    });
   }
 
-  protected fetch(): Observable<QueryResult<any>> {
-    return of({
-      items: [
-        // tslint:disable-next-line: max-line-length
-        { id: '11111', fullName: 'Nguyễn Văn Trung', email: 'trungnv@ttc-solutions.com', itemName: 'Chăm sóc da 1', status: 'Success', price: 100000, created: new Date() }
-      ],
-      meta: {
-        itemCount: 1,
-        totalItems: 1,
-        itemsPerPage: 10,
-        totalPages: 1,
-        currentPage: 1,
-      }
-    });
+  protected fetch(): Observable<QueryResult<Invoice>> {
+    const params = {
+      limit: this.quantity,
+      page: this.page
+    };
+    const { status, q, endDate, startDate } = this.params;
+    return this.invoiceApi.getList({ ...params, q, status, endDate, startDate });
   }
 
   buildform() {
     this.search = this.fb.group({
       q: [],
       status: [],
-
-    })
+      endDate: [],
+      startDate: [],
+    });
   }
 }

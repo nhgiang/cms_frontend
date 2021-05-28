@@ -210,6 +210,14 @@ export const ROUTES: SideNavInterface[] = [
     submenu: [],
   },
   {
+    path: 'comment',
+    title: 'Quản lý comment',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'customer-service',
+    submenu: [],
+  },
+  {
     path: 'quick-contact',
     title: 'Quản lý chat facebook',
     iconType: 'nzIcon',

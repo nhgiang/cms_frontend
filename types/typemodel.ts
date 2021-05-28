@@ -1,4 +1,4 @@
-import { ContactStatus, UserStatus } from './enums';
+import { ContactStatus, InvoiceStatus, InvoiceType, UserStatus } from './enums';
 
 export interface QueryResult<T> {
   meta: Meta;
@@ -132,6 +132,26 @@ export interface Blog extends Entity {
   description: string;
   coverImage: string;
   authorName: string;
+}
+
+export interface Invoice extends Entity {
+  code: number;
+  status: InvoiceStatus;
+  type: InvoiceType;
+  days: number;
+  totalPrice: number;
+  note: string;
+  user: User;
+  items: InvoiceItem;
+  bankCodePicked: string;
+  bankCode: string;
+}
+
+export interface InvoiceItem {
+  courseId: string;
+  courseName: string;
+  price: number;
+  days: number;
 }
 
 export interface EventType extends Entity {

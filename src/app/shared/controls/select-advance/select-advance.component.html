@@ -1,10 +1,10 @@
 <nz-select [ngStyle]="{'width': width || '100%' }" [(ngModel)]="controlValue" (ngModelChange)="onChangeFn($event)"
   (nzScrollToBottom)="loadMore$.next()" [nzServerSearch]="true" (nzOnSearch)="search$.next($event)"
-  [nzPlaceHolder]="placeholder" [nzDisabled]="disabled" nzAllowClear nzShowSearch [nzLoading]="isLoading"
-  [nzClearIcon]="clearIconTpl">
+  [nzPlaceHolder]="placeholder" [nzDisabled]="disabled" [nzAllowClear]="nzAllowClear" nzShowSearch
+  [nzLoading]="isLoading" [nzClearIcon]="clearIconTpl">
   <nz-option *ngIf="hasNullOption" [nzValue]="0" [nzLabel]="'Không có'"> </nz-option>
-  <nz-option style="text-transform: capitalize" *ngFor="let option of options" [nzValue]="option.value" [nzLabel]="option.label"
-    [nzDisabled]="option?.disabled">
+  <nz-option style="text-transform: capitalize" *ngFor="let option of options" [nzValue]="option.value"
+    [nzLabel]="option.label" [nzDisabled]="option?.disabled">
     {{option.disabled}}
   </nz-option>
   <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>

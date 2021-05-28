@@ -99,14 +99,6 @@ export class EventsOrganizeComponent implements OnInit {
       .pipe(finalize(() => (this.isDataLoading = false)))
       .subscribe(
         () => this.fetch(),
-        (err) => this.showErrorNoti()
       );
-  }
-
-  showErrorNoti() {
-    this.notif.error(
-      'Xảy ra lỗi',
-      'Không thể xóa loại sự kiện này do đang liên kết với các dữ liệu khác'
-    );
   }
 }

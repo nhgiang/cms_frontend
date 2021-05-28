@@ -67,4 +67,8 @@ export class SettingApiService extends BaseApi {
     get: () => this.httpClient.get<{ fanpageId: string }>(this.createUrl('-chat-facebooks')),
     post: (body: { fanpageId: string }) => this.httpClient.post(this.createUrl('-chat-facebooks'), body)
   };
+
+  payment = {
+    get: () => this.httpClient.get(this.createUrl('-payments'))
+  };
 }
