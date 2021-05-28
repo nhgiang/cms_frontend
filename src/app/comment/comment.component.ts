@@ -29,9 +29,9 @@ export class CommentComponent extends DataTableContainer<any> implements OnInit 
   ) {
     super(route, router);
     this.search = fb.group({
-      q: '',
-      typeId: '',
-      userId: ''
+      q: [null],
+      typeId: [null],
+      userId: [null],
     });
   }
 

@@ -11,7 +11,7 @@ export abstract class BaseApi {
   constructor(
     protected httpClient: HttpClient,
     @Inject(API_BASE_URL) protected hostUrl: string
-  ) {}
+  ) { }
 
   get baseUrl() {
     return `${this.hostUrl}/${this.endpoint}`;
