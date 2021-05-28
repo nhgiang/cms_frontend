@@ -16,7 +16,7 @@
     nzShowPagination
     [nzFrontPagination]="false"
     [nzPageIndex]="meta.currentPage"
-    [nzPageSize]="10"
+    [nzPageSize]="meta.itemsPerPage"
     [nzTotal]="meta.totalItems"
     [nzNoResult]="empty"
     (nzPageIndexChange)="onPageIndexChange($event)"
@@ -39,7 +39,7 @@
 
     <tbody>
       <tr *ngFor="let partner of partners; index as i">
-        <td>#{{ i + 1 + (meta.currentPage - 1) * 10 }}</td>
+        <td>#{{ partner.partnerIndex }}</td>
         <td>{{ partner.fullName }}</td>
         <td>{{ partner.phoneNumber }}</td>
         <td>{{ partner.email }}</td>

@@ -33,7 +33,7 @@ export class PartnersComponent implements OnInit {
       .subscribe(this.updateObserver());
   }
 
-  protected fetch(page, searchQuery): Observable<any> {
+  protected fetch(page: number, searchQuery: any): Observable<any> {
     this.isDataLoading = true;
     return this.partnersApi
       .getList({ page: page, q: searchQuery })
@@ -44,18 +44,22 @@ export class PartnersComponent implements OnInit {
     return {
       next: (data) => {
         this.meta = data.meta;
-        this.partners = data.items;
+        this.partners = data.items.map((item: Partner, index: number) => ({
+          ...item,
+          partnerIndex:
+            index + 1 + (this.meta.currentPage - 1) * this.meta.itemsPerPage,
+        }));
       },
       error() {},
       complete() {},
     };
   }
 
-  onPageIndexChange(page) {
+  onPageIndexChange(page: number) {
     this.fetch(page, this.searchQuery.value).subscribe(this.updateObserver());
   }
 
-  protected deletePartner(partner) {
+  protected deletePartner(partner: Partner) {
     this.isDataLoading = true;
     this.partnersApi.delete(partner.id).subscribe(() => {
       this.notif.success('Thành công', 'Xóa đối tác thành công');

@@ -16,7 +16,7 @@
     [nzPageIndex]="meta?.currentPage"
     [nzLoading]="isDataLoading"
     [nzFrontPagination]="false"
-    [nzPageSize]="10"
+    [nzPageSize]="meta.itemsPerPage"
     [nzTotal]="meta?.totalItems"
     (nzPageIndexChange)="onPageIndexChange($event)"
     [nzNoResult]="empty"
@@ -30,7 +30,7 @@
 
     <tbody>
       <tr *ngFor="let event of events; index as i">
-        <td>#{{ i + 1 + (meta.currentPage - 1) * 10 }}</td>
+        <td>#{{ event.eventIndex }}</td>
         <td class="w-100 d-flex align-items-center">
           {{ event.title }}
           <button
