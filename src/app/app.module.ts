@@ -28,6 +28,7 @@ import { CommonLayoutComponent } from './layouts/common-layout/common-layout.com
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
 import { ConfigQuickContactComponent } from './config-quick-contact/config-quick-contact.component';
 import { PartnersComponent } from './partners/partners.component';
+import { vi as viVN } from 'date-fns/locale';
 
 registerLocaleData(en);
 
@@ -69,7 +70,7 @@ const ngZorroConfig: NzConfig = {
     },
     {
       provide: NZ_I18N,
-      useValue: en_US,
+      useValue: viVN,
     },
     {
       provide: NZ_CONFIG,
