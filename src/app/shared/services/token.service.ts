@@ -28,15 +28,16 @@ export class TokenService {
   }
 
   refreshTokenFn() {
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (refreshToken) {
-      const { exp } = jwt_decode(localStorage.getItem('token')) as ITokenDecode;
-      const timerReset = moment(exp * 1_000).subtract(new Date().getTime(), 'ms').unix() * 1_000 - 100_000;
-      timer(timerReset).pipe(switchMap(() => this.getNewToken({ refreshToken })), takeUntil(this.destroySubject)).subscribe(res => {
+    const { exp } = jwt_decode(localStorage.getItem('token')) as ITokenDecode;
+    const timerReset = moment(exp * 1_000).subtract(new Date().getTime(), 'ms').unix() * 1_000 - 100_000;
+    setTimeout(() => {
+      const refreshToken = localStorage.getItem('refreshToken');
+      if (!refreshToken) { return; }
+      this.getNewToken({ refreshToken }).subscribe(res => {
         localStorage.setItem('token', res.accessToken);
         this.refreshTokenFn();
       });
-    }
+    }, timerReset);
   }
 
   private getNewToken(params: { refreshToken: string }): Observable<any> {

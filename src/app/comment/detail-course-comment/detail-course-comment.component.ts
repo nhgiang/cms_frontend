@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, switchMap, take, tap } from 'rxjs/operators';
 import { Option } from '@shared/interfaces/option.type';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { CourseApiService } from '@shared/api/course.api.service';
 
 @Component({
   selector: 'app-detail-course-comment',
@@ -21,11 +22,13 @@ export class DetailCourseCommentComponent implements OnInit {
   pagination = { page: 1, limit: 100 };
   totalPage: number;
   firstValue: any;
+  courseName: string;
   commentId: string[] = [];
   constructor(
     private commentApiService: CommentApiService,
     private route: ActivatedRoute,
     private lessionApiService: LessonApiService,
+    private courseApiService: CourseApiService,
     fb: FormBuilder
   ) {
     this.form = fb.group({
@@ -36,6 +39,9 @@ export class DetailCourseCommentComponent implements OnInit {
 
   ngOnInit() {
     this.courseId = this.route.snapshot.paramMap.get('id');
+    this.courseApiService.getById(this.courseId).subscribe(res => {
+      this.courseName = res.name;
+    });
     this.form.get('q').valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged(),

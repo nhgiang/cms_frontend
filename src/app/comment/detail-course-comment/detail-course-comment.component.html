@@ -1,6 +1,6 @@
 <nz-card class="w-100">
   <form [formGroup]="form">
-    <div class="pb-3">{{this.data?.courseName}}</div>
+    <div class="pb-3">{{ courseName }}</div>
     <select-advance [nzAllowClear]="false" [width]="'220px'" class="select-advance" placeholder="Chọn khóa học"
       [getOptionsFn]="lession$" formControlName="ids" (ngModelChange)="changeLession($event)"></select-advance>
     <nz-divider></nz-divider>
