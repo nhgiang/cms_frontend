@@ -9,7 +9,6 @@ import { debounceTime, map } from 'rxjs/operators';
 import { DataTableColumnMetaData, QueryResult } from 'types/typemodel';
 import { Option } from '@shared/interfaces/option.type';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { pickBy } from 'lodash-es';
 
 @Component({
   selector: 'app-comment',
@@ -65,6 +64,7 @@ export class CommentComponent extends DataTableContainer<any> implements OnInit 
 
   ngOnInit() {
     super.ngOnInit();
+    this.search.patchValue(this.params);
     this.search.valueChanges.pipe(debounceTime(500)).subscribe(value => {
       this.onSearchParamsChanged(value);
     });
@@ -81,29 +81,16 @@ export class CommentComponent extends DataTableContainer<any> implements OnInit 
     return this.courseApiService.comment({ ...params, userId, q, typeId });
   }
 
-  teacher$ = (params): Observable<Option[]> => {
+  teacher$ = (params: any): Observable<Option[]> => {
     return this.teacherApi.getList(params).pipe(map(res => res.items.map(x => {
       return { value: x.id, label: x.fullName };
     })));
   }
 
-  type$ = (params): Observable<Option[]> => {
+  type$ = (params: any): Observable<Option[]> => {
     return this.courseTypeApi.getList(params).pipe(map(res => res.items.map(x => {
       return { value: x.id, label: x.name };
     })));
   }
 
-  readRouteParams(params: { [key: string]: any }) {
-    super.readRouteParams(params);
-    const a = pickBy(params, (value, key) => {
-      const formSearch = Object.keys(this.search.value);
-      if (formSearch.includes(key) && this.search.value[key] !== value) {
-        return true;
-      }
-      return false;
-    });
-    Object.keys(a).forEach(field => {
-      this.search.get(field).patchValue(a[field]);
-    });
-  }
 }

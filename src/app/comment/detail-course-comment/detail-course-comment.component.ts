@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { CommentApiService } from '@shared/api/comment.api.service';
 import { LessonApiService } from '@shared/api/lesson.api.service';
 import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, switchMap, take, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { Option } from '@shared/interfaces/option.type';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CourseApiService } from '@shared/api/course.api.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detail-course-comment',
@@ -19,16 +19,17 @@ export class DetailCourseCommentComponent implements OnInit {
   form: FormGroup;
   data: any;
   isSearch: boolean;
-  pagination = { page: 1, limit: 100 };
+  pagination = { page: 1, limit: 15 };
   totalPage: number;
   firstValue: any;
   courseName: string;
   commentId: string[] = [];
+  meta: any;
   constructor(
     private commentApiService: CommentApiService,
-    private route: ActivatedRoute,
-    private lessionApiService: LessonApiService,
+    private lessonApiService: LessonApiService,
     private courseApiService: CourseApiService,
+    private route: ActivatedRoute,
     fb: FormBuilder
   ) {
     this.form = fb.group({
@@ -36,6 +37,7 @@ export class DetailCourseCommentComponent implements OnInit {
       q: [null]
     });
   }
+
 
   ngOnInit() {
     this.courseId = this.route.snapshot.paramMap.get('id');
@@ -57,8 +59,8 @@ export class DetailCourseCommentComponent implements OnInit {
     });
   }
 
-  lession$ = (): Observable<Option[]> => {
-    return this.lessionApiService.getLessonByCourse(this.courseId).pipe(
+  lesson$ = (): Observable<Option[]> => {
+    return this.lessonApiService.getLessonByCourse(this.courseId).pipe(
       map(res => {
         return res.map(x => {
           return { value: JSON.stringify(x.unitsAndTests.map(y => y.id)), label: x.title };
@@ -73,10 +75,11 @@ export class DetailCourseCommentComponent implements OnInit {
     );
   }
 
-  changeLession(value) {
+  changeLesson(value: any) {
     this.getComment({ ids: JSON.parse(value), ...this.pagination }).subscribe(res => {
       this.commentId = res.items.map(x => x.id);
       this.data = res.items;
+      this.meta = res.meta;
     });
   }
 
@@ -106,7 +109,8 @@ export class DetailCourseCommentComponent implements OnInit {
   increasePage() {
     this.pagination.page++;
     this.getComment({ q: this.form.get('q').value, ids: JSON.parse(this.form.get('ids').value), ...this.pagination }).subscribe(res => {
-      this.data = this.data.concat(res.items);
+      this.data = res.items;
+      this.meta = res.meta;
     });
   }
 }
