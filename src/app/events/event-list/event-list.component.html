@@ -60,7 +60,7 @@
                   </div>
                 </div>
                 <p class="lh-1-8 m-b-20">
-                  <span>{{item?.description | truncate:150}}</span>
+                  <span>{{item?.description | safeHtml | truncate:150}}</span>
                 </p>
               </div>
             </div>

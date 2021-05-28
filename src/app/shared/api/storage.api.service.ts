@@ -1,7 +1,8 @@
 import { HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { AnonymousCredential, BlobServiceClient } from '@azure/storage-blob';
+import { from, Observable, of } from 'rxjs';
+import { distinctUntilChanged, filter, map, mapTo, switchMap, tap } from 'rxjs/operators';
 import { VideoAsset } from 'types/typemodel';
 import { BaseApi } from './base-api';
 
@@ -65,42 +66,33 @@ export class StorageApiService extends BaseApi {
       return of(file);
     }
     this.file = file;
-    let videoId;
     return this.createUploadUrl({ name: file.name, size: file.size }).pipe(
       switchMap(res => {
-        videoId = res.id;
-        const blob = this.file.slice(0, this.chunkSize);
-        return this.uploadToVimeo(res, blob, 0);
-      }),
-      switchMap(_ => {
-        return this.httpClient.get<{ duration: number, id: string }>(this.createUrl(`/get-video/${videoId}`));
+        return this.uploadToVimeo(res.uploadUrl, file).pipe(mapTo(res.fileName));
       })
     );
   }
 
-  uploadToVimeo(res, file, offset?: number): Observable<any> {
-    if (offset < this.file.size) {
-      const headers = new HttpHeaders({
-        'Tus-Resumable': '1.0.0',
-        'Content-Type': 'application/offset+octet-stream',
-        'Upload-Offset': `${offset || 0}`,
-        Accept: 'application/vnd.vimeo.*+json;version=3.4',
-      });
+  uploadToVimeo(uploadUrl: string, file: File): Observable<any> {
+    const anonymousCredential = new AnonymousCredential();
+    const blobClient = new BlobServiceClient(uploadUrl, anonymousCredential);
+    const containerClient = blobClient.getContainerClient(file.name + new Date().getTime());
+    // Next gets the blockBlobClient needed to use the uploadFile method
+    const blockBlobClient = containerClient.getBlockBlobClient(file.name);
+    return from(blockBlobClient.uploadData(file, {
+      onProgress: (ev) => console.log(ev),
+      blockSize: 8 * 1024 * 1024, // 4MB Block size
+    }));
+  }
 
-      return this.httpClient.patch(`${res.uploadLink}`, file, {
-        headers,
-        observe: 'response'
-      }).pipe(filter(event => event.type === HttpEventType.Response), switchMap(t => {
-        const offSet = t.headers.get('upload-offset');
-        const blob = this.file.slice(+offSet, +offSet + this.chunkSize);
-        return this.uploadToVimeo(res, blob, +offSet);
-      }));
-    } else {
-      return of(null);
-    }
+  encodeVideo(body: {
+    fileName: string,
+    unitId: string
+  }) {
+    return this.httpClient.post(this.createUrl('/encode-video'), body);
   }
 
   getVideo(id) {
-    return this.httpClient.get(this.createUrl(`/get-video/${id}`))
+    return this.httpClient.get(this.createUrl(`/get-video/${id}`));
   }
 }

@@ -19,7 +19,7 @@ import { TemplateModule } from '@shared/template/template.module';
 import { NgChartjsModule } from 'ng-chartjs';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
-import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
+import { en_US, NZ_DATE_LOCALE, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { Error404Component } from './authentication/error404/error404.component';
@@ -88,8 +88,12 @@ const ngZorroConfig: NzConfig = {
       provide: API_BASE_URL,
       useValue: environment.api,
     },
+    {
+      provide: NZ_DATE_LOCALE,
+      useValue: viVN
+    },
     ThemeConstantService,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
