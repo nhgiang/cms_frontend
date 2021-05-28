@@ -29,9 +29,6 @@ export class BlogCreateComponent implements OnInit {
     translate: 'no',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
-    toolbarHiddenButtons: [
-      ['bold']
-    ],
     customClasses: [
       {
         name: 'quote',
