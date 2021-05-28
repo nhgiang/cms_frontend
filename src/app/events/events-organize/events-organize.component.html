@@ -1,11 +1,26 @@
 <nz-card>
   <div class="d-flex">
-    <button class="ml-auto" (click)="showCreateModal()" nz-button nzType="primary">
+    <button
+      class="ml-auto"
+      (click)="showCreateModal()"
+      nz-button
+      nzType="primary"
+    >
       Thêm loại sự kiện
     </button>
   </div>
 
-  <nz-table [nzData]="events" [nzPageIndex]="meta?.currentPage" [nzLoading]="isDataLoading" [nzFrontPagination]="false" [nzPageSize]="10" [nzTotal]="meta?.totalItems"  (nzPageIndexChange)="onPageIndexChange($event)" [nzNoResult]="empty">
+  <nz-table
+    [nzData]="events"
+    [nzShowTotal]="total"
+    [nzPageIndex]="meta?.currentPage"
+    [nzLoading]="isDataLoading"
+    [nzFrontPagination]="false"
+    [nzPageSize]="10"
+    [nzTotal]="meta?.totalItems"
+    (nzPageIndexChange)="onPageIndexChange($event)"
+    [nzNoResult]="empty"
+  >
     <thead>
       <tr>
         <th>ID</th>
@@ -19,21 +34,26 @@
         <td class="w-100 d-flex align-items-center">
           {{ event.title }}
           <button
-            class="ml-auto mr-2"
+            class="ml-auto mr-1"
             nz-button
             nzType="default"
             nzShape="circle"
             (click)="showEditModal(event)"
+            nz-tooltip
+            nzTooltipTitle="Chỉnh sửa"
           >
             <i nz-icon nzType="edit"></i>
           </button>
-          <button
-            nz-button
-            nzShape="circle"
-            (click)="deleteEvent(event)"
+          <div
+            (confirmed)="deleteEvent(event)"
+            [confirmation]="
+              'Bạn có chắc muốn xóa thông tin loại sự kiện này hay không'
+            "
           >
-            <i nz-icon nzType="close"></i>
-          </button>
+            <button nz-button nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
+              <i nz-icon nzType="close"></i>
+            </button>
+          </div>
         </td>
       </tr>
     </tbody>
@@ -67,9 +87,16 @@
     </form>
   </ng-template>
   <ng-template #modalFooter>
-    <button type="submit" nz-button nzType="primary" form="modal_form" [disabled]="!form.valid">
+    <button
+      type="submit"
+      nz-button
+      nzType="primary"
+      form="modal_form"
+      [disabled]="!form.valid"
+    >
       Xác nhận
     </button>
   </ng-template>
 </nz-modal>
 
+<ng-template #total> Tổng cộng: {{ meta.totalItems }} </ng-template>
