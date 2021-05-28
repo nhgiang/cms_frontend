@@ -73,4 +73,8 @@ export class SingleCommentComponent implements OnInit {
       this.children = res.items;
     });
   }
+
+  get message() {
+    return this.type === 'Comment' ? '"Khi comment chính bị xoá, các comment phụ sẽ bị xoá theo. Bạn có chắc chắn?' : 'Bạn có chắc muốn xóa comment này không?';
+  }
 }

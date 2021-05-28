@@ -4,9 +4,8 @@
   <nz-comment-content>
     <div class="border p-2 position-relative" style="border-radius: 10px;">
       <span [ngClass]="type === 'Comment' ? 'color-blue' : ''">{{ data?.content }}</span>
-      <div class="close-btn" style="cursor: pointer;"
-        confirmation="Khi comment chính bị xoá, các comment phụ sẽ bị xoá theo. Bạn có chắc chắn?"
-        (confirmed)="deleteItem(data?.id)"><i nz-icon nzType="close" nzTheme="outline"></i></div>
+      <div class="close-btn" style="cursor: pointer;" [confirmation]="message" (confirmed)="deleteItem(data?.id)"><i
+          nz-icon nzType="close" nzTheme="outline"></i></div>
     </div>
   </nz-comment-content>
   <ng-container *ngIf="children && children?.length">
