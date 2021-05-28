@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { CourseApiService } from '@shared/api/course.api.service';
-import { PostTypesApiService } from '@shared/api/post-types.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { DataTableColumnMetaData, QueryResult } from 'types/typemodel';
@@ -19,18 +16,15 @@ import { pickBy } from 'lodash-es';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent extends DataTableContainer<any> {
+export class CommentComponent extends DataTableContainer<any> implements OnInit {
 
   search: FormGroup;
   constructor(
     router: Router,
     route: ActivatedRoute,
-    private modalService: NzModalService,
-    private notification: NzNotificationService,
     private courseApiService: CourseApiService,
     private teacherApi: TeacherApiService,
     private courseTypeApi: CourseTypesApiService,
-    private courseApi: CourseApiService,
     fb: FormBuilder
   ) {
     super(route, router);
