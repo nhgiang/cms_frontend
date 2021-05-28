@@ -59,7 +59,7 @@ export class EventsOrganizeComponent implements OnInit {
   showCreateModal() {
     this.isModalVisible = true;
     this.modalFormTitle = 'Tên loại sự kiện';
-    this.form.controls['eventTitle'].setValue('');
+    this.form.reset();
     this.targetEventId = null;
   }
 
@@ -88,17 +88,24 @@ export class EventsOrganizeComponent implements OnInit {
       .pipe(finalize(() => (this.isDataLoading = false)))
       .subscribe(() => {
         this.isModalVisible = false;
+        this.notif.success(
+          'Thành công',
+          this.targetEventId === null
+            ? 'Thêm mới loại sự kiện thành công'
+            : 'Cập nhật loại sự kiện thành công'
+        );
         this.fetch();
       });
   }
 
-  deleteEvent(event) {
+  deleteEvent(event: EventType) {
     this.isDataLoading = true;
     this.eventTypesApi
       .delete(event.id)
       .pipe(finalize(() => (this.isDataLoading = false)))
-      .subscribe(
-        () => this.fetch(),
-      );
+      .subscribe(() => {
+        this.fetch();
+        this.notif.success('Thành công', 'Xóa loại sự kiện thành công');
+      });
   }
 }
