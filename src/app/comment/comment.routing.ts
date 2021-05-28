@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     data: {
       headerDisplay: true,
-      title: 'Danh sách khóa học'
+      title: 'Danh sách comment'
     },
     children: [
       {
