@@ -32,8 +32,8 @@ export class DetailCourseCommentComponent implements OnInit {
     fb: FormBuilder
   ) {
     this.form = fb.group({
-      ids: '',
-      q: ''
+      ids: [null],
+      q: [null]
     });
   }
 
@@ -47,10 +47,9 @@ export class DetailCourseCommentComponent implements OnInit {
       distinctUntilChanged(),
       tap((x) => {
         this.pagination.page = 1;
-        if (!x) { this.commentId = []; }
       }),
       // tslint:disable-next-line: max-line-length
-      switchMap(() => this.commentApiService.get({ q: this.form.get('q').value, ids: [...JSON.parse(this.form.get('ids').value), ...this.commentId], ...this.pagination }))
+      switchMap((x) => this.commentApiService.get({ q: x, ids: [...JSON.parse(this.form.get('ids').value)].concat(!x ? [] : this.commentId), ...this.pagination }))
     ).subscribe(data => {
       this.isSearch = !!this.form.get('q').value;
       this.totalPage = data.meta.totalPages;
