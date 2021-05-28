@@ -39,6 +39,22 @@ export enum VideoType {
   Vimeo = 'Vimeo',
 }
 
+export const EventStatusOptions: Option[] = [
+  { value: 'Submitted', label: 'Đã công bố', color: '#73D13D' },
+  { value: 'Happening', label: 'Đang diễn ra', color: '#40A9FF' },
+  { value: 'Done', label: 'Đã diễn ra', color: '#FFEC3D' },
+  { value: 'Canceled', label: 'Hủy', color: '#F759AB' },
+  { value: 'Draft', label: 'Nháp', color: '#D9D9D9' },
+];
+
+export enum EventStatus {
+  Draft = 'Draft',
+  Canceled = 'Canceled',
+  Submitted = 'Submitted',
+  Happening = 'Happening',
+  Done = 'Done',
+}
+
 export enum InvoiceStatus {
   Pending = 'Pending',
   Processing = 'Processing',

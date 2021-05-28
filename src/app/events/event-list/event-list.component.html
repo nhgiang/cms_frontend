@@ -1,0 +1,85 @@
+<nz-card>
+  <div class="row m-b-30">
+    <div>
+      <form nz-form [formGroup]="search">
+        <div class="d-md-flex">
+          <div class="m-b-10 m-r-20">
+            <nz-input-group style="min-width: 275px;" [nzPrefix]="prefixTemplate">
+              <input type="text" nz-input placeholder="Tìm kiếm theo họ tên, email hoặc số điện thoại"
+                formControlName="q">
+            </nz-input-group>
+            <ng-template #prefixTemplate>
+              <i nz-icon nzType="search" class="opacity-05"></i>
+            </ng-template>
+          </div>
+          <div class="m-b-10 m-r-20 d-flex align-items-center">
+            <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn trạng thái" formControlName="status">
+              <nz-option nzLabel="Tất cả" [nzValue]="null"></nz-option>
+              <nz-option [nzLabel]="item.label" [nzValue]="item.value" *ngFor="let item of eventStatusOptions">
+              </nz-option>
+            </nz-select>
+          </div>
+          <div class="m-b-10 m-r-20 d-flex align-items-center">
+            <select-advance placeholder="Chọn loại sự kiện" [getOptionsFn]="eventTypes$" style="min-width: 220px;"
+              formControlName="typeIds">
+            </select-advance>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="ml-auto">
+      <a routerLink="create" nz-button nzType="primary">
+        <span>Thêm mới</span>
+      </a>
+    </div>
+  </div>
+  <ng-container *ngIf="items.length;else empty">
+    <nz-spin [nzSpinning]="isloading">
+      <div class="blog-list">
+        <div *ngFor="let item of items" class="blog">
+          <div class="row">
+            <div class="col-8 d-flex flex-column">
+              <div class="pr-5">
+                <div class="m-b-15">
+                  <div class="d-flex ">
+                    <div class="mr-4">
+                      <nz-avatar nzIcon="user" [nzSize]="41" [nzSrc]="item?.authorAvatar">
+                      </nz-avatar>
+                    </div>
+                    <div class="w-100">
+                      <div class="font-size-20 mb-2 text-dark d-flex justify-content-between ">
+                        <a class="text-dark" [routerLink]="[item.id]">{{item?.title}}</a>
+                        <span>
+                          <nz-badge class="large-badge" [nzColor]="item.status | option:eventStatusOptions:'color'"
+                            [nzText]="item.status | option:eventStatusOptions"></nz-badge>
+                        </span>
+                      </div>
+                      <div class="text-muted">Thời gian: {{item?.startAt | datetime}}</div>
+                      <div class="text-muted">Loại sự kiện: {{item?.type.title}}</div>
+                    </div>
+                  </div>
+                </div>
+                <p class="lh-1-8 m-b-20">
+                  <span>{{item?.description | truncate:150}}</span>
+                </p>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="img-card">
+                <img class="img-fuild" [src]="item?.thumbnail" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-right">
+        <nz-pagination [nzShowTotal]="totalTemplate" [nzPageIndex]="page" [nzTotal]="meta?.totalItems"
+          (nzPageIndexChange)="onPageChanged($event)"></nz-pagination>
+      </div>
+    </nz-spin>
+  </ng-container>
+</nz-card>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>

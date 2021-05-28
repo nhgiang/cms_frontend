@@ -1,4 +1,5 @@
 import { AbstractControl, FormArray, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import * as moment from 'moment';
 export class TValidators extends Validators {
 
   static confirmPasswordValidator(control: AbstractControl): ValidationErrors {
@@ -30,7 +31,7 @@ export class TValidators extends Validators {
     if (!control.value) {
       return null;
     }
-    const value = control.value && control.value.trim();
+    const value = control.value && control.value.toString().trim();
     const regex = /^[0-9]*$/g;
     return regex.test(value) ? null : {
       onlyNumber: true
@@ -105,5 +106,18 @@ export class TValidators extends Validators {
       return { requiredAnswer: true };
     }
     return null;
+  }
+
+  static timeValidator = (startField: string, endField: string) => (formGroup: AbstractControl) => {
+    let startDate = formGroup.value[startField];
+    let endDate = formGroup.value[endField];
+    if (!startDate || !endDate) {
+      return;
+    }
+    startDate = moment(startDate);
+    endDate = moment(endDate);
+    return endDate < startDate ? {
+      endBeforeStart: true
+    } : null;
   }
 }

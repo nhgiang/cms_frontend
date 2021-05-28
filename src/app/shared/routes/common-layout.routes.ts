@@ -71,7 +71,7 @@ export const CommonLayoutRoutes: Routes = [
     }
   },
   {
-    path: 'events',
+    path: 'event-managerment',
     loadChildren: () => import('src/app/events/events.module').then(m => m.EventsModule),
     data: {
       headerDisplay: true,

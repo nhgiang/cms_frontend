@@ -32,6 +32,7 @@ import { UploadVimeoControlComponent } from './components/upload-vimeo-control/u
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ToImagePipe } from './pipes/to-image.pipe';
 import { NameTeacherPipe } from './pipes/name-teacher.pipe';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
   exports: [
@@ -65,7 +66,8 @@ import { NameTeacherPipe } from './pipes/name-teacher.pipe';
     SelectIconComponent,
     UploadVimeoControlComponent,
     ToImagePipe,
-    SafeUrlPipe
+    SafeUrlPipe,
+    TruncatePipe
   ],
   imports: [
     RouterModule,
@@ -100,6 +102,7 @@ import { NameTeacherPipe } from './pipes/name-teacher.pipe';
     UploadVimeoControlComponent,
     ToImagePipe,
     SafeUrlPipe,
+    TruncatePipe,
     NameTeacherPipe
   ],
   providers: [

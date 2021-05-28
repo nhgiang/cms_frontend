@@ -134,6 +134,21 @@ export interface Blog extends Entity {
   authorName: string;
 }
 
+export interface EventEntity extends Entity {
+  partnerId: string;
+  title: string;
+  description: string;
+  startAt: Date;
+  endAt: Date;
+  link: string;
+  host: string;
+  address: string;
+  thumbnail: string;
+  totalParticipant: number;
+  gifts: string;
+  type: EventType;
+}
+
 export interface Invoice extends Entity {
   code: number;
   status: InvoiceStatus;
