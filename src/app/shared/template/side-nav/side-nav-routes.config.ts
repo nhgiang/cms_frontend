@@ -212,10 +212,10 @@ export const ROUTES: SideNavInterface[] = [
   {
     path: 'comment',
     title: 'Quản lý comment',
-     iconType: 'nzIcon',
+    iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'customer-service',
-    submenu: []
+    submenu: [],
   },
   {
     path: 'quick-contact',

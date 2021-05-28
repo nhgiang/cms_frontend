@@ -64,11 +64,12 @@ export const CommonLayoutRoutes: Routes = [
   },
   {
     path: 'comment',
-    loadChildren: () => import('src/app/comment/comment.module').then(m => m.CommentModule),
+    loadChildren: () =>
+      import('src/app/comment/comment.module').then((m) => m.CommentModule),
     data: {
       headerDisplay: true,
-      title: 'Quản lý comment'
-    }
+      title: 'Quản lý comment',
+    },
   },
   {
     path: 'event-managerment',
