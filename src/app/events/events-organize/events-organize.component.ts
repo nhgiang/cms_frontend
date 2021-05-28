@@ -27,33 +27,30 @@ export class EventsOrganizeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.fetch();
+    this.fetch(1);
     this.form = this.fb.group({
       eventTitle: ['', TValidators.required],
     });
   }
 
-  protected fetch() {
+  protected fetch(page: number) {
     //fetch page đầu
     this.isDataLoading = true;
     this.eventTypesApi
-      .getList({ page: 1 })
+      .getList({ page: page })
       .pipe(finalize(() => (this.isDataLoading = false)))
       .subscribe((data: QueryResult<EventType>) => {
         this.meta = data.meta;
-        this.events = data.items;
+        this.events = data.items.map((item, index) => ({
+          ...item,
+          eventIndex:
+            index + 1 + (this.meta.currentPage - 1) * this.meta.itemsPerPage,
+        }));
       });
   }
 
   onPageIndexChange(pageIndex: number) {
-    this.isDataLoading = true;
-    this.eventTypesApi
-      .getList({ page: pageIndex })
-      .pipe(finalize(() => (this.isDataLoading = false)))
-      .subscribe((data: QueryResult<EventType>) => {
-        this.events = data.items;
-        this.meta = data.meta;
-      });
+    this.fetch(pageIndex);
   }
 
   showCreateModal() {
@@ -94,7 +91,7 @@ export class EventsOrganizeComponent implements OnInit {
             ? 'Thêm mới loại sự kiện thành công'
             : 'Cập nhật loại sự kiện thành công'
         );
-        this.fetch();
+        this.fetch(1);
       });
   }
 
@@ -104,7 +101,7 @@ export class EventsOrganizeComponent implements OnInit {
       .delete(event.id)
       .pipe(finalize(() => (this.isDataLoading = false)))
       .subscribe(() => {
-        this.fetch();
+        this.fetch(1);
         this.notif.success('Thành công', 'Xóa loại sự kiện thành công');
       });
   }
