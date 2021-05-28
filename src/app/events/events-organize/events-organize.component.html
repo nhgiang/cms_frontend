@@ -30,7 +30,7 @@
 
     <tbody>
       <tr *ngFor="let event of events; index as i">
-        <td>#{{ i + 1 }}</td>
+        <td>#{{ i + 1 + (meta.currentPage - 1) * 10 }}</td>
         <td class="w-100 d-flex align-items-center">
           {{ event.title }}
           <button
