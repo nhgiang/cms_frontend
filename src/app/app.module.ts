@@ -1,4 +1,8 @@
-import { LocationStrategy, PathLocationStrategy, registerLocaleData } from '@angular/common';
+import {
+  LocationStrategy,
+  PathLocationStrategy,
+  registerLocaleData,
+} from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import en from '@angular/common/locales/en';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -23,16 +27,15 @@ import { Error500Component } from './authentication/error500/error500.component'
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
 import { ConfigQuickContactComponent } from './config-quick-contact/config-quick-contact.component';
-
+import { PartnersComponent } from './partners/partners.component';
 
 registerLocaleData(en);
 
 const ngZorroConfig: NzConfig = {
   modal: {
-    nzMaskClosable: false
-  }
+    nzMaskClosable: false,
+  },
 };
-
 
 @NgModule({
   declarations: [
@@ -41,7 +44,8 @@ const ngZorroConfig: NzConfig = {
     FullLayoutComponent,
     Error404Component,
     Error500Component,
-    ConfigQuickContactComponent
+    ConfigQuickContactComponent,
+    PartnersComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,11 +59,13 @@ const ngZorroConfig: NzConfig = {
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor, multi: true
+      useClass: JwtInterceptor,
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor, multi: true
+      useClass: ErrorInterceptor,
+      multi: true,
     },
     {
       provide: NZ_I18N,
@@ -67,22 +73,22 @@ const ngZorroConfig: NzConfig = {
     },
     {
       provide: NZ_CONFIG,
-      useValue: ngZorroConfig
+      useValue: ngZorroConfig,
     },
     {
       provide: LocationStrategy,
-      useClass: PathLocationStrategy
+      useClass: PathLocationStrategy,
     },
     {
       provide: ErrorHandler,
-      useClass: ErrorHandlerService
+      useClass: ErrorHandlerService,
     },
     {
       provide: API_BASE_URL,
-      useValue: environment.api
+      useValue: environment.api,
     },
-    ThemeConstantService
+    ThemeConstantService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
