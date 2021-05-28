@@ -72,9 +72,8 @@ export const CommonLayoutRoutes: Routes = [
     },
   },
   {
-    path: 'events',
-    loadChildren: () =>
-      import('src/app/events/events.module').then((m) => m.EventsModule),
+    path: 'event-managerment',
+    loadChildren: () => import('src/app/events/events.module').then(m => m.EventsModule),
     data: {
       headerDisplay: true,
       title: 'Quản lý sự kiện',

@@ -19,4 +19,8 @@ export class PartnersApiService extends BaseApi {
       params: _params,
     });
   }
+
+  delete(id: string) {
+    return this.httpClient.delete(this.createUrl(`/${id}`));
+  }
 }

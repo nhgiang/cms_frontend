@@ -71,6 +71,7 @@ export class CourseListComponent extends DataTableContainer<Course> implements O
   ngOnInit() {
     this.buildForm();
     super.ngOnInit();
+    this.search.patchValue(this.params);
     this.search.valueChanges.pipe(debounceTime(500)).subscribe(value => {
       this.onSearchParamsChanged(value);
     });
@@ -104,20 +105,6 @@ export class CourseListComponent extends DataTableContainer<Course> implements O
       q: [null],
       typeId: [null],
       userId: [null],
-    });
-  }
-
-  readRouteParams(params: { [key: string]: any }) {
-    super.readRouteParams(params);
-    const a = pickBy(params, (value, key) => {
-      const formSearch = Object.keys(this.search.value);
-      if (formSearch.includes(key) && this.search.value[key] !== value) {
-        return true;
-      }
-      return false;
-    });
-    Object.keys(a).forEach(field => {
-      this.search.get(field).patchValue(a[field]);
     });
   }
 }

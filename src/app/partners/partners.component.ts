@@ -4,6 +4,7 @@ import { PartnersApiService } from '@shared/api/partners.api.service';
 import { finalize, debounceTime, switchMap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable, Observer } from 'rxjs';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-partners',
@@ -14,7 +15,10 @@ export class PartnersComponent implements OnInit {
   meta = {} as Meta;
   isDataLoading = false;
   searchQuery: FormControl;
-  constructor(private partnersApi: PartnersApiService) {}
+  constructor(
+    private partnersApi: PartnersApiService,
+    private notif: NzNotificationService
+  ) {}
 
   ngOnInit() {
     this.fetch(1, undefined) //fetch no queries on init
@@ -49,5 +53,13 @@ export class PartnersComponent implements OnInit {
 
   onPageIndexChange(page) {
     this.fetch(page, this.searchQuery.value).subscribe(this.updateObserver());
+  }
+
+  protected deletePartner(partner) {
+    this.isDataLoading = true;
+    this.partnersApi.delete(partner.id).subscribe(() => {
+      this.notif.success('Thành công', 'Xóa đối tác thành công');
+      this.fetch(1, undefined).subscribe(this.updateObserver()); //refresh
+    });
   }
 }

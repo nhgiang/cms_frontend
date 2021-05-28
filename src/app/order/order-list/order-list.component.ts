@@ -30,14 +30,14 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
   ngOnInit(): void {
     super.ngOnInit();
     this.buildform();
-    this.search.patchValue(this.params);
+    this.search.patchValue(this.params, { emitEvent: false });
     this.search.valueChanges.pipe(debounceTime(500)).subscribe(val => {
       const params = {
         ...val,
         endDate: val.endDate && val.endDate.toISOString(),
         startDate: val.startDate && val.startDate.toISOString()
       };
-      this.onSearchParamsChanged(omitBy(params, isNil));
+      this.onSearchParamsChanged(params);
     });
   }
 
