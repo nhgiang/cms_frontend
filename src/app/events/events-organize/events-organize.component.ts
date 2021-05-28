@@ -5,9 +5,10 @@ import { QueryResult, EventType, Meta } from 'types/typemodel';
 import { TValidators } from '@shared/extentions/validators';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { finalize } from 'rxjs/operators';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
-  selector: 'events-organize',
+  selector: 'app-events-organize',
   templateUrl: './events-organize.component.html',
 })
 export class EventsOrganizeComponent implements OnInit {
@@ -21,7 +22,8 @@ export class EventsOrganizeComponent implements OnInit {
 
   constructor(
     private eventTypesApi: EventTypesApiService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private notif: NzNotificationService
   ) {}
 
   ngOnInit() {
@@ -95,7 +97,16 @@ export class EventsOrganizeComponent implements OnInit {
     this.eventTypesApi
       .delete(event.id)
       .pipe(finalize(() => (this.isDataLoading = false)))
-      .subscribe(() => this.fetch());
+      .subscribe(
+        () => this.fetch(),
+        (err) => this.showErrorNoti()
+      );
   }
-  //To-do custom alert for error ("lien ket voi table, k the xoa duoc")
+
+  showErrorNoti() {
+    this.notif.error(
+      'Xảy ra lỗi',
+      'Không thể xóa loại sự kiện này do đang liên kết với các dữ liệu khác'
+    );
+  }
 }
