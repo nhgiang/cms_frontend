@@ -48,6 +48,7 @@ export class DetailCourseCommentComponent implements OnInit {
       debounceTime(500),
       distinctUntilChanged(),
       tap((x) => {
+        this.isSearch = !!x;
         this.pagination.page = 1;
       }),
       // tslint:disable-next-line: max-line-length
@@ -67,6 +68,7 @@ export class DetailCourseCommentComponent implements OnInit {
         });
       }),
       tap(x => {
+        this.form.get('q').setValue('');
         if (!this.firstValue) {
           this.firstValue = x[0].value;
           this.form.get('lessonId').setValue(this.firstValue);
@@ -77,6 +79,7 @@ export class DetailCourseCommentComponent implements OnInit {
 
   changeLesson(value: any) {
     this.getComment({ lessonId: value, ...this.pagination }).subscribe(res => {
+      this.isSearch = false;
       this.commentId = res.items.map(x => x.id);
       this.data = res.items;
       this.meta = res.meta;
@@ -87,7 +90,7 @@ export class DetailCourseCommentComponent implements OnInit {
     // tslint:disable-next-line: max-line-length
     return this.commentApiService.findByLesson({ ...this.form.value, ...params, ...this.pagination }).pipe(
       tap(res => {
-        this.isSearch = false;
+        this.isSearch = !!this.form.get('q').value;
       }),
       map(res => {
         res.items.forEach(x => {
