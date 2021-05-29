@@ -15,7 +15,7 @@
       </nz-form-control>
     </nz-form-item>
   </form>
-  <ng-container *ngFor="let item of this.data">
+  <ng-container *ngFor="let item of data">
     <app-single-comment type="Comment" [search]="isSearch" (deleteData)="getList()" [data]="item"></app-single-comment>
   </ng-container>
   <div class="text-right">

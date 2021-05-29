@@ -52,7 +52,7 @@ export class DetailCourseCommentComponent implements OnInit {
         this.pagination.page = 1;
       }),
       // tslint:disable-next-line: max-line-length
-      switchMap(() => this.commentApiService.findByLesson({ ...this.form.value, ...this.pagination }))
+      switchMap(() => this.getComment())
     ).subscribe(data => {
       this.isSearch = !!this.form.get('q').value;
       this.meta = data.meta;
@@ -68,7 +68,6 @@ export class DetailCourseCommentComponent implements OnInit {
         });
       }),
       tap(x => {
-        this.form.get('q').setValue('');
         if (!this.firstValue) {
           this.firstValue = x[0].value;
           this.form.get('lessonId').setValue(this.firstValue);
@@ -78,7 +77,8 @@ export class DetailCourseCommentComponent implements OnInit {
   }
 
   changeLesson(value: any) {
-    this.getComment({ lessonId: value, ...this.pagination }).subscribe(res => {
+    this.form.get('q').setValue(null);
+    this.getComment({ lessonId: value }).subscribe(res => {
       this.isSearch = false;
       this.commentId = res.items.map(x => x.id);
       this.data = res.items;
@@ -94,11 +94,11 @@ export class DetailCourseCommentComponent implements OnInit {
       }),
       map(res => {
         res.items.forEach(x => {
-          x.fullName = (x.role === 'Teacher') ? 'Giảng viên ' + x.fullName : x.fullName;
+          x.fullName = (x.role === 'Teacher') ? 'Giảng viên ' + x.fullName || x.email : x.fullName || x.email;
           return x;
         });
         return res;
-      }),
+      })
     );
   }
 
