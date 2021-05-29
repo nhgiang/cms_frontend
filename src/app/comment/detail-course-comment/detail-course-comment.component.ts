@@ -19,7 +19,7 @@ export class DetailCourseCommentComponent implements OnInit {
   form: FormGroup;
   data: any;
   isSearch: boolean;
-  pagination = { page: 1, limit: 15 };
+  pagination = { page: 1, limit: 10 };
   totalPage: number;
   firstValue: any;
   courseName: string;
@@ -33,7 +33,7 @@ export class DetailCourseCommentComponent implements OnInit {
     fb: FormBuilder
   ) {
     this.form = fb.group({
-      ids: [null],
+      lessonId: [null],
       q: [null]
     });
   }
@@ -51,10 +51,10 @@ export class DetailCourseCommentComponent implements OnInit {
         this.pagination.page = 1;
       }),
       // tslint:disable-next-line: max-line-length
-      switchMap((x) => this.commentApiService.get({ q: x, ids: [...JSON.parse(this.form.get('ids').value)].concat(!x ? [] : this.commentId), ...this.pagination }))
+      switchMap(() => this.commentApiService.findByLesson({ ...this.form.value, ...this.pagination }))
     ).subscribe(data => {
       this.isSearch = !!this.form.get('q').value;
-      this.totalPage = data.meta.totalPages;
+      this.meta = data.meta;
       this.data = data.items;
     });
   }
@@ -63,20 +63,20 @@ export class DetailCourseCommentComponent implements OnInit {
     return this.lessonApiService.getLessonByCourse(this.courseId).pipe(
       map(res => {
         return res.map(x => {
-          return { value: JSON.stringify(x.unitsAndTests.map(y => y.id)), label: x.title };
+          return { value: x.id, label: x.title };
         });
       }),
       tap(x => {
         if (!this.firstValue) {
           this.firstValue = x[0].value;
-          this.form.get('ids').setValue(this.firstValue);
+          this.form.get('lessonId').setValue(this.firstValue);
         }
       })
     );
   }
 
   changeLesson(value: any) {
-    this.getComment({ ids: JSON.parse(value), ...this.pagination }).subscribe(res => {
+    this.getComment({ lessonId: value, ...this.pagination }).subscribe(res => {
       this.commentId = res.items.map(x => x.id);
       this.data = res.items;
       this.meta = res.meta;
@@ -85,10 +85,9 @@ export class DetailCourseCommentComponent implements OnInit {
 
   getComment(params?: any): Observable<any> {
     // tslint:disable-next-line: max-line-length
-    return this.commentApiService.get({ q: this.form.get('q').value, ids: JSON.parse(this.form.get('ids').value), ...params, ...this.pagination }).pipe(
+    return this.commentApiService.findByLesson({ ...this.form.value, ...params, ...this.pagination }).pipe(
       tap(res => {
         this.isSearch = false;
-        this.totalPage = res.meta.totalPages;
       }),
       map(res => {
         res.items.forEach(x => {
@@ -106,9 +105,9 @@ export class DetailCourseCommentComponent implements OnInit {
     });
   }
 
-  increasePage() {
-    this.pagination.page++;
-    this.getComment({ q: this.form.get('q').value, ids: JSON.parse(this.form.get('ids').value), ...this.pagination }).subscribe(res => {
+  changePage(page: number) {
+    this.pagination.page = page;
+    this.getComment({ ...this.form.value, ...this.pagination }).subscribe(res => {
       this.data = res.items;
       this.meta = res.meta;
     });
