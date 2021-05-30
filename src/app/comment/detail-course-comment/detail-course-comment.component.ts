@@ -103,8 +103,9 @@ export class DetailCourseCommentComponent implements OnInit {
   }
 
   getList() {
-    this.getComment().pipe(tap(() => this.pagination.page = 1)).subscribe(res => {
+    this.getComment().subscribe(res => {
       this.data = res.items;
+      this.meta = res.meta;
     });
   }
 
