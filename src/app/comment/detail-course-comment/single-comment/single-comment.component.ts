@@ -55,7 +55,10 @@ export class SingleCommentComponent implements OnInit {
 
   navigate(data) {
     const role = data.role === 'Teacher' ? 'lecturer' : 'student';
-    this.router.navigate(['/user', role, data.userId]);
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/user', role, data.userId])
+    );
+    window.open(url, '_blank');
   }
 
   deleteItem(id: string) {
