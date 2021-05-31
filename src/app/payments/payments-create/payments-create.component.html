@@ -1,0 +1,98 @@
+<nz-card>
+  <form nz-form nzLayout="horizontal">
+    <nz-form-item>
+      <nz-form-label nzFor="autocomplete-bank">Chọn ngân hàng</nz-form-label>
+      <nz-form-control>
+        <nz-select nzShowSearch nzAllowClear>
+          <nz-option nzLabel="acb" nzValue="acb"></nz-option>
+          <nz-option nzLabel="bbc" nzValue="bbc"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-divider></nz-divider>
+
+    <div class="d-flex flex-row">
+      <nz-upload
+        [nzLimit]="1"
+        nzListType="picture-card"
+        [nzShowUploadList]="false"
+        [nzBeforeUpload]="beforeUpload"
+      >
+        <ng-container *ngIf="!imageUrl">
+          <i class="upload-icon" nz-icon nzType="plus"></i>
+        </ng-container>
+        <img [src]="imageUrl" *ngIf="imageUrl" />
+      </nz-upload>
+      <div class="m-l-20">
+        <nz-form-label nzRequired>Thêm logo ngân hàng</nz-form-label>
+        <p>Định dạng...</p>
+      </div>
+    </div>
+
+    <div class="row m-t-10">
+      <div class="col-8">
+        <nz-form-label nzRequired nzFor="bankName">Tên ngân hàng</nz-form-label>
+      </div>
+      <div class="col-4">
+        <nz-form-label nzRequired nzFor="bankCode">Bank Code</nz-form-label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <nz-form-control>
+          <input nz-input type="text" id="bankName" />
+        </nz-form-control>
+      </div>
+      <div class="col-4">
+        <nz-form-control>
+          <input nz-input type="text" id="bankCode" />
+        </nz-form-control>
+      </div>
+    </div>
+
+    <div class="row m-t-10">
+      <div class="col-4">
+        <nz-form-label nzRequired>Số tài khoản</nz-form-label>
+      </div>
+      <div class="col-4">
+        <nz-form-label nzRequired>Tên chủ tài khoản</nz-form-label>
+      </div>
+      <div class="col-4">
+        <nz-form-label nzRequired>Chi nhánh</nz-form-label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <nz-form-control>
+          <input type="text" nz-input />
+        </nz-form-control>
+      </div>
+      <div class="col-4">
+        <nz-form-control nzErrorTip="Vui lòng nhập tên chủ tài khoản">
+          <input type="text" nz-input />
+        </nz-form-control>
+      </div>
+      <div class="col-4">
+        <nz-form-control>
+          <input type="text" nz-input />
+        </nz-form-control>
+      </div>
+    </div>
+
+    <nz-form-item class="m-t-10">
+      <nz-form-label>VnPay</nz-form-label>
+      <nz-switch
+        [nzCheckedChildren]="checked"
+        [nzUnCheckedChildren]="unchecked"
+        [nzControl]="true"
+        [(ngModel)]="vnpayOption"
+        name="vnpayOption"
+        (click)="vnpayToggler()"
+      >
+      </nz-switch>
+      <ng-template #checked><i nz-icon nzType="check"></i></ng-template>
+      <ng-template #unchecked><i nz-icon nzType="close"></i></ng-template>
+    </nz-form-item>
+  </form>
+</nz-card>
