@@ -16,33 +16,55 @@
     nzShowPagination
     [nzFrontPagination]="false"
     [nzPageIndex]="meta.currentPage"
-    [nzPageSize]="10"
+    [nzPageSize]="meta.itemsPerPage"
     [nzTotal]="meta.totalItems"
     [nzNoResult]="empty"
     (nzPageIndexChange)="onPageIndexChange($event)"
     [nzLoading]="isDataLoading"
+    [nzShowTotal]="total"
   >
     <thead>
-      <th>ID</th>
-      <th>Người liên hệ</th>
-      <th>Số điện thoại</th>
-      <th>Email</th>
-      <th>Tên học viện</th>
-      <th>Địa chỉ học viện</th>
-      <th>Gói đăng ký</th>
-      <th>Quy mô thực hiện</th>
+      <tr>
+        <th>ID</th>
+        <th>Người liên hệ</th>
+        <th>Số điện thoại</th>
+        <th>Email</th>
+        <th>Tên học viện</th>
+        <th>Địa chỉ học viện</th>
+        <th>Gói đăng ký</th>
+        <th>Quy mô thực hiện</th>
+        <th></th>
+      </tr>
     </thead>
 
     <tbody>
       <tr *ngFor="let partner of partners; index as i">
-        <td>#{{ i + 1 }}</td>
+        <td>#{{ partner.partnerIndex }}</td>
         <td>{{ partner.fullName }}</td>
         <td>{{ partner.phoneNumber }}</td>
         <td>{{ partner.email }}</td>
         <td>{{ partner.academyName }}</td>
         <td>{{ partner.address }}</td>
-        <td>{{ partner.package }}</td>
-        <td>{{ partner.numberOfParticipants }}</td>
+        <td class="text-center">{{ partner.package }}</td>
+        <td class="text-center">{{ partner.numberOfParticipants }}</td>
+        <td>
+          <div
+            [confirmation]="
+              'Bạn có chắc chắn muốn xóa thông tin đối tác này không?'
+            "
+            (confirmed)="deletePartner(partner)"
+          >
+            <a
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              nz-tooltip
+              nzTooltipTitle="Xóa"
+            >
+              <i nz-icon nzType="close"></i>
+            </a>
+          </div>
+        </td>
       </tr>
     </tbody>
   </nz-table>
@@ -51,3 +73,5 @@
 <ng-template #empty>
   <nz-empty nzNotFoundContent="Chưa có dữ liệu"></nz-empty>
 </ng-template>
+
+<ng-template #total> Tổng cộng: {{ meta.totalItems }} </ng-template>

@@ -16,7 +16,7 @@
     [nzPageIndex]="meta?.currentPage"
     [nzLoading]="isDataLoading"
     [nzFrontPagination]="false"
-    [nzPageSize]="10"
+    [nzPageSize]="meta?.itemsPerPage"
     [nzTotal]="meta?.totalItems"
     (nzPageIndexChange)="onPageIndexChange($event)"
     [nzNoResult]="empty"
@@ -30,10 +30,10 @@
 
     <tbody>
       <tr *ngFor="let event of events; index as i">
-        <td>#{{ i + 1 }}</td>
+        <td>#{{ event.eventIndex }}</td>
         <td class="w-100 d-flex align-items-center">
           {{ event.title }}
-          <button
+          <a
             class="ml-auto mr-1"
             nz-button
             nzType="default"
@@ -43,16 +43,16 @@
             nzTooltipTitle="Chỉnh sửa"
           >
             <i nz-icon nzType="edit"></i>
-          </button>
+          </a>
           <div
             (confirmed)="deleteEvent(event)"
             [confirmation]="
               'Bạn có chắc muốn xóa thông tin loại sự kiện này hay không'
             "
           >
-            <button nz-button nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
+            <a nz-button nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
               <i nz-icon nzType="close"></i>
-            </button>
+            </a>
           </div>
         </td>
       </tr>
@@ -99,4 +99,4 @@
   </ng-template>
 </nz-modal>
 
-<ng-template #total> Tổng cộng: {{ meta.totalItems }} </ng-template>
+<ng-template #total> Tổng cộng: {{ meta?.totalItems }} </ng-template>

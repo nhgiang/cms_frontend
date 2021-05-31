@@ -55,7 +55,10 @@ export class SingleCommentComponent implements OnInit {
 
   navigate(data) {
     const role = data.role === 'Teacher' ? 'lecturer' : 'student';
-    this.router.navigate(['/user', role, data.userId]);
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/user', role, data.userId])
+    );
+    window.open(url, '_blank');
   }
 
   deleteItem(id: string) {
@@ -74,7 +77,7 @@ export class SingleCommentComponent implements OnInit {
     });
   }
 
-  get message() {
-    return this.type === 'Comment' ? '"Khi comment chính bị xoá, các comment phụ sẽ bị xoá theo. Bạn có chắc chắn?' : 'Bạn có chắc muốn xóa comment này không?';
+  message(parentType) {
+    return this.type === 'Comment' && parentType === 'Unit' ? 'Khi comment chính bị xoá, các comment phụ sẽ bị xoá theo. Bạn có chắc chắn?' : 'Bạn có chắc muốn xóa comment này không?';
   }
 }
