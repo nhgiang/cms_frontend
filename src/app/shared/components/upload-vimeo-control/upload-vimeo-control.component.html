@@ -1,20 +1,35 @@
 <div class="upload-area">
   <ng-container [ngSwitch]="status">
     <ng-container *ngSwitchCase="UploaderStatus.NotSelected">
-      <label class="upload-label d-flex flex-column align-items-center justify-content-center" for="fileInput">
-        <i nz-icon nzType="youtube" nzTheme="fill"></i>
-        <span class="mt-1 text-dark" translate>Nhấn vào đây và chọn video để upload</span>
+      <label class="upload-label d-flex flex-column align-items-center justify-content-center"
+             for="fileInput">
+        <i nz-icon
+           nzType="youtube"
+           nzTheme="fill"></i>
+        <span class="mt-1 text-dark"
+              translate>Nhấn vào đây và chọn video để upload</span>
         <span class="file-type">Định dạng file hỗ trợ .mp4. Tên file không chứa các ký tự đặc biệt</span>
       </label>
     </ng-container>
     <ng-container *ngSwitchCase="UploaderStatus.Selected">
       <div *ngIf="url">
-      
-        <div class="video-player" style="height: 350;">
-          <i nz-icon nzType="close-circle" nzTheme="fill" (confirmed)="removeVideo()"
-            [confirmation]="'Bạn có chắc chắn muốn xóa video giới thiệu này không?'"></i>
-          <div #vimeo *ngIf="isAvailable"></div>
-          <div id="horizon" *ngIf="!isAvailable">
+        <div class="video-player"
+             style="height: 350;">
+          <i nz-icon
+             nzType="close-circle"
+             nzTheme="fill"
+             (confirmed)="removeVideo()"
+             [confirmation]="'Bạn có chắc chắn muốn xóa video giới thiệu này không?'"></i>
+          <video #vimeo
+                 class="azuremediaplayer amp-default-skin"
+                 controls style="width: 300px;height:300px">
+            <p class="amp-no-js">
+              To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5
+              video
+            </p>
+          </video>
+          <div id="horizon"
+               *ngIf="!isAvailable">
             <div id="sun">
               <p>Video này đang được xử lý</p>
             </div>
@@ -23,18 +38,31 @@
       </div>
       <div *ngIf="!url">
         <label class="d-flex align-items-center p-4 file-selected">
-          <i nz-icon nzType="file-zip" nzTheme="outline"></i>
+          <i nz-icon
+             nzType="file-zip"
+             nzTheme="outline"></i>
           <div class="ml-3">
-            <div class="text-dark" translate>{{file?.name}} {{file?.size}}</div>
+            <div class="text-dark"
+                 translate>{{file?.name}} {{file?.size}}</div>
             <div class="file-type">Click vào biểu tượng xóa để xóa tệp hiện tại</div>
           </div>
-          <i nz-icon nzType="delete" class="font-size-16 ml-2 pointer" (confirmed)="removeVideo()"
-            [confirmation]="'Bạn có chắc chắn muốn xóa video bài giảng này không?'" nzTheme="outline"
-            style="color: #ff4d4f;"></i>
+          <i nz-icon
+             nzType="delete"
+             class="font-size-16 ml-2 pointer"
+             (confirmed)="removeVideo()"
+             [confirmation]="'Bạn có chắc chắn muốn xóa video bài giảng này không?'"
+             nzTheme="outline"
+             style="color: #ff4d4f;"></i>
         </label>
       </div>
     </ng-container>
   </ng-container>
 
 </div>
-<input #video id="fileInput" type="file" name="file" class="d-none" (change)="onFileChanged($event)" accept="video/*">
+<input #video
+       id="fileInput"
+       type="file"
+       name="file"
+       class="d-none"
+       (change)="onFileChanged($event)"
+       accept="video/*">
