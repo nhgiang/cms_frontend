@@ -57,7 +57,7 @@ export class OrderDetailComponent implements OnInit {
       bankCode: [null, TValidators.required],
       transactionCode: [null, TValidators.required],
       transactionTime: [null, TValidators.required],
-      transactionAmount: [null, TValidators.required],
+      transactionAmount: [null, [TValidators.required, Validators.maxLength(10)]],
       status: [null, TValidators.required],
     });
   }

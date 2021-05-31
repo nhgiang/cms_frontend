@@ -103,7 +103,7 @@ export class EventCreateComponent implements OnInit {
       this.form.get('thumbnail').setValue(url);
       const body = {
         ...this.form.value,
-        status: isDraft ? this.eventStatus.Submitted : this.eventStatus.Draft,
+        status: isDraft ? this.eventStatus.Draft : this.eventStatus.Submitted,
       };
       return this.eventApi.create(body);
     }), finalize(() => this.isLoading = false)).subscribe(() => {
