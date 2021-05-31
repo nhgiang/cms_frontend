@@ -50,12 +50,11 @@
         <td>
           <div
             [confirmation]="
-              'Bạn có chắc chắn muốn xóa thông tin đối tác này
-          không?'
+              'Bạn có chắc chắn muốn xóa thông tin đối tác này không?'
             "
             (confirmed)="deletePartner(partner)"
           >
-            <button
+            <a
               nz-button
               nzType="default"
               nzShape="circle"
@@ -63,7 +62,7 @@
               nzTooltipTitle="Xóa"
             >
               <i nz-icon nzType="close"></i>
-            </button>
+            </a>
           </div>
         </td>
       </tr>
