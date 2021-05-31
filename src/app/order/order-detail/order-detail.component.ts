@@ -6,7 +6,6 @@ import { SettingApiService } from '@shared/api/setting.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { StudentStatusOptions } from '@shared/options/student-status.options';
-import { omit } from 'lodash-es';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
 import { InvoiceStatus, InvoiceStatusOptions } from 'types/enums';
@@ -22,6 +21,7 @@ export class OrderDetailComponent implements OnInit {
   order: Invoice;
   StudentStatusOptions = StudentStatusOptions;
   invoiceStatusOptions = InvoiceStatusOptions;
+  invoiceStatus = InvoiceStatus;
   isLoading: boolean;
   paymentMethods: any;
 
@@ -38,13 +38,30 @@ export class OrderDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.invoiceApi.getById(id).subscribe(order => {
       this.order = order;
-      this.form.patchValue(order);
+      this.form.patchValue({
+        code: order.code,
+        bankCode: order.bankCode || order.bankCodePicked,
+        transactionCode: order.transactionCode,
+        transactionTime: order.transactionTime,
+        transactionAmount: order.transactionAmount,
+        status: order.status,
+      }, { emitEvent: false });
     });
     this.settingApi.payment.get().subscribe(res => this.paymentMethods = res);
+    this.form.get('status').valueChanges.subscribe(val => {
+      if (val !== this.invoiceStatus.Success) {
+        // tslint:disable-next-line: forin
+        for (const key in this.form.controls) {
+          this.form.controls[key].setErrors(null);
+        }
+      }
+    });
   }
 
   submit() {
-    Ultilities.validateForm(this.form);
+    if (this.form.value.status === this.invoiceStatus.Success) {
+      Ultilities.validateForm(this.form);
+    }
     this.isLoading = true;
     this.invoiceApi.update(this.order.id, this.form.value).pipe(finalize(() => this.isLoading = false)).subscribe(() => {
       this.nzNotification.success('Thành công', 'Cập nhật thông tin đơn hàng thành công!');
@@ -57,7 +74,7 @@ export class OrderDetailComponent implements OnInit {
       bankCode: [null, TValidators.required],
       transactionCode: [null, TValidators.required],
       transactionTime: [null, TValidators.required],
-      transactionAmount: [null, [TValidators.required, Validators.maxLength(10)]],
+      transactionAmount: [null, [TValidators.required, TValidators.maxLength(10), TValidators.onlyNumber]],
       status: [null, TValidators.required],
     });
   }

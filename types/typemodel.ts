@@ -159,7 +159,10 @@ export interface Invoice extends Entity {
   user: User;
   items: InvoiceItem;
   bankCodePicked: string;
-  bankCode: string;
+  bankCode: any;
+  transactionAmount: number;
+  transactionCode: any;
+  transactionTime: any;
 }
 
 export interface InvoiceItem {

@@ -83,7 +83,7 @@
         </td>
         <td nzEllipsis>{{ invoice?.user.email }}</td>
         <td nzEllipsis>
-          <div *ngFor="let item of invoice?.items">{{ item?.courseName }}</div>
+          <div *ngFor="let item of invoice?.items | slice:0:3">{{ item?.courseName }}</div>
         </td>
         <td>
           <nz-badge [nzColor]="invoice.status | option: invoiceStatusOptions:'color'"
