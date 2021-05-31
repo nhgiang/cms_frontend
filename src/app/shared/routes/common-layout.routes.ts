@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { ConfigQuickContactComponent } from 'src/app/config-quick-contact/config-quick-contact.component';
 import { PartnersComponent } from 'src/app/partners/partners.component';
+import { PaymentsComponent } from 'src/app/payments/payments.component';
 
 export const CommonLayoutRoutes: Routes = [
   {
@@ -100,6 +101,13 @@ export const CommonLayoutRoutes: Routes = [
     component: PartnersComponent,
     data: {
       title: 'Danh sách đối tác đăng ký',
+    },
+  },
+  {
+    path: 'payments',
+    component: PaymentsComponent,
+    data: {
+      title: 'Quản lý hình thức thanh toán',
     },
   },
 ];
