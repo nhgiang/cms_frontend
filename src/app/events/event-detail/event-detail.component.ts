@@ -102,6 +102,10 @@ export class EventDetailComponent implements OnInit {
   submit(isDraft: boolean) {
     if (!isDraft) {
       Ultilities.validateForm(this.form);
+    } else {
+      if (this.form.controls.title.invalid && this.form.controls.typeId) {
+        return;
+      }
     }
     this.isLoading = true;
     this.storageApi.uploadFile(this.form.value.thumbnail).pipe(switchMap(url => {

@@ -83,7 +83,7 @@
             <nz-form-label nzRequired class="text-left input-space">Người tham gia</nz-form-label>
             <nz-form-control [nzErrorTip]="totalParticipantErr">
               <input nz-input formControlName="totalParticipant" placeholder="Nhập vào số lượng người tham gia"
-                type="text">
+                type="number">
             </nz-form-control>
             <ng-template #totalParticipantErr let-control>
               <ng-container *ngIf="control.hasError('required')">
@@ -99,7 +99,7 @@
           <nz-form-item>
             <nz-form-label nzRequired class="text-left input-space">Số phần quà</nz-form-label>
             <nz-form-control [nzErrorTip]="giftsErr">
-              <input nz-input formControlName="gifts" placeholder="Nhập vào số lượng phần quà" type="text">
+              <input nz-input formControlName="gifts" placeholder="Nhập vào số lượng phần quà" type="number">
             </nz-form-control>
             <ng-template #giftsErr let-control>
               <ng-container *ngIf="control.hasError('required')">

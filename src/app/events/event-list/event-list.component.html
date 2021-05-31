@@ -5,8 +5,7 @@
         <div class="d-md-flex">
           <div class="m-b-10 m-r-20">
             <nz-input-group style="min-width: 275px;" [nzPrefix]="prefixTemplate">
-              <input type="text" nz-input placeholder="Tìm kiếm theo tên, nội dung"
-                formControlName="q">
+              <input type="text" nz-input placeholder="Tìm kiếm theo tên, nội dung" formControlName="q">
             </nz-input-group>
             <ng-template #prefixTemplate>
               <i nz-icon nzType="search" class="opacity-05"></i>
@@ -60,7 +59,7 @@
                   </div>
                 </div>
                 <p class="lh-1-8 m-b-20">
-                  <span [innerHtml]="item?.description | safeHtml"></span>
+                  <span class="truncate-3" [innerHtml]="item?.description | safeHtml"></span>
                 </p>
               </div>
             </div>
@@ -74,7 +73,7 @@
       </div>
       <div class="text-right">
         <nz-pagination [nzShowTotal]="totalTemplate" [nzPageIndex]="page" [nzTotal]="meta?.totalItems"
-          (nzPageIndexChange)="onPageChanged($event)"></nz-pagination>
+          (nzPageIndexChange)="onPageChanged($event)" [nzPageSize]="quantity"></nz-pagination>
       </div>
     </nz-spin>
   </ng-container>

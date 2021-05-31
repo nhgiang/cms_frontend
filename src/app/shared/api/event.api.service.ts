@@ -15,6 +15,7 @@ export class EventApiService extends BaseApi {
     status: any,
     typeIds: string[]
   }) {
+    console.log(this.createParams(params) )
     return this.httpClient.get<QueryResult<EventEntity>>(this.createUrl(''), { params: this.createParams(params) });
   }
 

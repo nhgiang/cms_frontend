@@ -28,6 +28,7 @@ export class EventListComponent extends DataTableContainer<EventEntity> implemen
     private eventTypeApi: EventTypeApiService
   ) {
     super(route, router);
+    this.quantity = 5;
   }
 
   ngOnInit(): void {
@@ -40,6 +41,7 @@ export class EventListComponent extends DataTableContainer<EventEntity> implemen
   }
 
   protected fetch(): Observable<QueryResult<EventEntity>> {
+    console.log(this.quantity)
     const params = {
       limit: this.quantity,
       page: this.page

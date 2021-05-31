@@ -17,11 +17,17 @@ const routes: Routes = [
 			},
 			{
 				path: 'create',
-				component: EventCreateComponent
+				component: EventCreateComponent,
+				data: {
+					title: 'Thêm mới sự kiện'
+				},
 			},
 			{
 				path: ':id',
-				component: EventDetailComponent
+				component: EventDetailComponent,
+				data: {
+					title: 'Cập nhật sự kiện'
+				},
 			}
 		]
 	},
