@@ -56,21 +56,15 @@ export class LessonVideoComponent implements OnInit, OnChanges {
         title: this.form.value.title.trim(),
         lessionId: this.lessonId,
         video,
-        attachments: file
+        attachments: file,
+        duration: 0
       };
       return this.unit ? this.unitApi.editUnit(this.route.snapshot.paramMap.get('unitId'), data) : this.unitApi.createUnit(data);
     }),
-      switchMap((res: any) => {
-        const body = {
-          fileName: res.video,
-          unitId: res.id,
-        };
-        return this.storageApi.encodeVideo(body);
-      }),
       finalize(() => this.isLoading = false)).subscribe(() => {
-        this.router.navigate(['/course-management/course/edit', this.courseId]);
-        this.notification.success('Thành công', `${this.unit ? 'Cập nhật' : 'Thêm mới'} video bài giảng thành công!`);
-      });
+      this.router.navigate(['/course-management/course/edit', this.courseId]);
+      this.notification.success('Thành công', `${this.unit ? 'Cập nhật' : 'Thêm mới'} video bài giảng thành công!`);
+    });
   }
 
   buildForm() {

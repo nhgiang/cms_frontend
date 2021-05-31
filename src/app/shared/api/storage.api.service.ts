@@ -68,20 +68,20 @@ export class StorageApiService extends BaseApi {
     this.file = file;
     return this.createUploadUrl({ name: file.name, size: file.size }).pipe(
       switchMap(res => {
-        return this.uploadToVimeo(res.uploadUrl, file).pipe(mapTo(res.fileName));
+        return this.uploadToVimeo(res.uploadUrl, file, res.fileName).pipe(mapTo(res.fileName));
       })
     );
   }
 
-  uploadToVimeo(uploadUrl: string, file: File): Observable<any> {
+  uploadToVimeo(uploadUrl: string, file: File, fileName: string): Observable<any> {
     const anonymousCredential = new AnonymousCredential();
     const blobClient = new BlobServiceClient(uploadUrl, anonymousCredential);
-    const containerClient = blobClient.getContainerClient(file.name + new Date().getTime());
+    const containerClient = blobClient.getContainerClient('');
     // Next gets the blockBlobClient needed to use the uploadFile method
     const blockBlobClient = containerClient.getBlockBlobClient(file.name);
+    // tslint:disable-next-line: deprecation
     return from(blockBlobClient.uploadData(file, {
-      onProgress: (ev) => console.log(ev),
-      blockSize: 8 * 1024 * 1024, // 4MB Block size
+      blockSize: 8 * 1024 * 1024, // 8MB Block size
     }));
   }
 

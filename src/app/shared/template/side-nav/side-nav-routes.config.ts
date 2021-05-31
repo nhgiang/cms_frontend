@@ -77,7 +77,7 @@ export const ROUTES: SideNavInterface[] = [
     ],
   },
   {
-    path: 'order-managerment',
+    path: 'order-management',
     title: 'Quản lý đơn hàng',
     iconType: 'nzIcon',
     iconTheme: 'outline',

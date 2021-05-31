@@ -42,9 +42,9 @@
         </div>
         <div class="col-6">
           <nz-form-item>
-            <nz-form-label nzRequired class="text-left input-space">Loại bài viết</nz-form-label>
-            <nz-form-control [nzErrorTip]="'Vui lòng chọn loại bài viết'">
-              <select-advance placeholder="Chọn loại bài viết" [getOptionsFn]="blogTypes" style="min-width: 220px;"
+            <nz-form-label nzRequired class="text-left input-space">Loại sự kiện</nz-form-label>
+            <nz-form-control [nzErrorTip]="'Vui lòng chọn loại sự kiện'">
+              <select-advance placeholder="Chọn loại sự kiện" [getOptionsFn]="blogTypes" style="min-width: 220px;"
                 formControlName="typeId"></select-advance>
             </nz-form-control>
           </nz-form-item>
@@ -55,7 +55,7 @@
           <nz-form-item class="mb-0">
             <nz-form-label nzRequired class="text-left input-space">Thời gian bắt đầu</nz-form-label>
             <nz-form-control [nzErrorTip]="'Vui lòng chọn thời gian bắt đầu'">
-              <nz-date-picker nzFormat="dd/MM/YYYY HH:mm" class="w-100" formControlName="startAt"
+              <nz-date-picker nzFormat="dd/MM/yyyy HH:mm" class="w-100" formControlName="startAt"
                 [nzShowTime]="{nzFormat: 'HH:mm'}" [nzPlaceHolder]="'Chọn thời gian bắt đầu'">
               </nz-date-picker>
             </nz-form-control>
@@ -65,7 +65,7 @@
           <nz-form-item class="mb-0">
             <nz-form-label nzRequired class="text-left input-space">Thời gian kết thúc</nz-form-label>
             <nz-form-control [nzErrorTip]="'Vui lòng chọn thời gian kết thúc'">
-              <nz-date-picker nzFormat="dd/MM/YYYY HH:mm" class="w-100" formControlName="endAt"
+              <nz-date-picker nzFormat="dd/MM/yyyy HH:mm" class="w-100" formControlName="endAt"
                 [nzShowTime]="{nzFormat: 'HH:mm'}" [nzPlaceHolder]="'Chọn thời gian kết thúc'"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>

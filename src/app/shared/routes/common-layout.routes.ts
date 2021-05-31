@@ -72,7 +72,7 @@ export const CommonLayoutRoutes: Routes = [
     },
   },
   {
-    path: 'event-managerment',
+    path: 'event-management',
     loadChildren: () => import('src/app/events/events.module').then(m => m.EventsModule),
     data: {
       headerDisplay: true,
@@ -80,7 +80,7 @@ export const CommonLayoutRoutes: Routes = [
     },
   },
   {
-    path: 'order-managerment',
+    path: 'order-management',
     loadChildren: () =>
       import('src/app/order/order.module').then((m) => m.OrderModule),
     data: {
