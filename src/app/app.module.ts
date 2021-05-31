@@ -1,7 +1,7 @@
 import {
   LocationStrategy,
   PathLocationStrategy,
-  registerLocaleData,
+  registerLocaleData
 } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import en from '@angular/common/locales/en';
@@ -16,20 +16,22 @@ import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { ThemeConstantService } from '@shared/services/theme-constant.service';
 import { SharedModule } from '@shared/shared.module';
 import { TemplateModule } from '@shared/template/template.module';
+import { vi as viVN } from 'date-fns/locale';
 import { NgChartjsModule } from 'ng-chartjs';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
-import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
+import { vi_VN, NZ_DATE_LOCALE, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { Error404Component } from './authentication/error404/error404.component';
 import { Error500Component } from './authentication/error500/error500.component';
+import { ConfigQuickContactComponent } from './config-quick-contact/config-quick-contact.component';
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
-import { ConfigQuickContactComponent } from './config-quick-contact/config-quick-contact.component';
 import { PartnersComponent } from './partners/partners.component';
+import vi from '@angular/common/locales/vi';
 
-registerLocaleData(en);
+registerLocaleData(vi);
 
 const ngZorroConfig: NzConfig = {
   modal: {
@@ -69,7 +71,7 @@ const ngZorroConfig: NzConfig = {
     },
     {
       provide: NZ_I18N,
-      useValue: en_US,
+      useValue: vi_VN,
     },
     {
       provide: NZ_CONFIG,
@@ -87,8 +89,12 @@ const ngZorroConfig: NzConfig = {
       provide: API_BASE_URL,
       useValue: environment.api,
     },
+    {
+      provide: NZ_DATE_LOCALE,
+      useValue: viVN
+    },
     ThemeConstantService,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
