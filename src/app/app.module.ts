@@ -5,13 +5,14 @@ import {
 } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import en from '@angular/common/locales/en';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '@env';
 import { API_BASE_URL } from '@shared/api/base-url';
 import { ErrorInterceptor } from '@shared/interceptor/error.interceptor';
 import { JwtInterceptor } from '@shared/interceptor/token.interceptor';
+import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { ThemeConstantService } from '@shared/services/theme-constant.service';
 import { SharedModule } from '@shared/shared.module';
 import { TemplateModule } from '@shared/template/template.module';
@@ -79,10 +80,10 @@ const ngZorroConfig: NzConfig = {
       provide: LocationStrategy,
       useClass: PathLocationStrategy,
     },
-    // {
-    //   provide: ErrorHandler,
-    //   useClass: ErrorHandlerService,
-    // },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorHandlerService,
+    },
     {
       provide: API_BASE_URL,
       useValue: environment.api,
