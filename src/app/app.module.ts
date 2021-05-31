@@ -20,7 +20,7 @@ import { vi as viVN } from 'date-fns/locale';
 import { NgChartjsModule } from 'ng-chartjs';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
-import { en_US, NZ_DATE_LOCALE, NZ_I18N } from 'ng-zorro-antd/i18n';
+import { vi_VN, NZ_DATE_LOCALE, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { Error404Component } from './authentication/error404/error404.component';
@@ -29,8 +29,9 @@ import { ConfigQuickContactComponent } from './config-quick-contact/config-quick
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
 import { PartnersComponent } from './partners/partners.component';
+import vi from '@angular/common/locales/vi';
 
-registerLocaleData(en);
+registerLocaleData(vi);
 
 const ngZorroConfig: NzConfig = {
   modal: {
@@ -70,7 +71,7 @@ const ngZorroConfig: NzConfig = {
     },
     {
       provide: NZ_I18N,
-      useValue: en_US,
+      useValue: vi_VN,
     },
     {
       provide: NZ_CONFIG,

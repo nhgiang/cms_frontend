@@ -77,11 +77,12 @@ export class StorageApiService extends BaseApi {
     const anonymousCredential = new AnonymousCredential();
     const blobClient = new BlobServiceClient(uploadUrl, anonymousCredential);
     const containerClient = blobClient.getContainerClient('');
-    // Next gets the blockBlobClient needed to use the uploadFile method
     const blockBlobClient = containerClient.getBlockBlobClient(file.name);
-    // tslint:disable-next-line: deprecation
     return from(blockBlobClient.uploadData(file, {
       blockSize: 8 * 1024 * 1024, // 8MB Block size
+      blobHTTPHeaders: {
+        blobContentType: file.type
+      }
     }));
   }
 
