@@ -131,10 +131,10 @@
             <nz-form-item>
               <nz-form-label class="text-left">Số tiền giao dịch</nz-form-label>
               <nz-form-control [nzErrorTip]="errorAmountTpl">
-                <input nz-input
-                       formControlName="transactionAmount"
-                       placeholder="Nhập số tiền giao dịch"
-                       type="number">
+                <input-number formControlName="transactionAmount"
+                              placeholder="Nhập số tiền giao dịch"
+                              class="w-100">
+                </input-number>
               </nz-form-control>
               <ng-template #errorAmountTpl
                            let-control>
@@ -204,7 +204,7 @@
             <ng-template #memberShip>
               <tr>
                 <td>#1</td>
-                <td>Gói truy cập</td>
+                <td>Gói Membership</td>
                 <td class="text-nowrap">{{order?.totalPrice | number}} đ</td>
                 <td>{{order?.totalPrice | number}} đ</td>
                 <td>{{order?.days}} ngày</td>

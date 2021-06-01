@@ -163,6 +163,7 @@ export interface Invoice extends Entity {
   transactionAmount: number;
   transactionCode: any;
   transactionTime: any;
+  invoicePrice: number;
 }
 
 export interface InvoiceItem {

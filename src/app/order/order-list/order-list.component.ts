@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { InvoiceApiService } from '@shared/api/invoice.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { Observable } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
 import { InvoiceStatus, InvoiceStatusOptions, InvoiceType } from 'types/enums';
 import { Invoice, QueryResult } from 'types/typemodel';
 
@@ -48,7 +48,14 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
       page: this.page
     };
     const { status, q, endDate, startDate } = this.params;
-    return this.invoiceApi.getList({ ...params, q, status, endDate, startDate });
+    return this.invoiceApi.getList({ ...params, q, status, endDate, startDate }).pipe(map(res => {
+      const result = res;
+      result.items = res.items.map((item: Invoice) => ({
+        ...item,
+        invoicePrice: item.transactionAmount != null ? item.transactionAmount : item.totalPrice
+      }));
+      return result;
+    }));
   }
 
   sliceData(index: number) {
