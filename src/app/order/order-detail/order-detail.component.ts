@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InvoiceApiService } from '@shared/api/invoice.api.service';
 import { SettingApiService } from '@shared/api/setting.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { StudentStatusOptions } from '@shared/options/student-status.options';
+import { sumBy } from 'lodash';
+import { omitBy } from 'lodash-es';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
 import { InvoiceStatus, InvoiceStatusOptions } from 'types/enums';
@@ -30,7 +32,8 @@ export class OrderDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private invoiceApi: InvoiceApiService,
     private settingApi: SettingApiService,
-    private nzNotification: NzNotificationService
+    private nzNotification: NzNotificationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -43,9 +46,13 @@ export class OrderDetailComponent implements OnInit {
         bankCode: order.bankCode || order.bankCodePicked,
         transactionCode: order.transactionCode,
         transactionTime: order.transactionTime,
-        transactionAmount: order.transactionAmount,
+        transactionAmount: order.transactionAmount || sumBy(order.items, 'price'),
         status: order.status,
+        note: order.note
       }, { emitEvent: false });
+      if (this.order.status === this.invoiceStatus.Success) {
+        this.form.get('status').disable();
+      }
     });
     this.settingApi.payment.get().subscribe(res => this.paymentMethods = res);
     this.form.get('status').valueChanges.subscribe(val => {
@@ -63,8 +70,11 @@ export class OrderDetailComponent implements OnInit {
       Ultilities.validateForm(this.form);
     }
     this.isLoading = true;
-    this.invoiceApi.update(this.order.id, this.form.value).pipe(finalize(() => this.isLoading = false)).subscribe(() => {
+    this.invoiceApi.update(this.order.id, omitBy(this.form.getRawValue(), 'code')).pipe(
+      finalize(() => this.isLoading = false)
+    ).subscribe(() => {
       this.nzNotification.success('Thành công', 'Cập nhật thông tin đơn hàng thành công!');
+      this.router.navigate(['../'], { relativeTo: this.route });
     });
   }
 
@@ -72,10 +82,11 @@ export class OrderDetailComponent implements OnInit {
     this.form = this.fb.group({
       code: this.fb.control({ value: null, disabled: true }, Validators.required),
       bankCode: [null, TValidators.required],
-      transactionCode: [null, TValidators.required],
-      transactionTime: [null, TValidators.required],
-      transactionAmount: [null, [TValidators.required, TValidators.maxLength(10), TValidators.onlyNumber]],
-      status: [null, TValidators.required],
+      transactionCode: [null, Validators.required],
+      transactionTime: [null, Validators.required],
+      transactionAmount: [null, [Validators.required, TValidators.maxLength(10), TValidators.onlyNumber]],
+      status: [null, Validators.required],
+      note: [null]
     });
   }
 }

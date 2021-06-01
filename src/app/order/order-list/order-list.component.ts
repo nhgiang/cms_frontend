@@ -3,10 +3,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InvoiceApiService } from '@shared/api/invoice.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
-import { isNil, omitBy } from 'lodash-es';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { InvoiceStatus, InvoiceStatusOptions } from 'types/enums';
+import { InvoiceStatus, InvoiceStatusOptions, InvoiceType } from 'types/enums';
 import { Invoice, QueryResult } from 'types/typemodel';
 
 @Component({
@@ -18,6 +17,8 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
   search: FormGroup;
   invoiceStatusOptions = InvoiceStatusOptions;
   invoiceStatus = InvoiceStatus;
+  invoiceType = InvoiceType;
+  slice = 3;
   constructor(
     router: Router,
     route: ActivatedRoute,
@@ -48,6 +49,10 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
     };
     const { status, q, endDate, startDate } = this.params;
     return this.invoiceApi.getList({ ...params, q, status, endDate, startDate });
+  }
+
+  sliceData(index: number) {
+    this.slice = this.slice === 3 ? this.items[index]?.items.length : 3;
   }
 
   buildform() {

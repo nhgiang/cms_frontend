@@ -83,7 +83,14 @@
         </td>
         <td nzEllipsis>{{ invoice?.user.email }}</td>
         <td nzEllipsis>
-          <div *ngFor="let item of invoice?.items | slice:0:3">{{ item?.courseName }}</div>
+          <ng-container *ngIf="invoice.type === invoiceType.Course;else memeberShip">
+            <div *ngFor="let item of invoice?.items | slice:0:slice">{{ item?.courseName }}</div>
+            <a href=javascript:void(0)
+               *ngIf="invoice?.items.length > 3" (click)="sliceData(i)">[...]</a>
+          </ng-container>
+          <ng-template #memeberShip>
+            <div>Gói truy cập</div>
+          </ng-template>
         </td>
         <td>
           <nz-badge [nzColor]="invoice.status | option: invoiceStatusOptions:'color'"

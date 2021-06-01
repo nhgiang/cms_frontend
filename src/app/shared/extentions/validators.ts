@@ -1,5 +1,7 @@
 import { AbstractControl, FormArray, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { toNumber } from 'ng-zorro-antd/core/util';
+import { toFixed } from 'utils/common';
 export class TValidators extends Validators {
 
   static confirmPasswordValidator(control: AbstractControl): ValidationErrors {
@@ -33,7 +35,7 @@ export class TValidators extends Validators {
     }
     const value = control.value && control.value.toString().trim();
     const regex = /^[0-9]*$/g;
-    return regex.test(value) ? null : {
+    return regex.test(toFixed(value)) ? null : {
       onlyNumber: true
     };
   }
@@ -89,7 +91,7 @@ export class TValidators extends Validators {
   static maxLength(length: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors => {
       if (!control.value) { return null; }
-      return this.trimData(control.value)?.length > length ? { maxLength: true } : null;
+      return this.trimData(control.value.toString())?.length > length ? { maxLength: true } : null;
     };
   }
 
