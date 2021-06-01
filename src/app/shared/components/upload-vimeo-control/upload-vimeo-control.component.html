@@ -14,7 +14,7 @@
     <ng-container *ngSwitchCase="UploaderStatus.Selected">
       <div *ngIf="url">
         <div class="video-player"
-             style="height: 350;">
+             style="height: 350px;">
           <i nz-icon
              nzType="close-circle"
              nzTheme="fill"
@@ -22,16 +22,17 @@
              [confirmation]="'Bạn có chắc chắn muốn xóa video giới thiệu này không?'"></i>
           <video #vimeo
                  class="azuremediaplayer amp-default-skin"
-                 controls style="width: 300px;height:300px">
+                 controls
+                 style="width: 500px;height:350px">
             <p class="amp-no-js">
               To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5
               video
             </p>
           </video>
           <div id="horizon"
-               *ngIf="!isAvailable">
+               *ngIf="isProcessing">
             <div id="sun">
-              <p>Video này đang được xử lý</p>
+              Video này đang được xử lý
             </div>
           </div>
         </div>

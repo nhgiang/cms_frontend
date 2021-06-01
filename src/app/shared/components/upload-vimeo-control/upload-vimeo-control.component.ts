@@ -30,7 +30,7 @@ export class UploadVimeoControlComponent extends AbstractControlDirective implem
   file: File;
   maxSize = 100_000_000;
   player: Player;
-  isAvailable: boolean;
+  isProcessing: boolean;
   source: any;
 
   get content() {
@@ -53,24 +53,27 @@ export class UploadVimeoControlComponent extends AbstractControlDirective implem
     if (file) {
       this.status = UploaderStatus.Selected;
       this.storageApi.getVideo(this.url).subscribe((video: any) => {
-        this.isAvailable = !!video.url;
-        this.source = video.url;
+        this.isProcessing = !video.url;
         const player = amp(this.vimeo.nativeElement, {
           autoplay: true,
           controls: true,
+          width: 'auto',
+          height: 'auto'
         });
-        player.src([{
-          src: video.url,
-          type: 'application/vnd.ms-sstr+xml',
-          protectionInfo: [{
-            type: 'PlayReady',
-            authenticationToken: `Bearer ${video.token}`
-          },
-          {
-            type: 'Widevine',
-            authenticationToken: `Bearer ${video.token}`
-          }]
-        }])
+        if (video.url) {
+          player.src([{
+            src: video.url,
+            type: 'application/vnd.ms-sstr+xml',
+            protectionInfo: [{
+              type: 'PlayReady',
+              authenticationToken: `Bearer ${video.token}`
+            },
+            {
+              type: 'Widevine',
+              authenticationToken: `Bearer ${video.token}`
+            }]
+          }])
+        }
       });
     }
 
