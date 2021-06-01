@@ -180,7 +180,7 @@
       <nz-card>
         <h5>Thông tin sản phẩm</h5>
         <nz-table #itemsTable
-                  [nzData]="order?.items"
+                  [nzData]="[1]"
                   [nzShowPagination]="false">
           <thead>
             <tr>
@@ -192,14 +192,25 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of order?.items;let index = index">
-              <td>{{index+1}}</td>
-              <td>{{item?.courseName}}</td>
-              <td class="text-nowrap">{{item?.price|number}} đ</td>
-              <td>{{item?.price|number}} đ</td>
-              <td>{{item?.days}} ngày</td>
-            </tr>
-            <tr *ngIf="order?.items.length">
+            <ng-container *ngIf="order?.type === invoiceType.Course;else memberShip">
+              <tr *ngFor="let item of order?.items;let index = index">
+                <td>#{{index+1}}</td>
+                <td>{{item?.courseName}}</td>
+                <td class="text-nowrap">{{item?.price|number}} đ</td>
+                <td>{{item?.price|number}} đ</td>
+                <td>{{item?.days}} ngày</td>
+              </tr>
+            </ng-container>
+            <ng-template #memberShip>
+              <tr>
+                <td>#1</td>
+                <td>Gói truy cập</td>
+                <td class="text-nowrap">{{order?.totalPrice | number}} đ</td>
+                <td>{{order?.totalPrice | number}} đ</td>
+                <td>{{order?.days}} ngày</td>
+              </tr>
+            </ng-template>
+            <tr>
               <td></td>
               <td class="text-primary text-semibold">Tổng tiền</td>
               <td></td>

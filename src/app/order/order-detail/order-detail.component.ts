@@ -10,7 +10,7 @@ import { sumBy } from 'lodash';
 import { omitBy } from 'lodash-es';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
-import { InvoiceStatus, InvoiceStatusOptions } from 'types/enums';
+import { InvoiceStatus, InvoiceStatusOptions, InvoiceType } from 'types/enums';
 import { Invoice } from 'types/typemodel';
 
 @Component({
@@ -24,6 +24,7 @@ export class OrderDetailComponent implements OnInit {
   StudentStatusOptions = StudentStatusOptions;
   invoiceStatusOptions = InvoiceStatusOptions;
   invoiceStatus = InvoiceStatus;
+  invoiceType = InvoiceType;
   isLoading: boolean;
   paymentMethods: any;
 
