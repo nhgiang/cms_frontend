@@ -36,7 +36,7 @@ export class PartnersComponent implements OnInit {
   protected fetch(page: number, searchQuery: any): Observable<any> {
     this.isDataLoading = true;
     return this.partnersApi
-      .getList({ page: page, q: searchQuery })
+      .getList({ page: page, q: searchQuery?.trim() })
       .pipe(finalize(() => (this.isDataLoading = false)));
   }
 
