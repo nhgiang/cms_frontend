@@ -47,7 +47,7 @@ export class OrderDetailComponent implements OnInit {
         bankCode: order.bankCode || order.bankCodePicked,
         transactionCode: order.transactionCode,
         transactionTime: order.transactionTime,
-        transactionAmount: order.transactionAmount != null ? order.transactionAmount : sumBy(order.items, 'price'),
+        transactionAmount: order.transactionAmount ?? order.totalPrice,
         status: order.status,
         note: order.note
       }, { emitEvent: false });

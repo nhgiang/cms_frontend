@@ -29,14 +29,14 @@ export class TValidators extends Validators {
     };
   }
 
-  static onlyNumber(control: AbstractControl): ValidationErrors {
-    if (!control.value) {
-      return null;
-    }
-    const value = control.value && control.value.toString().trim();
-    const regex = /^[0-9]*$/g;
-    return regex.test(toFixed(value)) ? null : {
-      onlyNumber: true
+  static onlyNumber(): ValidatorFn   {
+    return (control: AbstractControl): ValidationErrors => {
+      if (!control.value) { return null; }
+      const value = control.value && control.value.toString().trim();
+      const regex = /^[0-9]*$/g;
+      return regex.test(toFixed(value)) ? null : {
+        onlyNumber: true
+      };
     };
   }
 
