@@ -23,6 +23,7 @@
       "@env": [
         "src/environments/environment"
       ]
-    }
-  }
+    },
+    "resolveJsonModule": true
+  },
 }

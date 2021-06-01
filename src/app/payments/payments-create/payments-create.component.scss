@@ -1,6 +1,7 @@
-img {
+nz-upload img {
   width: 80px;
   height: 80px;
+  border-radius: 50%;
 }
 
 nz-upload {
@@ -9,4 +10,5 @@ nz-upload {
 :host::ng-deep nz-upload .ant-upload {
   width: 80px;
   height: 80px;
+  border-radius: 50%;
 }

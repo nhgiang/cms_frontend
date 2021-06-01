@@ -1,1 +1,41 @@
-<p>Works!</p>
+<nz-card>
+  <div style="text-align: right">
+    <a nz-button nzType="default" class="m-r-5" (click)="preview()">
+      <i nz-icon nzType="eye"></i> Xem trước
+    </a>
+    <a routerLink="create" nz-button nzType="primary">
+      <i nz-icon nzType="plus"></i> Thêm mới
+    </a>
+  </div>
+
+  <nz-table
+    [nzLoading]="isDataLoading"
+    [nzData]="payments"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+  >
+    <thead>
+      <tr>
+        <th>Mã ngân hàng</th>
+        <th>Tên ngân hàng</th>
+        <th>Số tài khoản</th>
+        <th>Tên chủ tài khoản</th>
+        <th>Chi nhánh</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let paymentInfo of payments">
+        <td>{{ paymentInfo.bankCode }}</td>
+        <td>{{ paymentInfo.bankName }}</td>
+        <td>{{ paymentInfo.accountNumber }}</td>
+        <td>{{ paymentInfo.accountName }}</td>
+        <td>{{ paymentInfo.branch }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<app-payments-preview
+  [payments]="payments"
+  [isPreview]="isPreview"
+></app-payments-preview>

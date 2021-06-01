@@ -1,0 +1,502 @@
+[
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_ngoai_thuong_viet_nam___vietcombank.png",
+    "bankName": "Vietcombank",
+    "bankFullname": "NHTMCP Ngoai thuong"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_nong_nghiep_va_phat_trien_nong_thon___agribank.png",
+    "bankName": "Agribank",
+    "bankFullname": "NH Nong nghiep va Phat trien Nong thon Viet Nam"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_cong_thuong_vn___vietinbank.png",
+    "bankName": "Vietinbank",
+    "bankFullname": "NHTMCP Cong thuong"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_quan_doi___mb.png",
+    "bankName": "MB",
+    "bankFullname": "NHTMCP Quan doi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_ky_thuong_viet_nam___techcombank.png",
+    "bankName": "Techcombank",
+    "bankFullname": "NHTMCP Ky thuong"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_an_binh___abbank.png",
+    "bankName": "ABBank",
+    "bankFullname": "NHTMCP An Binh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_a_chau___acb.png",
+    "bankName": "ACB",
+    "bankFullname": "NHTMCP A Chau"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_anz.png",
+    "bankName": "ANZ VN",
+    "bankFullname": "NH TNHH ANZ Viet Nam"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/agricultural_bank_of_china.png",
+    "bankName": "Agricultural Bank of China",
+    "bankFullname": "NH Agricultural Bank of China"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_dau_tu_phat_trien_campuchia.png",
+    "bankName": "BIDC CN Hà Nội",
+    "bankFullname": "NH Dau tu va Phat trien Campuchia - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_dau_tu_phat_trien_campuchia.png",
+    "bankName": "BIDC CN TPHCM",
+    "bankFullname": "NH Dau tu va Phat trien Campuchia - CN TP Ho Chi Minh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_bnp_paribas.png",
+    "bankName": "BNP Paribas CN Hà Nội",
+    "bankFullname": "NH BNP Paribas - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_bnp_paribas.png",
+    "bankName": "BNP Paribas CN TPHCM",
+    "bankFullname": "NH BNP Paribas - CN Ho Chi Minh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_bpceiom.png",
+    "bankName": "BPCE IOM CN TPHCM",
+    "bankFullname": "NH BPCE IOM - CN Ho Chi Minh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_bac_a___bacabank.png",
+    "bankName": "BacAbank",
+    "bankFullname": "NHTMCP Bac A"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/bangkok_bank.png",
+    "bankName": "Bangkok Bank CN Hà Nội",
+    "bankFullname": "NH Bangkok - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/bangkok_bank.png",
+    "bankName": "Bangkok Bank CN TPHCM",
+    "bankFullname": "NH Bangkok bank - CN TPHCM"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/bangkok_bank.png",
+    "bankName": "Bangkok Public Bank",
+    "bankFullname": "NH Bangkok Dai Chung"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/bank_of_china.png",
+    "bankName": "Bank Of China",
+    "bankFullname": "NH Bank Of China"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/bank_of_communication.png",
+    "bankName": "Bank of Communication",
+    "bankFullname": "NH Bank of Communication"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/bank_of_india.png",
+    "bankName": "Bank of India TP HCM",
+    "bankFullname": "NH Bank of India TP Ho Chi Minh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_bao_viet___baovietbank.png",
+    "bankName": "BaoVietBank",
+    "bankFullname": "NHTMCP Bao Viet"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/cbbank.png",
+    "bankName": "CBbank",
+    "bankFullname": "NH TNHH MTV Xay dung Viet Nam"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/ngan_hang_tnhh_mtv_cimb_viet_nam___cimb_bank_vietnam_limited.png",
+    "bankName": "CIMB VN",
+    "bankFullname": "NH TNHH MTV CIMB Viet Nam"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tnhh_ctbc.png",
+    "bankName": "CTBC VN",
+    "bankFullname": "NH TNHH CTBC"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/cake.png",
+    "bankName": "Cake by VPbank",
+    "bankFullname": "Ngan hang so CAKE by VPbank"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/china_construction_bank.png",
+    "bankName": "China Construction Bank",
+    "bankFullname": "NH China Construction"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/citi_bank.png",
+    "bankName": "CitiBank CN Hà Nội",
+    "bankFullname": "NH CitiBank - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/citi_bank.png",
+    "bankName": "Citibank CN TPHCM",
+    "bankFullname": "NH Citibank - CN Ho Chi Minh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/ngan_hang_tmcp_hop_tac_xa_viet_nam___coopbank.png",
+    "bankName": "CoopBank",
+    "bankFullname": "NH Hop tac"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/dbs_bank_ltd.png",
+    "bankName": "DBS Bank LTD",
+    "bankFullname": "NH DBS Bank LTD"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/deutsche_bank_ag.png",
+    "bankName": "Deutsche bank AG",
+    "bankFullname": "NH Deutsche bank AG"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_dong_a___dongabank.png",
+    "bankName": "DongA Bank",
+    "bankFullname": "NHTMCP Dong A"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nhtm_tnhh_e_sun.png",
+    "bankName": "E.sun Bank",
+    "bankFullname": "NHTM TNHH E.Sun"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_xuat_nhap_khau_viet_nam___eximbank.png",
+    "bankName": "Eximbank",
+    "bankFullname": "NH Xuat nhap khau VN"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/first_commercial_bank.png",
+    "bankName": "First Bank CN Hà Nội",
+    "bankFullname": "NH First Commercial - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/first_commercial_bank.png",
+    "bankName": "First Bank CN TPHCM",
+    "bankFullname": "NH First Commercial - CN Ho Chi Minh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_dau_khi_toan_cau___gpbank.png",
+    "bankName": "GPbank",
+    "bankFullname": "NH TNHH Dau khi toan cau"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_phat_trien_tphcm___hdbank.png",
+    "bankName": "HDBank",
+    "bankFullname": "NHTMCP Phat trien TPHCM"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/hsbc.png",
+    "bankName": "HSBC VN",
+    "bankFullname": "NH TNHH HSBC VN"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tnhh_mtv_hong_leong_viet_nam___hong_leong_bank.png",
+    "bankName": "HongLeong bank",
+    "bankFullname": "NH TNHH MTV Hong Leong VN"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/hua_nan_commercial_bank_ltd.png",
+    "bankName": "Hua Nan Bank",
+    "bankFullname": "NHTM Hua Nan"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_cong_nghiep_han_quoc_cn_hanoi___ibk_hanoi.png",
+    "bankName": "IBK Hà Nội",
+    "bankFullname": "NH Cong nghiep Han Quoc - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_cong_nghiep_han_quoc_cn_hanoi___ibk_hanoi.png",
+    "bankName": "IBK Hồ Chí Minh",
+    "bankFullname": "NH Cong nghiep Han Quoc - CN Ho Chi Minh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/industrial_com__b_of_china.png",
+    "bankName": "ICBC VN",
+    "bankFullname": "NH ICBC Viet Nam"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tnhh_indovina___indovinabank.png",
+    "bankName": "IndovinaBank",
+    "bankFullname": "NH Indovina"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/jpmorgan_chase_bank.png",
+    "bankName": "JPMorgan VN",
+    "bankFullname": "NH JPMorgan Chase"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_keb_hana_cn_ha_noi.png",
+    "bankName": "Keb Hana CN Hà Nội",
+    "bankFullname": "NH Keb Hana - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_keb_hana_cn_ha_noi.png",
+    "bankName": "Keb Hana CN TPHCM",
+    "bankFullname": "NH Keb Hana - CN Ho Chi Minh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_kien_long___kienlongbank.png",
+    "bankName": "Kien Long Bank",
+    "bankFullname": "NHTMCP Kien Long"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_kookmin.png",
+    "bankName": "Kookmin CN Hà Nội",
+    "bankFullname": "NH Kookmin - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_kookmin.png",
+    "bankName": "Kookmin CN TPHCM",
+    "bankFullname": "NH Kookmin - CN Ho Chi Minh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_buu_dien_lien_viet___lienvietpostbank.png",
+    "bankName": "LienVietpostBank",
+    "bankFullname": "NHTMCP Buu dien Lien Viet"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_hang_hai_viet_nam___msb.png",
+    "bankName": "MSB",
+    "bankFullname": "NHTMCP Hang Hai VN"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_mufg_bank_ltd.png",
+    "bankName": "MUFG Bank CN TPHCM",
+    "bankFullname": "NH MUFG - CN Ho Chi Minh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_mufg_bank_ltd.png",
+    "bankName": "MUFG CN Hà Nội",
+    "bankFullname": "NH MUFG - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_malayan_banking_berhad.png",
+    "bankName": "Maybank CN Hà Nội",
+    "bankFullname": "NH Maybank - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_malayan_banking_berhad.png",
+    "bankName": "Maybank CN TPHCM",
+    "bankFullname": "NH Maybank - CN Ho Chi Minh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/mega_icbc_co_ltd.png",
+    "bankName": "Mega ICBC",
+    "bankFullname": "NH Mega International Commercial Bank"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/mizuho.png",
+    "bankName": "Mizuho Bank CN Hà Nội",
+    "bankFullname": "NH Mizuho Viet Nam - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/mizuho.png",
+    "bankName": "Mizuho Bank CN TPHCM",
+    "bankFullname": "NH Mizuho Viet Nam - CN Ho Chi Minh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_quoc_dan___ncb.png",
+    "bankName": "NCB",
+    "bankFullname": "NHTMCP Quoc Dan"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_busan.png",
+    "bankName": "NH Busan Việt Nam",
+    "bankFullname": "NH Busan Viet Nam"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_cathay.png",
+    "bankName": "NH Cathay",
+    "bankFullname": "NH Cathay"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_chinh_sach_xa_hoi_viet_nam.png",
+    "bankName": "NH Chính sách xã hội VN",
+    "bankFullname": "NH Chinh sach xa hoi VN"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/Daegu.png",
+    "bankName": "NH Daegu",
+    "bankFullname": "NH Daegu Viet Nam"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_sinopac.png",
+    "bankName": "NH Sinopac",
+    "bankFullname": "NH Sinopac"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_nam_a___nam_a_bank.png",
+    "bankName": "NamAbank",
+    "bankFullname": "NHTMCP Nam A"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/ngan_hang_nonghyup__chi_nhanh_ha_noi___nonghyup_bank.png",
+    "bankName": "NongHyup CN Hà Nội",
+    "bankFullname": "NH NongHyup - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_phuong_dong___ocb.png",
+    "bankName": "OCB",
+    "bankFullname": "NHTMCP Phuong Dong"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/oversea_chinese_banking_co_ltd.png",
+    "bankName": "OCBC VN",
+    "bankFullname": "NH Oversea-Chinese Banking Corporation"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tm_tnhh_mtv_dai_duong___oceanbank.png",
+    "bankName": "Oceanbank",
+    "bankFullname": "NH TNHH Dai Duong"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_xang_dau_petrolimex____pg_bank.png",
+    "bankName": "PG Bank",
+    "bankFullname": "NHTMCP Xang dau Petrolimex"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_dai_chung_viet_nam___pvcombank.png",
+    "bankName": "PVcomBank",
+    "bankFullname": "NHTMCP Dai Chung VN"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tnhh_mtv_public_vietnam___public_bank_vietnam_limited.png",
+    "bankName": "Public Bank Vietnam",
+    "bankFullname": "NH TNHH Public Viet Nam"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_sai_gon____scb.png",
+    "bankName": "SCB",
+    "bankFullname": "NHTMCP Sai Gon"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_sai_gon_ha_noi___shb.png",
+    "bankName": "SHB",
+    "bankFullname": "NHTMCP Sai Gon Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_sai_gon_thuong_tin___sacombank.png",
+    "bankName": "Sacombank",
+    "bankFullname": "NHTMCP Sai Gon Thuong Tin"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_sai_gon_cong_thuong___saigonbank.png",
+    "bankName": "Saigonbank",
+    "bankFullname": "NHTMCP Sai Gon Cong thuong"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_dong_nam_a___seabank.png",
+    "bankName": "SeAbank",
+    "bankFullname": "NHTMCP Dong Nam A"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/shanghai_com_saving_bank_cn_dong_nai.png",
+    "bankName": "Shanghai Com&amp;Saving",
+    "bankFullname": "NH Shanghai Com&amp;Saving"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tnhh_mtv_shinhan_viet_nam___shinhan_bank_viet_nam.png",
+    "bankName": "Shinhan Bank",
+    "bankFullname": "NH TNHH MTV Shinhan VN"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_the_siam_comercial_bank___cn_tphcm.png",
+    "bankName": "Siam Comercial Bank VN",
+    "bankFullname": "NH The Siam Commercial Viet Nam"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/standard_chartered_bank.png",
+    "bankName": "Standard Chartered Bank",
+    "bankFullname": "NH Standard Chartered Bank"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_sumitomo_mitsui.png",
+    "bankName": "Sumitomo CN Hà Nội",
+    "bankFullname": "NH Sumitomo Mitsui - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_sumitomo_mitsui.png",
+    "bankName": "Sumitomo CN TPHCM",
+    "bankFullname": "NH Sumitomo Mitsui - CN TPHCM"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_tien_phong___tienphongbank.png",
+    "bankName": "TPbank",
+    "bankFullname": "NHTMCP Tien Phong"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_taipei_fubon___cn_hanoi.png",
+    "bankName": "Taipei Fubon CN Bình Dương",
+    "bankFullname": "NH Taipei Fubon - CN Binh Duong"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_taipei_fubon___cn_hanoi.png",
+    "bankName": "Teipei Fubon CN Hà Nội",
+    "bankFullname": "NH Teipei Fubon - CN Ha Noi"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_taipei_fubon___cn_hanoi.png",
+    "bankName": "Teipei Fubon CN TPHCM",
+    "bankFullname": "NH Teipei Fubon - CN Ho Chi Minh"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/united_overseas_bank.png",
+    "bankName": "UOB Việt Nam",
+    "bankFullname": "NH TNHH MTV United Overseas Viet Nam"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/u_bank_by_vpbank.png",
+    "bankName": "Ubank by VPbank",
+    "bankFullname": "Ngan hang so Ubank by VPbank"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_phat_trien_viet_nam.png",
+    "bankName": "VDB",
+    "bankFullname": "NH Phat trien Viet Nam"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_quoc_te___vib.png",
+    "bankName": "VIB",
+    "bankFullname": "NHTMCP Quoc te VN"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_viet_nam_thinh_vuong____vpbank.png",
+    "bankName": "VPbank",
+    "bankFullname": "NH Viet Nam Thinh Vuong"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_lien_doanh_viet_nga___vrb.png",
+    "bankName": "VRB",
+    "bankFullname": "NH Lien doanh Viet Nga"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_ban_viet___vccb.png",
+    "bankName": "Viet Capital Bank",
+    "bankFullname": "NHTMCP Ban Viet"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_viet_a___vietabank.png",
+    "bankName": "VietAbank",
+    "bankFullname": "NHTMCP Viet A"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/nh_tmcp_viet_nam_thuong_tin___vietbank.png",
+    "bankName": "VietBank",
+    "bankFullname": "NHTMCP Viet Nam Thuong Tin"
+  },
+  {
+    "imageUrl": "https://omni.bidv.com.vn/static/bidv/logobank/wooribank_viet_nam___wooribank_viet_nam.png",
+    "bankName": "Wooribank VN",
+    "bankFullname": "NH Woori Viet Nam"
+  }
+]

@@ -1,0 +1,43 @@
+<nz-modal
+  [nzVisible]="isModalVisible"
+  [nzFooter]="null"
+  (nzOnCancel)="onCancel()"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  nzWidth="45%"
+>
+  <ng-template #modalTitle>
+    <span class="text-bold">Xem trước giao diện người dùng</span>
+  </ng-template>
+  <ng-template #modalContent>
+    <div class="row">
+      <div class="col-6 col-md-4" *ngFor="let bank of payments; index as i">
+        <img
+          class="bank-image"
+          [class.active]="bank.isActive"
+          [src]="bank.isActive ? bank.imageActive : bank.image"
+          (click)="activateBankView(i)"
+        />
+      </div>
+    </div>
+
+    <div class="m-t-20">
+      <div class="bank-info-container">
+        <span>Số tài khoản</span>
+        <span class="text-bold">{{
+          payments[activeBankIndex].accountNumber
+        }}</span>
+      </div>
+      <div class="bank-info-container">
+        <span>Tên chủ tài khoản</span>
+        <span class="text-bold">
+          {{ payments[activeBankIndex].accountName }}
+        </span>
+      </div>
+      <div class="bank-info-container">
+        <span>Chi nhánh</span>
+        <span class="text-bold"> {{ payments[activeBankIndex].branch }} </span>
+      </div>
+    </div>
+  </ng-template>
+</nz-modal>

@@ -3,9 +3,27 @@
     <nz-form-item>
       <nz-form-label nzFor="autocomplete-bank">Chọn ngân hàng</nz-form-label>
       <nz-form-control>
-        <nz-select nzShowSearch nzAllowClear>
-          <nz-option nzLabel="acb" nzValue="acb"></nz-option>
-          <nz-option nzLabel="bbc" nzValue="bbc"></nz-option>
+        <nz-select
+          name="autocomplete-bank"
+          id="autocomplete-bank"
+          nzShowSearch
+          nzAllowClear
+          [ngModel]="selectedBankIndex"
+          (ngModelChange)="onBankSelect($event)"
+        >
+          <nz-option
+            *ngFor="let bank of bankData; index as i"
+            [nzCustomContent]="true"
+            nzLabel="{{ bank.bankName + ' - ' + bank.bankFullname }}"
+            nzValue="{{ i }}"
+            [nzNotFoundContent]="notfound"
+          >
+            <img
+              style="width: 30px; height: 30px"
+              src="{{ bank.imageUrl }}"
+            /><span class="text-bold m-l-5"> {{ bank.bankName }}</span> -
+            {{ bank.bankFullname }}
+          </nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>
@@ -35,13 +53,19 @@
         <nz-form-label nzRequired nzFor="bankName">Tên ngân hàng</nz-form-label>
       </div>
       <div class="col-4">
-        <nz-form-label nzRequired nzFor="bankCode">Bank Code</nz-form-label>
+        <nz-form-label nzRequired nzFor="bankCode">Mã ngân hàng</nz-form-label>
       </div>
     </div>
     <div class="row">
       <div class="col-8">
         <nz-form-control>
-          <input nz-input type="text" id="bankName" />
+          <input
+            nz-input
+            type="text"
+            id="bankName"
+            name="bankName"
+            [ngModel]="bankData[selectedBankIndex]?.bankName"
+          />
         </nz-form-control>
       </div>
       <div class="col-4">
@@ -79,20 +103,10 @@
         </nz-form-control>
       </div>
     </div>
-
-    <nz-form-item class="m-t-10">
-      <nz-form-label>VnPay</nz-form-label>
-      <nz-switch
-        [nzCheckedChildren]="checked"
-        [nzUnCheckedChildren]="unchecked"
-        [nzControl]="true"
-        [(ngModel)]="vnpayOption"
-        name="vnpayOption"
-        (click)="vnpayToggler()"
-      >
-      </nz-switch>
-      <ng-template #checked><i nz-icon nzType="check"></i></ng-template>
-      <ng-template #unchecked><i nz-icon nzType="close"></i></ng-template>
-    </nz-form-item>
+    <div class="m-t-10" style="text-align: right">
+      <button nz-button nzType="primary">Thêm mới</button>
+    </div>
   </form>
 </nz-card>
+
+<ng-template notfound> Không có dữ liệu </ng-template>

@@ -107,7 +107,7 @@ export const CommonLayoutRoutes: Routes = [
     loadChildren: () =>
       import('src/app/payments/payments.module').then((m) => m.PaymentsModule),
     data: {
-      title: 'Quản lý hình thức thanh toán',
+      title: 'Quản lý phương thức thanh toán',
     },
   },
 ];

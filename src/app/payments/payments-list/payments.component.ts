@@ -1,24 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '@env';
 import { PaymentsApiService } from '@shared/api/payments.api.service';
-
+import { Payment } from 'types/typemodel';
+import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-payments',
   templateUrl: './payments.component.html',
 })
 export class PaymentsComponent implements OnInit {
-  data = [];
+  payments: Payment[] = [];
+  isDataLoading = false;
+  isPreview: number = 0;
   constructor(private paymentsService: PaymentsApiService) {}
   ngOnInit() {
-    this.fetch();
+    this.fetchAndSubcribe();
   }
 
-  fetch() {
-    this.paymentsService.getList().subscribe((data) => {
-      this.data = data;
-      console.log('hasd');
-    });
+  fetchAndSubcribe() {
+    this.isDataLoading = true;
+    this.paymentsService
+      .getList()
+      .pipe(finalize(() => (this.isDataLoading = false)))
+      .subscribe((data: Payment[]) => {
+        this.payments = data;
+      });
+  }
+
+  preview() {
+    this.isPreview++;
+    //force app-payments-preview update
   }
 }
-
-const API = `${environment.api}/setting-payments`;
