@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { EventTypeApiService } from '@shared/api/event-type.api.service';
 import { EventApiService } from '@shared/api/event.api.service';
@@ -78,7 +78,8 @@ export class EventDetailComponent implements OnInit {
     private eventApi: EventApiService,
     private route: ActivatedRoute,
     private storageApi: StorageApiService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -102,6 +103,10 @@ export class EventDetailComponent implements OnInit {
   submit(isDraft: boolean) {
     if (!isDraft) {
       Ultilities.validateForm(this.form);
+    } else {
+      if (this.form.controls.title.invalid && this.form.controls.typeId) {
+        return;
+      }
     }
     this.isLoading = true;
     this.storageApi.uploadFile(this.form.value.thumbnail).pipe(switchMap(url => {
@@ -113,6 +118,7 @@ export class EventDetailComponent implements OnInit {
       return this.eventApi.update(this.event.id, body);
     }), finalize(() => this.isLoading = false)).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật thông tin sự kiện thành công!');
+      this.router.navigate(['../'], { relativeTo: this.route });
     });
   }
 
@@ -131,7 +137,7 @@ export class EventDetailComponent implements OnInit {
       totalParticipant: [null, [TValidators.onlyNumber, Validators.required]],
       gifts: [null, [TValidators.onlyNumber, TValidators.required]]
     }, {
-      validator: TValidators.timeValidator('startAt', 'endAt')
+      validators: TValidators.timeValidator('startAt', 'endAt')
     });
   }
 }

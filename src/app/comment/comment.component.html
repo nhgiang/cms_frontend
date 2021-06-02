@@ -40,16 +40,16 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of items">
-          <td>#{{item.index}}</td>
-          <td><a [routerLink]="item?.id">{{item?.courseName}}</a></td>
+          <td>#{{ item.index }}</td>
+          <td><a [routerLink]="item?.id">{{ item.courseName }}</a></td>
           <td>
             <div>
               <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item.avatar"></nz-avatar>
-              {{item?.teacherName}}
+              {{ item.teacherName }}
             </div>
           </td>
-          <td>{{item?.typeName}}</td>
-          <td>{{item?.totalComment}}</td>
+          <td>{{ item.typeName }}</td>
+          <td class="text-center">{{ item.totalComment }}</td>
         </tr>
       </tbody>
     </nz-table>

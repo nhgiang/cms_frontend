@@ -7,7 +7,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { UploaderStatus } from 'types/enums';
 import { isFunction } from 'lodash-es';
 import { StorageApiService } from '@shared/api/storage.api.service';
-
+declare const amp: any;
 @Component({
   selector: 'app-upload-vimeo-control',
   templateUrl: './upload-vimeo-control.component.html',
@@ -30,7 +30,8 @@ export class UploadVimeoControlComponent extends AbstractControlDirective implem
   file: File;
   maxSize = 100_000_000;
   player: Player;
-  isAvailable: boolean;
+  isProcessing: boolean;
+  source: any;
 
   get content() {
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
@@ -51,15 +52,28 @@ export class UploadVimeoControlComponent extends AbstractControlDirective implem
     this.url = file;
     if (file) {
       this.status = UploaderStatus.Selected;
-      this.storageApi.getVideo(this.url.split('/').slice(-1)[0]).subscribe((video: any) => {
-        this.isAvailable = (video.status === 'available');
-        setTimeout(() => {
-          this.player = new Player(this.vimeo.nativeElement, {
-            id: this.url.split('/').slice(-1)[0],
-            loop: true
-          });
+      this.storageApi.getVideo(this.url).subscribe((video: any) => {
+        this.isProcessing = !video.url;
+        const player = amp(this.vimeo.nativeElement, {
+          autoplay: true,
+          controls: true,
+          width: 'auto',
+          height: 'auto'
         });
-        // this.player.loadVideo(this.url.split('/').slice(-1)[0])
+        if (video.url) {
+          player.src([{
+            src: video.url,
+            type: 'application/vnd.ms-sstr+xml',
+            protectionInfo: [{
+              type: 'PlayReady',
+              authenticationToken: `Bearer ${video.token}`
+            },
+            {
+              type: 'Widevine',
+              authenticationToken: `Bearer ${video.token}`
+            }]
+          }]);
+        }
       });
     }
 

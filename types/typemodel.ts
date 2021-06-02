@@ -157,9 +157,13 @@ export interface Invoice extends Entity {
   totalPrice: number;
   note: string;
   user: User;
-  items: InvoiceItem;
+  items: InvoiceItem[];
   bankCodePicked: string;
-  bankCode: string;
+  bankCode: any;
+  transactionAmount: number;
+  transactionCode: any;
+  transactionTime: any;
+  invoicePrice: number;
 }
 
 export interface InvoiceItem {

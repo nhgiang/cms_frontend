@@ -18,11 +18,11 @@ export class EventApiService extends BaseApi {
     return this.httpClient.get<QueryResult<EventEntity>>(this.createUrl(''), { params: this.createParams(params) });
   }
 
-  getById(id) {
+  getById(id: string) {
     return this.httpClient.get<EventEntity>(this.createUrl(`/${id}`));
   }
 
-  update(id: string, body) {
+  update(id: string, body: any) {
     return this.httpClient.put(this.createUrl(`/${id}`), body);
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { EventTypeApiService } from '@shared/api/event-type.api.service';
 import { EventApiService } from '@shared/api/event.api.service';
@@ -8,9 +8,8 @@ import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { switchMap, finalize, map } from 'rxjs/operators';
+import { finalize, map, switchMap } from 'rxjs/operators';
 import { EventStatus } from 'types/enums';
-import { EventEntity } from 'types/typemodel';
 
 @Component({
   selector: 'app-event-create',
@@ -77,11 +76,11 @@ export class EventCreateComponent implements OnInit {
     private eventApi: EventApiService,
     private route: ActivatedRoute,
     private storageApi: StorageApiService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
     this.buildForm();
   }
 
@@ -97,17 +96,22 @@ export class EventCreateComponent implements OnInit {
   submit(isDraft: boolean) {
     if (!isDraft) {
       Ultilities.validateForm(this.form);
+    } else {
+      if (this.form.controls.title.invalid && this.form.controls.typeId) {
+        return;
+      }
     }
     this.isLoading = true;
     this.storageApi.uploadFile(this.form.value.thumbnail).pipe(switchMap(url => {
       this.form.get('thumbnail').setValue(url);
       const body = {
         ...this.form.value,
-        status: isDraft ? this.eventStatus.Submitted : this.eventStatus.Draft,
+        status: isDraft ? this.eventStatus.Draft : this.eventStatus.Submitted,
       };
       return this.eventApi.create(body);
     }), finalize(() => this.isLoading = false)).subscribe(() => {
       this.notification.success('Thành công', 'Thêm mới thông tin sự kiện thành công!');
+      this.router.navigate(['../'], { relativeTo: this.route });
     });
   }
 
@@ -126,7 +130,7 @@ export class EventCreateComponent implements OnInit {
       totalParticipant: [null, [TValidators.onlyNumber, Validators.required]],
       gifts: [null, [TValidators.onlyNumber, TValidators.required]]
     }, {
-      validator: TValidators.timeValidator('startAt', 'endAt')
+      validators: TValidators.timeValidator('startAt', 'endAt')
     });
   }
 }

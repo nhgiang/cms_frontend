@@ -1,5 +1,6 @@
 import { AbstractControl, FormArray, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { toFixed } from 'utils/common';
 export class TValidators extends Validators {
 
   static confirmPasswordValidator(control: AbstractControl): ValidationErrors {
@@ -27,14 +28,14 @@ export class TValidators extends Validators {
     };
   }
 
-  static onlyNumber(control: AbstractControl): ValidationErrors {
-    if (!control.value) {
-      return null;
-    }
-    const value = control.value && control.value.toString().trim();
-    const regex = /^[0-9]*$/g;
-    return regex.test(value) ? null : {
-      onlyNumber: true
+  static onlyNumber(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors => {
+      if (!control.value) { return null; }
+      const value = control.value && control.value.toString().trim();
+      const regex = /^[0-9]*$/g;
+      return regex.test(toFixed(value)) ? null : {
+        onlyNumber: true
+      };
     };
   }
 
@@ -46,7 +47,7 @@ export class TValidators extends Validators {
   }
 
   static textRange = (min: number, max: number) => (control: AbstractControl) => {
-    const value = control.value && control.value.trim();
+    const value = control.value && control.value.toString().trim();
     if (value && value.length >= min && value.length <= max) {
       return null;
     }
@@ -89,7 +90,7 @@ export class TValidators extends Validators {
   static maxLength(length: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors => {
       if (!control.value) { return null; }
-      return this.trimData(control.value)?.length > length ? { maxLength: true } : null;
+      return this.trimData(control.value.toString())?.length > length ? { maxLength: true } : null;
     };
   }
 

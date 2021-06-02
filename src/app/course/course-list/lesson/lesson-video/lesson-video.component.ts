@@ -55,12 +55,13 @@ export class LessonVideoComponent implements OnInit, OnChanges {
       const data = {
         title: this.form.value.title.trim(),
         lessionId: this.lessonId,
-        duration: typeof video === 'string' ? this.unit.duration : video.duration,
-        video: typeof video === 'string' ? video : 'https://player.vimeo.com/video/' + video.id,
-        attachments: file
+        video,
+        attachments: file,
+        duration: 0
       };
       return this.unit ? this.unitApi.editUnit(this.route.snapshot.paramMap.get('unitId'), data) : this.unitApi.createUnit(data);
-    }), finalize(() => this.isLoading = false)).subscribe(() => {
+    }),
+      finalize(() => this.isLoading = false)).subscribe(() => {
       this.router.navigate(['/course-management/course/edit', this.courseId]);
       this.notification.success('Thành công', `${this.unit ? 'Cập nhật' : 'Thêm mới'} video bài giảng thành công!`);
     });

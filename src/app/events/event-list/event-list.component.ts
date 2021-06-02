@@ -28,6 +28,7 @@ export class EventListComponent extends DataTableContainer<EventEntity> implemen
     private eventTypeApi: EventTypeApiService
   ) {
     super(route, router);
+    this.quantity = 5;
   }
 
   ngOnInit(): void {

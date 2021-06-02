@@ -77,7 +77,7 @@ export const ROUTES: SideNavInterface[] = [
     ],
   },
   {
-    path: 'order-managerment',
+    path: 'order-management',
     title: 'Quản lý đơn hàng',
     iconType: 'nzIcon',
     iconTheme: 'outline',
@@ -159,7 +159,7 @@ export const ROUTES: SideNavInterface[] = [
     ],
   },
   {
-    path: 'event-managerment',
+    path: 'event-management',
     title: 'Quản lý sự kiện',
     iconType: 'nzIcon',
     iconTheme: 'outline',

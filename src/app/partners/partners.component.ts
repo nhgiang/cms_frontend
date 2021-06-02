@@ -21,9 +21,7 @@ export class PartnersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.fetch(1, undefined) //fetch no queries on init
-      .subscribe(this.updateObserver());
-
+    this.fetch(1, undefined).subscribe(this.updateObserver());
     this.searchQuery = new FormControl('');
     this.searchQuery.valueChanges
       .pipe(
@@ -36,7 +34,7 @@ export class PartnersComponent implements OnInit {
   protected fetch(page: number, searchQuery: any): Observable<any> {
     this.isDataLoading = true;
     return this.partnersApi
-      .getList({ page: page, q: searchQuery })
+      .getList({ page, q: searchQuery })
       .pipe(finalize(() => (this.isDataLoading = false)));
   }
 

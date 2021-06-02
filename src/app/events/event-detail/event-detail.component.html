@@ -24,9 +24,10 @@
         </div>
         <div class="col-6">
           <nz-form-item>
-            <nz-form-label nzRequired class="text-left input-space">Khách mời chính</nz-form-label>
-            <nz-form-control [nzErrorTip]="'Tên khách mời phải từ 1 đến 200 ký tự'">
-              <input nz-input formControlName="host" placeholder="Nhập tên khách mời">
+            <nz-form-label nzRequired class="text-left input-space">Loại sự kiện</nz-form-label>
+            <nz-form-control [nzErrorTip]="'Vui lòng chọn loại sự kiện'">
+              <select-advance placeholder="Chọn loại sự kiện" [getOptionsFn]="blogTypes" style="min-width: 220px;"
+                formControlName="typeId"></select-advance>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -42,10 +43,9 @@
         </div>
         <div class="col-6">
           <nz-form-item>
-            <nz-form-label nzRequired class="text-left input-space">Loại bài viết</nz-form-label>
-            <nz-form-control [nzErrorTip]="'Vui lòng chọn loại bài viết'">
-              <select-advance placeholder="Chọn loại bài viết" [getOptionsFn]="blogTypes" style="min-width: 220px;"
-                formControlName="typeId"></select-advance>
+            <nz-form-label nzRequired class="text-left input-space">Khách mời chính</nz-form-label>
+            <nz-form-control [nzErrorTip]="'Tên khách mời phải từ 1 đến 200 ký tự'">
+              <input nz-input formControlName="host" placeholder="Nhập tên khách mời">
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -55,7 +55,7 @@
           <nz-form-item class="mb-0">
             <nz-form-label nzRequired class="text-left input-space">Thời gian bắt đầu</nz-form-label>
             <nz-form-control [nzErrorTip]="'Vui lòng chọn thời gian bắt đầu'">
-              <nz-date-picker nzFormat="dd/MM/YYYY HH:mm" class="w-100" formControlName="startAt"
+              <nz-date-picker nzFormat="dd/MM/yyyy HH:mm" class="w-100" formControlName="startAt"
                 [nzShowTime]="{nzFormat: 'HH:mm'}" [nzPlaceHolder]="'Chọn thời gian bắt đầu'">
               </nz-date-picker>
             </nz-form-control>
@@ -65,13 +65,14 @@
           <nz-form-item class="mb-0">
             <nz-form-label nzRequired class="text-left input-space">Thời gian kết thúc</nz-form-label>
             <nz-form-control [nzErrorTip]="'Vui lòng chọn thời gian kết thúc'">
-              <nz-date-picker nzFormat="dd/MM/YYYY HH:mm" class="w-100" formControlName="endAt"
+              <nz-date-picker nzFormat="dd/MM/yyyy HH:mm" class="w-100" formControlName="endAt"
                 [nzShowTime]="{nzFormat: 'HH:mm'}" [nzPlaceHolder]="'Chọn thời gian kết thúc'"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
         <div class="mt-2 d-flex flex-column" style="padding-left: 9px;margin-left: 150px">
-          <div *ngIf="form?.errors?.endBeforeStart && form.dirty" class="ant-form-item-explain ant-form-item-explain-error">
+          <div *ngIf="form?.errors?.endBeforeStart && form.dirty"
+            class="ant-form-item-explain ant-form-item-explain-error">
             Thời kết thúc không thể nhỏ hơn thời gian bắt đầu
           </div>
           <label nz-checkbox formControlName="showCountDown">Hiển thị thời gian đếm ngược</label>
@@ -83,7 +84,7 @@
             <nz-form-label nzRequired class="text-left input-space">Người tham gia</nz-form-label>
             <nz-form-control [nzErrorTip]="totalParticipantErr">
               <input nz-input formControlName="totalParticipant" placeholder="Nhập vào số lượng người tham gia"
-                type="text">
+                type="number">
             </nz-form-control>
             <ng-template #totalParticipantErr let-control>
               <ng-container *ngIf="control.hasError('required')">
@@ -99,7 +100,7 @@
           <nz-form-item>
             <nz-form-label nzRequired class="text-left input-space">Số phần quà</nz-form-label>
             <nz-form-control [nzErrorTip]="giftsErr">
-              <input nz-input formControlName="gifts" placeholder="Nhập vào số lượng phần quà" type="text">
+              <input nz-input formControlName="gifts" placeholder="Nhập vào số lượng phần quà" type="number">
             </nz-form-control>
             <ng-template #giftsErr let-control>
               <ng-container *ngIf="control.hasError('required')">
