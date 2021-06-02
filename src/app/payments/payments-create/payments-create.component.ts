@@ -38,7 +38,7 @@ export class PaymentsCreateComponent implements OnInit {
       this.paymentsList = data;
       if (targetEditIndex !== undefined) {
         this.targetEdit = this.paymentsList[targetEditIndex];
-        this.paymentsForm.patchValue(<Payment>this.targetEdit);
+        this.paymentsForm.patchValue(this.targetEdit);
         this.imageInactive = this.targetEdit.image;
       }
       this.isLoading = false;
@@ -64,7 +64,7 @@ export class PaymentsCreateComponent implements OnInit {
   prepareAndSubmit() {
     Ultilities.validateForm(this.paymentsForm);
     this.isLoading = true;
-    if (!(typeof this.paymentsForm.value.imageActive == 'object')) {
+    if (typeof this.paymentsForm.value.imageActive !== 'object') {
       this.submit();
       return;
     }
