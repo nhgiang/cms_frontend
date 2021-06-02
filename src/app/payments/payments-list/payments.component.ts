@@ -56,6 +56,7 @@ export class PaymentsComponent implements OnInit {
       )
       .subscribe((data: Payment[]) => {
         this.payments = data;
+        this.isPreview = 0;
       });
   }
 
