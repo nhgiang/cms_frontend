@@ -24,7 +24,7 @@ export class EventsOrganizeComponent implements OnInit {
     private eventTypesApi: EventTypesApiService,
     private fb: FormBuilder,
     private notif: NzNotificationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.fetch(1);
@@ -34,10 +34,9 @@ export class EventsOrganizeComponent implements OnInit {
   }
 
   protected fetch(page: number) {
-    //fetch page đầu
     this.isDataLoading = true;
     this.eventTypesApi
-      .getList({ page: page })
+      .getList({ page })
       .pipe(finalize(() => (this.isDataLoading = false)))
       .subscribe((data: QueryResult<EventType>) => {
         this.meta = data.meta;
@@ -61,7 +60,7 @@ export class EventsOrganizeComponent implements OnInit {
   }
 
   showEditModal(event: EventType) {
-    this.form.controls['eventTitle'].setValue(event.title);
+    this.form.controls.eventTitle.setValue(event.title);
     this.isModalVisible = true;
     this.targetEventId = event.id;
   }
@@ -76,10 +75,10 @@ export class EventsOrganizeComponent implements OnInit {
     this.isDataLoading = true;
     const upsertObservable =
       this.targetEventId === null
-        ? this.eventTypesApi.create(this.form.controls['eventTitle'].value)
+        ? this.eventTypesApi.create(this.form.controls.eventTitle.value)
         : this.eventTypesApi.update(this.targetEventId, {
-            title: this.form.controls['eventTitle'].value,
-          });
+          title: this.form.controls.eventTitle.value,
+        });
 
     upsertObservable
       .pipe(finalize(() => (this.isDataLoading = false)))

@@ -1,6 +1,5 @@
 import { AbstractControl, FormArray, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import * as moment from 'moment';
-import { toNumber } from 'ng-zorro-antd/core/util';
 import { toFixed } from 'utils/common';
 export class TValidators extends Validators {
 
@@ -29,7 +28,7 @@ export class TValidators extends Validators {
     };
   }
 
-  static onlyNumber(): ValidatorFn   {
+  static onlyNumber(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors => {
       if (!control.value) { return null; }
       const value = control.value && control.value.toString().trim();

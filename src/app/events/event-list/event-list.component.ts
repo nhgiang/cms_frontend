@@ -41,7 +41,6 @@ export class EventListComponent extends DataTableContainer<EventEntity> implemen
   }
 
   protected fetch(): Observable<QueryResult<EventEntity>> {
-    console.log(this.quantity)
     const params = {
       limit: this.quantity,
       page: this.page

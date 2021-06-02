@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { identity, omitBy, pickBy } from 'lodash-es';
+import { omitBy } from 'lodash-es';
 import { isNil } from 'ng-zorro-antd/core/util';
 import { trimData } from 'utils/common';
 import { API_BASE_URL } from './base-url';

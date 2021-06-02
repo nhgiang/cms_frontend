@@ -8,9 +8,8 @@ import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { switchMap, finalize, map } from 'rxjs/operators';
+import { finalize, map, switchMap } from 'rxjs/operators';
 import { EventStatus } from 'types/enums';
-import { EventEntity } from 'types/typemodel';
 
 @Component({
   selector: 'app-event-create',

@@ -8,19 +8,13 @@ import { EventDetailComponent } from './event-detail/event-detail.component';
 import { EventCreateComponent } from './event-create/event-create.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
-
 @NgModule({
-	imports: [
-		CommonModule,
-		SharedModule,
-		EventsRoutes,
-		AngularEditorModule
-	],
-	declarations: [
-		EventsOrganizeComponent,
-		EventListComponent,
-		EventDetailComponent,
-		EventCreateComponent
-	],
+  imports: [CommonModule, SharedModule, EventsRoutes, AngularEditorModule],
+  declarations: [
+    EventsOrganizeComponent,
+    EventListComponent,
+    EventDetailComponent,
+    EventCreateComponent,
+  ],
 })
-export class EventsModule { }
+export class EventsModule {}
