@@ -11,12 +11,13 @@ import { Router } from '@angular/router';
 export class PaymentsComponent implements OnInit {
   payments: Payment[] = [];
   isDataLoading = false;
-  isPreview: number = 0;
+  isPreview = 0;
   constructor(
     private paymentsApi: PaymentsApiService,
     private notif: NzNotificationService,
     private router: Router
   ) {}
+
   ngOnInit() {
     this.fetchAndSubcribe();
   }

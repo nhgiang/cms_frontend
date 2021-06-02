@@ -14,8 +14,8 @@
       <div class="col-6 col-md-4" *ngFor="let bank of payments; index as i">
         <img
           class="bank-image"
-          [class.active]="bank.isActive"
-          [src]="bank.isActive ? bank.imageActive : bank.image"
+          [class.active]="activeBankIndex === i"
+          [src]="activeBankIndex === i ? bank.imageActive : bank.image"
           (click)="activateBankView(i)"
         />
       </div>

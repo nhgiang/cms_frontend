@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 export class PaymentsCreateComponent implements OnInit {
   paymentsForm: FormGroup;
   imageInactive: any = null;
-  isLoading: boolean = false;
+  isLoading = false;
   @ViewChild('imageManipulation') canvas: ElementRef;
   targetEdit: Payment = null;
   paymentsList: Payment[];
@@ -64,19 +64,19 @@ export class PaymentsCreateComponent implements OnInit {
   prepareAndSubmit() {
     Ultilities.validateForm(this.paymentsForm);
     this.isLoading = true;
-    if (this.paymentsForm.value.imageActive === File) {
-      let imageActive: File = this.paymentsForm.value.imageActive;
-      let img = new Image();
-      let tempUrl = URL.createObjectURL(imageActive);
-      img.src = tempUrl;
-      img.onload = () => {
-        this.imageInactive = this.generateInactiveImage(img);
-        URL.revokeObjectURL(tempUrl);
-        this.submit();
-      };
-    } else {
+    if (!(typeof this.paymentsForm.value.imageActive == 'object')) {
       this.submit();
+      return;
     }
+    let imageActive: File = this.paymentsForm.value.imageActive;
+    let img = new Image();
+    let tempUrl = URL.createObjectURL(imageActive);
+    img.src = tempUrl;
+    img.onload = () => {
+      this.imageInactive = this.generateInactiveImage(img);
+      URL.revokeObjectURL(tempUrl);
+      this.submit();
+    };
   }
 
   submit() {
@@ -84,16 +84,16 @@ export class PaymentsCreateComponent implements OnInit {
       .uploadFiles([this.paymentsForm.value.imageActive, this.imageInactive])
       .pipe(
         switchMap((fileNames) => {
-          let _thisPayment = this.paymentsForm.value;
-          _thisPayment.image = fileNames[1];
-          _thisPayment.imageActive = fileNames[0];
-          _thisPayment.method = 'Bank'; //$$to-do enum
+          let thisPayment = this.paymentsForm.value;
+          thisPayment.image = fileNames[1];
+          thisPayment.imageActive = fileNames[0];
+          thisPayment.method = 'Bank'; //$$to-do add Vnpay
 
           if (this.targetEdit) {
             this.paymentsList[this.paymentsList.indexOf(this.targetEdit)] =
-              _thisPayment;
+              thisPayment;
           } else {
-            this.paymentsList = [...this.paymentsList, _thisPayment];
+            this.paymentsList = [...this.paymentsList, thisPayment];
           }
           return this.paymentsApi.postWhole(this.paymentsList);
         }),
