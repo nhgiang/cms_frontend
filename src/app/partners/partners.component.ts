@@ -17,13 +17,11 @@ export class PartnersComponent implements OnInit {
   searchQuery: FormControl;
   constructor(
     private partnersApi: PartnersApiService,
-    private notif: NzNotificationService
+    private notification: NzNotificationService
   ) {}
 
   ngOnInit() {
-    this.fetch(1, undefined) //fetch no queries on init
-      .subscribe(this.updateObserver());
-
+    this.fetch(1, undefined).subscribe(this.updateObserver());
     this.searchQuery = new FormControl('');
     this.searchQuery.valueChanges
       .pipe(
@@ -36,7 +34,7 @@ export class PartnersComponent implements OnInit {
   protected fetch(page: number, searchQuery: any): Observable<any> {
     this.isDataLoading = true;
     return this.partnersApi
-      .getList({ page: page, q: searchQuery?.trim() })
+      .getList({ page, q: searchQuery })
       .pipe(finalize(() => (this.isDataLoading = false)));
   }
 
@@ -62,8 +60,8 @@ export class PartnersComponent implements OnInit {
   protected deletePartner(partner: Partner) {
     this.isDataLoading = true;
     this.partnersApi.delete(partner.id).subscribe(() => {
-      this.notif.success('Thành công', 'Xóa đối tác thành công');
-      this.fetch(1, undefined).subscribe(this.updateObserver()); //refresh
+      this.notification.success('Thành công', 'Xóa đối tác thành công');
+      this.fetch(1, undefined).subscribe(this.updateObserver());
     });
   }
 }

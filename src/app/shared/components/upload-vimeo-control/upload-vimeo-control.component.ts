@@ -72,7 +72,7 @@ export class UploadVimeoControlComponent extends AbstractControlDirective implem
               type: 'Widevine',
               authenticationToken: `Bearer ${video.token}`
             }]
-          }])
+          }]);
         }
       });
     }

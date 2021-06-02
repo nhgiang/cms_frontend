@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CourseTypesApiService } from '@shared/api/course-types.api.service';
+import { CourseApiService } from '@shared/api/course.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
+import { Option } from '@shared/interfaces/option.type';
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { Course } from 'types/models/course';
 import { DataTableColumnMetaData, QueryResult } from 'types/typemodel';
-import { Option } from '@shared/interfaces/option.type';
-import { CourseTypesApiService } from '@shared/api/course-types.api.service';
-import { CourseApiService } from '@shared/api/course.api.service';
-import { pickBy } from 'lodash-es';
 
 @Component({
   selector: 'app-course-list',

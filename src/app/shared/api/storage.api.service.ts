@@ -1,8 +1,7 @@
-import { HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AnonymousCredential, BlobServiceClient } from '@azure/storage-blob';
 import { from, Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, map, mapTo, switchMap, tap } from 'rxjs/operators';
+import { map, mapTo, switchMap, tap } from 'rxjs/operators';
 import { VideoAsset } from 'types/typemodel';
 import { BaseApi } from './base-api';
 
@@ -11,38 +10,41 @@ import { BaseApi } from './base-api';
 })
 export class StorageApiService extends BaseApi {
   endpoint = 'files';
-  private file: File;
+  file: File;
   chunkSize = 200_000_000;
-  uploadFile(file: Blob | File | string, fileName?: string): Observable<string> {
+  uploadFile(
+    file: Blob | File | string,
+    fileName?: string
+  ): Observable<string> {
     if (!file || typeof file === 'string') {
       return of(file as string);
     }
     const form = new FormData();
-    form.append('file', file, fileName || ((file as any).name || 'unknownfile'));
+    form.append('file', file, fileName || (file as any).name || 'unknownfile');
     return this.httpClient
       .post<any>(this.createUrl('/upload'), form)
       .pipe(map((result: { path: string }) => result.path));
   }
 
   uploadFiles(files: Blob[] | File[] | string[] | any[]): Observable<string[]> {
-    if (!files || !files.some(file => typeof file !== 'string')) {
+    if (!files || !files.some((file) => typeof file !== 'string')) {
       return of(files as string[]);
     }
     const form = new FormData();
     let fileNames = [];
-    files.forEach(file => {
+    files.forEach((file) => {
       if (typeof file !== 'string') {
-        form.append('files', file, (file.name || 'unknownfile'));
+        form.append('files', file, file.name || 'unknownfile');
       } else {
         fileNames.push(file);
       }
     });
-    return this.httpClient
-      .post<any>(this.createUrl('/uploads'), form)
-      .pipe(map((res: any[]) => {
-        fileNames = [...fileNames, ...res.map(file => file.path)];
+    return this.httpClient.post<any>(this.createUrl('/uploads'), form).pipe(
+      map((res: any[]) => {
+        fileNames = [...fileNames, ...res.map((file) => file.path)];
         return fileNames;
-      }));
+      })
+    );
   }
 
   uploadVideo(file: Blob | File | string, fileName?: string) {
@@ -50,14 +52,13 @@ export class StorageApiService extends BaseApi {
       return of(file as string);
     }
     const form = new FormData();
-    form.append('file', file, fileName || ((file as any).name || 'unknownfile'));
-    return this.httpClient.post<VideoAsset>(this.createUrl('/upload-video'), form).pipe(tap(console.log));
+    form.append('file', file, fileName || (file as any).name || 'unknownfile');
+    return this.httpClient
+      .post<VideoAsset>(this.createUrl('/upload-video'), form)
+      .pipe(tap(console.log));
   }
 
-  createUploadUrl(body: {
-    name: string,
-    size: number
-  }) {
+  createUploadUrl(body: { name: string; size: number }) {
     return this.httpClient.post<any>(this.createUrl('/create-video'), body);
   }
 
@@ -67,29 +68,34 @@ export class StorageApiService extends BaseApi {
     }
     this.file = file;
     return this.createUploadUrl({ name: file.name, size: file.size }).pipe(
-      switchMap(res => {
-        return this.uploadToVimeo(res.uploadUrl, file, res.fileName).pipe(mapTo(res.fileName));
+      switchMap((res) => {
+        return this.uploadToVimeo(res.uploadUrl, file, res.fileName).pipe(
+          mapTo(res.fileName)
+        );
       })
     );
   }
 
-  uploadToVimeo(uploadUrl: string, file: File, fileName: string): Observable<any> {
+  uploadToVimeo(
+    uploadUrl: string,
+    file: File,
+    fileName: string
+  ): Observable<any> {
     const anonymousCredential = new AnonymousCredential();
     const blobClient = new BlobServiceClient(uploadUrl, anonymousCredential);
     const containerClient = blobClient.getContainerClient('');
     const blockBlobClient = containerClient.getBlockBlobClient(file.name);
-    return from(blockBlobClient.uploadData(file, {
-      blockSize: 8 * 1024 * 1024, // 8MB Block size
-      blobHTTPHeaders: {
-        blobContentType: file.type
-      }
-    }));
+    return from(
+      blockBlobClient.uploadData(file, {
+        blockSize: 8 * 1024 * 1024, // 8MB Block size
+        blobHTTPHeaders: {
+          blobContentType: file.type,
+        },
+      })
+    );
   }
 
-  encodeVideo(body: {
-    fileName: string,
-    unitId: string
-  }) {
+  encodeVideo(body: { fileName: string; unitId: string }) {
     return this.httpClient.post(this.createUrl('/encode-video'), body);
   }
 

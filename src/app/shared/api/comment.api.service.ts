@@ -21,6 +21,6 @@ export class CommentApiService extends BaseApi {
   }
 
   delete(id: string) {
-    return this.httpClient.delete(this.createUrl(`/${id}`))
+    return this.httpClient.delete(this.createUrl(`/${id}`));
   }
 }

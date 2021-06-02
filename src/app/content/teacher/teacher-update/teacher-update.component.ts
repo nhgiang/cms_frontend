@@ -55,7 +55,7 @@ export class TeacherUpdateComponent implements OnInit {
         }),
         finalize(() => {
           this.isLoading = false;
-          this.modalRef.close()
+          this.modalRef.close();
         })
       )
       .subscribe(() => {

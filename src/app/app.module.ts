@@ -4,7 +4,7 @@ import {
   registerLocaleData
 } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import en from '@angular/common/locales/en';
+import vi from '@angular/common/locales/vi';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,7 +20,7 @@ import { vi as viVN } from 'date-fns/locale';
 import { NgChartjsModule } from 'ng-chartjs';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
-import { vi_VN, NZ_DATE_LOCALE, NZ_I18N } from 'ng-zorro-antd/i18n';
+import { NZ_DATE_LOCALE, NZ_I18N, vi_VN } from 'ng-zorro-antd/i18n';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { Error404Component } from './authentication/error404/error404.component';
@@ -29,7 +29,6 @@ import { ConfigQuickContactComponent } from './config-quick-contact/config-quick
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
 import { PartnersComponent } from './partners/partners.component';
-import vi from '@angular/common/locales/vi';
 
 registerLocaleData(vi);
 
@@ -81,10 +80,10 @@ const ngZorroConfig: NzConfig = {
       provide: LocationStrategy,
       useClass: PathLocationStrategy,
     },
-    // {
-    //   provide: ErrorHandler,
-    //   useClass: ErrorHandlerService,
-    // },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorHandlerService,
+    },
     {
       provide: API_BASE_URL,
       useValue: environment.api,

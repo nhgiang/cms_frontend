@@ -14,7 +14,7 @@ export class SingleCommentComponent implements OnInit {
 
   @Input() type: 'Comment' | 'Reply';
   @Input() data: any;
-  @Input() search: boolean = false;
+  @Input() search = false;
   @Output() deleteData = new EventEmitter();
   children: any[] = [];
   pagination = { page: 1, limit: 100 };
@@ -77,7 +77,9 @@ export class SingleCommentComponent implements OnInit {
     });
   }
 
-  message(parentType) {
-    return this.type === 'Comment' && parentType === 'Unit' ? 'Khi comment chính bị xoá, các comment phụ sẽ bị xoá theo. Bạn có chắc chắn?' : 'Bạn có chắc muốn xóa comment này không?';
+  message(parentType: string) {
+    return this.type === 'Comment' && parentType === 'Unit'
+      ? 'Khi comment chính bị xoá, các comment phụ sẽ bị xoá theo. Bạn có chắc chắn?'
+      : 'Bạn có chắc muốn xóa comment này không?';
   }
 }
