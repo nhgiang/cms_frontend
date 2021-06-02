@@ -21,6 +21,7 @@
         <th>Số tài khoản</th>
         <th>Tên chủ tài khoản</th>
         <th>Chi nhánh</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -30,6 +31,35 @@
         <td>{{ paymentInfo.accountNumber }}</td>
         <td>{{ paymentInfo.accountName }}</td>
         <td>{{ paymentInfo.branch }}</td>
+        <td style="white-space: nowrap">
+          <a
+            class="m-r-5"
+            nz-button
+            nzShape="circle"
+            nzType="default"
+            nz-tooltip
+            nzTooltipTitle="Sửa"
+          >
+            <i nz-icon nzType="edit"></i>
+          </a>
+
+          <span
+            [confirmation]="
+              'Bạn có chắc muốn xóa thông tin thanh toán này không?'
+            "
+            (confirmed)="deletePayment(paymentInfo)"
+          >
+            <a
+              nz-button
+              nzShape="circle"
+              nzType="default"
+              nz-tooltip
+              nzTooltipTitle="Xóa"
+            >
+              <i nz-icon nzType="close"></i>
+            </a>
+          </span>
+        </td>
       </tr>
     </tbody>
   </nz-table>

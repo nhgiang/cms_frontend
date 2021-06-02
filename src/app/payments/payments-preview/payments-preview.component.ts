@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { Payment } from 'types/typemodel';
 
 @Component({
   selector: 'app-payments-preview',
@@ -16,13 +15,15 @@ export class PaymentsPreviewComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.isPreview !== 0) this.isModalVisible = true;
-    if (this.payments !== undefined && this.payments.length !== 0)
+    if (this.payments !== undefined && this.payments.length !== 0) {
       this.payments[this.activeBankIndex].isActive = true;
+    }
   }
 
   onCancel() {
     this.isModalVisible = false;
   }
+  
   activateBankView(index: number) {
     this.activeBankIndex = index;
     for (let bank of this.payments) bank.isActive = false;

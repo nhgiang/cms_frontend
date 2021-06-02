@@ -1,112 +1,104 @@
-<nz-card>
-  <form nz-form nzLayout="horizontal">
-    <nz-form-item>
-      <nz-form-label nzFor="autocomplete-bank">Chọn ngân hàng</nz-form-label>
-      <nz-form-control>
-        <nz-select
-          name="autocomplete-bank"
-          id="autocomplete-bank"
-          nzShowSearch
-          nzAllowClear
-          [ngModel]="selectedBankIndex"
-          (ngModelChange)="onBankSelect($event)"
-        >
-          <nz-option
-            *ngFor="let bank of bankData; index as i"
-            [nzCustomContent]="true"
-            nzLabel="{{ bank.bankName + ' - ' + bank.bankFullname }}"
-            nzValue="{{ i }}"
-            [nzNotFoundContent]="notfound"
-          >
-            <img
-              style="width: 30px; height: 30px"
-              src="{{ bank.imageUrl }}"
-            /><span class="text-bold m-l-5"> {{ bank.bankName }}</span> -
-            {{ bank.bankFullname }}
-          </nz-option>
-        </nz-select>
-      </nz-form-control>
-    </nz-form-item>
-
-    <nz-divider></nz-divider>
-
-    <div class="d-flex flex-row">
-      <nz-upload
-        [nzLimit]="1"
-        nzListType="picture-card"
-        [nzShowUploadList]="false"
-        [nzBeforeUpload]="beforeUpload"
+<nz-spin [nzSpinning]="isLoading">
+  <nz-card>
+    <form
+      [formGroup]="paymentsForm"
+      (ngSubmit)="prepareAndSubmit()"
+      nz-form
+      nzLayout="horizontal"
+    >
+      <app-image-cropper-control
+        formControlName="imageActive"
+        isRequired
+        [width]="200"
+        [height]="100"
       >
-        <ng-container *ngIf="!imageUrl">
-          <i class="upload-icon" nz-icon nzType="plus"></i>
-        </ng-container>
-        <img [src]="imageUrl" *ngIf="imageUrl" />
-      </nz-upload>
-      <div class="m-l-20">
-        <nz-form-label nzRequired>Thêm logo ngân hàng</nz-form-label>
-        <p>Định dạng...</p>
+        <nz-form-label nzRequired nzNoColon>Thêm Logo ngân hàng </nz-form-label>
+        <small class="d-block">
+          Kích thước đề xuất: 200 * 100 - validate lại?<br />
+          Max Size: 5MB
+        </small>
+        <div
+          *ngIf="
+            paymentsForm.controls['imageActive'].invalid &&
+            paymentsForm.controls['imageActive'].dirty
+          "
+          class="text-danger"
+        >
+          Vui lòng thêm Logo ngân hàng
+        </div>
+      </app-image-cropper-control>
+      <div class="row m-t-20">
+        <div class="col-8">
+          <nz-form-label nzRequired nzFor="bankName"
+            >Tên ngân hàng</nz-form-label
+          >
+        </div>
+        <div class="col-4">
+          <nz-form-label nzRequired nzFor="bankCode"
+            >Mã ngân hàng</nz-form-label
+          >
+        </div>
       </div>
-    </div>
+      <div class="row">
+        <div class="col-8">
+          <nz-form-control nzErrorTip="Vui lòng thêm tên ngân hàng">
+            <input
+              nz-input
+              type="text"
+              id="bankName"
+              name="bankName"
+              formControlName="bankName"
+            />
+          </nz-form-control>
+        </div>
+        <div class="col-4">
+          <nz-form-control nzErrorTip="Vui lòng thêm mã ngân hàng">
+            <input
+              nz-input
+              type="text"
+              id="bankCode"
+              formControlName="bankCode"
+              nz-tooltip
+              nzTooltipTitle="Mã ngân hàng giúp bạn quản lý các tài khoản thanh toán dễ hơn. Ví dụ: VCB"
+            />
+          </nz-form-control>
+        </div>
+      </div>
 
-    <div class="row m-t-10">
-      <div class="col-8">
-        <nz-form-label nzRequired nzFor="bankName">Tên ngân hàng</nz-form-label>
+      <div class="row m-t-20">
+        <div class="col-4">
+          <nz-form-label nzRequired>Số tài khoản</nz-form-label>
+        </div>
+        <div class="col-4">
+          <nz-form-label nzRequired>Tên chủ tài khoản</nz-form-label>
+        </div>
+        <div class="col-4">
+          <nz-form-label nzRequired>Chi nhánh</nz-form-label>
+        </div>
       </div>
-      <div class="col-4">
-        <nz-form-label nzRequired nzFor="bankCode">Mã ngân hàng</nz-form-label>
+      <div class="row">
+        <div class="col-4">
+          <nz-form-control nzErrorTip="Vui lòng nhập số tài khoản">
+            <input type="text" nz-input formControlName="accountNumber" />
+          </nz-form-control>
+        </div>
+        <div class="col-4">
+          <nz-form-control nzErrorTip="Vui lòng nhập tên chủ tài khoản">
+            <input type="text" formControlName="accountName" nz-input />
+          </nz-form-control>
+        </div>
+        <div class="col-4">
+          <nz-form-control nzErrorTip="Vui lòng nhập chi nhánh ngân hàng">
+            <input type="text" formControlName="branch" nz-input />
+          </nz-form-control>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-8">
-        <nz-form-control>
-          <input
-            nz-input
-            type="text"
-            id="bankName"
-            name="bankName"
-            [ngModel]="bankData[selectedBankIndex]?.bankName"
-          />
-        </nz-form-control>
-      </div>
-      <div class="col-4">
-        <nz-form-control>
-          <input nz-input type="text" id="bankCode" />
-        </nz-form-control>
-      </div>
-    </div>
 
-    <div class="row m-t-10">
-      <div class="col-4">
-        <nz-form-label nzRequired>Số tài khoản</nz-form-label>
+      <div class="m-t-20 text-right">
+        <button nz-button type="submit" nzType="primary">Thêm mới</button>
       </div>
-      <div class="col-4">
-        <nz-form-label nzRequired>Tên chủ tài khoản</nz-form-label>
-      </div>
-      <div class="col-4">
-        <nz-form-label nzRequired>Chi nhánh</nz-form-label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-4">
-        <nz-form-control>
-          <input type="text" nz-input />
-        </nz-form-control>
-      </div>
-      <div class="col-4">
-        <nz-form-control nzErrorTip="Vui lòng nhập tên chủ tài khoản">
-          <input type="text" nz-input />
-        </nz-form-control>
-      </div>
-      <div class="col-4">
-        <nz-form-control>
-          <input type="text" nz-input />
-        </nz-form-control>
-      </div>
-    </div>
-    <div class="m-t-10" style="text-align: right">
-      <button nz-button nzType="primary">Thêm mới</button>
-    </div>
-  </form>
-</nz-card>
+    </form>
+  </nz-card>
 
-<ng-template notfound> Không có dữ liệu </ng-template>
+  <canvas #imageManipulation style="display: none"></canvas>
+</nz-spin>
