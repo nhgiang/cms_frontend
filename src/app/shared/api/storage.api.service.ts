@@ -5,6 +5,7 @@ import { from, Observable, of } from 'rxjs';
 import { distinctUntilChanged, filter, map, mapTo, switchMap, tap } from 'rxjs/operators';
 import { VideoAsset } from 'types/typemodel';
 import { BaseApi } from './base-api';
+import { v4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root',
@@ -61,12 +62,13 @@ export class StorageApiService extends BaseApi {
     return this.httpClient.post<any>(this.createUrl('/create-video'), body);
   }
 
-  uploadVideoFile(file: File | string, fileName?: string) {
+  uploadVideoFile(file: File | string) {
     if (typeof file === 'string') {
       return of(file);
     }
     this.file = file;
-    return this.createUploadUrl({ name: file.name, size: file.size }).pipe(
+    const fileName = `azure-video-${v4()}`;
+    return this.createUploadUrl({ name: fileName, size: file.size }).pipe(
       switchMap(res => {
         return this.uploadToVimeo(res.uploadUrl, file, res.fileName).pipe(mapTo(res.fileName));
       })
@@ -77,7 +79,7 @@ export class StorageApiService extends BaseApi {
     const anonymousCredential = new AnonymousCredential();
     const blobClient = new BlobServiceClient(uploadUrl, anonymousCredential);
     const containerClient = blobClient.getContainerClient('');
-    const blockBlobClient = containerClient.getBlockBlobClient(file.name);
+    const blockBlobClient = containerClient.getBlockBlobClient(fileName);
     return from(blockBlobClient.uploadData(file, {
       blockSize: 8 * 1024 * 1024, // 8MB Block size
       blobHTTPHeaders: {
