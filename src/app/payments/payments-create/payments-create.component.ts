@@ -17,9 +17,11 @@ import { Router } from '@angular/router';
 })
 export class PaymentsCreateComponent implements OnInit {
   paymentsForm: FormGroup;
-  imageInactive: File;
+  imageInactive: any = null;
   isLoading: boolean = false;
   @ViewChild('imageManipulation') canvas: ElementRef;
+  targetEdit: Payment = null;
+  paymentsList: Payment[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,9 +30,27 @@ export class PaymentsCreateComponent implements OnInit {
     private paymentsApi: PaymentsApiService,
     private notif: NzNotificationService,
     private router: Router
-  ) {}
+  ) {
+    const targetEditIndex =
+      this.router.getCurrentNavigation().extras.state?.targetEditIndex;
+    this.isLoading = true;
+    this.paymentsApi.getList().subscribe((data: Payment[]) => {
+      this.paymentsList = data;
+      if (targetEditIndex !== undefined) {
+        this.targetEdit = this.paymentsList[targetEditIndex];
+        this.paymentsForm.patchValue(<Payment>this.targetEdit);
+        this.imageInactive = this.targetEdit.image;
+      }
+      this.isLoading = false;
+      //chỉ loading = true khi thành công, ngăn người dùng nhập mới ở khi edit
+    });
+  }
 
   ngOnInit() {
+    this.buildForm();
+  }
+
+  buildForm() {
     this.paymentsForm = this.formBuilder.group({
       imageActive: ['', TValidators.required],
       bankName: ['', TValidators.required],
@@ -44,15 +64,19 @@ export class PaymentsCreateComponent implements OnInit {
   prepareAndSubmit() {
     Ultilities.validateForm(this.paymentsForm);
     this.isLoading = true;
-    let imageActive: File = this.paymentsForm.value.imageActive;
-    let img = new Image();
-    let tempUrl = URL.createObjectURL(imageActive);
-    img.src = tempUrl;
-    img.onload = () => {
-      this.imageInactive = this.generateInactiveImage(img);
-      URL.revokeObjectURL(tempUrl);
+    if (this.paymentsForm.value.imageActive === File) {
+      let imageActive: File = this.paymentsForm.value.imageActive;
+      let img = new Image();
+      let tempUrl = URL.createObjectURL(imageActive);
+      img.src = tempUrl;
+      img.onload = () => {
+        this.imageInactive = this.generateInactiveImage(img);
+        URL.revokeObjectURL(tempUrl);
+        this.submit();
+      };
+    } else {
       this.submit();
-    };
+    }
   }
 
   submit() {
@@ -60,18 +84,23 @@ export class PaymentsCreateComponent implements OnInit {
       .uploadFiles([this.paymentsForm.value.imageActive, this.imageInactive])
       .pipe(
         switchMap((fileNames) => {
-          console.log('examining filenames upon upload: ', fileNames);
-          let body = this.paymentsForm.value;
-          body.image = fileNames[1];
-          body.imageActive = fileNames[0];
-          body.method = 'Bank'; //$$to-do enum
-          console.log('examining body: ', body);
-          return this.paymentsApi.postAppend(body);
+          let _thisPayment = this.paymentsForm.value;
+          _thisPayment.image = fileNames[1];
+          _thisPayment.imageActive = fileNames[0];
+          _thisPayment.method = 'Bank'; //$$to-do enum
+
+          if (this.targetEdit) {
+            this.paymentsList[this.paymentsList.indexOf(this.targetEdit)] =
+              _thisPayment;
+          } else {
+            this.paymentsList = [...this.paymentsList, _thisPayment];
+          }
+          return this.paymentsApi.postWhole(this.paymentsList);
         }),
         finalize(() => (this.isLoading = false))
       )
       .subscribe(() => {
-        this.notif.success('Thành công', 'Thêm mới thành công');
+        this.notif.success('Thành công', 'Cập nhật thành công');
         this.router.navigate(['/payments']);
       });
   }

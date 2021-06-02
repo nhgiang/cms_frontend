@@ -3,6 +3,7 @@ import { PaymentsApiService } from '@shared/api/payments.api.service';
 import { Payment } from 'types/typemodel';
 import { finalize, switchMap, tap } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-payments',
   templateUrl: './payments.component.html',
@@ -12,8 +13,9 @@ export class PaymentsComponent implements OnInit {
   isDataLoading = false;
   isPreview: number = 0;
   constructor(
-    private paymentsService: PaymentsApiService,
-    private notif: NzNotificationService
+    private paymentsApi: PaymentsApiService,
+    private notif: NzNotificationService,
+    private router: Router
   ) {}
   ngOnInit() {
     this.fetchAndSubcribe();
@@ -21,7 +23,7 @@ export class PaymentsComponent implements OnInit {
 
   fetchAndSubcribe() {
     this.isDataLoading = true;
-    this.paymentsService
+    this.paymentsApi
       .getList()
       .pipe(finalize(() => (this.isDataLoading = false)))
       .subscribe((data: Payment[]) => {
@@ -37,8 +39,8 @@ export class PaymentsComponent implements OnInit {
   deletePayment(payment: Payment) {
     this.isDataLoading = true;
     this.payments.splice(this.payments.indexOf(payment));
-    this.paymentsService
-      .postDelete(this.payments)
+    this.paymentsApi
+      .postWhole(this.payments)
       .pipe(
         tap(() => {
           this.notif.success(
@@ -47,12 +49,20 @@ export class PaymentsComponent implements OnInit {
           );
         }),
         switchMap(() => {
-          return this.paymentsService.getList();
+          return this.paymentsApi.getList();
         }),
         finalize(() => (this.isDataLoading = false))
       )
       .subscribe((data: Payment[]) => {
         this.payments = data;
       });
+  }
+
+  navigate(paymentIndex: number) {
+    this.router.navigate(['/payments/create'], {
+      state: {
+        targetEditIndex: paymentIndex,
+      },
+    });
   }
 }
