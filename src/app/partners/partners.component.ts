@@ -17,7 +17,7 @@ export class PartnersComponent implements OnInit {
   searchQuery: FormControl;
   constructor(
     private partnersApi: PartnersApiService,
-    private notification: NzNotificationService
+    private notif: NzNotificationService
   ) {}
 
   ngOnInit() {
@@ -60,8 +60,8 @@ export class PartnersComponent implements OnInit {
   protected deletePartner(partner: Partner) {
     this.isDataLoading = true;
     this.partnersApi.delete(partner.id).subscribe(() => {
-      this.notification.success('Thành công', 'Xóa đối tác thành công');
-      this.fetch(1, undefined).subscribe(this.updateObserver());
+      this.notif.success('Thành công', 'Xóa đối tác thành công');
+      this.fetch(1, undefined).subscribe(this.updateObserver()); //refresh
     });
   }
 }

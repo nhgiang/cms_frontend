@@ -1,0 +1,19 @@
+.bank-image {
+  width: inherit;
+  height: inherit;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  &:not(.active) {
+    box-shadow: 0px 8px 24px rgba(31, 46, 85, 0.28);
+  }
+  &.active {
+    border: 1px solid #ed1c24;
+  }
+}
+.bank-info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}

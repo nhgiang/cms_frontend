@@ -101,4 +101,12 @@ export const CommonLayoutRoutes: Routes = [
       title: 'Danh sách đối tác đăng ký',
     },
   },
+  {
+    path: 'payments',
+    loadChildren: () =>
+      import('src/app/payments/payments.module').then((m) => m.PaymentsModule),
+    data: {
+      title: 'Quản lý phương thức thanh toán',
+    },
+  },
 ];

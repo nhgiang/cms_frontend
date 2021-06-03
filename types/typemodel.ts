@@ -188,3 +188,15 @@ export interface Partner extends Entity {
   package: string;
   numberOfParticipants: number;
 }
+
+export interface Payment {
+  method: string;
+  bankCode: string;
+
+  bankName: string;
+  accountNumber: string;
+  accountName: string;
+  branch: string;
+  image: string;
+  imageActive: string;
+}
