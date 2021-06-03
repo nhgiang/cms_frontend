@@ -1,0 +1,72 @@
+<nz-card>
+  <div style="text-align: right">
+    <a nz-button nzType="default" class="m-r-5" (click)="preview()">
+      <i nz-icon nzType="eye"></i> Xem trước
+    </a>
+    <a routerLink="create" nz-button nzType="primary">
+      <i nz-icon nzType="plus"></i> Thêm mới
+    </a>
+  </div>
+
+  <nz-table
+    [nzLoading]="isDataLoading"
+    [nzData]="payments"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+  >
+    <thead>
+      <tr>
+        <th>Mã ngân hàng</th>
+        <th>Tên ngân hàng</th>
+        <th>Số tài khoản</th>
+        <th>Tên chủ tài khoản</th>
+        <th>Chi nhánh</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let paymentInfo of payments; index as i">
+        <td>{{ paymentInfo.bankCode }}</td>
+        <td>{{ paymentInfo.bankName }}</td>
+        <td>{{ paymentInfo.accountNumber }}</td>
+        <td>{{ paymentInfo.accountName }}</td>
+        <td>{{ paymentInfo.branch }}</td>
+        <td style="white-space: nowrap">
+          <a
+            class="m-r-5"
+            nz-button
+            nzShape="circle"
+            nzType="default"
+            nz-tooltip
+            nzTooltipTitle="Sửa"
+            (click)="navigate(i)"
+          >
+            <i nz-icon nzType="edit"></i>
+          </a>
+
+          <span
+            [confirmation]="
+              'Bạn có chắc muốn xóa thông tin thanh toán này không?'
+            "
+            (confirmed)="deletePayment(paymentInfo)"
+          >
+            <a
+              nz-button
+              nzShape="circle"
+              nzType="default"
+              nz-tooltip
+              nzTooltipTitle="Xóa"
+            >
+              <i nz-icon nzType="close"></i>
+            </a>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<app-payments-preview
+  [payments]="payments"
+  [isPreview]="isPreview"
+></app-payments-preview>
