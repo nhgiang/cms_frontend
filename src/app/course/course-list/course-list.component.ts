@@ -28,6 +28,7 @@ export class CourseListComponent extends DataTableContainer<Course> implements O
       key: 'teacher',
       name: 'Giảng viên',
       sortable: false,
+      width: '200px'
     },
     {
       key: 'courseType',
