@@ -40,7 +40,7 @@ export class ConsultingInformationEditComponent implements OnInit {
     const data = { ...this.form.value };
     this.isLoading = true;
     this.contactApi.update(this.id, trimData(data)).pipe(finalize(() => this.isLoading = false)).subscribe(() => {
-      this.notification.success('Thành công', 'Cập nhật thông tin đánh giá khách hàng thành công!');
+      this.notification.success('Thành công', 'Cập nhật thông tin tư vấn thành công!');
       this.router.navigate(['/consulting/information']);
     });
   }
@@ -48,7 +48,7 @@ export class ConsultingInformationEditComponent implements OnInit {
   deleteItem() {
     this.isLoading = true;
     this.contactApi.delete(this.id).pipe(finalize(() => this.isLoading = false)).subscribe(() => {
-      this.notification.success('Thành công', 'Xóa thông tin đánh giá khách hàng thành công!');
+      this.notification.success('Thành công', 'Xóa thông tin tư vấn thành công!');
       this.router.navigate(['/consulting/information']);
     });
   }

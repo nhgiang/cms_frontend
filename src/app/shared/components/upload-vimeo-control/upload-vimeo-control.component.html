@@ -19,7 +19,7 @@
              nzType="close-circle"
              nzTheme="fill"
              (confirmed)="removeVideo()"
-             [confirmation]="'Bạn có chắc chắn muốn xóa video bài giảng này không?'"></i>
+             [confirmation]="confirmationText"></i>
           <video #vimeo
                  class="azuremediaplayer amp-default-skin"
                  controls
@@ -51,7 +51,7 @@
              nzType="delete"
              class="font-size-16 ml-2 pointer"
              (confirmed)="removeVideo()"
-             [confirmation]="'Bạn có chắc chắn muốn xóa video bài giảng này không?'"
+             [confirmation]="confirmationText"
              nzTheme="outline"
              style="color: #ff4d4f;"></i>
         </label>

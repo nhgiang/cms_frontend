@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { StorageApiService } from '@shared/api/storage.api.service';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
 import Player from '@vimeo/player';
+import { isFunction } from 'lodash-es';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UploaderStatus } from 'types/enums';
-import { isFunction } from 'lodash-es';
-import { StorageApiService } from '@shared/api/storage.api.service';
 declare const amp: any;
 @Component({
   selector: 'app-upload-vimeo-control',
@@ -23,7 +23,8 @@ declare const amp: any;
 export class UploadVimeoControlComponent extends AbstractControlDirective implements OnInit, AfterViewInit {
   @ViewChild('vimeo', { static: false }) vimeo: ElementRef;
   @ViewChild('video', { static: false }) video: ElementRef;
-  @Output() duration = new EventEmitter();
+  @Input() confirmationText: string;
+  @Input() isPrivate = true;
   UploaderStatus = UploaderStatus;
   status: UploaderStatus = UploaderStatus.NotSelected;
   url: any;
@@ -52,7 +53,7 @@ export class UploadVimeoControlComponent extends AbstractControlDirective implem
     this.url = file;
     if (file) {
       this.status = UploaderStatus.Selected;
-      this.storageApi.getVideo(this.url).subscribe((video: any) => {
+      this.storageApi.getVideo(this.url, this.isPrivate).subscribe((video: any) => {
         this.isProcessing = !video.url;
         const player = amp(this.vimeo.nativeElement, {
           autoplay: true,

@@ -79,8 +79,8 @@ export class CreateCourseComponent implements OnInit {
     ).pipe(
       switchMap(() => {
         if (this.form.get('videoIntro').value instanceof File) {
-          return this.storageApiService.uploadVideo(this.form.get('videoIntro').value).pipe(tap(data => {
-            this.form.get('videoIntro').patchValue((data as VideoAsset).path);
+          return this.storageApiService.uploadVideoPublic(this.form.get('videoIntro').value).pipe(tap(data => {
+            this.form.get('videoIntro').patchValue(data);
           }));
         }
         return of(true);

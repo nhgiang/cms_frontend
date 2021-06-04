@@ -63,7 +63,7 @@ export class StorageApiService extends BaseApi {
     return this.httpClient.post<any>(this.createUrl('/create-video'), body);
   }
 
-  uploadVideoFile(file: File | string) {
+  uploadVideoPrivate(file: File | string) {
     if (typeof file === 'string') {
       return of(file);
     }
@@ -71,12 +71,12 @@ export class StorageApiService extends BaseApi {
     const fileName = `azure-video-${v4()}`;
     return this.createUploadUrl({ name: fileName, size: file.size }).pipe(
       switchMap(res => {
-        return this.uploadToVimeo(res.uploadUrl, file, res.fileName).pipe(mapTo(res.fileName));
+        return this.putToAzure(res.uploadUrl, file, res.fileName).pipe(mapTo(res.fileName));
       })
     );
   }
 
-  uploadToVimeo(
+  putToAzure(
     uploadUrl: string,
     file: File,
     fileName: string
@@ -93,11 +93,31 @@ export class StorageApiService extends BaseApi {
     }));
   }
 
-  encodeVideo(body: { fileName: string; unitId: string }) {
+  uploadVideoPublic(file: File | string) {
+    if (typeof file === 'string') {
+      return of(file);
+    }
+    this.file = file;
+    const fileName = `azure-video-${v4()}`;
+    return this.createUploadUrl({ name: fileName, size: file.size }).pipe(
+      switchMap(res => {
+        return this.putToAzure(res.uploadUrl, file, res.fileName).pipe(mapTo(res.fileName));
+      }),
+      switchMap(fileName => {
+        return this.encodeVideo({ fileName }).pipe(mapTo(fileName));
+      })
+    );
+  }
+
+  encodeVideo(body: { fileName: string }) {
     return this.httpClient.post(this.createUrl('/encode-video'), body);
   }
 
-  getVideo(id) {
-    return this.httpClient.get(this.createUrl(`/get-video/${id}`));
+  getVideo(id: string, isPrivate: boolean) {
+    if (isPrivate) {
+      return this.httpClient.get(this.createUrl(`/get-video/${id}`));
+    } else {
+      return this.httpClient.get(this.createUrl(`/get-video-public/${id}`));
+    }
   }
 }
