@@ -2,6 +2,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { PaymentsComponent } from './payments-list/payments.component';
 import { PaymentsCreateComponent } from './payments-create/payments-create.component';
+import { PaymentsVnpayComponent } from './payments-vnpay/payments-vnpay.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,13 @@ const routes: Routes = [
       title: 'Thêm phương thức thanh toán',
     },
     component: PaymentsCreateComponent,
+  },
+  {
+    path: 'vnpay',
+    data: {
+      title: 'Vnpay',
+    },
+    component: PaymentsVnpayComponent,
   },
 ];
 

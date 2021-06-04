@@ -200,3 +200,8 @@ export interface Payment {
   image: string;
   imageActive: string;
 }
+
+export interface Vnpay {
+  hashSecret: string;
+  tmnCode: string;
+}

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseApi } from './base-api';
 import { Payment } from 'types/typemodel';
-import { switchMap } from 'rxjs/operators';
-
 @Injectable({
   providedIn: 'root',
 })
