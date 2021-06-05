@@ -72,7 +72,7 @@
         </div>
         <div class="mt-2 d-flex flex-column" style="padding-left: 9px;margin-left: 150px">
           <div *ngIf="form?.errors?.endBeforeStart && form.dirty" class="ant-form-item-explain ant-form-item-explain-error">
-            Thời gian kết thúc không thể nhỏ hơn thời gian bắt đầu
+            Thời gian bắt đầu không thể lớn hơn thời gian kết thúc
           </div>
           <label nz-checkbox formControlName="showCountDown">Hiển thị thời gian đếm ngược</label>
         </div>
@@ -90,7 +90,7 @@
                 Vui lòng nhập số người tham gia
               </ng-container>
               <ng-container *ngIf="control.hasError('onlyNumber')">
-                Số lượng người tham gia phải là một số
+                Số lượng người tham gia phải là một số dương
               </ng-container>
             </ng-template>
           </nz-form-item>
@@ -106,7 +106,7 @@
                 Vui lòng nhập số phần quà
               </ng-container>
               <ng-container *ngIf="control.hasError('onlyNumber')">
-                Số lượng phần quà phải là một số
+                Số lượng phần quà phải là một số dương
               </ng-container>
             </ng-template>
           </nz-form-item>
