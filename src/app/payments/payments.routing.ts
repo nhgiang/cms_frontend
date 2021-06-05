@@ -1,4 +1,4 @@
-//learn more about routing & lazy-load strategy
+// learn more about routing & lazy-load strategy
 import { RouterModule, Routes } from '@angular/router';
 import { PaymentsComponent } from './payments-list/payments.component';
 import { PaymentsCreateComponent } from './payments-create/payments-create.component';

@@ -17,7 +17,6 @@ import { iif, of } from 'rxjs';
 import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { AssetType, VideoType } from 'types/enums';
 import { Course, Feedback } from 'types/models/course';
-import { VideoAsset } from 'types/typemodel';
 import { trimData } from 'utils/common';
 
 @Component({

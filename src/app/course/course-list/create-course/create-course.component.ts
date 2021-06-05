@@ -12,7 +12,6 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { iif, of } from 'rxjs';
 import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { AssetType, VideoType } from 'types/enums';
-import { VideoAsset } from 'types/typemodel';
 import { trimData } from 'utils/common';
 
 @Component({

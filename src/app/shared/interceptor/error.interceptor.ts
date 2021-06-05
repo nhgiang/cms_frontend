@@ -5,7 +5,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import jwt_decode from 'jwt-decode';
 import { ITokenDecode } from '@shared/services/token.service';
-import * as moment from 'moment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Injectable()

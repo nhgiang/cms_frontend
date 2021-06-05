@@ -32,9 +32,9 @@ export class PremiumsComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
-      discount: [null, [TValidators.onlyNumber, TValidators.required]],
-      course: [null, [TValidators.onlyNumber, TValidators.required]],
-      lession: [null, [TValidators.onlyNumber, TValidators.required]]
+      discount: [null, [TValidators.onlyNumber(), TValidators.required]],
+      course: [null, [TValidators.onlyNumber(), TValidators.required]],
+      lession: [null, [TValidators.onlyNumber(), TValidators.required]]
     });
   }
 

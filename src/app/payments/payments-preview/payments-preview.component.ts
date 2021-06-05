@@ -15,7 +15,7 @@ export class PaymentsPreviewComponent implements OnChanges {
   constructor() {}
 
   ngOnChanges() {
-    if (this.isPreview !== 0) this.isModalVisible = true;
+    if (this.isPreview !== 0) { this.isModalVisible = true; }
   }
 
   onCancel() {

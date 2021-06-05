@@ -36,11 +36,6 @@ export class CommentComponent extends DataTableContainer<any> implements OnInit 
 
   metaData: DataTableColumnMetaData[] = [
     {
-      key: 'id',
-      name: 'ID',
-      sortable: false,
-    },
-    {
       key: 'course',
       name: 'Khóa học',
       sortable: false,
@@ -59,6 +54,7 @@ export class CommentComponent extends DataTableContainer<any> implements OnInit 
       key: 'totalComment',
       name: 'Tổng số comment',
       sortable: true,
+      width: '180px'
     },
   ];
 
