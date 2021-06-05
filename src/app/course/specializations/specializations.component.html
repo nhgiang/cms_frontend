@@ -2,16 +2,23 @@
   <div class="ant-card-body">
     <div class="row">
       <div class="col-12 text-right">
-        <button nz-button nzType="primary" (click)="addItem()">Thêm mới</button>
+        <button nz-button
+                nzType="primary"
+                (click)="addItem()">Thêm mới</button>
       </div>
     </div>
-    <nz-table [nzData]="items" [nzLoading]="isloading" (nzQueryParams)="onParamsChanged($event)"
-      [(nzPageIndex)]="page">
+    <nz-table [nzData]="items"
+              [nzLoading]="isloading"
+              (nzQueryParams)="onParamsChanged($event)"
+              [(nzPageIndex)]="page"
+              [nzShowTotal]="totalTemplate"
+              [nzNoResult]="empty">
       <thead>
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Tên chuyên môn</th>
-          <th scope="col" [nzWidth]="'120px'"></th>
+          <th scope="col"
+              [nzWidth]="'120px'"></th>
         </tr>
       </thead>
       <tbody>
@@ -20,14 +27,28 @@
           <td>{{item?.name}}</td>
           <td>
             <div class="d-flex">
-              <a (click)="editItem(item?.id)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
-                nzTooltipTitle="Chỉnh sửa">
-                <i nz-icon nzType="edit" theme="outline"></i>
+              <a (click)="editItem(item?.id)"
+                 class="m-r-5"
+                 nz-button
+                 nzType="default"
+                 nzShape="circle"
+                 nz-tooltip
+                 nzTooltipTitle="Chỉnh sửa">
+                <i nz-icon
+                   nzType="edit"
+                   theme="outline"></i>
               </a>
               <div (confirmed)="deleteTeacher(item?.id)"
-                [confirmation]="'Bạn có chắc muốn xóa thông tin chuyên môn này hay không?'">
-                <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
-                  <i nz-icon nzType="close" nzTheme="outline"></i>
+                   [confirmation]="'Bạn có chắc muốn xóa thông tin chuyên môn này hay không?'">
+                <a class="m-r-5"
+                   nz-button
+                   nzType="default"
+                   nzShape="circle"
+                   nz-tooltip
+                   nzTooltipTitle="Xóa">
+                  <i nz-icon
+                     nzType="close"
+                     nzTheme="outline"></i>
                 </a>
               </div>
             </div>
@@ -37,3 +58,8 @@
     </nz-table>
   </div>
 </nz-card>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
+<ng-template #totalTemplate
+             let-total> Tổng cộng: {{ total }} </ng-template>

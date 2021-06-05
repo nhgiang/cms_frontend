@@ -34,7 +34,7 @@ export class PaymentsComponent implements OnInit {
 
   preview() {
     this.isPreview++;
-    //force app-payments-preview update
+    // force app-payments-preview update
   }
 
   deletePayment(payment: Payment) {

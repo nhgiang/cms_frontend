@@ -130,12 +130,12 @@ export class EventDetailComponent implements OnInit {
       startAt: [null, TValidators.required],
       endAt: [null, TValidators.required],
       showCountDown: [null],
-      link: [null, TValidators.required],
+      link: [null, [TValidators.required, TValidators.link]],
       host: [null, TValidators.textRange(1, 200)],
       address: [null, TValidators.textRange(1, 200)],
       thumbnail: [null, Validators.required],
-      totalParticipant: [null, [TValidators.onlyNumber, Validators.required]],
-      gifts: [null, [TValidators.onlyNumber, TValidators.required]]
+      totalParticipant: [null, [TValidators.onlyNumber(), Validators.required]],
+      gifts: [null, [TValidators.onlyNumber(), TValidators.required]]
     }, {
       validators: TValidators.timeValidator('startAt', 'endAt')
     });

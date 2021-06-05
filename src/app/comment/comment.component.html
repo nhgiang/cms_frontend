@@ -27,13 +27,14 @@
       </form>
     </div>
     <nz-table [nzData]="items" [nzLoading]="isloading" (nzQueryParams)="onParamsChanged($event)" [(nzPageIndex)]="page"
-      [nzPageSize]="quantity" [nzTotal]="meta?.totalItems" [nzFrontPagination]="false" [nzShowTotal]="totalTemplate">
+      [nzPageSize]="quantity" [nzTotal]="meta?.totalItems" [nzFrontPagination]="false" [nzShowTotal]="totalTemplate" nzTableLayout="fixed">
       <thead>
         <tr>
+          <th scope="col" nzWidth="80px">ID</th>
           <ng-container *ngFor="let col of metaData">
             <th *ngIf="!col.sortable" scope="col">{{col.name}}</th>
             <th *ngIf="col.sortable" scope="col" [nzSortFn]="col.sortable" [nzSortOrder]="col?.sortOrder"
-              [nzColumnKey]="col.key">
+              [nzColumnKey]="col.key" [nzWidth]="col?.width">
               {{col.name}}</th>
           </ng-container>
         </tr>
@@ -41,14 +42,14 @@
       <tbody>
         <tr *ngFor="let item of items">
           <td>#{{ item.index }}</td>
-          <td><a [routerLink]="item?.id">{{ item.courseName }}</a></td>
+          <td nzEllipsis><a [routerLink]="item?.id">{{ item.courseName  }}</a></td>
           <td>
             <div>
               <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item.avatar"></nz-avatar>
-              {{ item.teacherName }}
+              {{ item.teacherName | truncate: 30 }}
             </div>
           </td>
-          <td>{{ item.typeName }}</td>
+          <td nzEllipsis>{{ item.typeName }}</td>
           <td class="text-center">{{ item.totalComment }}</td>
         </tr>
       </tbody>

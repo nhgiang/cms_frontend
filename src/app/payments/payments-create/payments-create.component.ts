@@ -1,14 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Payment } from 'types/typemodel';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { TValidators } from '@shared/extentions/validators';
-import { Ultilities } from '@shared/extentions/Ultilities';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { StorageApiService } from '@shared/api/storage.api.service';
-import { switchMap, finalize } from 'rxjs/operators';
-import { PaymentsApiService } from '@shared/api/payments.api.service';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PaymentsApiService } from '@shared/api/payments.api.service';
+import { StorageApiService } from '@shared/api/storage.api.service';
+import { Ultilities } from '@shared/extentions/Ultilities';
+import { TValidators } from '@shared/extentions/validators';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { finalize, switchMap } from 'rxjs/operators';
+import { Payment } from 'types/typemodel';
 
 @Component({
   selector: 'app-payments-create',
@@ -25,7 +24,6 @@ export class PaymentsCreateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private sanitizer: DomSanitizer,
     private storageApi: StorageApiService,
     private paymentsApi: PaymentsApiService,
     private notif: NzNotificationService,
@@ -42,7 +40,7 @@ export class PaymentsCreateComponent implements OnInit {
         this.imageInactive = this.targetEdit.image;
       }
       this.isLoading = false;
-      //chỉ loading = true khi thành công, ngăn người dùng nhập mới ở khi edit
+      // chỉ loading = true khi thành công, ngăn người dùng nhập mới ở khi edit
     });
   }
 
@@ -68,9 +66,9 @@ export class PaymentsCreateComponent implements OnInit {
       this.submit();
       return;
     }
-    let imageActive: File = this.paymentsForm.value.imageActive;
-    let img = new Image();
-    let tempUrl = URL.createObjectURL(imageActive);
+    const imageActive: File = this.paymentsForm.value.imageActive;
+    const img = new Image();
+    const tempUrl = URL.createObjectURL(imageActive);
     img.src = tempUrl;
     img.onload = () => {
       this.imageInactive = this.generateInactiveImage(img);
@@ -84,10 +82,10 @@ export class PaymentsCreateComponent implements OnInit {
       .uploadFiles([this.paymentsForm.value.imageActive, this.imageInactive])
       .pipe(
         switchMap((fileNames) => {
-          let thisPayment = this.paymentsForm.value;
+          const thisPayment = this.paymentsForm.value;
           thisPayment.image = fileNames[1];
           thisPayment.imageActive = fileNames[0];
-          thisPayment.method = 'Bank'; //$$to-do add Vnpay
+          thisPayment.method = 'Bank'; // $$to-do add Vnpay
 
           if (this.targetEdit) {
             this.paymentsList[this.paymentsList.indexOf(this.targetEdit)] =
@@ -106,32 +104,32 @@ export class PaymentsCreateComponent implements OnInit {
   }
 
   generateInactiveImage(image: HTMLImageElement) {
-    let canvas = this.canvas.nativeElement;
-    let ctx = canvas.getContext('2d');
+    const canvas = this.canvas.nativeElement;
+    const ctx = canvas.getContext('2d');
     canvas.width = image.naturalWidth;
     canvas.height = image.naturalHeight;
     ctx.drawImage(image, 0, 0);
-    let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    let data = imageData.data;
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
 
-    //grayscale algorithm
+    // grayscale algorithm
     for (let i = 0; i < data.length; i += 4) {
-      let average = (data[i] + data[i + 1] + data[i + 2]) / 3;
-      data[i] = average; //red
-      data[i + 1] = average; //green
-      data[i + 2] = average; //blue
-      data[i + 3] = 255 * 0.6; //alpha channel
+      const average = (data[i] + data[i + 1] + data[i + 2]) / 3;
+      data[i] = average; // red
+      data[i + 1] = average; // green
+      data[i + 2] = average; // blue
+      data[i + 3] = 255 * 0.6; // alpha channel
     }
     ctx.putImageData(imageData, 0, 0);
 
-    let base64 = canvas.toDataURL();
-    let binary = atob(base64.split(',')[1]),
-      bytesArr = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) bytesArr[i] = binary.charCodeAt(i);
+    const base64 = canvas.toDataURL();
+    const binary = atob(base64.split(',')[1]);
+    const  bytesArr = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) { bytesArr[i] = binary.charCodeAt(i); }
 
     return new File([bytesArr], 'inactive-bankimage-unknown', {
       type: 'image/png',
     });
-    //to-do: may return pure js link for preview if necessary
+    // to-do: may return pure js link for preview if necessary
   }
 }
