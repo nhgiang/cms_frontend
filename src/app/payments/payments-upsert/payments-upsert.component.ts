@@ -40,7 +40,6 @@ export class PaymentsUpsertComponent implements OnInit {
   }
 
   buildForm() {
-    console.log(this.targetEditIndex);
     const targetEdit =
       this.targetEditIndex === null
         ? null
