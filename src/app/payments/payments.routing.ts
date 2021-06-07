@@ -1,22 +1,26 @@
+<<<<<<< HEAD
 // learn more about routing & lazy-load strategy
+=======
+>>>>>>> payments
 import { RouterModule, Routes } from '@angular/router';
 import { PaymentsComponent } from './payments-list/payments.component';
-import { PaymentsCreateComponent } from './payments-create/payments-create.component';
+import { PaymentsUpsertComponent } from './payments-upsert/payments-upsert.component';
+import { PaymentsVnpayComponent } from './payments-vnpay/payments-vnpay.component';
 
 const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'Phương thức thanh toán',
+      title: 'Thông tin ngân hàng',
     },
     component: PaymentsComponent,
   },
   {
-    path: 'create',
+    path: 'vnpay',
     data: {
-      title: 'Thêm phương thức thanh toán',
+      title: 'Vnpay',
     },
-    component: PaymentsCreateComponent,
+    component: PaymentsVnpayComponent,
   },
 ];
 

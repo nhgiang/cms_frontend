@@ -1,0 +1,64 @@
+<form [formGroup]="paymentsForm" nz-form nzLayout="horizontal">
+  <app-image-cropper-control
+    formControlName="imageActive"
+    isRequired
+    [width]="200"
+    [height]="100"
+    [allowCrop]="false"
+  >
+    <nz-form-label nzRequired nzNoColon>Tải Logo ngân hàng </nz-form-label>
+    <small class="d-block"> Max File size: 1MB </small>
+    <div
+      *ngIf="
+        paymentsForm.controls['imageActive'].invalid &&
+        paymentsForm.controls['imageActive'].dirty
+      "
+      class="text-danger"
+    >
+      Vui lòng thêm Logo ngân hàng
+    </div>
+  </app-image-cropper-control>
+  <nz-form-item>
+    <nz-form-label nzRequired>Ngân hàng</nz-form-label>
+    <nz-form-control nzErrorTip="Vui lòng nhập tên ngân hàng">
+      <input nz-input formControlName="bankName" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>Mã ngân hàng</nz-form-label>
+    <nz-form-control nzErrorTip="Vui lòng nhập mã ngân hàng">
+      <input nz-input formControlName="bankCode" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>Số tài khoản</nz-form-label>
+    <nz-form-control nzErrorTip="Vui lòng nhập số tài khoản">
+      <input nz-input formControlName="accountNumber" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>Chủ tài khoản</nz-form-label>
+    <nz-form-control nzErrorTip="Vui lòng nhập tên chủ tài khoản">
+      <input nz-input formControlName="accountName" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>Chi nhánh</nz-form-label>
+    <nz-form-control nzErrorTip="Vui lòng nhập chi nhánh ngân hàng">
+      <input nz-input formControlName="branch" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <div *nzModalFooter>
+    <button
+      nz-button
+      (click)="prepareAndSubmit()"
+      nzType="primary"
+      [nzLoading]="isLoading"
+    >
+      Xác nhận
+    </button>
+  </div>
+</form>
+
+<canvas #imageManipulation style="display: none"></canvas>
