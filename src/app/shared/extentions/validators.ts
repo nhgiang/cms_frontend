@@ -121,4 +121,15 @@ export class TValidators extends Validators {
       endBeforeStart: true
     } : null;
   }
+
+  static duplicateAnswers = (form: FormArray) => {
+    const answers = form.value.map(x => x.answer);
+    console.log(answers);
+
+    return (TValidators.checkIfDuplicateExists(answers)) ? { duplicate: true } : null;
+  }
+
+  static checkIfDuplicateExists(w) {
+    return new Set(w).size !== w.length;
+  }
 }

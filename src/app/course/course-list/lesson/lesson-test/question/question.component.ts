@@ -72,7 +72,7 @@ export class QuestionComponent extends NzCollapsePanelComponent implements OnIni
     this.form = this.fb.group({
       question: [null, TValidators.required],
       type: [this.questionType],
-      answers: this.fb.array([], { validators: TValidators.requiredAnswer })
+      answers: this.fb.array([], { validators: [TValidators.requiredAnswer, TValidators.duplicateAnswers] })
     });
   }
 

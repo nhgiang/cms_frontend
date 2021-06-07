@@ -9,7 +9,7 @@
   <nz-form-item>
     <nz-form-label style="min-width:150px" class="text-left" nzRequired>Video bài giảng</nz-form-label>
     <nz-form-control [nzErrorTip]="'Vui lòng tải lên video bài giảng'">
-      <app-upload-vimeo-control formControlName="video">
+      <app-upload-vimeo-control formControlName="video" [confirmationText]="'Bạn có chắc chắn  muốn xóa video bài giảng này không!'">
       </app-upload-vimeo-control>
     </nz-form-control>
   </nz-form-item>

@@ -1,8 +1,16 @@
-import { Component, ElementRef, forwardRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { NgControl, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
 import * as getYouTubeId from 'get-youtube-id';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { VideoType } from 'types/enums';
 
 @Component({
@@ -25,17 +33,13 @@ import { VideoType } from 'types/enums';
 export class UploadVideoIntroComponent extends AbstractControlDirective implements OnInit, OnChanges {
   @ViewChild('inputUpload', { static: false }) inputUpload: ElementRef;
   @Input() isUploadLink: VideoType;
-  displayPreview = false;
   displayPreviewYT = false;
-  url: string | ArrayBuffer;
   linkYoutubeInput: string;
   fileVideo: File | null;
-  ngControl: NgControl;
   @Input() url1: string;
   VideoType = VideoType;
-  constructor(
-    private notification: NzNotificationService
-  ) {
+
+  constructor() {
     super();
   }
 
@@ -45,8 +49,7 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
         this.linkYoutubeInput = obj;
         this.changeLink(obj);
       } else {
-        this.url = obj;
-        this.displayPreview = true;
+        this.fileVideo = obj;
       }
     }
   }
@@ -69,28 +72,8 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
     this.onChangeFn(link);
   }
 
-  uploadVideo(file: File) {
-    this.inputUpload.nativeElement.value = '';
-    if (file.type.split('/')[0] !== 'video') {
-      this.fileVideo = null;
-      return this.notification.error('Thất bại', 'Vui lòng chọn đúng định dạng file');
-    }
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (event) => {
-        this.url = event.target.result;
-        this.displayPreview = true;
-        this.onChangeFn(this.fileVideo);
-      };
-      this.fileVideo = file;
-    }
-  }
-
-  removeVideo() {
-    this.displayPreview = false;
-    this.fileVideo = null;
-    this.url = null;
+  uploadVideo(e: File) {
+    this.fileVideo = e;
     this.onChangeFn(this.fileVideo);
   }
 
@@ -98,7 +81,7 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
     if (this.isUploadLink === VideoType.Youtube && !getYouTubeId.default(this.linkYoutubeInput)) {
       return { required: true };
     }
-    if (this.isUploadLink === VideoType.Vimeo && !this.url) {
+    if (this.isUploadLink === VideoType.Vimeo && !this.fileVideo) {
       return { required: true };
     }
     return null;

@@ -63,8 +63,14 @@
           </ng-container>
         </nz-checkbox-wrapper>
       </ng-container>
-      <div *ngIf="form.get('answers')?.invalid && form.get('answers')?.dirty" class="error mt-3">Phải có ít nhất 2 câu
+      <div
+        *ngIf="form.get('answers')?.invalid && form.get('answers')?.dirty && !form.get('answers').hasError('duplicate')"
+        class="error mt-3">Phải có ít nhất 2 câu
         trả lời và 1 câu trả lời đúng
+      </div>
+      <div
+        *ngIf="form.get('answers')?.invalid && form.get('answers')?.dirty && form.get('answers').hasError('duplicate')"
+        class="error mt-3">Không được có 2 câu trả lời trùng nhau
       </div>
       <div class="d-flex justify-content-end mt-2">
         <button nzType="primary" [disabled]="answers?.length <= 2" nz-button type="button" nzGhost

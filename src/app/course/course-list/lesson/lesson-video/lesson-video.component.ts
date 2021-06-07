@@ -50,7 +50,7 @@ export class LessonVideoComponent implements OnInit, OnChanges {
     this.isLoading = true;
     forkJoin({
       file: this.storageApi.uploadFiles(this.form.value.attachments),
-      video: this.storageApi.uploadVideoFile(this.form.value.video)
+      video: this.storageApi.uploadVideoPrivate(this.form.value.video)
     }).pipe(switchMap(({ file, video }) => {
       const data = {
         title: this.form.value.title.trim(),
