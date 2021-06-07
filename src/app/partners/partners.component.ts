@@ -61,7 +61,7 @@ export class PartnersComponent implements OnInit {
     this.isDataLoading = true;
     this.partnersApi.delete(partner.id).subscribe(() => {
       this.notif.success('Thành công', 'Xóa đối tác thành công');
-      this.fetch(1, undefined).subscribe(this.updateObserver()); //refresh
+      this.fetch(1, undefined).subscribe(this.updateObserver()); // refresh
     });
   }
 }

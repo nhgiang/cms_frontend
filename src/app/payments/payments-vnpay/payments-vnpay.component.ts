@@ -29,7 +29,7 @@ export class PaymentsVnpayComponent implements OnInit {
       .get()
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe((data: Vnpay) => {
-        if (!data.hashSecret && !data.tmnCode) return;
+        if (!data.hashSecret && !data.tmnCode) { return; }
         this.secretKey = data.hashSecret;
         this.tmnCode = data.tmnCode;
         this.unconfig = false;
