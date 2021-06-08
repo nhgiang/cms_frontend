@@ -2,12 +2,13 @@
   <app-image-cropper-control
     formControlName="imageActive"
     isRequired
-    [width]="200"
-    [height]="100"
-    [allowCrop]="false"
+    [width]="304"
+    [height]="144"
   >
     <nz-form-label nzRequired nzNoColon>Tải Logo ngân hàng </nz-form-label>
-    <small class="d-block"> Max File size: 1MB </small>
+    <small class="d-block">
+      Max File size: 1MB <br />Kích thước đề xuất: 304 * 144</small
+    >
     <div
       *ngIf="
         paymentsForm.controls['imageActive'].invalid &&

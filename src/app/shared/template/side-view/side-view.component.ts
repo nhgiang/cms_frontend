@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ThemeConstantService } from '@shared/services/theme-constant.service';
 @Component({
   selector: 'app-side-view',
   templateUrl: './side-view.component.html',
@@ -8,7 +8,23 @@ import { FormGroup } from '@angular/forms';
 })
 export class SideViewComponent implements OnInit {
   pwChangeForm: FormGroup;
-  constructor() {}
+  isActivated = false;
+  constructor(
+    private themeService: ThemeConstantService,
+    private fb: FormBuilder
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.themeService.sideViewToggles.subscribe(
+      (isActivated) => (this.isActivated = isActivated)
+    );
+    this.pwChangeForm = this.fb.group({
+      oldPw: [''],
+      newPw: [''],
+      confirmPw: [''],
+    });
+  }
+  closeSideView() {
+    this.themeService.toggleSideView(false);
+  }
 }

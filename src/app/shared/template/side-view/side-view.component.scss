@@ -1,16 +1,16 @@
 .side-view-wrapper {
-  width: 320px;
+  width: 350px;
   height: 100vh;
   position: fixed;
   top: 50px;
-  right: 0;
+  right: -350px;
   border: 1px solid black;
   background-color: white;
+  padding: 10px;
   padding-top: 50px;
-  padding-left: 10px;
-  padding-right: 10px;
-  transition: all 0.3 ease;
+  transition: all 0.3s ease;
+  z-index: 400;
   &.toggled {
-    right: -320px;
+    transform: translateX(-350px);
   }
 }

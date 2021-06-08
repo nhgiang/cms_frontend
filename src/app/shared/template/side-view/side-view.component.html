@@ -1,6 +1,6 @@
-<div class="side-view-wrapper">
+<div class="side-view-wrapper" [class.toggled]="isActivated">
   <!-- to-do: side view có thể render componenent phụ thuộc vào tham số từ componenet cha-->
-  <form nz-form [formGroup]="pwChangeForm">
+  <form nz-form nzLayout="vertical" [formGroup]="pwChangeForm">
     <nz-form-item>
       <nz-form-label>ID</nz-form-label>
       <nz-form-control>
@@ -21,10 +21,23 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label> Xác nhận mật khẩu </nz-form-label>
+      <nz-form-label nzRequired> Xác nhận mật khẩu </nz-form-label>
       <nz-form-control>
         <input nz-input formControlName="confirmPw" type="password" />
       </nz-form-control>
     </nz-form-item>
+
+    <div class="text-right">
+      <button
+        class="m-r-10"
+        (click)="closeSideView()"
+        nz-button
+        nzType="primary"
+        nzGhost
+      >
+        Hủy bỏ
+      </button>
+      <button nz-button nzType="primary">Xác nhận</button>
+    </div>
   </form>
 </div>
