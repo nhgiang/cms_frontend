@@ -87,9 +87,12 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/authentication/login']);
   }
+
   changePassword() {
     this.drawerService.create({
       nzContent: ChangePasswordComponent,
+      nzWidth: 400,
+      nzTitle: 'Thay đổi mật khẩu',
     });
   }
 }
