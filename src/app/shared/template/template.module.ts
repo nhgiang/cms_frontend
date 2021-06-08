@@ -22,7 +22,6 @@ import { FooterComponent } from './footer/footer.component';
 
 import { SideNavDirective } from '../directives/side-nav.directive';
 import { ThemeConstantService } from '../services/theme-constant.service';
-import { SideViewComponent } from './side-view/side-view.component';
 
 const antdModule = [
   NzAvatarModule,
@@ -46,7 +45,6 @@ const antdModule = [
     SideNavComponent,
     SideNavDirective,
     FooterComponent,
-    SideViewComponent,
   ],
   imports: [RouterModule, CommonModule, SharedModule, ...antdModule],
   declarations: [
@@ -56,7 +54,6 @@ const antdModule = [
     SideNavComponent,
     SideNavDirective,
     FooterComponent,
-    SideViewComponent,
   ],
   providers: [ThemeConstantService],
 })

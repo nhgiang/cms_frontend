@@ -59,10 +59,6 @@ export class ThemeConstantService {
   private currentHeaderColor = new BehaviorSubject(this.headerColor);
   selectedHeaderColor = this.currentHeaderColor.asObservable();
 
-  private isSideViewActivated = new BehaviorSubject<boolean>(false);
-  sideViewToggles: Observable<boolean> =
-    this.isSideViewActivated.asObservable(); //for security
-
   get() {
     return this.colorConfig;
   }
@@ -81,9 +77,5 @@ export class ThemeConstantService {
 
   changeHeaderColor(color: string) {
     this.currentHeaderColor.next(color);
-  }
-
-  toggleSideView(isToggled: boolean) { 
-    this.isSideViewActivated.next(isToggled);
   }
 }

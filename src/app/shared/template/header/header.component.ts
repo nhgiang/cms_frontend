@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ChangePasswordComponent } from '@shared/components/change-password/change-password.component';
 import { AuthenticationService } from '@shared/services/authentication.service';
 import { ThemeConstantService } from '@shared/services/theme-constant.service';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,6 +15,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private themeService: ThemeConstantService,
+    private drawerService: NzDrawerService,
     private authService: AuthenticationService,
     private router: Router
   ) {
@@ -84,9 +87,9 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/authentication/login']);
   }
-
-  activateSideView() {
-    //change-password
-    this.themeService.toggleSideView(true);
+  changePassword() {
+    this.drawerService.create({
+      nzContent: ChangePasswordComponent,
+    });
   }
 }
