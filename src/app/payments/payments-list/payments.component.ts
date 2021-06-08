@@ -5,6 +5,7 @@ import { finalize, switchMap, tap } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { PaymentsUpsertComponent } from '../payments-upsert/payments-upsert.component';
+import { cloneDeep } from 'lodash-es';
 @Component({
   selector: 'app-payments',
   templateUrl: './payments.component.html',
@@ -63,7 +64,7 @@ export class PaymentsComponent implements OnInit {
       nzContent: PaymentsUpsertComponent,
       nzComponentParams: {
         targetEditIndex: paymentIndex,
-        paymentsList: this.payments,
+        paymentsList: cloneDeep(this.payments),
       },
       nzCentered: true,
     });
@@ -86,7 +87,7 @@ export class PaymentsComponent implements OnInit {
       nzTitle: 'Thông tin ngân hàng',
       nzContent: PaymentsUpsertComponent,
       nzComponentParams: {
-        paymentsList: this.payments,
+        paymentsList: cloneDeep(this.payments),
         targetEditIndex: null,
       },
       nzCentered: true,
