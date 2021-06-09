@@ -226,7 +226,7 @@ export const ROUTES: SideNavInterface[] = [
     submenu: [],
   },
   {
-    path: 'entity',
+    path: 'assistance',
     title: 'Quyền quản trị admin',
     iconType: 'nzIcon',
     iconTheme: 'outline',
