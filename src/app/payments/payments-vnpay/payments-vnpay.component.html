@@ -1,0 +1,73 @@
+<nz-spin [nzSpinning]="isLoading">
+  <nz-card>
+    <form nz-form nzLayout="vertical" #vnpayForm="ngForm" (ngSubmit)="update()">
+      <div
+        *ngIf="unconfig"
+        style="font-style: italic; opacity: 0.7; margin-bottom: 15px"
+      >
+        Bạn chưa cài đặt phương thức thanh toán Vnpay
+      </div>
+      <!-- <ng-template>
+      qr code ? 
+      <app-image-cropper-control
+        [allowCrop]="false"
+        width="100"
+        height="100"
+      ></app-image-cropper-control
+    ></ng-template> -->
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Terminal Code</nz-form-label>
+        <input
+          type="text"
+          nz-input
+          [(ngModel)]="tmnCode"
+          name="tmnCode"
+          required
+        />
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>Secret Key</nz-form-label>
+        <input
+          type="text"
+          nz-input
+          [(ngModel)]="secretKey"
+          name="secretKey"
+          required
+        />
+      </nz-form-item>
+      <div class="text-right">
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="vnpayForm.invalid"
+          type="submit"
+        >
+          Lưu
+        </button>
+      </div>
+    </form>
+  </nz-card>
+
+  <nz-collapse>
+    <nz-collapse-panel [nzHeader]="header">
+      <nz-collapse>
+        <nz-collapse-panel nzHeader="Terminal Code là gì?">
+          <p>Terminal code là blabla</p>
+        </nz-collapse-panel>
+        <nz-collapse-panel nzHeader="Secret Key lấy ở đâu?">
+          <p>Lấy trên website vnpay</p>
+        </nz-collapse-panel>
+        <nz-collapse-panel nzHeader="Làm thế nào để thanh toán qua qr code?">
+          <p>Sinh ra mã qr code</p>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </nz-collapse-panel>
+  </nz-collapse>
+
+  <ng-template #header>
+    <span class="text-bold"
+      ><i nz-icon nzType="info-circle"></i>   Hướng dẫn</span
+    >
+  </ng-template>
+</nz-spin>

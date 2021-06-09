@@ -242,4 +242,12 @@ export const ROUTES: SideNavInterface[] = [
       }
     ],
   },
+  {
+    path: 'entity',
+    title: 'Quyền quản trị admin',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'team',
+    submenu: [],
+  }
 ];

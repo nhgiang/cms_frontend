@@ -3,7 +3,9 @@ import { PaymentsApiService } from '@shared/api/payments.api.service';
 import { Payment } from 'types/typemodel';
 import { finalize, switchMap, tap } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { PaymentsUpsertComponent } from '../payments-upsert/payments-upsert.component';
+import { cloneDeep } from 'lodash-es';
 @Component({
   selector: 'app-payments',
   templateUrl: './payments.component.html',
@@ -11,42 +13,39 @@ import { Router } from '@angular/router';
 export class PaymentsComponent implements OnInit {
   payments: Payment[] = [];
   isDataLoading = false;
-  isPreview = 0;
+  isPreview = false;
+
+  isUpsertModalVisible = false;
+
   constructor(
     private paymentsApi: PaymentsApiService,
     private notif: NzNotificationService,
-    private router: Router
+    private modalService: NzModalService
   ) {}
 
   ngOnInit() {
-    this.fetchAndSubcribe();
+    this.fetch().subscribe((data: Payment[]) => {
+      this.payments = data;
+    });
   }
 
-  fetchAndSubcribe() {
+  fetch() {
     this.isDataLoading = true;
-    this.paymentsApi
+    return this.paymentsApi
       .getList()
-      .pipe(finalize(() => (this.isDataLoading = false)))
-      .subscribe((data: Payment[]) => {
-        this.payments = data;
-      });
-  }
-
-  preview() {
-    this.isPreview++;
-    // force app-payments-preview update
+      .pipe(finalize(() => (this.isDataLoading = false)));
   }
 
   deletePayment(payment: Payment) {
     this.isDataLoading = true;
-    this.payments.splice(this.payments.indexOf(payment));
+    this.payments.splice(this.payments.indexOf(payment), 1);
     this.paymentsApi
       .postWhole(this.payments)
       .pipe(
         tap(() => {
           this.notif.success(
             'Thành công',
-            'Xóa phương thức thanh toán thành công!'
+            'Xóa thông tin ngân hàng thành công!'
           );
         }),
         switchMap(() => {
@@ -56,15 +55,56 @@ export class PaymentsComponent implements OnInit {
       )
       .subscribe((data: Payment[]) => {
         this.payments = data;
-        this.isPreview = 0;
       });
   }
 
-  navigate(paymentIndex: number) {
-    this.router.navigate(['/payments/create'], {
-      state: {
+  editPayment(paymentIndex: number) {
+    const modalRef = this.modalService.create({
+      nzTitle: 'Thông tin ngân hàng',
+      nzContent: PaymentsUpsertComponent,
+      nzComponentParams: {
         targetEditIndex: paymentIndex,
+        paymentsList: cloneDeep(this.payments),
       },
+      nzCentered: true,
     });
+    modalRef.componentInstance.success
+      .pipe(
+        tap(() => {
+          modalRef.close();
+          this.notif.success(
+            'Thành công',
+            'Cập nhật thông tin ngân hàng thành công'
+          );
+        }),
+        switchMap(() => this.fetch())
+      )
+      .subscribe((data: Payment[]) => (this.payments = data));
+  }
+
+  createPayment() {
+    const modalRef = this.modalService.create({
+      nzTitle: 'Thông tin ngân hàng',
+      nzContent: PaymentsUpsertComponent,
+      nzComponentParams: {
+        paymentsList: cloneDeep(this.payments),
+        targetEditIndex: null,
+      },
+      nzCentered: true,
+    });
+    modalRef.componentInstance.success
+      .pipe(
+        tap(() => {
+          modalRef.close();
+          this.notif.success(
+            'Thành công',
+            'Thêm thông tin ngân hàng thành công!'
+          );
+        }),
+        switchMap(() => this.fetch())
+      )
+      .subscribe((data: Payment[]) => {
+        this.payments = data;
+      });
   }
 }
