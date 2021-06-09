@@ -73,7 +73,8 @@ export const CommonLayoutRoutes: Routes = [
   },
   {
     path: 'event-management',
-    loadChildren: () => import('src/app/events/events.module').then(m => m.EventsModule),
+    loadChildren: () =>
+      import('src/app/events/events.module').then((m) => m.EventsModule),
     data: {
       headerDisplay: true,
       title: 'Quản lý sự kiện',
@@ -102,11 +103,11 @@ export const CommonLayoutRoutes: Routes = [
     },
   },
   {
-    path: 'payments',
+    path: 'payment-methods', //- to-do đóng gói các module thành quyền quản trị admin
     loadChildren: () =>
       import('src/app/payments/payments.module').then((m) => m.PaymentsModule),
     data: {
-      title: 'Quản lý phương thức thanh toán',
+      title: 'Quyền quản trị admin',
     },
   },
 ];

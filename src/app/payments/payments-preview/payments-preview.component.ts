@@ -1,4 +1,9 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { Payment } from 'types/typemodel';
 
 @Component({
@@ -6,20 +11,16 @@ import { Payment } from 'types/typemodel';
   templateUrl: './payments-preview.component.html',
   styleUrls: ['./payments-preview.component.scss'],
 })
-export class PaymentsPreviewComponent implements OnChanges {
-  @Input() isPreview: number;
+export class PaymentsPreviewComponent {
+  @Input() isPreview: boolean;
+  @Output() closed = new EventEmitter();
   @Input() payments: Payment[];
-  isModalVisible = false;
   activeBankIndex = 0;
 
   constructor() {}
 
-  ngOnChanges() {
-    if (this.isPreview !== 0) { this.isModalVisible = true; }
-  }
-
   onCancel() {
-    this.isModalVisible = false;
+    this.closed.emit();
   }
 
   activateBankView(index: number) {
