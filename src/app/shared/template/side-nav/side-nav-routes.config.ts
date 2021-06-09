@@ -225,4 +225,21 @@ export const ROUTES: SideNavInterface[] = [
     icon: 'customer-service',
     submenu: [],
   },
+  {
+    path: 'settings-help',
+    title: 'Cài đặt bài viết hướng dẫn',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'customer-service',
+    submenu: [
+      {
+        path: 'help-center',
+        title: 'Danh sách bài viết',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'customer-service',
+        submenu: []
+      }
+    ],
+  },
 ];

@@ -96,6 +96,14 @@ export interface ConsultingInformation extends Entity {
   statusTransformed: string;
 }
 
+export interface HelpCenter extends Entity {
+  name: string;
+  title: string;
+  view: number;
+  like: number;
+  dislike: number;
+}
+
 export interface DataTableMetadata {
   columns: DataTableColumnMetaData[];
 }

@@ -109,4 +109,12 @@ export const CommonLayoutRoutes: Routes = [
       title: 'Quản lý phương thức thanh toán',
     },
   },
+  {
+    path: 'settings-help',
+    loadChildren: () =>
+      import('src/app/help-center/help-center.module').then((m) => m.HelpCenterModule),
+    data: {
+      title: 'Cài đặt bài viết hướng dẫn',
+    },
+  },
 ];
