@@ -70,14 +70,14 @@
         <td>{{ invoice?.invoicePrice | number }} đ</td>
         <td>{{ invoice?.created | datetime: true }}</td>
         <td class="text-md-right">
-          <div class="d-flex">
+          <div class="d-flex justify-content-end">
             <a (click)="download(invoice?.id, i)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
-              nzTooltipTitle="Tải Xuống" *ngIf="!activity.is(i+'downloading')">
+              nzTooltipTitle="Tải Xuống" *ngIf="!activity.is(i+'downloading') && invoice.status === 'Success'">
               <i nz-icon nzType="vertical-align-bottom" nzTheme="outline"></i>
 
             </a>
             <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Đang tải"
-              *ngIf="activity.is(i+'downloading')">
+              *ngIf="activity.is(i+'downloading') && invoice.status === 'Success'">
               <i nz-icon nzType="loading" nzTheme="outline"></i>
             </a>
             <a [routerLink]="['/order-management/order', invoice?.id]" class="m-r-5" nz-button nzType="default"
