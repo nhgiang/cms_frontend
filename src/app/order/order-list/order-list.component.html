@@ -1,72 +1,47 @@
 <nz-card>
   <div class="row m-b-30">
     <div class="col-lg-12">
-      <form nz-form
-            [formGroup]="search">
+      <form nz-form [formGroup]="search">
         <div class="d-md-flex">
           <div class="m-b-10 m-r-20">
-            <nz-input-group style="min-width: 275px"
-                            [nzPrefix]="prefixTemplate">
-              <input type="text"
-                     nz-input
-                     placeholder="Tìm kiếm tên khách hàng, email, mã hóa đơn"
-                     formControlName="q" />
+            <nz-input-group style="min-width: 275px" [nzPrefix]="prefixTemplate">
+              <input type="text" nz-input placeholder="Tìm kiếm tên khách hàng, email, mã hóa đơn"
+                formControlName="q" />
             </nz-input-group>
             <ng-template #prefixTemplate>
-              <i nz-icon
-                 nzType="search"
-                 class="opacity-05"></i>
+              <i nz-icon nzType="search" class="opacity-05"></i>
             </ng-template>
           </div>
           <div class="m-b-10 m-r-20">
-            <nz-select style="min-width: 220px"
-                       class="w-100"
-                       nzPlaceHolder="Chọn trạng thái"
-                       formControlName="status">
-              <nz-option nzLabel="Tất cả"
-                         nzValue="null"></nz-option>
-              <nz-option [nzLabel]="item.label"
-                         [nzValue]="item.value"
-                         *ngFor="let item of invoiceStatusOptions"></nz-option>
+            <nz-select style="min-width: 220px" class="w-100" nzPlaceHolder="Chọn trạng thái" formControlName="status">
+              <nz-option nzLabel="Tất cả" nzValue="null"></nz-option>
+              <nz-option [nzLabel]="item.label" [nzValue]="item.value" *ngFor="let item of invoiceStatusOptions">
+              </nz-option>
             </nz-select>
           </div>
           <div class="m-b-10 m-r-20">
-            <nz-date-picker nzFormat="dd/MM/yyyy"
-                            formControlName="startDate"
-                            nzPlaceHolder="Từ ngày"></nz-date-picker>
+            <nz-date-picker nzFormat="dd/MM/yyyy" formControlName="startDate" nzPlaceHolder="Từ ngày"></nz-date-picker>
           </div>
           <div>
-            <nz-date-picker nzFormat="dd/MM/yyyy"
-                            formControlName="endDate"
-                            nzPlaceHolder="Đên ngày"></nz-date-picker>
+            <nz-date-picker nzFormat="dd/MM/yyyy" formControlName="endDate" nzPlaceHolder="Đên ngày"></nz-date-picker>
           </div>
         </div>
       </form>
     </div>
   </div>
-  <nz-table [nzShowTotal]="totalTemplate"
-            [nzNoResult]="empty"
-            #productsListTable
-            [nzFrontPagination]="false"
-            [nzData]="items"
-            [nzTotal]="meta?.totalItems"
-            (nzQueryParams)="onParamsChanged($event)"
-            [nzPageSize]="quantity"
-            [nzLoading]="isloading"
-            [(nzPageIndex)]="page"
-            nzTableLayout="fixed">
+  <nz-table [nzShowTotal]="totalTemplate" [nzNoResult]="empty" #productsListTable [nzFrontPagination]="false"
+    [nzData]="items" [nzTotal]="meta?.totalItems" (nzQueryParams)="onParamsChanged($event)" [nzPageSize]="quantity"
+    [nzLoading]="isloading" [(nzPageIndex)]="page" nzTableLayout="fixed">
     <thead>
       <tr>
-        <th [nzWidth]="'70px'"
-            scope="col">ID</th>
+        <th [nzWidth]="'70px'" scope="col">ID</th>
         <th scope="col">Tên khách hàng</th>
         <th scope="col">Email khách hàng</th>
         <th scope="col">Tên sản phẩm</th>
         <th scope="col">Trạng thái</th>
         <th scope="col">Giá mua</th>
         <th scope="col">Thời gian mua</th>
-        <th scope="col"
-            [nzWidth]="'70px'"></th>
+        <th scope="col" [nzWidth]="'150px'"></th>
       </tr>
     </thead>
     <tbody>
@@ -74,10 +49,7 @@
         <td>#{{ invoice?.index }}</td>
         <td>
           <div class="d-flex align-items-center">
-            <nz-avatar nzShape="square"
-                       [nzSize]="28"
-                       nzIcon="picture"
-                       [nzSrc]="invoice?.user.avatar"></nz-avatar>
+            <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="invoice?.user.avatar"></nz-avatar>
             <span class="m-l-10">{{ invoice?.user.fullName }}</span>
           </div>
         </td>
@@ -85,8 +57,7 @@
         <td nzEllipsis>
           <ng-container *ngIf="invoice.type === invoiceType.Course;else memeberShip">
             <div *ngFor="let item of invoice?.items | slice:0:slice">{{ item?.courseName }}</div>
-            <a href=javascript:void(0)
-               *ngIf="invoice?.items.length > 3" (click)="sliceData(i)">[...]</a>
+            <a href=javascript:void(0) *ngIf="invoice?.items.length > 3" (click)="sliceData(i)">[...]</a>
           </ng-container>
           <ng-template #memeberShip>
             <div>Gói Membership</div>
@@ -94,22 +65,24 @@
         </td>
         <td>
           <nz-badge [nzColor]="invoice.status | option: invoiceStatusOptions:'color'"
-                    [nzText]="invoice.status | option: invoiceStatusOptions"></nz-badge>
+            [nzText]="invoice.status | option: invoiceStatusOptions"></nz-badge>
         </td>
         <td>{{ invoice?.invoicePrice | number }} đ</td>
         <td>{{ invoice?.created | datetime: true }}</td>
         <td class="text-md-right">
           <div class="d-flex">
-            <a [routerLink]="['/order-management/order', invoice?.id]"
-               class="m-r-5"
-               nz-button
-               nzType="default"
-               nzShape="circle"
-               nz-tooltip
-               nzTooltipTitle="Chỉnh sửa">
-              <i nz-icon
-                 nzType="edit"
-                 theme="outline"></i>
+            <a (click)="download(invoice?.id, i)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
+              nzTooltipTitle="Tải Xuống" *ngIf="!activity.is(i+'downloading')">
+              <i nz-icon nzType="vertical-align-bottom" nzTheme="outline"></i>
+
+            </a>
+            <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Đang tải"
+              *ngIf="activity.is(i+'downloading')">
+              <i nz-icon nzType="loading" nzTheme="outline"></i>
+            </a>
+            <a [routerLink]="['/order-management/order', invoice?.id]" class="m-r-5" nz-button nzType="default"
+              nzShape="circle" nz-tooltip nzTooltipTitle="Chỉnh sửa">
+              <i nz-icon nzType="edit" theme="outline"></i>
             </a>
           </div>
         </td>
@@ -120,5 +93,4 @@
 <ng-template #empty>
   <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
 </ng-template>
-<ng-template #totalTemplate
-             let-total> Tổng cộng: {{ total }} </ng-template>
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>
