@@ -35,8 +35,12 @@ export class InvoiceApiService extends BaseApi {
     startDate: Date,
     endDate: Date
   }) {
-    return this.httpClient.get(this.createUrl(`/download`), { params: this.createParams(params),responseType: 'blob' }).pipe(tap(res => {
-      download(res, 'test.xlsx');
+    return this.httpClient.get(this.createUrl(`/download`), { params: this.createParams(params), responseType: 'blob' }).pipe(tap(res => {
+      download(res, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'invoices' + new Date().toString());
     }));
+  }
+
+  download(id: string) {
+    return this.httpClient.get(this.createUrl(`/${id}/bill`), { responseType: 'blob' }).pipe(tap(res => download(res, 'application/pdf', 'bill' + new Date().toString())));
   }
 }

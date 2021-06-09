@@ -42,9 +42,8 @@ export const toFixed = (x: any) => {
   return x;
 };
 
-export const download = (data: Blob, name?: string) => {
-  const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-  console.log(blob);
+export const download = (data: Blob, contentType: string, name?: string) => {
+  const blob = new Blob([data], { type: contentType });
   const url = window.URL.createObjectURL(blob);
   const anchor = document.createElement('a');
   anchor.setAttribute('download', name);
