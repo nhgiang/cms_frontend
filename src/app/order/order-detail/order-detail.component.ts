@@ -9,7 +9,7 @@ import { StudentStatusOptions } from '@shared/options/student-status.options';
 import { omitBy } from 'lodash-es';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
-import { InvoiceStatus, InvoiceStatusOptions, InvoiceType } from 'types/enums';
+import { InvoiceStatus, InvoiceStatusOptions, InvoiceType, PaymentMethod } from 'types/enums';
 import { Invoice } from 'types/typemodel';
 
 @Component({
@@ -25,7 +25,7 @@ export class OrderDetailComponent implements OnInit {
   invoiceStatus = InvoiceStatus;
   invoiceType = InvoiceType;
   isLoading: boolean;
-  paymentMethods: any;
+  paymentMethod = PaymentMethod;
 
   constructor(
     private fb: FormBuilder,
@@ -53,8 +53,11 @@ export class OrderDetailComponent implements OnInit {
       if (this.order.status === this.invoiceStatus.Success) {
         this.form.get('status').disable();
       }
+      if (this.order.paymentMethod === PaymentMethod.VNPay) {
+        this.form.get('bankCode').setValue(PaymentMethod.VNPay)
+        this.form.get('bankCode').disable();
+      }
     });
-    this.settingApi.payment.get().subscribe(res => this.paymentMethods = res);
     this.form.get('status').valueChanges.subscribe(val => {
       if (val !== this.invoiceStatus.Success) {
         // tslint:disable-next-line: forin

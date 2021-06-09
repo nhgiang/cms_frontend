@@ -1,4 +1,4 @@
-import { ContactStatus, InvoiceStatus, InvoiceType, UserStatus } from './enums';
+import { ContactStatus, InvoiceStatus, InvoiceType, PaymentMethod, UserStatus } from './enums';
 
 export interface QueryResult<T> {
   meta: Meta;
@@ -164,6 +164,7 @@ export interface Invoice extends Entity {
   transactionCode: any;
   transactionTime: any;
   invoicePrice: number;
+  paymentMethod: PaymentMethod;
 }
 
 export interface InvoiceItem {

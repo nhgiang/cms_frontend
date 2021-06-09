@@ -99,13 +99,14 @@
             <nz-form-item>
               <nz-form-label class="text-left">Thông tin ngân hàng</nz-form-label>
               <nz-form-control [nzErrorTip]="'Vui lòng chọn thông tin ngân hàng'">
-                <nz-select formControlName="bankCode"
+                <!-- <nz-select formControlName="bankCode"
                            [nzPlaceHolder]="'Chọn ngân hàng'">
                   <nz-option [nzLabel]="item.bankCode"
                              [nzValue]="item.bankCode"
                              *ngFor="let item of paymentMethods">
                   </nz-option>
-                </nz-select>
+                </nz-select> -->
+                <input type="text" nz-input formControlName="bankCode" placeHolder="Nhập thông tin ngân hàng">
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -229,7 +230,8 @@
           </div>
           <div class="t-row">
             <div class="t-cell">{{order?.created | datetime: true}}</div>
-            <div class="t-cell">{{order?.bankCodePicked}}</div>
+            <div class="t-cell" *ngIf="order?.paymentMethod === paymentMethod.Bank">{{order?.bankCodePicked}}</div>
+            <div class="t-cell" *ngIf="order?.paymentMethod === paymentMethod.VNPay">VNPay</div>
           </div>
         </div>
       </nz-card>
