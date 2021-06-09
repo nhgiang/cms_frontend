@@ -26,6 +26,11 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Quản lý giảng viên',
         submenu: [],
       },
+      {
+        path: 'assistance',
+        title: 'Quản lý nhân viên',
+        submenu: []
+      }
     ],
   },
   {
@@ -224,13 +229,5 @@ export const ROUTES: SideNavInterface[] = [
     iconTheme: 'outline',
     icon: 'customer-service',
     submenu: [],
-  },
-  {
-    path: 'assistance',
-    title: 'Quyền quản trị admin',
-    iconType: 'nzIcon',
-    iconTheme: 'outline',
-    icon: 'team',
-    submenu: [],
-  },
+  }
 ];

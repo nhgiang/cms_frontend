@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TeacherDetailResolver } from '@shared/services/resolve/teacher-detail.resolver';
+import { AssistanceComponent } from './assistance/assistance.component';
 import { LecturerCreateComponent } from './lecturer/lecturer-create/lecturer-create.component';
 import { LecturerUpdateComponent } from './lecturer/lecturer-update/lecturer-update.component';
 import { LecturerComponent } from './lecturer/lecturer.component';
@@ -49,6 +50,35 @@ const routes: Routes = [
         component: LecturerUpdateComponent,
         data: {
           title: 'Cập nhật thông tin giảng viên',
+        },
+        resolve: {
+          teacher: TeacherDetailResolver
+        }
+      },
+    ]
+  },
+  {
+    path: 'assistance',
+    children: [
+      {
+        path: '',
+        component: AssistanceComponent,
+        data: {
+          title: 'Quản lý nhân viên',
+        }
+      },
+      {
+        path: 'create',
+        component: LecturerCreateComponent,
+        data: {
+          title: 'Tạo mới nhân viên',
+        }
+      },
+      {
+        path: ':id',
+        component: LecturerUpdateComponent,
+        data: {
+          title: 'Cập nhật thông tin nhân viên',
         },
         resolve: {
           teacher: TeacherDetailResolver
