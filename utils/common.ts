@@ -43,11 +43,12 @@ export const toFixed = (x: any) => {
 };
 
 export const download = (data: Blob, name?: string) => {
-  const blob = new Blob([data])
+  const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  console.log(blob);
   const url = window.URL.createObjectURL(blob);
-  const anchor = document.createElement('a')
-  anchor.setAttribute('download', name)
-  anchor.setAttribute('href', url)
-  anchor.setAttribute('target', '_blank')
-  anchor.click()
-}
+  const anchor = document.createElement('a');
+  anchor.setAttribute('download', name);
+  anchor.setAttribute('href', url);
+  anchor.setAttribute('target', '_blank');
+  anchor.click();
+};

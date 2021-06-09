@@ -66,6 +66,11 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
     this.slice = this.slice === 3 ? this.items[index]?.items.length : 3;
   }
 
+  exportExcel() {
+    const { status, q, endDate, startDate } = this.params;
+    this.invoiceApi.downloadExcel({ status, q, endDate, startDate }).subscribe();
+  }
+
   buildform() {
     this.search = this.fb.group({
       q: [],
