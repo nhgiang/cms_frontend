@@ -73,3 +73,9 @@ export const InvoiceStatusOptions: Option[] = [
   { value: 'Success', label: 'Thành công', color: '#73D13D' },
   { value: 'Failure', label: 'Thất bại', color: '#F759AB' },
 ];
+
+export enum PaymentMethod {
+  Bank = 'Bank',
+  VNPay = 'VNPay',
+}
+
