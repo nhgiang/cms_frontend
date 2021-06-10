@@ -16,7 +16,7 @@ export class HelpCenterApiService extends BaseApi {
   }
 
   find(id: string) {
-    return this.httpClient.get<any>(this.createUrl(`/${id}`));
+    return this.httpClient.get<any>(this.createUrl(`/admin/${id}`));
   }
 
   edit(id: string, body: any) {

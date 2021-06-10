@@ -25,7 +25,7 @@ export class HelpCenterEditComponent implements OnInit {
     placeholder: 'Enter text here...',
     translate: 'no',
     defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
+    defaultFontName: 'Times New Roman',
     customClasses: [
       {
         name: 'quote',
