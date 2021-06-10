@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseApi } from './base-api';
 import { Payment } from 'types/typemodel';
-
 @Injectable({
   providedIn: 'root',
 })

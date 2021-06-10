@@ -9,9 +9,7 @@ import { distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
   selector: 'app-common-layout',
   templateUrl: './common-layout.component.html',
 })
-
 export class CommonLayoutComponent implements OnInit {
-
   breadcrumbs$: Observable<IBreadcrumb[]>;
   contentHeaderDisplay: string;
   isFolded: boolean;
@@ -19,40 +17,62 @@ export class CommonLayoutComponent implements OnInit {
   isExpand: boolean;
   selectedHeaderColor: string;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private themeService: ThemeConstantService) {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      map(() => {
-        let child = this.activatedRoute.firstChild;
-        while (child) {
-          if (child.firstChild) {
-            child = child.firstChild;
-          } else if (child.snapshot.data && child.snapshot.data.headerDisplay) {
-            return child.snapshot.data.headerDisplay;
-          } else {
-            return null;
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private themeService: ThemeConstantService,
+  ) {
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => {
+          let child = this.activatedRoute.firstChild;
+          while (child) {
+            if (child.firstChild) {
+              child = child.firstChild;
+            } else if (
+              child.snapshot.data &&
+              child.snapshot.data.headerDisplay
+            ) {
+              return child.snapshot.data.headerDisplay;
+            } else {
+              return null;
+            }
           }
-        }
-        return null;
-      })
-    ).subscribe((data: any) => {
-      this.contentHeaderDisplay = data;
-    });
+          return null;
+        })
+      )
+      .subscribe((data: any) => {
+        this.contentHeaderDisplay = data;
+      });
   }
 
   ngOnInit() {
     this.breadcrumbs$ = this.router.events.pipe(
       startWith(new NavigationEnd(0, '/', '/')),
-      filter(event => event instanceof NavigationEnd), distinctUntilChanged(),
-      map(data => this.buildBreadCrumb(this.activatedRoute.root))
+      filter((event) => event instanceof NavigationEnd),
+      distinctUntilChanged(),
+      map((data) => this.buildBreadCrumb(this.activatedRoute.root))
     );
-    this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
-    this.themeService.isSideNavDarkChanges.subscribe(isDark => this.isSideNavDark = isDark);
-    this.themeService.selectedHeaderColor.subscribe(color => this.selectedHeaderColor = color);
-    this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);
+    this.themeService.isMenuFoldedChanges.subscribe(
+      (isFolded) => (this.isFolded = isFolded)
+    );
+    this.themeService.isSideNavDarkChanges.subscribe(
+      (isDark) => (this.isSideNavDark = isDark)
+    );
+    this.themeService.selectedHeaderColor.subscribe(
+      (color) => (this.selectedHeaderColor = color)
+    );
+    this.themeService.isExpandChanges.subscribe(
+      (isExpand) => (this.isExpand = isExpand)
+    );
   }
 
-  private buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadcrumb[] = []): IBreadcrumb[] {
+  private buildBreadCrumb(
+    route: ActivatedRoute,
+    url: string = '',
+    breadcrumbs: IBreadcrumb[] = []
+  ): IBreadcrumb[] {
     let label = '';
     let path = '/';
     if (route.routeConfig) {
@@ -64,10 +84,13 @@ export class CommonLayoutComponent implements OnInit {
 
     const nextUrl = path && path !== '/dashboard' ? `${url}${path}` : url;
     const breadcrumb = {
-      label, url: nextUrl
+      label,
+      url: nextUrl,
     } as IBreadcrumb;
 
-    const newBreadcrumbs = label ? [...breadcrumbs, breadcrumb] : [...breadcrumbs];
+    const newBreadcrumbs = label
+      ? [...breadcrumbs, breadcrumb]
+      : [...breadcrumbs];
     if (route.firstChild) {
       return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs);
     }

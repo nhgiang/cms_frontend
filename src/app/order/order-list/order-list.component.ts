@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InvoiceApiService } from '@shared/api/invoice.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
-import { debounceTime, map } from 'rxjs/operators';
+import { debounceTime, finalize, map } from 'rxjs/operators';
 import { InvoiceStatus, InvoiceStatusOptions, InvoiceType } from 'types/enums';
 import { Invoice, QueryResult } from 'types/typemodel';
 import { Activity } from 'utils/Activity';
@@ -25,7 +26,8 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
     router: Router,
     route: ActivatedRoute,
     private fb: FormBuilder,
-    private invoiceApi: InvoiceApiService
+    private invoiceApi: InvoiceApiService,
+    private notification: NzNotificationService
   ) {
     super(route, router);
   }
@@ -84,8 +86,12 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
 
   download(id: string, index: any) {
     this.activity.start(`${index}downloading`);
-    this.invoiceApi.download(id).pipe().subscribe(() => {
-      this.activity.stop(`${index}downloading`);
+    this.invoiceApi.download(id).pipe(finalize(() => this.activity.stop(`${index}downloading`))).subscribe({
+      error: err => {
+        if (err.status === 0) {
+          this.notification.error('Thất bại', 'Đường truyền mạng không ổn định. Vui lòng thử lại sau!');
+        }
+      }
     });
   }
 }

@@ -96,6 +96,14 @@ export interface ConsultingInformation extends Entity {
   statusTransformed: string;
 }
 
+export interface HelpCenter extends Entity {
+  name: string;
+  title: string;
+  view: number;
+  like: number;
+  dislike: number;
+}
+
 export interface DataTableMetadata {
   columns: DataTableColumnMetaData[];
 }
@@ -105,6 +113,7 @@ export interface DataTableColumnMetaData {
   name: string;
   sortable: boolean;
   width?: string;
+  class?: string;
   sortOrder?: string;
 }
 export interface CourseType {
@@ -200,4 +209,9 @@ export interface Payment {
   branch: string;
   image: string;
   imageActive: string;
+}
+
+export interface Vnpay {
+  hashSecret: string;
+  tmnCode: string;
 }

@@ -41,6 +41,6 @@ export class InvoiceApiService extends BaseApi {
   }
 
   download(id: string) {
-    return this.httpClient.get(this.createUrl(`/${id}/bill`), { responseType: 'blob' }).pipe(tap(res => download(res, 'application/pdf', 'bill' + new Date().toString())));
+    return this.httpClient.get(this.createUrl(`/${id}/bill`), { responseType: 'blob' }).pipe(tap(res => download(res, 'application/pdf', 'Hóa đơn thanh toán ' + new Date().getTime().toString())));
   }
 }

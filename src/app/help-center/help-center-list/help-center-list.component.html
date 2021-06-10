@@ -1,0 +1,64 @@
+<nz-card>
+  <div class="row">
+    <div class="col-12">
+      <form nz-form [formGroup]="search">
+        <div class="d-md-flex justify-content-between">
+          <div class="m-b-10 m-r-20">
+            <nz-input-group [nzPrefix]="prefixTemplate" style="min-width: 350px;">
+              <input type="text" nz-input placeholder="Tìm kiếm tên bài viết" formControlName="q">
+            </nz-input-group>
+            <ng-template #prefixTemplate>
+              <i nz-icon nzType="search" class="opacity-05"></i>
+            </ng-template>
+          </div>
+          <div><a routerLink="/settings-help/help-center/create" nz-button nzType="primary"> Thêm mới
+            </a></div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <nz-table [nzData]="items" [nzShowTotal]="totalTemplate" [nzNoResult]="empty" [nzFrontPagination]="false"
+    [nzPageSize]="quantity" [nzTotal]="meta?.totalItems" [(nzPageIndex)]="page"
+    (nzQueryParams)="onParamsChanged($event)" [nzLoading]="isloading" nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th scope="col" nzWidth="50px">ID</th>
+        <ng-container *ngFor="let item of metaData">
+          <th [ngClass]="item.class" *ngIf="item.sortable" [nzWidth]="item.width" [nzSortFn]="item.sortable" scope="col"
+            [nzColumnKey]="item.key" [nzSortOrder]="item.sortOrder">{{item.name}}</th>
+          <th *ngIf="!item.sortable" [ngClass]="item.class" [nzWidth]="item.width" scope="col" [nzColumnKey]="item.key">
+            {{item.name}}</th>
+        </ng-container>
+        <th scope="col" nzWidth="150px"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>#{{item?.index}}</td>
+        <td>{{item?.title}}</td>
+        <td class="text-center">{{item?.view}}</td>
+        <td class="text-center">{{item?.like}}</td>
+        <td class="text-center">{{item?.disLike}}</td>
+        <td>{{item?.updatedAt | date:'dd/MM/YYYY hh:mm'}}</td>
+        <td>{{item?.name}}</td>
+        <td>
+          <div class="d-flex justify-content-end">
+            <a [routerLink]="['/settings-help/help-center/edit',item?.id]" class="m-r-5" nz-button nzType="default"
+              nzShape="circle" nz-tooltip nzTooltipTitle="Chỉnh sửa">
+              <i nz-icon nzType="edit" theme="outline"></i>
+            </a>
+            <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
+              <div [confirmation]="'Bạn có chắc chắn muốn xóa bài viết này không?'" (confirmed)="delete(item?.id)">
+                <i nz-icon nzType="close" nzTheme="outline"></i>
+              </div>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>
