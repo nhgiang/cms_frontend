@@ -1,0 +1,89 @@
+<nz-card>
+  <form class="d-md-flex" [formGroup]="queryForm" nz-form>
+    <select-advance
+      class="m-r-20"
+      placeholder="Tất cả loại khóa học"
+      formControlName="typeId"
+      [getOptionsFn]="courseTypes$"
+      width="275px"
+    ></select-advance>
+    <select-advance
+      placeholder="Tất cả giảng viên"
+      formControlName="userId"
+      [getOptionsFn]="teachers$"
+      width="275px"
+    ></select-advance>
+  </form>
+  <div class="row m-t-20 m-b-20">
+    <div class="col-sm-4 text-left">
+      <p class="opacity-08">Tổng số môn học</p>
+      <h4>
+        {{ totalCourses }}
+      </h4>
+    </div>
+    <div class="col-sm-5 text-left">
+      <p class="opacity-08">Tổng số học viên đăng ký</p>
+      <h4>{{ totalStudents }}</h4>
+    </div>
+  </div>
+
+  <nz-table
+    #table
+    [nzNoResult]="empty"
+    [nzData]="coursesAnalytics"
+    [nzLoading]="isDataLoading"
+    [nzPageSize]="10"
+  >
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th nzWidth="300px">Khóa học</th>
+        <th nzWidth="250px">Loại khóa học</th>
+        <th>Học viên đăng ký</th>
+        <th>Lượt xem</th>
+        <th>Đăng ký mới</th>
+        <th>Hoàn thành khóa học</th>
+        <th>Số bình luận</th>
+        <th>Điểm đánh giá</th>
+        <th nzWidth="160px">Giảng viên</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of table.data; index as i">
+        <td>#{{ (table.nzPageIndex - 1) * table.nzPageSize + i + 1 }}</td>
+        <td>{{ item.courseName }}</td>
+        <td>{{ item.typeName }}</td>
+        <td>{{ item.totalStudent }}</td>
+        <td>{{ item.totalView }}</td>
+        <td>{{ item.totalRecentStudent }}</td>
+        <td>
+          {{
+            item.totalStudent > 0
+              ? (item.totalCertificate || 0) + "/" + item.totalStudent
+              : "Chưa có học viên"
+          }}
+          <nz-progress
+            *ngIf="item.totalStudent > 0"
+            [nzPercent]="
+              ((item.totalCertificate || 0) / item.totalStudent) * 100
+            "
+            [nzShowInfo]="false"
+          ></nz-progress>
+        </td>
+        <td>{{ item.totalComment }}</td>
+        <td>
+          {{ (item.avgFeedbackScore | number: "1.1-1") || "Chưa có đánh giá" }}
+        </td>
+        <td>
+          <a href="user/lecturer/{{ item.userId }}" target="_blank">{{
+            item.teacherName
+          }}</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
