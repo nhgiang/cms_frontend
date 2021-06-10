@@ -46,9 +46,10 @@
               nzShape="circle" nz-tooltip nzTooltipTitle="Chỉnh sửa">
               <i nz-icon nzType="edit" theme="outline"></i>
             </a>
-            <a (click)="delete(item.id)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
-              nzTooltipTitle="Chỉnh sửa">
-              <i nz-icon nzType="close" nzTheme="outline"></i>
+            <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
+              <div [confirmation]="'Bạn có chắc chắn muốn xóa bài viết này không?'" (confirmed)="delete(item?.id)">
+                <i nz-icon nzType="close" nzTheme="outline"></i>
+              </div>
             </a>
           </div>
         </td>
