@@ -9,22 +9,18 @@ import {
 import * as moment from 'moment';
 import { toFixed } from 'utils/common';
 export class TValidators extends Validators {
-  static confirmPasswordValidator(control: AbstractControl): ValidationErrors {
-    const group = control as FormGroup;
-    if (!group.controls.password.value) {
-      group.controls.password.setErrors({ required: true });
-      return { require: true };
-    } else if (
+  static confirmPasswordValidator(group: FormGroup): ValidationErrors {
+    const password =
+      group.controls.password.value && group.controls.password.value.trim();
+    const confirmPassword =
       group.controls.confirmPassword.value &&
-      group.controls.password.value.trim() !==
-        group.controls.confirmPassword.value.trim()
-    ) {
+      group.controls.confirmPassword.value.trim();
+    if (!password || !confirmPassword) {
+      return null;
+    } else if (password !== confirmPassword) {
       group.controls.confirmPassword.setErrors({ confirm: true });
-      return { confirm: true };
+      return;
     }
-    group.controls.password.setErrors(null);
-    group.controls.confirmPassword.setErrors(null);
-    return null;
   }
 
   static passwordRules(control: AbstractControl): ValidationErrors {

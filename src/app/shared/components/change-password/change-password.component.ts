@@ -25,9 +25,9 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit() {
     this.pwChangeForm = this.fb.group(
       {
-        currentPassword: [null, TValidators.required],
-        password: [null, [TValidators.required, TValidators.passwordRules]],
-        confirmPassword: [null, TValidators.required],
+        currentPassword: ['', TValidators.required],
+        password: ['', [TValidators.required, TValidators.passwordRules]],
+        confirmPassword: ['', TValidators.required],
       },
       { validators: [TValidators.confirmPasswordValidator] }
     );
