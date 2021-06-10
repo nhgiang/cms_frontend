@@ -19,7 +19,7 @@
   </div>
   <nz-table [nzData]="items" [nzShowTotal]="totalTemplate" [nzNoResult]="empty" [nzFrontPagination]="false"
     [nzPageSize]="quantity" [nzTotal]="meta?.totalItems" [(nzPageIndex)]="page"
-    (nzQueryParams)="onParamsChanged($event)" [nzLoading]="isloading" nzTableLayout="fixed">
+    (nzQueryParams)="onParamsChanged($event)" [nzLoading]="isloading" nzTableLayout="fixed" [nzScroll]="1440">
     <thead>
       <tr>
         <th scope="col" nzWidth="50px">ID</th>
@@ -39,7 +39,7 @@
         <td class="text-center">{{item?.view}}</td>
         <td class="text-center">{{item?.like}}</td>
         <td class="text-center">{{item?.disLike}}</td>
-        <td>{{item?.updatedAt | date:'dd/MM/YYYY hh:mm'}}</td>
+        <td>{{item?.updatedAt | date:'dd/MM/YYYY HH:mm'}}</td>
         <td>{{item?.name}}</td>
         <td>
           <div class="d-flex justify-content-end">
