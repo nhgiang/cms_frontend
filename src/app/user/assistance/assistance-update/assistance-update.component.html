@@ -55,7 +55,6 @@
         <div class="col-md-6">
           <nz-form-item>
             <nz-form-label [nzSpan]="6"
-                           nzRequired
                            class="text-left">Password</nz-form-label>
             <nz-form-control [nzErrorTip]="errorPasswordTpl">
               <nz-input-group [nzPrefix]="prefixLock"
@@ -64,7 +63,6 @@
                        nz-input
                        formControlName="password"
                        placeholder="Nhập mật khẩu"
-                       required
                        autocomplete="off">
               </nz-input-group>
               <ng-template #errorPasswordTpl

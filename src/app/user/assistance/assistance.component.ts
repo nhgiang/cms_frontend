@@ -46,15 +46,15 @@ export class AssistanceComponent extends DataTableContainer<User> implements OnI
     return this.teacherApi.getList({ ...params, q });
   }
 
-  deleteTeacher(id: string) {
+  deleteAssistance(id: string) {
     const next = () => {
       this.refresh();
-      this.notification.success('Thành công', 'Xóa thông tin giảng viên thành công!');
+      this.notification.success('Thành công', 'Xóa thông tin nhân viên thành công!');
     };
     const error = () => {
-      this.notification.success('Thất bại', 'Xóa thông tin giảng viên thất bại!');
+      this.notification.error('Thất bại', 'Xóa thông tin nhân viên thất bại!');
     };
-    // this.teacherApi.delete(id).subscribe(next, error);
+    this.teacherApi.delete(id).subscribe(next, error);
   }
 
   buildform() {

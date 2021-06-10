@@ -5,6 +5,7 @@ import { AssistanceApiService } from '@shared/api/assistance.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { switchMap, finalize } from 'rxjs/operators';
 import { User } from 'types/typemodel';
 
@@ -24,14 +25,15 @@ export class AssistanceUpdateComponent implements OnInit {
     private storageApi: StorageApiService,
     private assistanceApi: AssistanceApiService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
       email: [null, [TValidators.required, TValidators.emailRules]],
       fullName: [null, [TValidators.required]],
-      password: [null],
+      password: [null, TValidators.passwordRules],
       phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]],
       bio: [null, TValidators.required],
       avatar: [null, TValidators.required]
@@ -40,8 +42,6 @@ export class AssistanceUpdateComponent implements OnInit {
     this.assistanceApi.getById(assistanceId).subscribe(res => {
       this.assistance = res;
       this.form.patchValue(res);
-      console.log(this.form)
-
     });
   }
 
@@ -53,14 +53,16 @@ export class AssistanceUpdateComponent implements OnInit {
         const data = {
           ...this.form.value,
           avatar: url,
+          id: this.assistance.id
         };
-        Object.keys(data).forEach(k => data[k] = data[k].trim());
         return this.assistanceApi.update(this.assistance.id, data);
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(() => {
       this.router.navigate(['../'], { relativeTo: this.route });
+      this.notification.success('Thành công', 'Cập nhật thông tin nhân viên thành công!');
     }, err => {
+      console.log(err)
       if (err.error.statusCode === 409) {
         this.form.get('email').setErrors({ notUnique: true });
       }
