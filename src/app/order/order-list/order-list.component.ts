@@ -88,7 +88,7 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
     this.activity.start(`${index}downloading`);
     this.invoiceApi.download(id).pipe(finalize(() => this.activity.stop(`${index}downloading`))).subscribe({
       error: err => {
-        if (err.status === 408) {
+        if (err.status === 0) {
           this.notification.error('Lỗi', 'Kết nối mạng không ổn định. Vui lòng thử lại');
         }
       }
