@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { User } from '../interfaces/user.type';
 import { environment } from '@env';
 import { TokenService } from './token.service';
+import { User } from 'types/typemodel';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {

@@ -1,0 +1,106 @@
+<nz-card>
+  <div class="row m-b-30">
+    <div class="col-lg-8">
+      <form nz-form
+            [formGroup]="search">
+        <div class="d-md-flex">
+          <div class="m-b-10 m-r-20">
+            <nz-input-group style="min-width: 275px;"
+                            [nzPrefix]="prefixTemplate">
+              <input type="text"
+                     nz-input
+                     placeholder="Tìm kiếm theo họ tên, email hoặc số điện thoại"
+                     formControlName="q">
+            </nz-input-group>
+            <ng-template #prefixTemplate>
+              <i nz-icon
+                 nzType="search"
+                 class="opacity-05"></i>
+            </ng-template>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg-4 text-right">
+      <a routerLink="create"
+         nz-button
+         nzType="primary">
+        <span>Thêm mới</span>
+      </a>
+    </div>
+  </div>
+  <nz-table [nzShowTotal]="totalTemplate"
+            [nzNoResult]="empty"
+            #productsListTable
+            [nzFrontPagination]="false"
+            [nzData]="items"
+            [nzTotal]="meta?.totalItems"
+            (nzQueryParams)="onParamsChanged($event)"
+            [nzPageSize]="quantity"
+            [nzLoading]="isloading"
+            [(nzPageIndex)]="page"
+            nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th [nzWidth]="'70px'"
+            scope="col">ID</th>
+        <th scope="col">Tên nhân viên</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Mô tả</th>
+        <th scope="col"
+            [nzWidth]="'120px'"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of productsListTable.data;  let i=index">
+        <td>#{{item?.index}}</td>
+        <td>
+          <div class="d-flex align-items-center">
+            <nz-avatar nzShape="square"
+                       [nzSize]="28"
+                       nzIcon="picture"
+                       [nzSrc]="item?.avatar"></nz-avatar>
+            <span class="m-l-10">{{item?.fullName}}</span>
+          </div>
+        </td>
+        <td nzEllipsis>{{item?.email}}</td>
+        <td>{{item?.phoneNumber}}</td>
+        <td nzEllipsis>{{item?.bio}}</td>
+        <td class="text-md-right">
+          <div class="d-flex">
+            <a [routerLink]="[item?.id]"
+               class="m-r-5"
+               nz-button
+               nzType="default"
+               nzShape="circle"
+               nz-tooltip
+               nzTooltipTitle="Chỉnh sửa">
+              <i nz-icon
+                 nzType="edit"
+                 theme="outline"></i>
+            </a>
+            <div (confirmed)="deleteAssistance(item?.id)"
+                 [confirmation]="'Bạn có chắc muốn xóa thông tin nhân viên này hay không?'">
+              <a class="m-r-5"
+                 nz-button
+                 nzType="default"
+                 nzShape="circle"
+                 nz-tooltip
+                 nzTooltipTitle="Xóa">
+                <i nz-icon
+                   nzType="close"
+                   nzTheme="outline"></i>
+              </a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
+<ng-template #totalTemplate
+             let-total> Tổng cộng: {{ total }} </ng-template>
