@@ -55,7 +55,6 @@ export class OrderDetailComponent implements OnInit {
       }
       if (this.order.paymentMethod === PaymentMethod.VNPay) {
         this.form.get('bankCode').setValue(PaymentMethod.VNPay)
-        this.form.get('bankCode').disable();
       }
     });
     this.form.get('status').valueChanges.subscribe(val => {
