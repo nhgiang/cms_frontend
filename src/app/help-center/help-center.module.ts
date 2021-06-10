@@ -7,6 +7,8 @@ import { HelpCenterRoutes } from './help-center.routing';
 import { HelpCenterCreateComponent } from './help-center-create/help-center-create.component';
 import { HelpCenterEditComponent } from './help-center-edit/help-center-edit.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from '@shared/interceptor/token.interceptor';
 
 
 @NgModule({
@@ -16,6 +18,12 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     HelpCenterRoutes,
     SharedModule,
     AngularEditorModule
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor, multi: true
+    },
   ]
 })
 export class HelpCenterModule { }
