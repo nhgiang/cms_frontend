@@ -113,6 +113,7 @@ export interface DataTableColumnMetaData {
   name: string;
   sortable: boolean;
   width?: string;
+  class?: string;
   sortOrder?: string;
 }
 export interface CourseType {

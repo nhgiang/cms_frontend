@@ -22,11 +22,12 @@
     (nzQueryParams)="onParamsChanged($event)" [nzLoading]="isloading" nzTableLayout="fixed">
     <thead>
       <tr>
-        <th scope="col">ID</th>
+        <th scope="col" nzWidth="50px">ID</th>
         <ng-container *ngFor="let item of metaData">
-          <th *ngIf="item.sortable" [nzWidth]="item.width" [nzSortFn]="item.sortable" scope="col"
+          <th [ngClass]="item.class" *ngIf="item.sortable" [nzWidth]="item.width" [nzSortFn]="item.sortable" scope="col"
             [nzColumnKey]="item.key" [nzSortOrder]="item.sortOrder">{{item.name}}</th>
-          <th *ngIf="!item.sortable" [nzWidth]="item.width" scope="col" [nzColumnKey]="item.key">{{item.name}}</th>
+          <th *ngIf="!item.sortable" [ngClass]="item.class" [nzWidth]="item.width" scope="col" [nzColumnKey]="item.key">
+            {{item.name}}</th>
         </ng-container>
         <th scope="col" nzWidth="150px"></th>
       </tr>
@@ -35,9 +36,9 @@
       <tr *ngFor="let item of items">
         <td>#{{item?.index}}</td>
         <td>{{item?.title}}</td>
-        <td>{{item?.view}}</td>
-        <td>{{item?.like}}</td>
-        <td>{{item?.disLike}}</td>
+        <td class="text-center">{{item?.view}}</td>
+        <td class="text-center">{{item?.like}}</td>
+        <td class="text-center">{{item?.disLike}}</td>
         <td>{{item?.lastModified | date:'dd/MM/YYYY hh:mm'}}</td>
         <td>{{item?.name}}</td>
         <td>
