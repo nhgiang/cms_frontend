@@ -111,9 +111,21 @@ export const CommonLayoutRoutes: Routes = [
     },
   },
   {
+    path: 'analytics',
+    loadChildren: () =>
+      import('src/app/analytics/analytics.module').then(
+        (m) => m.AnalyticsModule
+      ),
+    data: {
+      title: 'Báo cáo',
+    },
+  },
+  {
     path: 'settings-help',
     loadChildren: () =>
-      import('src/app/help-center/help-center.module').then((m) => m.HelpCenterModule),
+      import('src/app/help-center/help-center.module').then(
+        (m) => m.HelpCenterModule
+      ),
     data: {
       title: 'Cài đặt bài viết hướng dẫn',
     },

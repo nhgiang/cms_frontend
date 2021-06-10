@@ -7,6 +7,9 @@ import { LecturerUpdateComponent } from './lecturer/lecturer-update/lecturer-upd
 import { LecturerComponent } from './lecturer/lecturer.component';
 import { StudentDetailComponent } from './student/student-detail/student-detail.component';
 import { StudentComponent } from './student/student.component';
+import { AssistanceComponent } from './assistance/assistance.component';
+import { AssistanceCreateComponent } from './assistance/assistance-create/assistance-create.component';
+import { AssistanceUpdateComponent } from './assistance/assistance-update/assistance-update.component';
 
 
 @NgModule({
@@ -15,7 +18,10 @@ import { StudentComponent } from './student/student.component';
     StudentDetailComponent,
     LecturerComponent,
     LecturerCreateComponent,
-    LecturerUpdateComponent
+    LecturerUpdateComponent,
+    AssistanceComponent,
+    AssistanceCreateComponent,
+    AssistanceUpdateComponent
   ],
   imports: [
     CommonModule,
