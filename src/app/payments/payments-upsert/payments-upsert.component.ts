@@ -81,7 +81,7 @@ export class PaymentsUpsertComponent implements OnInit {
           const thisPayment = this.paymentsForm.value;
           thisPayment.image = fileNames[1];
           thisPayment.imageActive = fileNames[0];
-          thisPayment.method = 'Bank'; 
+          thisPayment.method = 'Bank';
 
           if (this.targetEditIndex !== null) {
             this.paymentsList[this.targetEditIndex] = thisPayment;
