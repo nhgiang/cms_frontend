@@ -21,35 +21,39 @@ export class HelpCenterListComponent extends DataTableContainer<HelpCenter> impl
       key: 'title',
       name: 'Tên bài viết hướng dẫn sử dụng',
       sortable: false,
-      width: '400px'
+      width: '300px'
     },
     {
       key: 'view',
       name: 'Lượt xem',
       sortable: false,
-      class: 'text-center'
+      class: 'text-center',
+      width: '100px'
     }, {
       key: 'like',
       name: 'Like',
       sortable: false,
-      class: 'text-center'
+      class: 'text-center',
+      width: '100px'
     },
     {
       key: 'disLike',
       name: 'Dislike',
       sortable: false,
-      class: 'text-center'
+      class: 'text-center',
+      width: '100px'
     },
     {
       key: 'created',
       name: 'Ngày cập nhật',
       sortable: false,
+      width: '150px'
     },
     {
       key: 'name',
       name: 'Người cập nhật',
       sortable: false,
-      width: '300px'
+      width: '200px'
     }
   ];
   constructor(
