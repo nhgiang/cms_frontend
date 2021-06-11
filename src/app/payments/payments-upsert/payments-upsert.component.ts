@@ -48,7 +48,10 @@ export class PaymentsUpsertComponent implements OnInit {
       imageActive: [targetEdit?.imageActive, TValidators.required],
       bankName: [targetEdit?.bankName, TValidators.required],
       bankCode: [targetEdit?.bankCode, TValidators.required],
-      accountNumber: [targetEdit?.accountNumber, TValidators.required],
+      accountNumber: [
+        targetEdit?.accountNumber,
+        [TValidators.required, TValidators.onlyNumber()],
+      ],
       accountName: [targetEdit?.accountName, TValidators.required],
       branch: [targetEdit?.branch, TValidators.required],
     });

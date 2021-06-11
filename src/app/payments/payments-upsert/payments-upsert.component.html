@@ -41,9 +41,17 @@
     <nz-form-label class="text-left" [nzSm]="8" nzRequired
       >Số tài khoản</nz-form-label
     >
-    <nz-form-control [nzSm]="16" nzErrorTip="Vui lòng nhập số tài khoản">
+    <nz-form-control [nzSm]="16" [nzErrorTip]="accountError">
       <input nz-input formControlName="accountNumber" />
     </nz-form-control>
+    <ng-template #accountError let-control="$implicit">
+      <ng-container *ngIf="control.errors.required">
+        Vui lòng nhập số tài khoản ngân hàng
+      </ng-container>
+      <ng-container *ngIf="control.errors.onlyNumber">
+        Tài khoản ngân hàng không hợp lệ
+      </ng-container>
+    </ng-template>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label class="text-left" [nzSm]="8" nzRequired
