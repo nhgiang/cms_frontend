@@ -76,7 +76,8 @@ export class HelpCenterEditComponent implements OnInit {
       return this.helpCenterApiService.edit(this.id, this.form.value);
     })).subscribe(res => {
       this.notification.success('Thành công', 'Sửa bài viết thành công');
-      this.router.navigate(['/settings-help/help-center/list']);
+      // location.href = '/settings-help/help-center/list';
+      this.router.navigateByUrl('/settings-help/help-center/list');
     }, (err) => {
       this.notification.error('Thất bại', 'Sửa bài viết thất bại');
     });

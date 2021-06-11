@@ -17,7 +17,7 @@ export class PostsApiService extends BaseApi {
   }
 
   getById(id) {
-    return this.httpClient.get<any>(this.createUrl(`/${id}`));
+    return this.httpClient.get<any>(this.createUrl(`/admin/${id}`));
   }
 
   create(body: string) {

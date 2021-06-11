@@ -5,7 +5,7 @@
         <div class="d-md-flex justify-content-between">
           <div class="d-flex">
             <div class="m-b-10 m-r-20">
-              <nz-select style="width: 300px;" formControlName="mode" nzAllowClear nzPlaceHolder="Chế độ xem">
+              <nz-select style="width: 300px;" formControlName="mode" nzPlaceHolder="Chế độ xem">
                 <nz-option nzValue="Date" nzLabel="Xem theo ngày"></nz-option>
                 <nz-option nzValue="Month" nzLabel="Xem theo tháng"></nz-option>
               </nz-select>
@@ -24,15 +24,19 @@
       </form>
     </div>
 
-    <div>
-      <div>Dòng tiền vào</div>
-      <div>112,889.vnđ</div>
+    <div style="margin-top: 50px">
+      <div class="title">Dòng tiền vào</div>
+      <div class="content">{{totalMoney}} VND</div>
     </div>
 
-    <div style="margin-top: 150px!important" class="w-75 h-75 m-auto">
-      <canvas ngChartjs [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-        [colors]="barChartColors" [legend]="barChartLegend" [chartType]="barChartType">
-      </canvas>
+    <div class="d-flex justify-content-center w-100 h-100">
+      <div class="chart" style="min-height: 300px;">
+        <canvas ngChartjs [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+          [colors]="barChartColors" [legend]="barChartLegend" [chartType]="barChartType"
+          [inlinePlugins]="inlinePlugins">
+        </canvas>
+      </div>
     </div>
+
   </div>
 </nz-card>
