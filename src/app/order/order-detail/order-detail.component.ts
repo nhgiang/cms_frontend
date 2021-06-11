@@ -53,9 +53,6 @@ export class OrderDetailComponent implements OnInit {
       if (this.order.status === this.invoiceStatus.Success) {
         this.form.get('status').disable();
       }
-      if (this.order.paymentMethod === PaymentMethod.VNPay) {
-        this.form.get('bankCode').setValue(PaymentMethod.VNPay)
-      }
     });
     this.form.get('status').valueChanges.subscribe(val => {
       if (val !== this.invoiceStatus.Success) {

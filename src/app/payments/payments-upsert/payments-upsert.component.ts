@@ -48,7 +48,10 @@ export class PaymentsUpsertComponent implements OnInit {
       imageActive: [targetEdit?.imageActive, TValidators.required],
       bankName: [targetEdit?.bankName, TValidators.required],
       bankCode: [targetEdit?.bankCode, TValidators.required],
-      accountNumber: [targetEdit?.accountNumber, TValidators.required],
+      accountNumber: [
+        targetEdit?.accountNumber,
+        [TValidators.required, TValidators.onlyNumber()],
+      ],
       accountName: [targetEdit?.accountName, TValidators.required],
       branch: [targetEdit?.branch, TValidators.required],
     });
@@ -81,7 +84,7 @@ export class PaymentsUpsertComponent implements OnInit {
           const thisPayment = this.paymentsForm.value;
           thisPayment.image = fileNames[1];
           thisPayment.imageActive = fileNames[0];
-          thisPayment.method = 'Bank'; 
+          thisPayment.method = 'Bank';
 
           if (this.targetEditIndex !== null) {
             this.paymentsList[this.targetEditIndex] = thisPayment;
