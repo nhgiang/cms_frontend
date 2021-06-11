@@ -231,6 +231,23 @@ export const ROUTES: SideNavInterface[] = [
     submenu: [],
   },
   {
+    path: 'reports',
+    title: 'Báo cáo',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'team',
+    submenu: [
+      {
+        path: 'revenue',
+        title: 'Báo cáo doanh thu',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'customer-service',
+        submenu: []
+      }
+    ],
+  },
+  {
     path: 'settings-help',
     title: 'Cài đặt bài viết hướng dẫn',
     iconType: 'nzIcon',

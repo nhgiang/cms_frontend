@@ -130,4 +130,12 @@ export const CommonLayoutRoutes: Routes = [
       title: 'Cài đặt bài viết hướng dẫn',
     },
   },
+  {
+    path: 'reports',
+    loadChildren: () =>
+      import('src/app/reports/reports.module').then((m) => m.ReportsModule),
+    data: {
+      title: 'Báo cáo',
+    },
+  },
 ];
