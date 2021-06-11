@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { AngularEditorConfig, AngularEditorService } from '@kolkov/angular-editor';
 import { API_BASE_URL } from '@shared/api/base-url';
 import { HelpCenterApiService } from '@shared/api/help-center.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
@@ -13,9 +13,12 @@ import { switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-help-center-edit',
   templateUrl: './help-center-edit.component.html',
-  styleUrls: ['./help-center-edit.component.scss']
+  styleUrls: ['./help-center-edit.component.scss'],
+  providers: [AngularEditorService
+
+  ]
 })
-export class HelpCenterEditComponent implements OnInit {
+export class HelpCenterEditComponent {
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -25,7 +28,6 @@ export class HelpCenterEditComponent implements OnInit {
     placeholder: 'Enter text here...',
     translate: 'no',
     defaultParagraphSeparator: 'p',
-    defaultFontName: 'Times New Roman',
     customClasses: [
       {
         name: 'quote',
@@ -45,6 +47,7 @@ export class HelpCenterEditComponent implements OnInit {
   };
   form: FormGroup;
   id: string;
+  ready = false;
 
   constructor(
     private fb: FormBuilder,
@@ -65,20 +68,18 @@ export class HelpCenterEditComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
-
-  submit() {
+  async submit() {
+    // await of(1).pipe(delay(1000)).toPromise();
+    // return this.router.navigateByUrl('/settings-help/help-center/list');
     Ultilities.validateForm(this.form);
     this.storageApi.uploadFile(this.form.value.coverImage).pipe(switchMap(url => {
       const body = this.form.value;
       body.coverImage = url;
       return this.helpCenterApiService.edit(this.id, this.form.value);
-    })).subscribe(res => {
-      this.notification.success('Thành công', 'Sửa bài viết thành công');
-      // location.href = '/settings-help/help-center/list';
+    })).subscribe(() => {
       this.router.navigateByUrl('/settings-help/help-center/list');
-    }, (err) => {
+      // this.notification.success('Thành công', 'Sửa bài viết thành công');
+    }, () => {
       this.notification.error('Thất bại', 'Sửa bài viết thất bại');
     });
   }
