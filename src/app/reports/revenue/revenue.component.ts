@@ -104,7 +104,9 @@ export class RevenueComponent implements OnInit {
     this.form.valueChanges.pipe(map(val => {
       return { mode: val.mode, startDate: new Date(val.startDate).toISOString(), endDate: new Date(val.endDate).toISOString() };
     })).subscribe(val => {
-      this.getData(val);
+      if (val.startDate && val.endDate) {
+        this.getData(val);
+      }
       return val;
     });
     this.getData(this.form.value);
