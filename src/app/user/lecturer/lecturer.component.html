@@ -43,8 +43,8 @@
         <td>#{{item?.index}}</td>
         <td>
           <div class="d-flex align-items-center">
-            <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item?.avatar"></nz-avatar>
-            <span class="m-l-10">{{item?.fullName}}</span>
+            <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item?.avatar" style="min-width: 28px"></nz-avatar>
+            <span class="m-l-10 truncate-1">{{item?.fullName}}</span>
           </div>
         </td>
         <td nzEllipsis>{{item?.specializationName}}</td>

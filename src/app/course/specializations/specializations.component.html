@@ -12,10 +12,13 @@
               (nzQueryParams)="onParamsChanged($event)"
               [(nzPageIndex)]="page"
               [nzShowTotal]="totalTemplate"
-              [nzNoResult]="empty">
+              [nzNoResult]="empty"
+              [nzTotal]="meta?.totalItems"
+              [nzFrontPagination]="false">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col"
+              [nzWidth]="'150px'">ID</th>
           <th scope="col">Tên chuyên môn</th>
           <th scope="col"
               [nzWidth]="'120px'"></th>
