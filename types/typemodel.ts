@@ -1,4 +1,4 @@
-import { ContactStatus, InvoiceStatus, InvoiceType, PaymentMethod, UserStatus } from './enums';
+import { ContactStatus, EventStatus, InvoiceStatus, InvoiceType, PaymentMethod, UserStatus } from './enums';
 
 export interface QueryResult<T> {
   meta: Meta;
@@ -156,6 +156,7 @@ export interface EventEntity extends Entity {
   totalParticipant: number;
   gifts: string;
   type: EventType;
+  status: EventStatus;
 }
 
 export interface Invoice extends Entity {

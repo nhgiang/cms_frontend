@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { EventStatus, EventStatusOptions } from 'types/enums';
 import { EventEntity, QueryResult } from 'types/typemodel';
+import * as moment from 'moment';
 
 
 @Component({
@@ -56,6 +57,21 @@ export class EventListComponent extends DataTableContainer<EventEntity> implemen
     return this.eventTypeApi.getList(params).pipe(map(res => res.items.map(x => {
       return { value: x.id, label: x.title };
     })));
+  }
+
+  protected handleResult(result: QueryResult<EventEntity>) {
+    this.meta = result.meta;
+    this.items = result.items.map((item: EventEntity, index) => {
+      let status = item.status;
+      if (status === EventStatus.Submitted && !moment().isBefore(item.startAt)) {
+        status = moment().isBetween(item.startAt, item.endAt) ? EventStatus.Happening : EventStatus.Done;
+      }
+      return {
+        ...item,
+        index: index + 1 + (this.page - 1) * this.quantity,
+        status
+      };
+    });
   }
 
   buildForm() {

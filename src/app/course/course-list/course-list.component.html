@@ -80,9 +80,9 @@
             <nz-avatar nzShape="square"
                        [nzSize]="28"
                        nzIcon="picture"
-                       [nzSrc]="item.teacherAvatar">
+                       [nzSrc]="item.teacherAvatar" style="min-width: 28px;">
             </nz-avatar>
-            <span class="m-l-10 text-nowrap"
+            <span class="m-l-10"
                   [title]="item?.teacherName">
               {{item?.teacherName | truncate: 30}}
             </span>
