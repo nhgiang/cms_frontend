@@ -35,9 +35,12 @@ export class EventListComponent extends DataTableContainer<EventEntity> implemen
   ngOnInit(): void {
     super.ngOnInit();
     this.buildForm();
-    this.search.patchValue(this.params, { emitEvent: false });
+    this.search.patchValue({
+      ...this.params,
+      status: this.params.status === 'GoingToHappen' ? 'Submitted' : this.params.status
+    }, { emitEvent: false });
     this.search.valueChanges.pipe(debounceTime(500)).subscribe(value => {
-      this.onSearchParamsChanged(value);
+      this.onSearchParamsChanged({ ...value, status: value.status === 'Submitted' ? 'GoingToHappen' : value.status });
     });
   }
 
