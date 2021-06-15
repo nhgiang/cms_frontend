@@ -5,6 +5,7 @@ import * as fns from 'date-fns';
 import { sum } from 'lodash-es';
 import { map } from 'rxjs/operators';
 import { getMonth, getYear } from 'date-fns';
+import { Meta } from 'types/typemodel';
 @Component({
   selector: 'app-revenue',
   templateUrl: './revenue.component.html',
@@ -24,7 +25,7 @@ export class RevenueComponent implements OnInit {
           display: false,
           labelString: 'Month'
         },
-        gridLines: false,
+        gridLines: true,
         ticks: {
           display: true,
           beginAtZero: true,
@@ -57,10 +58,13 @@ export class RevenueComponent implements OnInit {
         }
       }]
     },
-    options: {
-      plugins: {
-        tooltip: {
-          enabled: false
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (val) {
+            console.log(val);
+            return 'aaavs'
+          }
         }
       }
     }
@@ -94,7 +98,7 @@ export class RevenueComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       mode: ['Date'],
-      startDate: [fns.subYears(new Date, 1).toISOString()],
+      startDate: [fns.subYears(new Date(), 1).toISOString()],
       endDate: [new Date().toISOString()]
     });
 
@@ -140,7 +144,7 @@ export class RevenueComponent implements OnInit {
   customLabelX(label, index, labels) {
     if (this.form?.get('mode')?.value === 'Month') {
       const date = label.split('/');
-      return `Tháng ${getMonth(new Date(date[2], date[1], date[0])) + 1}/${getYear(new Date(date[2], date[1], date[0]))}`;
+      return `Tháng ${getMonth(new Date(date[2], date[1], date[0]))}/${getYear(new Date(date[2], date[1], date[0]))}`;
     }
     return label;
   }

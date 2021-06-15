@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { AngularEditorConfig, AngularEditorService } from '@kolkov/angular-editor';
 import { EventTypeApiService } from '@shared/api/event-type.api.service';
 import { EventApiService } from '@shared/api/event.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import { FixFontEditorDirective } from '@shared/services/fix-font-editor-service.ts/fix-font-editor.directive';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, map, switchMap } from 'rxjs/operators';
 import { EventStatus } from 'types/enums';
@@ -15,7 +16,8 @@ import { EventEntity } from 'types/typemodel';
 @Component({
   selector: 'app-event-detail',
   templateUrl: './event-detail.component.html',
-  styleUrls: ['./event-detail.component.scss']
+  styleUrls: ['./event-detail.component.scss'],
+  providers: [FixFontEditorDirective, AngularEditorService]
 })
 export class EventDetailComponent implements OnInit {
   form: FormGroup;

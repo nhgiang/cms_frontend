@@ -21,7 +21,7 @@ import { Option } from '@shared/interfaces/option.type';
 export class LecturerUpdateComponent implements OnInit {
   form: FormGroup;
   avatarUrl: string;
-  teacher: User;
+  teacher: any;
   isPasswordVisible: boolean;
   image: FileModel;
   isLoading: boolean;
@@ -33,7 +33,7 @@ export class LecturerUpdateComponent implements OnInit {
     private teacherApi: TeacherApiService,
     private router: Router,
     private specializationApi: SpecializationApiService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.data.subscribe((data) => {

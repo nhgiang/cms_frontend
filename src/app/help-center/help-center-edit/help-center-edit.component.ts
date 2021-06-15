@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig, AngularEditorService } from '@kolkov/angular-editor';
@@ -7,6 +7,7 @@ import { HelpCenterApiService } from '@shared/api/help-center.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import { FixFontEditorDirective } from '@shared/services/fix-font-editor-service.ts/fix-font-editor.directive';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { switchMap } from 'rxjs/operators';
 
@@ -14,9 +15,7 @@ import { switchMap } from 'rxjs/operators';
   selector: 'app-help-center-edit',
   templateUrl: './help-center-edit.component.html',
   styleUrls: ['./help-center-edit.component.scss'],
-  providers: [AngularEditorService
-
-  ]
+  providers: [FixFontEditorDirective, AngularEditorService]
 })
 export class HelpCenterEditComponent {
 
@@ -57,7 +56,10 @@ export class HelpCenterEditComponent {
     private route: ActivatedRoute,
     @Inject(API_BASE_URL) protected hostUrl: string,
     private storageApi: StorageApiService,
+    private angularEditorService: AngularEditorService,
+    private renderer2: Renderer2
   ) {
+    // super(hostUrl, angularEditorService, renderer2);
     this.form = this.fb.group({
       title: [null, [TValidators.required, TValidators.maxLength(300)]],
       content: [null, [TValidators.required]],
@@ -76,7 +78,7 @@ export class HelpCenterEditComponent {
       return this.helpCenterApiService.edit(this.id, this.form.value);
     })).subscribe(() => {
       this.router.navigateByUrl('/settings-help/help-center/list');
-      // this.notification.success('Thành công', 'Sửa bài viết thành công', { nzDuration: 3000 });
+      this.notification.success('Thành công', 'Sửa bài viết thành công', { nzDuration: 3000 });
     });
   }
 }

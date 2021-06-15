@@ -11,11 +11,15 @@
               </nz-select>
             </div>
             <div class="m-b-10 m-r-20">
-              <nz-date-picker nzFormat="dd/MM/yyyy" formControlName="startDate" nzPlaceHolder="Từ ngày">
+              <nz-date-picker [nzMode]="form.get('mode').value === 'Date'?  'date' : 'month'"
+                [nzFormat]=" form.get('mode').value === 'Date'? 'dd/MM/yyyy' : 'MM/yyyy'" formControlName="startDate"
+                nzPlaceHolder="Từ ngày">
               </nz-date-picker>
             </div>
             <div>
-              <nz-date-picker nzFormat="dd/MM/yyyy" formControlName="endDate" nzPlaceHolder="Đên ngày"></nz-date-picker>
+              <nz-date-picker [nzMode]="form.get('mode').value === 'Date'?  'date' : 'month'"
+                [nzFormat]=" form.get('mode').value === 'Date'? 'dd/MM/yyyy' : 'MM/yyyy'" formControlName="startDate"
+                formControlName="endDate" nzPlaceHolder="Đên ngày"></nz-date-picker>
             </div>
           </div>
           <div><a routerLink="/settings-help/help-center/create" nz-button nzType="primary"> Xem chi tiết

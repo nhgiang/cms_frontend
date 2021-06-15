@@ -34,6 +34,7 @@ import { ToImagePipe } from './pipes/to-image.pipe';
 import { NameTeacherPipe } from './pipes/name-teacher.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { FixFontEditorDirective } from './services/fix-font-editor-service.ts/fix-font-editor.directive';
 
 @NgModule({
   exports: [
@@ -70,6 +71,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     SafeUrlPipe,
     TruncatePipe,
     ChangePasswordComponent,
+    FixFontEditorDirective
   ],
   imports: [
     RouterModule,
@@ -107,7 +109,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     TruncatePipe,
     NameTeacherPipe,
     ChangePasswordComponent,
+    FixFontEditorDirective
   ],
   providers: [ThemeConstantService],
 })
-export class SharedModule {}
+export class SharedModule { }

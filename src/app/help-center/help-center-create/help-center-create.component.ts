@@ -1,19 +1,21 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { AngularEditorConfig, AngularEditorService } from '@kolkov/angular-editor';
 import { API_BASE_URL } from '@shared/api/base-url';
 import { HelpCenterApiService } from '@shared/api/help-center.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import { FixFontEditorDirective } from '@shared/services/fix-font-editor-service.ts/fix-font-editor.directive';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-help-center-create',
   templateUrl: './help-center-create.component.html',
-  styleUrls: ['./help-center-create.component.scss']
+  styleUrls: ['./help-center-create.component.scss'],
+  providers: [FixFontEditorDirective, AngularEditorService]
 })
 export class HelpCenterCreateComponent implements OnInit {
 

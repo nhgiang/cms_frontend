@@ -1,20 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { AngularEditorConfig, AngularEditorService } from '@kolkov/angular-editor';
 import { API_BASE_URL } from '@shared/api/base-url';
 import { PostTypesApiService } from '@shared/api/post-types.api.service';
 import { PostsApiService } from '@shared/api/posts.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import { FixFontEditorDirective } from '@shared/services/fix-font-editor-service.ts/fix-font-editor.directive';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-blog-create',
   templateUrl: './blog-create.component.html',
-  styleUrls: ['./blog-create.component.scss']
+  styleUrls: ['./blog-create.component.scss'],
+  providers: [FixFontEditorDirective, AngularEditorService]
 })
 export class BlogCreateComponent implements OnInit {
   form: FormGroup;
