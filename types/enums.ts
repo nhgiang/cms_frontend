@@ -9,24 +9,24 @@ export enum UploaderStatus {
   NotSelected,
   Selected,
   InProgress,
-  Completed
+  Completed,
 }
 
 export enum AssetType {
   undefined = 0,
   Video,
   Image,
-  File
+  File,
 }
 
 export enum FileUploadErrors {
   Size = 1,
-  Type = 2
+  Type = 2,
 }
 
 export enum ContactStatus {
   NotContactedYet = 'NotContactedYet',
-  Contacted = 'Contacted'
+  Contacted = 'Contacted',
 }
 
 export enum UnitAndTest {
@@ -86,3 +86,7 @@ export enum PaymentMethod {
   VNPay = 'VNPay',
 }
 
+export enum AccountType {
+  Course = 'Gói lẻ',
+  Membership = 'Membership',
+}

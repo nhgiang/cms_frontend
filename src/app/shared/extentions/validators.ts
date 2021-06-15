@@ -72,6 +72,18 @@ export class TValidators extends Validators {
       };
     };
 
+  static numberRange =
+    (min: number, max: number) =>
+    (control: AbstractControl): ValidationErrors => {
+      if (control.value) {
+        const value = Number(control.value.trim());
+        if (typeof value === "number" && value <= max && value >= min) return null;
+        return {
+          numberRange: true,
+        };
+      }
+    };
+
   static emailRules(control: AbstractControl): ValidationErrors {
     if (!control.value) {
       return null;

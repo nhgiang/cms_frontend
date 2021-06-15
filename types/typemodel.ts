@@ -1,4 +1,11 @@
-import { ContactStatus, EventStatus, InvoiceStatus, InvoiceType, PaymentMethod, UserStatus } from './enums';
+import {
+  ContactStatus,
+  EventStatus,
+  InvoiceStatus,
+  InvoiceType,
+  PaymentMethod,
+  UserStatus,
+} from './enums';
 
 export interface QueryResult<T> {
   meta: Meta;
@@ -37,6 +44,7 @@ export interface User extends Entity {
   specializationName: string;
   index?: number;
   bio: string;
+  data?: any;
 }
 
 export interface TeacherCreateCommand {

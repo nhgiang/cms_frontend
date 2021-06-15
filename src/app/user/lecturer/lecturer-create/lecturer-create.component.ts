@@ -30,7 +30,7 @@ export class LecturerCreateComponent implements OnInit {
     private teacherApi: TeacherApiService,
     private router: Router,
     private specializationApi: SpecializationApiService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -40,29 +40,43 @@ export class LecturerCreateComponent implements OnInit {
       password: ['', [TValidators.required, TValidators.passwordRules]],
       phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]],
       bio: [null, TValidators.required],
+      royaltyPercentage: [
+        null,
+        [TValidators.required, TValidators.numberRange(0, 100)],
+      ],
     });
   }
 
   submitForm(): void {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.storageApi.uploadFile(this.image.file ?? this.avatarUrl, this.image.fileName).pipe(
-      switchMap((url) => {
-        const data = {
-          avatar: url,
-          ...this.form.value,
-        };
-        Object.keys(data).forEach(k => data[k] = data[k].trim());
-        return this.teacherApi.create(data);
-      }),
-      finalize(() => this.isLoading = false)
-    ).subscribe(() => {
-      this.router.navigate(['/user/lecturer']);
-    }, err => {
-      if (err.error.statusCode === 409) {
-        this.form.get('email').setErrors({ notUnique: true });
-      }
-    });
+    this.storageApi
+      .uploadFile(this.image.file ?? this.avatarUrl, this.image.fileName)
+      .pipe(
+        switchMap((url) => {
+          const { royaltyPercentage, ...rest } = this.form.value;
+          const data = {
+            avatar: url,
+            ...rest,
+            data: {
+              royaltyPercentage: royaltyPercentage,
+              //what if "data" field grows deeply nested?
+            },
+          };
+          return this.teacherApi.create(data);
+        }),
+        finalize(() => (this.isLoading = false))
+      )
+      .subscribe(
+        () => {
+          this.router.navigate(['/user/lecturer']);
+        },
+        (err) => {
+          if (err.error.statusCode === 409) {
+            this.form.get('email').setErrors({ notUnique: true });
+          }
+        }
+      );
   }
 
   private getBase64(img: Blob | File, callback: (img: {}) => void): void {
@@ -79,8 +93,12 @@ export class LecturerCreateComponent implements OnInit {
   }
 
   specializations = (params: IPaginate): Observable<Option[]> => {
-    return this.specializationApi.getAll(params).pipe(map(res => res.items.map(x => {
-      return { value: x.id, label: x.name };
-    })));
-  }
+    return this.specializationApi.getAll(params).pipe(
+      map((res) =>
+        res.items.map((x) => {
+          return { value: x.id, label: x.name };
+        })
+      )
+    );
+  };
 }
