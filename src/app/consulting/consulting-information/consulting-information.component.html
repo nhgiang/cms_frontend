@@ -27,7 +27,7 @@
     (nzQueryParams)="onParamsChanged($event)" [nzLoading]="isloading" nzTableLayout="fixed">
     <thead>
       <tr>
-        <th scope="col">ID</th>
+        <th scope="col" nzWidth="70px">ID</th>
         <ng-container *ngFor="let item of metaData">
           <th *ngIf="item.sortable" [nzSortFn]="item.sortable" scope="col" [nzColumnKey]="item.key"
             [nzSortOrder]="item.sortOrder">{{item.name}}</th>

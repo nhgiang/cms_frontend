@@ -78,6 +78,7 @@ export const InvoiceStatusOptions: Option[] = [
   { value: 'Processing', label: 'Đang xử lý', color: '#FFEC3D' },
   { value: 'Success', label: 'Thành công', color: '#73D13D' },
   { value: 'Failure', label: 'Thất bại', color: '#F759AB' },
+  { value: 'Canceled', label: 'Hủy bỏ', color: '#ca4e53' },
 ];
 
 export enum PaymentMethod {

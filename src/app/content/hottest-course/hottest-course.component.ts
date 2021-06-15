@@ -33,7 +33,7 @@ export class HottestCourseComponent implements OnInit {
           courseId: val.courseId || 0
         };
       });
-      this.form.patchValue(data, { emitEvent: false });
+      this.form.patchValue(data);
     });
     this.form.valueChanges.subscribe(value => {
       this.optionsDisabled = value.map(t => {

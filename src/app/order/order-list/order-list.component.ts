@@ -71,8 +71,9 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
   }
 
   exportExcel() {
+    this.activity.start('downloading');
     const { status, q, endDate, startDate } = this.params;
-    this.invoiceApi.downloadExcel({ status, q, endDate, startDate }).subscribe();
+    this.invoiceApi.downloadExcel({ status, q, endDate, startDate }).pipe(finalize(() => this.activity.stop('downloading'))).subscribe();
   }
 
   buildform() {

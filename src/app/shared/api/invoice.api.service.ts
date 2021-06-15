@@ -36,7 +36,11 @@ export class InvoiceApiService extends BaseApi {
     endDate: Date
   }) {
     return this.httpClient.get(this.createUrl(`/download`), { params: this.createParams(params), responseType: 'blob' }).pipe(tap(res => {
-      download(res, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'invoices' + new Date().toString());
+      download(
+        res,
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'Danh sách hóa đơn thanh toán ' + new Date().getTime().toString()
+      );
     }));
   }
 

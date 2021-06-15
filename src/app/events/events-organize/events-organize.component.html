@@ -75,13 +75,21 @@
   <ng-template #modalContent>
     <form [formGroup]="form" id="modal_form" (ngSubmit)="submitEvent()">
       <nz-form-item>
-        <nz-form-control nzErrorTip="Vui lòng nhập loại sự kiện">
+        <nz-form-control [nzErrorTip]="customError">
           <input
             type="text"
             formControlName="eventTitle"
             nz-input
             placeholder="Nhập loại sự kiện"
           />
+          <ng-template #customError let-control="$implicit">
+            <ng-container *ngIf="control.errors.required">
+              Vui lòng nhập tên loại sự kiện
+            </ng-container>
+            <ng-container *ngIf="control.errors.dbConflict">
+              Tên loại sự kiện đã tồn tại
+            </ng-container>
+          </ng-template>
         </nz-form-control>
       </nz-form-item>
     </form>
