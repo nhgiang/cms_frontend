@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AnalyticsApiService } from '@shared/api/analytics.api.service';
 import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
