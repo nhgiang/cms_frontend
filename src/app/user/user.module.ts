@@ -10,6 +10,7 @@ import { StudentComponent } from './student/student.component';
 import { AssistanceComponent } from './assistance/assistance.component';
 import { AssistanceCreateComponent } from './assistance/assistance-create/assistance-create.component';
 import { AssistanceUpdateComponent } from './assistance/assistance-update/assistance-update.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AssistanceUpdateComponent } from './assistance/assistance-update/assist
   imports: [
     CommonModule,
     UserRoutingModule,
-    SharedModule
+    SharedModule,
+    PdfViewerModule
   ]
 })
 export class UserModule { }

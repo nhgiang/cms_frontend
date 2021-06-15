@@ -1,12 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CourseApiService } from '@shared/api/course.api.service';
+import { EventApiService } from '@shared/api/event.api.service';
 import { StudentApiService } from '@shared/api/student.api.service';
+import { UserCertificationApiService } from '@shared/api/user-certificate.api.service';
 import { UserApiService } from '@shared/api/user.api.service';
 import { StudentCourseStatusOptions } from '@shared/options/student-course-status.options';
 import { StudentStatusOptions } from '@shared/options/student-status.options';
+import * as moment from 'moment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { UserStatus } from 'types/enums';
-import { User } from 'types/typemodel';
+import { forkJoin } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { EventStatusOptions, UserStatus } from 'types/enums';
+import { Meta, User } from 'types/typemodel';
 
 @Component({
   selector: 'app-student-detail',
@@ -16,82 +22,38 @@ import { User } from 'types/typemodel';
 export class StudentDetailComponent implements OnInit {
   studentStatusOptions = StudentStatusOptions;
   studentCourseStatusOptions = StudentCourseStatusOptions;
+  eventStatusOptions = EventStatusOptions;
   user: User;
+  userId: string;
+  metaEvent: Meta;
+  metaCourse: Meta;
+  metaCertificate: Meta;
+  coursePageIndex = 1;
   get btnUserStatus() {
     return this.user && this.user.status === UserStatus.InActive ? 'Mở khóa tài khoản' : 'Khóa tài khoản';
   }
-
-  registeredEventListData = [
-    {
-      name: 'Kỹ năng làm đẹp 1',
-      src: 'assets/images/others/event-1.png',
-      title: '20:00 18/12/2020'
-    },
-    {
-      name: 'Tập huấn bí kíp tăng trưởng đột phát',
-      src: 'assets/images/others/event-2.png',
-      title: '20:00 18/12/2020'
-    }
-  ];
-
-  certificateObtainedListData = [
-    {
-      name: 'Chăm sóc gia cơ bản',
-      src: 'assets/images/others/certificate.png',
-      title: 'Beauty Up'
-    },
-  ];
-
-  itemData = [
-    {
-      name: 'Tập huấn bí kíp tăng trưởng đột phát',
-      lecturer: 'Johny Nguyễn',
-      startDate: '18/10/2020',
-      progress: 30,
-      status: 'studying',
-    },
-    {
-      name: 'Chăm sóc gia toàn diện',
-      lecturer: 'Đỗ Thị Diệu Cầm',
-      startDate: '02/12/2020',
-      progress: 100,
-      status: 'accomplished',
-    },
-    {
-      name: 'Tập huấn bí kíp tăng trưởng đột phát',
-      lecturer: 'Johny Nguyễn',
-      startDate: '18/10/2020',
-      progress: 30,
-      status: 'studying',
-    },
-    {
-      name: 'Tập huấn bí kíp tăng trưởng đột phát',
-      lecturer: 'Johny Nguyễn',
-      startDate: '18/10/2020',
-      progress: 30,
-      status: 'expired',
-    },
-    {
-      name: 'Tập huấn bí kíp tăng trưởng đột phát',
-      lecturer: 'Johny Nguyễn',
-      startDate: '18/10/2020',
-      progress: 30,
-      status: 'studying',
-    },
-  ];
+  registeredEventListData = [];
+  certificateObtainedListData = [];
+  itemData = [];
 
   constructor(
     private studentApi: StudentApiService,
     private route: ActivatedRoute,
     private notification: NzNotificationService,
-    private userApi: UserApiService
+    private userApi: UserApiService,
+    private courseApi: CourseApiService,
+    private eventApi: EventApiService,
+    private userCertificateApi: UserCertificationApiService
   ) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.studentApi.getById(id).subscribe(res => {
-      this.user = res;
-    });
+    this.userId = this.route.snapshot.paramMap.get('id');
+    forkJoin({
+      user: this.getUser(),
+      event: this.getEvents({ limit: 100 }),
+      course: this.getCourse(),
+      certificate: this.getCertificates({ limit: 100 })
+    }).subscribe();
   }
 
   inActiveAccount(id: string, status: UserStatus) {
@@ -108,5 +70,50 @@ export class StudentDetailComponent implements OnInit {
       status: status === UserStatus.Active ? UserStatus.InActive : UserStatus.Active
     };
     this.userApi.updateStatus(id, data).subscribe(next, error);
+  }
+
+  getCourse(params = {}) {
+    return this.courseApi.getByUser(this.userId, params).pipe(tap(res => {
+      this.metaCourse = res.meta;
+      this.itemData = res.items;
+    }));
+  }
+
+  getEvents(params = {}) {
+    return this.eventApi.getByUser(this.userId, params).pipe(map(x => {
+      x.items.forEach(y => {
+        y.startAt = moment(y.startAt).format('HH:mm DD-MM-YYYY');
+        if (Number(moment(y.startAt).format('x')) > Number(moment().format('x'))) {
+          y.status = 'Wait';
+        } else if (Number(moment(y.startAt).format('x')) < Number(moment().format('x'))
+          && Number(moment(y.endAt).format('x')) > Number(moment().format('x'))) {
+          y.status = 'Happening';
+        } else {
+          y.status = 'Done';
+        }
+        return y;
+      });
+      return x;
+    }), tap(res => {
+      this.metaEvent = res.meta;
+      this.registeredEventListData = res.items;
+    }));
+  }
+
+  getCertificates(params = {}) {
+    return this.userCertificateApi.getByUser(this.userId, params).pipe(tap(res => {
+      this.metaCertificate = res.meta;
+      this.certificateObtainedListData = res.items;
+    }));
+  }
+
+  getUser() {
+    return this.studentApi.getById(this.userId).pipe(tap(res => {
+      this.user = res;
+    }));
+  }
+
+  onParamsCourseChanged(event) {
+    this.getCourse({ page: event.pageIndex }).subscribe();
   }
 }

@@ -47,6 +47,12 @@ export const EventStatusOptions: Option[] = [
   { value: 'Draft', label: 'Nháp', color: '#D9D9D9' },
 ];
 
+export const EventUserStatusOptions: Option[] = [
+  { value: 'Wait', label: 'Chưa diễn ra', color: '#73D13D' },
+  { value: 'Happening', label: 'Đang diễn ra', color: '#40A9FF' },
+  { value: 'Done', label: 'Đã diễn ra', color: '#FFEC3D' },
+]
+
 export enum EventStatus {
   Draft = 'Draft',
   Canceled = 'Canceled',

@@ -12,7 +12,6 @@
               <nz-badge [nzColor]="user?.status | option:studentStatusOptions:'color'"
                 [nzText]="user?.status | option:studentStatusOptions"></nz-badge>
             </p>
-            <p class="text-dark m-b-10">100 point</p>
             <button class="ant-btn ant-btn-primary ant-btn-background-ghost"
               (confirmed)="inActiveAccount(user?.id, user?.status)"
               [confirmation]="'Bạn có chắc chắn muốn khóa tài khoản học viên này không?'">{{ btnUserStatus }} </button>
@@ -68,8 +67,10 @@
   <div class="row">
     <div class="col-md-8">
       <nz-card>
-        <h5>Khoá học đã đăng ký (5)</h5>
-        <nz-table #orderTable [nzData]="itemData" [nzShowPagination]="false">
+        <h5>Khoá học đã đăng ký ({{metaCourse?.totalItems}})</h5>
+        <nz-table #orderTable [nzData]="itemData" [nzShowPagination]="true" [nzFrontPagination]="false"
+          (nzQueryParams)="onParamsCourseChanged($event)" [nzTotal]="metaCourse?.totalItems" [nzPageSize]="10"
+          [(nzPageIndex)]="coursePageIndex" nzTableLayout="fixed">
           <thead class="font-size-12">
             <tr>
               <th scope="col">ID</th>
@@ -83,10 +84,10 @@
           <tbody class="font-size-11">
             <tr *ngFor="let item of orderTable.data; let i = index;">
               <td>#{{ i + 1 }}</td>
-              <td>{{ item.name }}</td>
-              <td>{{ item.lecturer }}</td>
-              <td>{{ item.startDate }}</td>
-              <td>{{ item.progress }}%</td>
+              <td>{{ item.courseName }}</td>
+              <td>{{ item.teacherName }}</td>
+              <td>{{ item.startDate |date:'dd-MM-YYYY'}}</td>
+              <td>{{ item.progress || 0 | number }}%</td>
               <td>
                 <nz-badge [nzColor]="item.status | option:studentCourseStatusOptions:'color'"
                   [nzText]="item.status | option:studentCourseStatusOptions"></nz-badge>
@@ -98,17 +99,26 @@
     </div>
     <div class="col-md-4">
       <nz-card>
-        <h5>Sự kiện đã đăng ký (2)</h5>
+        <h5>Sự kiện đã đăng ký ({{metaEvent?.totalItems}})</h5>
         <div class="m-t-20">
           <nz-list [nzDataSource]="registeredEventListData" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
             <ng-template #item let-item>
               <nz-list-item class="border-bottom-0">
-                <nz-list-item-meta [nzTitle]="nzTitle" [nzAvatar]="nzAvatar" [nzDescription]="item.title">
+                <nz-list-item-meta [nzTitle]="nzTitle" [nzAvatar]="nzAvatar" [nzDescription]="item.startAt">
                   <ng-template #nzTitle>
-                    <a class="font-size-15" href="">{{item.name}}</a>
+                    <div class="d-flex justify-content-center align-items-center row">
+                      <div class="font-size-15 col-7">{{item.title}}</div>
+                      <div class="col-5">
+                        <div class="d-flex justify-content-center align-items-center status-btn"
+                          [ngClass]="{'wait': item.status === 'Wait','happening': item.status === 'Happening', 'done': item.status === 'Done'}">
+                          {{item.status | option:eventStatusOptions}}
+                        </div>
+                      </div>
+                    </div>
+
                   </ng-template>
                   <ng-template #nzAvatar>
-                    <nz-avatar [nzSize]="30" [nzSrc]="item.src"></nz-avatar>
+                    <nz-avatar [nzSize]="45" [nzSrc]="item.thumbnail"></nz-avatar>
                   </ng-template>
                 </nz-list-item-meta>
               </nz-list-item>
@@ -117,17 +127,17 @@
         </div>
       </nz-card>
       <nz-card>
-        <h5>Chứng chỉ đạt được (1)</h5>
+        <h5>Chứng chỉ đạt được ({{metaCertificate?.totalItems}})</h5>
         <div class="m-t-20">
           <nz-list [nzDataSource]="certificateObtainedListData" [nzRenderItem]="item2" [nzItemLayout]="'horizontal'">
             <ng-template #item2 let-item>
               <nz-list-item class="border-bottom-0">
-                <nz-list-item-meta [nzTitle]="nzTitle2" [nzAvatar]="nzAvatar2" [nzDescription]="item.title">
+                <nz-list-item-meta [nzTitle]="nzTitle2" [nzAvatar]="nzAvatar2" [nzDescription]="'Beauty Up'">
                   <ng-template #nzTitle2>
-                    <a class="font-size-15" href="">{{item.name}}</a>
+                    <a class="font-size-15" [href]="item.path" target="_blank">{{item.courseName}}</a>
                   </ng-template>
                   <ng-template #nzAvatar2>
-                    <img [src]="item.src" alt="">
+                    <img height="50px" src="assets/images/others/certificate.png" alt="chứng chỉ" />
                   </ng-template>
                 </nz-list-item-meta>
               </nz-list-item>

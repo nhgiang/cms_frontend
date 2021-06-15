@@ -4,7 +4,7 @@ import { ReportsApiService } from '@shared/api/reports.api.service';
 import * as fns from 'date-fns';
 import { sum } from 'lodash-es';
 import { map } from 'rxjs/operators';
-import { getMonth } from 'date-fns';
+import { getMonth, getYear } from 'date-fns';
 @Component({
   selector: 'app-revenue',
   templateUrl: './revenue.component.html',
@@ -119,7 +119,7 @@ export class RevenueComponent implements OnInit {
         data: totalAmount,
         label: 'Doanh thu',
         categoryPercentage: 0.35,
-        barPercentage: 0.50,
+        barPercentage: 0.80,
       }];
       this.totalMoney = this.formatCurrency('vi-VN', sum(totalAmount));
       this.barChartLabels = res.map(x => fns.format(new Date(x.date), 'dd/MM/yyyy'));
@@ -128,7 +128,9 @@ export class RevenueComponent implements OnInit {
 
   customLabelY(label, index, labels) {
     let string = JSON.stringify(label);
-    if (string.length > 6) {
+    if (string.length > 9) {
+      return `${string.slice(0, string.length - 9)} tỉ ${(string.slice(string.length - 9, string.length - 6) === '000') ? '' : string.slice(string.length - 9, string.length - 6) + ' triệu'}`;
+    } else if (string.length > 6) {
       return string.slice(0, string.length - 6) + ' triệu';
     } else {
       return string;
@@ -138,14 +140,13 @@ export class RevenueComponent implements OnInit {
   customLabelX(label, index, labels) {
     if (this.form?.get('mode')?.value === 'Month') {
       const date = label.split('/');
-      return 'Tháng ' + getMonth(new Date(date[2], date[1], date[0]));
+      return `Tháng ${getMonth(new Date(date[2], date[1], date[0])) + 1}/${getYear(new Date(date[2], date[1], date[0]))}`;
     }
     return label;
   }
 
   customToolTip(label, index) {
     console.log(label, index);
-
   }
 
   formatCurrency(locate: string, value: number) {

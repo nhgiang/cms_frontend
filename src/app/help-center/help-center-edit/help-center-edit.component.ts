@@ -69,8 +69,6 @@ export class HelpCenterEditComponent {
   }
 
   async submit() {
-    // await of(1).pipe(delay(1000)).toPromise();
-    // return this.router.navigateByUrl('/settings-help/help-center/list');
     Ultilities.validateForm(this.form);
     this.storageApi.uploadFile(this.form.value.coverImage).pipe(switchMap(url => {
       const body = this.form.value;
@@ -78,9 +76,7 @@ export class HelpCenterEditComponent {
       return this.helpCenterApiService.edit(this.id, this.form.value);
     })).subscribe(() => {
       this.router.navigateByUrl('/settings-help/help-center/list');
-      // this.notification.success('Thành công', 'Sửa bài viết thành công');
-    }, () => {
-      this.notification.error('Thất bại', 'Sửa bài viết thất bại');
+      // this.notification.success('Thành công', 'Sửa bài viết thành công', { nzDuration: 3000 });
     });
   }
 }
