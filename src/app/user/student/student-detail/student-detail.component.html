@@ -73,7 +73,7 @@
           [(nzPageIndex)]="coursePageIndex" nzTableLayout="fixed">
           <thead class="font-size-12">
             <tr>
-              <th scope="col">ID</th>
+              <th scope="col" [width]="50">ID</th>
               <th scope="col">Tên khóa học</th>
               <th scope="col">Giảng viên</th>
               <th scope="col">Ngày bắt đầu</th>
@@ -83,11 +83,11 @@
           </thead>
           <tbody class="font-size-11">
             <tr *ngFor="let item of orderTable.data; let i = index;">
-              <td>#{{ i + 1 }}</td>
+              <td>#{{ (i + 1) + (metaCourse.currentPage - 1) * metaCourse.itemsPerPage }}</td>
               <td>{{ item.courseName }}</td>
               <td>{{ item.teacherName }}</td>
               <td>{{ item.startDate |date:'dd-MM-YYYY'}}</td>
-              <td>{{ item.progress || 0 | number }}%</td>
+              <td>{{ item.progress || 0 | number: '1.0-2' }}%</td>
               <td>
                 <nz-badge [nzColor]="item.status | option:studentCourseStatusOptions:'color'"
                   [nzText]="item.status | option:studentCourseStatusOptions"></nz-badge>
