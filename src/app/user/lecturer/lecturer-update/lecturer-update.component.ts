@@ -58,6 +58,7 @@ export class LecturerUpdateComponent implements OnInit {
     this.form.controls.royaltyPercentage.setValue(
       this.teacher.data.royaltyPercentage
       //data schema?
+      //potential null, lose execution flow
     );
   }
 
