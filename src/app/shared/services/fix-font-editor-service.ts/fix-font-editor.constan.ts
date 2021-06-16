@@ -26,6 +26,6 @@ export const OVERIGHT_EDITOR = `<span class="ae-picker-options"
   Comic Sans MS
 </button></span>`;
 
-export const ICON_SELECT = `<svg viewBox="0 0 18 18"><polygon points="7 11 9 13 11 11 7 11" class="ae-stroke"></polygon><polygon points="7 7 9 5 11 7 7 7" class="ae-stroke"></polygon></svg>`
+export const ICON_SELECT = `<svg viewBox="0 0 18 18"><polygon points="7 11 9 13 11 11 7 11" class="ae-stroke"></polygon><polygon points="7 7 9 5 11 7 7 7" class="ae-stroke"></polygon></svg>`;
 
 // selected focused

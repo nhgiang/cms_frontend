@@ -11,7 +11,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'royalty-rates', //fix lai,
+    path: 'royalty-rates', // fix lai,
     component: RoyaltiesAnalyticsComponent,
     data: {
       title: 'Báo cáo chiết khấu',

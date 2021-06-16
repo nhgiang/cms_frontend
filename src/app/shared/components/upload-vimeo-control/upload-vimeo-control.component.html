@@ -3,7 +3,7 @@
     <ng-container *ngSwitchCase="UploaderStatus.NotSelected">
       <label class="upload-label d-flex flex-column align-items-center justify-content-center"
              for="fileInput">
-        <i nz-icon
+        <i  aria-hidden="true"nz-icon
            nzType="youtube"
            nzTheme="fill"></i>
         <span class="mt-1 text-dark"
@@ -15,7 +15,7 @@
       <div *ngIf="url">
         <div class="video-player"
              style="height: 350px;">
-          <i nz-icon
+          <i  aria-hidden="true"nz-icon
              nzType="close-circle"
              nzTheme="fill"
              (confirmed)="removeVideo()"
@@ -39,7 +39,7 @@
       </div>
       <div *ngIf="!url">
         <label class="d-flex align-items-center p-4 file-selected">
-          <i nz-icon
+          <i  aria-hidden="true"nz-icon
              nzType="file-zip"
              nzTheme="outline"></i>
           <div class="ml-3">
@@ -47,7 +47,7 @@
                  translate>{{file?.name}} {{file?.size}}</div>
             <div class="file-type">Click vào biểu tượng xóa để xóa tệp hiện tại</div>
           </div>
-          <i nz-icon
+          <i  aria-hidden="true"nz-icon
              nzType="delete"
              class="font-size-16 ml-2 pointer"
              (confirmed)="removeVideo()"

@@ -27,6 +27,7 @@ export class PaymentsUpsertComponent implements OnInit {
 
   @Input() targetEditIndex: number;
   @Input() paymentsList: Payment[];
+  // tslint:disable-next-line: no-output-native
   @Output() success: EventEmitter<any> = new EventEmitter();
 
   constructor(
@@ -109,13 +110,13 @@ export class PaymentsUpsertComponent implements OnInit {
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
 
-    //grayscale algorithm
+    // grayscale algorithm
     for (let i = 0; i < data.length; i += 4) {
       const average = (data[i] + data[i + 1] + data[i + 2]) / 3;
-      data[i] = average; //red
-      data[i + 1] = average; //green
-      data[i + 2] = average; //blue
-      data[i + 3] = 255 * 0.6; //alpha channel
+      data[i] = average; // red
+      data[i + 1] = average; // green
+      data[i + 2] = average; // blue
+      data[i + 3] = 255 * 0.6; // alpha channel
     }
     ctx.putImageData(imageData, 0, 0);
 
@@ -129,6 +130,6 @@ export class PaymentsUpsertComponent implements OnInit {
     return new File([bytesArr], 'inactive-bankimage-unknown', {
       type: 'image/png',
     });
-    //to-do: may return pure js link for preview if necessary
+    // to-do: may return pure js link for preview if necessary
   }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InvoiceApiService } from '@shared/api/invoice.api.service';
-import { SettingApiService } from '@shared/api/setting.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { StudentStatusOptions } from '@shared/options/student-status.options';
@@ -31,7 +30,6 @@ export class OrderDetailComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private invoiceApi: InvoiceApiService,
-    private settingApi: SettingApiService,
     private nzNotification: NzNotificationService,
     private router: Router
   ) { }

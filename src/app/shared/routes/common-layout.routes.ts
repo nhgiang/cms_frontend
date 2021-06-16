@@ -103,7 +103,7 @@ export const CommonLayoutRoutes: Routes = [
     },
   },
   {
-    path: 'payment-methods', //- to-do đóng gói các module thành quyền quản trị admin
+    path: 'payment-methods', // - to-do đóng gói các module thành quyền quản trị admin
     loadChildren: () =>
       import('src/app/payments/payments.module').then((m) => m.PaymentsModule),
     data: {

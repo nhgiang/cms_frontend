@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InvoiceApiService } from '@shared/api/invoice.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
 import { debounceTime, finalize, map } from 'rxjs/operators';
 import { InvoiceStatus, InvoiceStatusOptions, InvoiceType } from 'types/enums';
@@ -26,8 +25,7 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
     router: Router,
     route: ActivatedRoute,
     private fb: FormBuilder,
-    private invoiceApi: InvoiceApiService,
-    private notification: NzNotificationService
+    private invoiceApi: InvoiceApiService
   ) {
     super(route, router);
   }

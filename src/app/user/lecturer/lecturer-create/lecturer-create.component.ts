@@ -59,8 +59,8 @@ export class LecturerCreateComponent implements OnInit {
             avatar: url,
             ...rest,
             data: {
-              royaltyPercentage: royaltyPercentage,
-              //what if "data" field grows deeply nested?
+              royaltyPercentage,
+              // what if "data" field grows deeply nested?
             },
           };
           return this.teacherApi.create(data);
@@ -100,5 +100,5 @@ export class LecturerCreateComponent implements OnInit {
         })
       )
     );
-  };
+  }
 }

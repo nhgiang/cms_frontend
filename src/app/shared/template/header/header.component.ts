@@ -93,7 +93,7 @@ export class HeaderComponent implements OnInit {
     this.drawerService.create({
       nzContent: ChangePasswordComponent,
       nzWidth: 400,
-      nzTitle: 'Thay đổi mật khẩu',
+      nzTitle: 'Cập nhật mật khẩu',
     });
   }
 
@@ -101,7 +101,7 @@ export class HeaderComponent implements OnInit {
     this.drawerService.create({
       nzContent: ChangeAvatarComponent,
       nzWidth: 400,
-      nzTitle: 'Thay đổi Avatar'
+      nzTitle: 'Cập nhật Avatar'
     });
   }
 }

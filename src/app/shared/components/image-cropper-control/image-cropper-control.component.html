@@ -8,10 +8,10 @@
     </label>
     <div class="actions" *ngIf="imageUrl && showAction">
       <span (click)="previewVisible = true">
-        <i class="mr-3" nz-icon nzType="eye" nzTheme="outline"></i>
+        <i  aria-hidden="true"class="mr-3" nz-icon nzType="eye" nzTheme="outline"></i>
       </span>
       <span (confirmed)="handleRemove()" [confirmation]="'Bạn có chắc chắn muốn xóa ảnh này không?'">
-        <i nz-icon nzType="delete" nzTheme="outline"></i>
+        <i  aria-hidden="true"nz-icon nzType="delete" nzTheme="outline"></i>
       </span>
     </div>
   </div>

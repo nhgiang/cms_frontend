@@ -13,7 +13,7 @@
                      formControlName="q" />
             </nz-input-group>
             <ng-template #prefixTemplate>
-              <i nz-icon
+              <i  aria-hidden="true"nz-icon
                  nzType="search"
                  class="opacity-05"></i>
             </ng-template>
@@ -116,7 +116,7 @@
                nz-tooltip
                nzTooltipTitle="Tải xuống"
                *ngIf="!activity.is(i+'downloading') && invoice.status === 'Success'">
-              <i nz-icon
+              <i  aria-hidden="true"nz-icon
                  nzType="vertical-align-bottom"
                  nzTheme="outline"></i>
 
@@ -128,7 +128,7 @@
                nz-tooltip
                nzTooltipTitle="Đang tải"
                *ngIf="activity.is(i+'downloading') && invoice.status === 'Success'">
-              <i nz-icon
+              <i  aria-hidden="true"nz-icon
                  nzType="loading"
                  nzTheme="outline"></i>
             </a>
@@ -139,7 +139,7 @@
                nzShape="circle"
                nz-tooltip
                nzTooltipTitle="Chỉnh sửa">
-              <i nz-icon
+              <i  aria-hidden="true"nz-icon
                  nzType="edit"
                  theme="outline"></i>
             </a>

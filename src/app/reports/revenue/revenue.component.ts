@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReportsApiService } from '@shared/api/reports.api.service';
 import * as fns from 'date-fns';
+import { getMonth, getYear } from 'date-fns';
 import { sum } from 'lodash-es';
 import { map } from 'rxjs/operators';
-import { getMonth, getYear } from 'date-fns';
-import { Meta } from 'types/typemodel';
+
 @Component({
   selector: 'app-revenue',
   templateUrl: './revenue.component.html',
@@ -63,7 +63,7 @@ export class RevenueComponent implements OnInit {
         callbacks: {
           label: function (val) {
             console.log(val);
-            return 'aaavs'
+            return 'aaavs';
           }
         }
       }
@@ -90,7 +90,7 @@ export class RevenueComponent implements OnInit {
     tooltip: {
       enabled: false
     }
-  }
+  };
   totalMoney: string;
   constructor(
     private fb: FormBuilder,
@@ -118,7 +118,7 @@ export class RevenueComponent implements OnInit {
 
   getData(val) {
     this.reportsApiService.getRevenue(val).subscribe((res: any[]) => {
-      let totalAmount = res.map(x => Number(x.totalAmount));
+      const totalAmount = res.map(x => Number(x.totalAmount));
       this.barChartData = [{
         data: totalAmount,
         label: 'Doanh thu',
@@ -131,7 +131,7 @@ export class RevenueComponent implements OnInit {
   }
 
   customLabelY(label, index, labels) {
-    let string = JSON.stringify(label);
+    const string = JSON.stringify(label);
     if (string.length > 9) {
       return `${string.slice(0, string.length - 9)} tỉ ${(string.slice(string.length - 9, string.length - 6) === '000') ? '' : string.slice(string.length - 9, string.length - 6) + ' triệu'}`;
     } else if (string.length > 6) {
