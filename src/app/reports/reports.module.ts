@@ -4,6 +4,7 @@ import { SharedModule } from '@shared/shared.module';
 import { RevenueComponent } from './revenue/revenue.component';
 import { ReportsRoutes } from './reports.routing';
 import { NgChartjsModule } from 'ng-chartjs';
+import { DetailRevenueComponent } from './revenue/detail-revenue/detail-revenue.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { NgChartjsModule } from 'ng-chartjs';
     ReportsRoutes,
     NgChartjsModule
   ],
-  declarations: [RevenueComponent]
+  declarations: [RevenueComponent, DetailRevenueComponent]
 })
 export class ReportsModule { }
