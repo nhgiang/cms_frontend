@@ -35,7 +35,7 @@ export class DetailRevenueComponent extends DataTableContainer<any> {
     },
     {
       key: 'type',
-      name: 'Loai tài khoản',
+      name: 'Loại tài khoản',
       sortable: false,
     },
     {
