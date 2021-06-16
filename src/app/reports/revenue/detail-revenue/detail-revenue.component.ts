@@ -17,6 +17,7 @@ import { Invoice, QueryResult } from 'types/typemodel';
 export class DetailRevenueComponent extends DataTableContainer<any> {
   form: FormGroup;
   invoiceType = InvoiceType;
+  quantity = 15;
   metaData = [
     {
       key: 'name',
