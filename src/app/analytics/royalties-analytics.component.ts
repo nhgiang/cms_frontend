@@ -1,8 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { TeacherApiService } from '@shared/api/teacher.api.service';
-import { QueryResult, User } from 'types/typemodel';
-import { Option } from '@shared/interfaces/option.type';
-import { map, finalize, switchMap, debounceTime } from 'rxjs/operators';
+import { finalize, debounceTime } from 'rxjs/operators';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RoyaltiesAnalyticsApiService } from '@shared/api/royalties-analytics.api.service';
 import { Meta } from 'types/typemodel';
@@ -12,6 +9,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 @Component({
   selector: 'app-royalties-analytics',
   templateUrl: 'royalties-analytics.component.html',
+  styleUrls: ['royalties-analytics.component.scss'],
 })
 export class RoyaltiesAnalyticsComponent implements OnInit {
   isDataLoading = false;
@@ -23,21 +21,7 @@ export class RoyaltiesAnalyticsComponent implements OnInit {
   accountType = AccountType;
   @ViewChild('drawer') drawer: TemplateRef<any>;
 
-  format = (val: number) => {
-    return new Intl.NumberFormat().format(val);
-  };
-  teachers$ = (params: any) => {
-    return this.teachersApi.getList(params).pipe(
-      map((data: QueryResult<User>) => {
-        return <Option[]>data.items.map((item) => ({
-          value: item.id,
-          label: item.fullName,
-        }));
-      })
-    );
-  };
   constructor(
-    private teachersApi: TeacherApiService,
     private royaltiesApi: RoyaltiesAnalyticsApiService,
     private drawerService: NzDrawerService,
     private fb: FormBuilder
@@ -96,10 +80,9 @@ export class RoyaltiesAnalyticsComponent implements OnInit {
     });
   }
   onPageStudentViewChange(page: number) {
-    this.fetchStudentView({ page: page });
+    this.fetchStudentView({ page });
   }
-  onPageTeacherViewChange(page: number){
-    this.fetchTeacherView({page: page})
+  onPageTeacherViewChange(page: number) {
+    this.fetchTeacherView({ page });
   }
-
 }
