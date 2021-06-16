@@ -22,6 +22,7 @@ import { FooterComponent } from './footer/footer.component';
 
 import { SideNavDirective } from '../directives/side-nav.directive';
 import { ThemeConstantService } from '../services/theme-constant.service';
+import { ChangeAvatarComponent } from './header/change-avatar/change-avatar.component';
 
 const antdModule = [
   NzAvatarModule,
@@ -54,6 +55,7 @@ const antdModule = [
     SideNavComponent,
     SideNavDirective,
     FooterComponent,
+    ChangeAvatarComponent,
   ],
   providers: [ThemeConstantService],
 })

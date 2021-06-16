@@ -21,7 +21,7 @@ export class SideNavComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		this.currentUser = this.authService.currentUserValue;
+		this.authService.currentUser.subscribe(user => this.currentUser = user);
 		this.menuItems = ROUTES.filter(menuItem => menuItem);
 		this.themeService.isMenuFoldedChanges.subscribe(isFolded => this.isFolded = isFolded);
 		this.themeService.isExpandChanges.subscribe(isExpand => this.isExpand = isExpand);

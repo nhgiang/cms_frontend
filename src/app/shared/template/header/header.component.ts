@@ -5,6 +5,7 @@ import { AuthenticationService } from '@shared/services/authentication.service';
 import { ThemeConstantService } from '@shared/services/theme-constant.service';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { Observable } from 'rxjs';
+import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
 
 @Component({
   selector: 'app-header',
@@ -93,6 +94,14 @@ export class HeaderComponent implements OnInit {
       nzContent: ChangePasswordComponent,
       nzWidth: 400,
       nzTitle: 'Thay đổi mật khẩu',
+    });
+  }
+
+  changeAvatar() {
+    this.drawerService.create({
+      nzContent: ChangeAvatarComponent,
+      nzWidth: 400,
+      nzTitle: 'Thay đổi Avatar'
     });
   }
 }

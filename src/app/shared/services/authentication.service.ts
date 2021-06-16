@@ -10,7 +10,7 @@ import { User } from 'types/typemodel';
 export class AuthenticationService {
   private baseURL = `${environment.api}/auth`;
   private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  readonly currentUser: Observable<User>;
 
   constructor(
     private httpClient: HttpClient,
@@ -20,8 +20,12 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
+  private get currentUserValue(): User {
+    return this.currentUserSubject.getValue();
+  }
+
+  private set currentUserValue(value: User) {
+    this.currentUserSubject.next(value);
   }
 
   login(body: { email: string; password: string; }) {
@@ -42,5 +46,10 @@ export class AuthenticationService {
   private storeUser(user: any) {
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
+  }
+
+  update(values: any) {
+    const nextVal = Object.assign({}, this.currentUserValue, values);
+    this.currentUserValue = nextVal;
   }
 }
