@@ -46,10 +46,9 @@
           </a>
         </td>
         <td nzEllipsis>{{ item.email }}</td>
-        <td>{{ item.phone }}</td>
+        <td>{{ item.phoneNumber }}</td>
         <td>{{ '1' }}</td>
         <td>{{ '100%' }}</td>
-        <td>{{ 100 }}</td>
         <td>
           <nz-badge [nzColor]="item.status | option:studentStatusOptions:'color'"
             [nzText]="item.status | option:studentStatusOptions"></nz-badge>
