@@ -49,7 +49,7 @@ export class RevenueComponent implements OnInit {
           zeroLineBorderDash: [3, 4]
         },
         ticks: {
-          stepSize: 5000000,
+          stepSize: 25000000,
           display: true,
           beginAtZero: true,
           fontSize: 13,

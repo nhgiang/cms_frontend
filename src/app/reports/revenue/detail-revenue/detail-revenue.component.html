@@ -83,11 +83,11 @@
         <td nzEllipsis class="text-center">
           <ng-container *ngIf="invoice.type === invoiceType.Course;else memeberShipTime">
             <ng-container *ngFor="let item of invoice?.items">
-              <div>{{invoice?.transactionTime |date:'HH:mm'}}</div>
+              <div>{{invoice?.transactionTime |date:'dd/MM/YYYY HH:mm'}}</div>
             </ng-container>
           </ng-container>
           <ng-template #memeberShipTime>
-            <div>{{invoice?.transactionTime |date:'HH:mm'}}</div>
+            <div>{{invoice?.transactionTime |date:'dd/MM/YYYY HH:mm'}}</div>
           </ng-template>
         </td>
         <td nzEllipsis>

@@ -25,35 +25,35 @@
             <ul class="list-unstyled m-t-10 list-info">
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i  aria-hidden="true"class="m-r-10 text-primary" nz-icon nzType="mail" theme="outline"></i>
+                  <i aria-hidden="true" class="m-r-10 text-primary" nz-icon nzType="mail" theme="outline"></i>
                   <span>Email: </span>
                 </p>
                 <p class="col-md-8 font-weight-semibold"> {{ user?.email }}</p>
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i  aria-hidden="true"class="m-r-10 text-primary" nz-icon nzType="phone" theme="outline"></i>
+                  <i aria-hidden="true" class="m-r-10 text-primary" nz-icon nzType="phone" theme="outline"></i>
                   <span>Số điện thoại: </span>
                 </p>
                 <p class="col-md-8 font-weight-semibold">{{ user?.phoneNumber }}</p>
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i  aria-hidden="true"class="m-r-10 text-primary" nz-icon nzType="man" theme="outline"></i>
+                  <i aria-hidden="true" class="m-r-10 text-primary" nz-icon nzType="man" theme="outline"></i>
                   <span>Giới tính: </span>
                 </p>
                 <p class="col-md-8 font-weight-semibold"> {{ user?.gender }}</p>
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i  aria-hidden="true"class="m-r-10 text-primary" nz-icon nzType="calendar" theme="outline"></i>
+                  <i aria-hidden="true" class="m-r-10 text-primary" nz-icon nzType="calendar" theme="outline"></i>
                   <span>Ngày sinh: </span>
                 </p>
                 <p class="col-md-8 font-weight-semibold">{{ user?.dateOfBirth | datetime }}</p>
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i  aria-hidden="true"class="m-r-10 text-primary" nz-icon nzType="compass" theme="outline"></i>
+                  <i aria-hidden="true" class="m-r-10 text-primary" nz-icon nzType="compass" theme="outline"></i>
                   <span>Địa chỉ : </span>
                 </p>
                 <p class="col-md-8 font-weight-semibold"> {{ user?.address }}</p>
@@ -65,7 +65,7 @@
     </div>
   </nz-card>
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12 col-lg-8">
       <nz-card>
         <h5>Khoá học đã đăng ký ({{metaCourse?.totalItems}})</h5>
         <nz-table #orderTable [nzData]="itemData" [nzShowPagination]="true" [nzFrontPagination]="false"
@@ -74,17 +74,19 @@
           <thead class="font-size-12">
             <tr>
               <th scope="col" [width]="50">ID</th>
-              <th scope="col">Tên khóa học</th>
-              <th scope="col">Giảng viên</th>
-              <th scope="col">Ngày bắt đầu</th>
-              <th scope="col">Tiến độ</th>
-              <th scope="col">Trạng thái</th>
+              <th [width]="250" scope="col">Tên khóa học</th>
+              <th [width]="100" scope="col">Giảng viên</th>
+              <th [width]="150" scope="col">Ngày bắt đầu</th>
+              <th [width]="100" scope="col">Tiến độ</th>
+              <th [width]="150" scope="col">Trạng thái</th>
             </tr>
           </thead>
           <tbody class="font-size-11">
             <tr *ngFor="let item of orderTable.data; let i = index;">
               <td>#{{ (i + 1) + (metaCourse.currentPage - 1) * metaCourse.itemsPerPage }}</td>
-              <td>{{ item.courseName }}</td>
+              <td>
+                <div class="text-truncate"><span [title]="item.courseName">{{ item.courseName }}</span></div>
+              </td>
               <td>{{ item.teacherName }}</td>
               <td>{{ item.startDate |date:'dd-MM-YYYY'}}</td>
               <td>{{ item.progress || 0 | number: '1.0-2' }}%</td>
@@ -97,7 +99,7 @@
         </nz-table>
       </nz-card>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6 col-lg-4">
       <nz-card>
         <h5>Sự kiện đã đăng ký ({{metaEvent?.totalItems}})</h5>
         <div class="m-t-20">
