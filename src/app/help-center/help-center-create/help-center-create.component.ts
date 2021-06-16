@@ -9,7 +9,7 @@ import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { FixFontEditorDirective } from '@shared/services/fix-font-editor-service.ts/fix-font-editor.directive';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { finalize, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-help-center-create',
@@ -74,7 +74,7 @@ export class HelpCenterCreateComponent implements OnInit {
     this.storageApi.uploadFile(this.form.value.coverImage).pipe(switchMap(url => {
       const body = this.form.value;
       body.coverImage = url;
-      return this.helpCenterApiService.create(this.form.value)
+      return this.helpCenterApiService.create(this.form.value);
     })).subscribe(() => {
       this.notification.success('Thành công', 'Tạo bài viết thành công');
       this.router.navigate(['/settings-help/help-center/list']);

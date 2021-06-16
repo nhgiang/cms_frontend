@@ -56,8 +56,6 @@ export class HelpCenterEditComponent {
     private route: ActivatedRoute,
     @Inject(API_BASE_URL) protected hostUrl: string,
     private storageApi: StorageApiService,
-    private angularEditorService: AngularEditorService,
-    private renderer2: Renderer2
   ) {
     // super(hostUrl, angularEditorService, renderer2);
     this.form = this.fb.group({

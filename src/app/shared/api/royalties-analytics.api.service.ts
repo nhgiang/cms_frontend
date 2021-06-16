@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class RoyaltiesAnalyticsApiService extends BaseApi {
   commissionsEndpoint = 'teacher-royalty';
-  
+
   getStudentView(params?: { [key: string]: any }) {
     return this.httpClient.get(
       this.createUrl(this.commissionsEndpoint + '/student-view'),

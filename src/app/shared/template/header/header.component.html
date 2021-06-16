@@ -20,14 +20,14 @@
     <ul class="nav-left">
       <li class="desktop-toggle">
         <a (click)="toggleFold()">
-          <i nz-icon
+          <i  aria-hidden="true"nz-icon
              [nzType]="isFolded ? 'menu-unfold' : 'menu-fold'"
              theme="outline"></i>
         </a>
       </li>
       <li class="mobile-toggle">
         <a (click)="toggleExpand()">
-          <i nz-icon
+          <i  aria-hidden="true"nz-icon
              [nzType]="isExpand ? 'menu-fold' : 'menu-unfold'"
              theme="outline"></i>
         </a>
@@ -77,19 +77,19 @@
               <a (click)="changeAvatar()"> Cập nhật avatar </a>
             </li>
             <li nz-menu-item>
-              <a (click)="changePassword()"> Đổi mật khẩu </a>
+              <a (click)="changePassword()">Cập nhật mật khẩu </a>
             </li>
             <li nz-menu-item>
               <a (click)="logout()"
                  class="p-v-5 d-flex align-items-center justify-content-between">
                 <div>
-                  <i class="opacity-04 font-size-16"
+                  <i  aria-hidden="true"class="opacity-04 font-size-16"
                      nz-icon
                      nzType="logout"
                      theme="outline"></i>
                   <span class="m-l-10">Logout</span>
                 </div>
-                <i class="font-size-10"
+                <i  aria-hidden="true"class="font-size-10"
                    nz-icon
                    nzType="right"
                    theme="outline"></i>

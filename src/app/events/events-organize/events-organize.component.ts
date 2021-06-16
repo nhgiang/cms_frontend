@@ -24,7 +24,7 @@ export class EventsOrganizeComponent implements OnInit {
     private eventTypesApi: EventTypesApiService,
     private fb: FormBuilder,
     private notif: NzNotificationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.fetch(1);
@@ -76,27 +76,25 @@ export class EventsOrganizeComponent implements OnInit {
       this.targetEventId === null
         ? this.eventTypesApi.create(this.form.controls.eventTitle.value)
         : this.eventTypesApi.update(this.targetEventId, {
-            title: this.form.controls.eventTitle.value,
-          });
+          title: this.form.controls.eventTitle.value,
+        });
 
-    upsertObservable
-      .pipe(finalize(() => (this.isDataLoading = false)))
-      .subscribe(
-        () => {
-          this.isModalVisible = false;
-          this.notif.success(
-            'Thành công',
-            this.targetEventId === null
-              ? 'Thêm mới loại sự kiện thành công'
-              : 'Cập nhật loại sự kiện thành công'
-          );
-          this.fetch(1);
-        },
-        (err) => {
-          if (err.status === 409)
-            this.form.controls['eventTitle'].setErrors({ dbConflict: true });
-        }
+    upsertObservable.pipe(
+      finalize(() => (this.isDataLoading = false))
+    ).subscribe(() => {
+      this.isModalVisible = false;
+      this.notif.success(
+        'Thành công',
+        this.targetEventId === null
+          ? 'Thêm mới loại sự kiện thành công'
+          : 'Cập nhật loại sự kiện thành công'
       );
+      this.fetch(1);
+    }, (err) => {
+      if (err.status === 409) {
+        this.form.controls['eventTitle'].setErrors({ dbConflict: true });
+      }
+    });
   }
 
   deleteEvent(event: EventType) {

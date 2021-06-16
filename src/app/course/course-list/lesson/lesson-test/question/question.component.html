@@ -5,7 +5,7 @@
       <h5 class="title-question mb-0">Câu hỏi {{ index + 1 }}</h5>
       <div (confirmed)="deleteQuestion.emit(index)" [confirmation]="'Bạn chắc chắn muốn xóa câu hỏi này không?'"
         *ngIf="deletable" class="text-right" style="cursor: pointer;">
-        <i style="font-size: 20px;" nz-icon nzType="close" nzTheme="outline"></i>
+        <i  aria-hidden="true"style="font-size: 20px;" nz-icon nzType="close" nzTheme="outline"></i>
       </div>
     </div>
   </div>

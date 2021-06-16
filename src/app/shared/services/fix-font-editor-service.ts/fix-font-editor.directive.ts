@@ -88,7 +88,7 @@ export class FixFontEditorDirective implements AfterViewInit {
 
   clickEditor(): void {
     const selectNode = this._angularEditorService.getSelectedNodes();
-    if (selectNode && selectNode.length && selectNode[2].face && selectNode[2].face !== "") {
+    if (selectNode && selectNode.length && selectNode[2].face && selectNode[2].face !== '') {
       if (!this._buttonLabel) {
         const selectFontElement = document.querySelectorAll('.select-font');
         this._buttonLabel = selectFontElement[0].querySelectorAll('.ae-picker-label')[0] as HTMLElement;

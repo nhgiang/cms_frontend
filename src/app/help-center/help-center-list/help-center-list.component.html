@@ -8,7 +8,7 @@
               <input type="text" nz-input placeholder="Tìm kiếm tên bài viết" formControlName="q">
             </nz-input-group>
             <ng-template #prefixTemplate>
-              <i nz-icon nzType="search" class="opacity-05"></i>
+              <i  aria-hidden="true"nz-icon nzType="search" class="opacity-05"></i>
             </ng-template>
           </div>
           <div><a routerLink="/settings-help/help-center/create" nz-button nzType="primary"> Thêm mới
@@ -45,11 +45,11 @@
           <div class="d-flex justify-content-end">
             <a [routerLink]="['/settings-help/help-center/edit',item?.id]" class="m-r-5" nz-button nzType="default"
               nzShape="circle" nz-tooltip nzTooltipTitle="Chỉnh sửa">
-              <i nz-icon nzType="edit" theme="outline"></i>
+              <i  aria-hidden="true"nz-icon nzType="edit" theme="outline"></i>
             </a>
             <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
               <div [confirmation]="'Bạn có chắc chắn muốn xóa bài viết này không?'" (confirmed)="delete(item?.id)">
-                <i nz-icon nzType="close" nzTheme="outline"></i>
+                <i  aria-hidden="true"nz-icon nzType="close" nzTheme="outline"></i>
               </div>
             </a>
           </div>
