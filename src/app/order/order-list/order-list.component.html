@@ -12,10 +12,19 @@
                      placeholder="Tìm kiếm tên khách hàng, email, mã hóa đơn"
                      formControlName="q" />
             </nz-input-group>
+
             <ng-template #prefixTemplate>
-              <i  aria-hidden="true"nz-icon
-                 nzType="search"
-                 class="opacity-05"></i>
+              <<<<<<< HEAD
+                      <i
+                      aria-hidden="true"
+                      nz-icon
+                      nzType="search"
+                      class="opacity-05"></i>
+                =======
+                <i nz-icon
+                   nzType="search"
+                   class="opacity-05"></i>
+                >>>>>>> 65e2fb63b67bad4ce7d303ef2f550dce15c1a7dd
             </ng-template>
           </div>
           <div class="m-b-10 m-r-20">
@@ -47,7 +56,8 @@
         <button nz-button
                 nzType="primary"
                 (click)="exportExcel()"
-                [nzLoading]="activity.is('downloading')">Download excel</button>
+                [nzLoading]="activity.is('downloading')">Download
+          excel</button>
       </div>
     </div>
   </div>
@@ -116,7 +126,8 @@
                nz-tooltip
                nzTooltipTitle="Tải xuống"
                *ngIf="!activity.is(i+'downloading') && invoice.status === 'Success'">
-              <i  aria-hidden="true"nz-icon
+              <i aria-hidden="true"
+                 nz-icon
                  nzType="vertical-align-bottom"
                  nzTheme="outline"></i>
 
@@ -128,7 +139,8 @@
                nz-tooltip
                nzTooltipTitle="Đang tải"
                *ngIf="activity.is(i+'downloading') && invoice.status === 'Success'">
-              <i  aria-hidden="true"nz-icon
+              <i aria-hidden="true"
+                 nz-icon
                  nzType="loading"
                  nzTheme="outline"></i>
             </a>
@@ -139,7 +151,8 @@
                nzShape="circle"
                nz-tooltip
                nzTooltipTitle="Chỉnh sửa">
-              <i  aria-hidden="true"nz-icon
+              <i aria-hidden="true"
+                 nz-icon
                  nzType="edit"
                  theme="outline"></i>
             </a>

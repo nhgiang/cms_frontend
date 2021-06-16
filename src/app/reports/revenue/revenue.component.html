@@ -18,11 +18,11 @@
             </div>
             <div>
               <nz-date-picker [nzMode]="form.get('mode').value === 'Date'?  'date' : 'month'"
-                [nzFormat]=" form.get('mode').value === 'Date'? 'dd/MM/yyyy' : 'MM/yyyy'" formControlName="startDate"
+                [nzFormat]=" form.get('mode').value === 'Date'? 'dd/MM/yyyy' : 'MM/yyyy'" formControlName="endDate"
                 formControlName="endDate" nzPlaceHolder="Đên ngày"></nz-date-picker>
             </div>
           </div>
-          <div><a routerLink="/settings-help/help-center/create" nz-button nzType="primary"> Xem chi tiết
+          <div><a routerLink="detail" nz-button nzType="primary"> Xem chi tiết
             </a></div>
         </div>
       </form>

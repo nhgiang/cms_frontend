@@ -39,7 +39,6 @@ export class RoyaltiesAnalyticsComponent implements OnInit {
       });
     });
     this.fetchStudentView();
-    this.fetchTeacherView();
   }
 
   protected fetchStudentView(params?: { [key: string]: any }) {
@@ -73,6 +72,7 @@ export class RoyaltiesAnalyticsComponent implements OnInit {
     });
   }
   toggleDrawer() {
+    this.fetchTeacherView()
     this.drawerService.create({
       nzContent: this.drawer,
       nzBodyStyle: { padding: '35px' },

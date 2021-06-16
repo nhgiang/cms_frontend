@@ -16,7 +16,8 @@ export class InvoiceApiService extends BaseApi {
     q: string,
     status: any,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
+    type?: string
   }) {
     return this.httpClient.get<QueryResult<Invoice>>(this.createUrl(''), { params: this.createParams(params) });
   }
@@ -46,5 +47,21 @@ export class InvoiceApiService extends BaseApi {
 
   download(id: string) {
     return this.httpClient.get(this.createUrl(`/${id}/bill`), { responseType: 'blob' }).pipe(tap(res => download(res, 'application/pdf', 'Hóa đơn thanh toán ' + new Date().getTime().toString())));
+  }
+
+  downloadExcelReport(params: {
+    q: string,
+    status: any,
+    startDate: Date,
+    endDate: Date,
+    type?: string
+  }) {
+    return this.httpClient.get(this.createUrl(`/download/analytics`), { params: this.createParams(params), responseType: 'blob' }).pipe(tap(res => {
+      download(
+        res,
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'Báo cáo doanh thu chi tiết ' + new Date().getTime().toString()
+      );
+    }));
   }
 }
