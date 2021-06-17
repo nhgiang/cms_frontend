@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TeacherDetailResolver } from '@shared/services/resolve/teacher-detail.resolver';
+import { AssistanceCreateComponent } from './assistance/assistance-create/assistance-create.component';
+import { AssistanceUpdateComponent } from './assistance/assistance-update/assistance-update.component';
+import { AssistanceComponent } from './assistance/assistance.component';
 import { LecturerCreateComponent } from './lecturer/lecturer-create/lecturer-create.component';
 import { LecturerUpdateComponent } from './lecturer/lecturer-update/lecturer-update.component';
 import { LecturerComponent } from './lecturer/lecturer.component';
@@ -52,6 +55,32 @@ const routes: Routes = [
         },
         resolve: {
           teacher: TeacherDetailResolver
+        }
+      },
+    ]
+  },
+  {
+    path: 'assistance',
+    children: [
+      {
+        path: '',
+        component: AssistanceComponent,
+        data: {
+          title: 'Quản lý nhân viên',
+        }
+      },
+      {
+        path: 'create',
+        component: AssistanceCreateComponent,
+        data: {
+          title: 'Tạo mới nhân viên',
+        }
+      },
+      {
+        path: ':id',
+        component: AssistanceUpdateComponent,
+        data: {
+          title: 'Cập nhật thông tin nhân viên',
         }
       },
     ]

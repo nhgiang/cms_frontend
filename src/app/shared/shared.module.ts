@@ -33,6 +33,8 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ToImagePipe } from './pipes/to-image.pipe';
 import { NameTeacherPipe } from './pipes/name-teacher.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { FixFontEditorDirective } from './services/fix-font-editor-service.ts/fix-font-editor.directive';
 
 @NgModule({
   exports: [
@@ -67,7 +69,9 @@ import { TruncatePipe } from './pipes/truncate.pipe';
     UploadVimeoControlComponent,
     ToImagePipe,
     SafeUrlPipe,
-    TruncatePipe
+    TruncatePipe,
+    ChangePasswordComponent,
+    FixFontEditorDirective
   ],
   imports: [
     RouterModule,
@@ -75,7 +79,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
     ZorroAntdModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     SearchPipe,
@@ -103,11 +107,10 @@ import { TruncatePipe } from './pipes/truncate.pipe';
     ToImagePipe,
     SafeUrlPipe,
     TruncatePipe,
-    NameTeacherPipe
+    NameTeacherPipe,
+    ChangePasswordComponent,
+    FixFontEditorDirective
   ],
-  providers: [
-    ThemeConstantService
-  ]
+  providers: [ThemeConstantService],
 })
-
 export class SharedModule { }

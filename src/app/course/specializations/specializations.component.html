@@ -12,10 +12,13 @@
               (nzQueryParams)="onParamsChanged($event)"
               [(nzPageIndex)]="page"
               [nzShowTotal]="totalTemplate"
-              [nzNoResult]="empty">
+              [nzNoResult]="empty"
+              [nzTotal]="meta?.totalItems"
+              [nzFrontPagination]="false">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col"
+              [nzWidth]="'150px'">ID</th>
           <th scope="col">Tên chuyên môn</th>
           <th scope="col"
               [nzWidth]="'120px'"></th>
@@ -34,7 +37,7 @@
                  nzShape="circle"
                  nz-tooltip
                  nzTooltipTitle="Chỉnh sửa">
-                <i nz-icon
+                <i  aria-hidden="true"nz-icon
                    nzType="edit"
                    theme="outline"></i>
               </a>
@@ -46,7 +49,7 @@
                    nzShape="circle"
                    nz-tooltip
                    nzTooltipTitle="Xóa">
-                  <i nz-icon
+                  <i  aria-hidden="true"nz-icon
                      nzType="close"
                      nzTheme="outline"></i>
                 </a>

@@ -1,10 +1,10 @@
 <nz-card>
   <div style="text-align: right">
-    <a nz-button nzType="default" class="m-r-5" (click)="preview()">
-      <i nz-icon nzType="eye"></i> Xem trước
+    <a nz-button nzType="default" class="m-r-5" (click)="isPreview = true">
+      <i  aria-hidden="true"nz-icon nzType="eye"></i> Xem trước
     </a>
-    <a routerLink="create" nz-button nzType="primary">
-      <i nz-icon nzType="plus"></i> Thêm mới
+    <a (click)="createPayment()" nz-button nzType="primary">
+      <i  aria-hidden="true"nz-icon nzType="plus"></i> Tạo mới
     </a>
   </div>
 
@@ -16,18 +16,26 @@
   >
     <thead>
       <tr>
-        <th scope="col">Mã ngân hàng</th>
-        <th scope="col">Tên ngân hàng</th>
+        <th scope="col">ID</th>
+        <th scope="col" nzAlign="center">Mã ngân hàng</th>
+        <th scope="col" nzAlign="center">Logo</th>
         <th scope="col">Số tài khoản</th>
-        <th scope="col">Tên chủ tài khoản</th>
+        <th scope="col">Chủ tài khoản</th>
         <th scope="col">Chi nhánh</th>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let paymentInfo of payments; index as i">
-        <td>{{ paymentInfo.bankCode }}</td>
-        <td>{{ paymentInfo.bankName }}</td>
+        <td>#{{ i + 1 }}</td>
+        <td nzAlign="center">{{ paymentInfo.bankCode }}</td>
+        <td nzAlign="center">
+          <img
+            [src]="paymentInfo.imageActive"
+            style="width: 105px; height: 50px"
+            alt=""
+          />
+        </td>
         <td>{{ paymentInfo.accountNumber }}</td>
         <td>{{ paymentInfo.accountName }}</td>
         <td>{{ paymentInfo.branch }}</td>
@@ -39,14 +47,14 @@
             nzType="default"
             nz-tooltip
             nzTooltipTitle="Sửa"
-            (click)="navigate(i)"
+            (click)="editPayment(i)"
           >
-            <i nz-icon nzType="edit"></i>
+            <i  aria-hidden="true"nz-icon nzType="edit"></i>
           </a>
 
           <span
             [confirmation]="
-              'Bạn có chắc muốn xóa thông tin thanh toán này không?'
+              'Bạn có chắc muốn xóa thông tin ngân hàng này không?'
             "
             (confirmed)="deletePayment(paymentInfo)"
           >
@@ -57,7 +65,7 @@
               nz-tooltip
               nzTooltipTitle="Xóa"
             >
-              <i nz-icon nzType="close"></i>
+              <i  aria-hidden="true"nz-icon nzType="close"></i>
             </a>
           </span>
         </td>
@@ -69,4 +77,5 @@
 <app-payments-preview
   [payments]="payments"
   [isPreview]="isPreview"
+  (closed)="isPreview = false"
 ></app-payments-preview>

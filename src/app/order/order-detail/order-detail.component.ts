@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InvoiceApiService } from '@shared/api/invoice.api.service';
-import { SettingApiService } from '@shared/api/setting.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { StudentStatusOptions } from '@shared/options/student-status.options';
 import { omitBy } from 'lodash-es';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
-import { InvoiceStatus, InvoiceStatusOptions, InvoiceType } from 'types/enums';
+import { InvoiceStatus, InvoiceStatusOptions, InvoiceType, PaymentMethod } from 'types/enums';
 import { Invoice } from 'types/typemodel';
 
 @Component({
@@ -25,13 +24,12 @@ export class OrderDetailComponent implements OnInit {
   invoiceStatus = InvoiceStatus;
   invoiceType = InvoiceType;
   isLoading: boolean;
-  paymentMethods: any;
+  paymentMethod = PaymentMethod;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private invoiceApi: InvoiceApiService,
-    private settingApi: SettingApiService,
     private nzNotification: NzNotificationService,
     private router: Router
   ) { }
@@ -54,7 +52,6 @@ export class OrderDetailComponent implements OnInit {
         this.form.get('status').disable();
       }
     });
-    this.settingApi.payment.get().subscribe(res => this.paymentMethods = res);
     this.form.get('status').valueChanges.subscribe(val => {
       if (val !== this.invoiceStatus.Success) {
         // tslint:disable-next-line: forin

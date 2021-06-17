@@ -9,7 +9,7 @@
       <tr>
         <th scope="col" [nzWidth]="'70px'">ID</th>
         <th scope="col">Tên kỹ năng</th>
-        <th scope="col">Icon</th>
+        <th scope="col" [nzWidth]="'70px'">Icon</th>
         <th scope="col">Mô tả</th>
         <th scope="col" [nzWidth]="'120px'"></th>
       </tr>
@@ -28,12 +28,12 @@
           <div class="d-flex">
             <a (click)="editSkill(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
               nzTooltipTitle="Chỉnh sửa">
-              <i nz-icon nzType="edit" theme="outline"></i>
+              <i  aria-hidden="true"nz-icon nzType="edit" theme="outline"></i>
             </a>
             <div (confirmed)="deleteSkill(item?.id)"
               [confirmation]="'Bạn có chắc muốn xóa thông tin kỹ năng này hay không?'">
               <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
-                <i nz-icon nzType="close" nzTheme="outline"></i>
+                <i  aria-hidden="true"nz-icon nzType="close" nzTheme="outline"></i>
               </a>
             </div>
           </div>

@@ -1,0 +1,47 @@
+<nz-card>
+  <div class="row">
+    <div class="col-12">
+      <form nz-form [formGroup]="form">
+        <div class="d-md-flex justify-content-between">
+          <div class="d-flex">
+            <div class="m-b-10 m-r-20">
+              <nz-select style="width: 300px;" formControlName="mode" nzPlaceHolder="Chế độ xem">
+                <nz-option nzValue="Date" nzLabel="Xem theo ngày"></nz-option>
+                <nz-option nzValue="Month" nzLabel="Xem theo tháng"></nz-option>
+              </nz-select>
+            </div>
+            <div class="m-b-10 m-r-20">
+              <nz-date-picker [nzMode]="form.get('mode').value === 'Date'?  'date' : 'month'"
+                [nzFormat]=" form.get('mode').value === 'Date'? 'dd/MM/yyyy' : 'MM/yyyy'" formControlName="startDate"
+                nzPlaceHolder="Từ ngày">
+              </nz-date-picker>
+            </div>
+            <div>
+              <nz-date-picker [nzMode]="form.get('mode').value === 'Date'?  'date' : 'month'"
+                [nzFormat]=" form.get('mode').value === 'Date'? 'dd/MM/yyyy' : 'MM/yyyy'" formControlName="endDate"
+                formControlName="endDate" nzPlaceHolder="Đến ngày"></nz-date-picker>
+            </div>
+          </div>
+          <div><a routerLink="detail" nz-button nzType="primary"> Xem chi tiết
+            </a></div>
+        </div>
+      </form>
+    </div>
+
+    <div style="margin-top: 50px">
+      <div class="title">Dòng tiền vào</div>
+      <div class="content">{{totalMoney}} VND</div>
+    </div>
+
+    <div class="d-flex justify-content-center w-100 h-100">
+      <div class="chart" style="min-height: 300px;">
+        <div></div>
+        <canvas ngChartjs [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+          [colors]="barChartColors" [legend]="barChartLegend" [chartType]="barChartType"
+          [inlinePlugins]="inlinePlugins">
+        </canvas>
+      </div>
+    </div>
+
+  </div>
+</nz-card>

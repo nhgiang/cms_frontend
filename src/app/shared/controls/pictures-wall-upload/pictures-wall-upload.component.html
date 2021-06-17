@@ -3,7 +3,7 @@
     [nzShowButton]="fileList?.length < maxLength" [nzPreview]="handlePreview" (nzChange)="change($event)"
     [nzBeforeUpload]="beforeUpload" [nzRemove]="remove">
     <div>
-      <i nz-icon nzType="plus"></i>
+      <i  aria-hidden="true"nz-icon nzType="plus"></i>
       <div style="margin-top: 8px">Upload</div>
     </div>
   </nz-upload>

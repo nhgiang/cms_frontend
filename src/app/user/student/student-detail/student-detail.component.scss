@@ -9,7 +9,29 @@
 .list-info {
   li {
     p:after {
-      content: '\200B';
+      content: "\200B";
     }
   }
+}
+
+.status-btn {
+  width: 100%;
+  min-height: 30px;
+  border-radius: 35px;
+  user-select: none;
+}
+
+.happening {
+  background-color: rgba(63, 135, 245, 0.1);
+  color: rgba(63, 135, 245);
+}
+
+.wait {
+  background-color: rgba(0, 201, 167, 0.1);
+  color: rgba(0, 201, 167);
+}
+
+.done {
+  background-color: rgba(242, 71, 139, 0.1);
+  color: rgba(242, 71, 139);
 }

@@ -2,7 +2,7 @@
   <ng-container [ngSwitch]="status">
     <ng-container *ngSwitchCase="UploaderStatus.NotSelected">
       <label class="upload-label d-flex flex-column align-items-center justify-content-center" for="fileInput">
-        <i nz-icon nzType="youtube" nzTheme="fill"></i>
+        <i  aria-hidden="true"nz-icon nzType="youtube" nzTheme="fill"></i>
         <span class="mt-1 text-dark" translate>Nhấn vào đây và chọn video để upload</span>
         <span class="file-type">Định dạng file hỗ trợ .mp4. Tên file không chứa các ký tự đặc biệt</span>
       </label>
@@ -14,7 +14,7 @@
     </ng-container>
     <ng-container *ngSwitchCase="UploaderStatus.Selected">
       <div class="video-player" style="height: 350;">
-        <i nz-icon nzType="close-circle" nzTheme="fill" (confirmed)="removeVideo()" [confirmation]="'Bạn có chắc chắn muốn xóa video giới thiệu này không?'"></i>
+        <i  aria-hidden="true"nz-icon nzType="close-circle" nzTheme="fill" (confirmed)="removeVideo()" [confirmation]="'Bạn có chắc chắn muốn xóa video giới thiệu này không?'"></i>
         <video height="350" controls #video autoplay muted crossorigin>
           <source [src]="content" type="video/mp4">
           <track kind="subtitles">

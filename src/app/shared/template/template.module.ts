@@ -22,47 +22,41 @@ import { FooterComponent } from './footer/footer.component';
 
 import { SideNavDirective } from '../directives/side-nav.directive';
 import { ThemeConstantService } from '../services/theme-constant.service';
+import { ChangeAvatarComponent } from './header/change-avatar/change-avatar.component';
 
 const antdModule = [
-    NzAvatarModule,
-    NzBadgeModule,
-    NzRadioModule,
-    NzDropDownModule,
-    NzListModule,
-    NzDrawerModule,
-    NzDividerModule,
-    NzSwitchModule,
-    NzInputModule,
-    NzButtonModule
+  NzAvatarModule,
+  NzBadgeModule,
+  NzRadioModule,
+  NzDropDownModule,
+  NzListModule,
+  NzDrawerModule,
+  NzDividerModule,
+  NzSwitchModule,
+  NzInputModule,
+  NzButtonModule,
 ];
 
 @NgModule({
-    exports: [
-        CommonModule,
-        HeaderComponent,
-        SearchComponent,
-        QuickViewComponent,
-        SideNavComponent,
-        SideNavDirective,
-        FooterComponent
-    ],
-    imports: [
-        RouterModule,
-        CommonModule,
-        SharedModule,
-        ...antdModule
-    ],
-    declarations: [
-        HeaderComponent,
-        SearchComponent,
-        QuickViewComponent,
-        SideNavComponent,
-        SideNavDirective,
-        FooterComponent
-    ],
-    providers: [
-        ThemeConstantService
-    ]
+  exports: [
+    CommonModule,
+    HeaderComponent,
+    SearchComponent,
+    QuickViewComponent,
+    SideNavComponent,
+    SideNavDirective,
+    FooterComponent,
+  ],
+  imports: [RouterModule, CommonModule, SharedModule, ...antdModule],
+  declarations: [
+    HeaderComponent,
+    SearchComponent,
+    QuickViewComponent,
+    SideNavComponent,
+    SideNavDirective,
+    FooterComponent,
+    ChangeAvatarComponent,
+  ],
+  providers: [ThemeConstantService],
 })
-
-export class TemplateModule { }
+export class TemplateModule {}

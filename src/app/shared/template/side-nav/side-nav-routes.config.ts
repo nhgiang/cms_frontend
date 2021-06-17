@@ -26,6 +26,11 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Quản lý giảng viên',
         submenu: [],
       },
+      {
+        path: 'assistance',
+        title: 'Quản lý nhân viên',
+        submenu: []
+      }
     ],
   },
   {
@@ -225,4 +230,38 @@ export const ROUTES: SideNavInterface[] = [
     icon: 'customer-service',
     submenu: [],
   },
+  {
+    path: 'reports',
+    title: 'Báo cáo',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'team',
+    submenu: [
+      {
+        path: 'revenue',
+        title: 'Báo cáo doanh thu',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'customer-service',
+        submenu: []
+      }
+    ],
+  },
+  {
+    path: 'settings-help',
+    title: 'Cài đặt bài viết hướng dẫn',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'customer-service',
+    submenu: [
+      {
+        path: 'help-center',
+        title: 'Danh sách bài viết',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'customer-service',
+        submenu: []
+      }
+    ],
+  }
 ];

@@ -43,11 +43,6 @@ export class StudentComponent extends DataTableContainer<User> implements OnInit
       name: 'Tổng tiến độ',
       sortable: false,
     },
-    {
-      key: '',
-      name: 'Tích điểm',
-      sortable: false,
-    }
   ];
   constructor(
     private studentApi: StudentApiService,

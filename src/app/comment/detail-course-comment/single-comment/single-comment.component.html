@@ -6,7 +6,7 @@
       <div style="margin-right: 2rem" [ngClass]="type === 'Comment' ? 'color-blue' : ''">{{ data?.content }}</div>
       <div class="close-btn " style="cursor: pointer;" [confirmation]="message(data.parentType)"
         (confirmed)="deleteItem(data?.id)">
-        <i nz-icon nzType="close" nzTheme="outline"></i>
+        <i  aria-hidden="true"nz-icon nzType="close" nzTheme="outline"></i>
       </div>
     </div>
   </nz-comment-content>

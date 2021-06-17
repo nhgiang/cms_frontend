@@ -8,7 +8,7 @@
     {{option.disabled}}
   </nz-option>
   <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
-    <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+    <i  aria-hidden="true"nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
   </nz-option>
-  <ng-template #clearIconTpl><i (click)="onClear()" nz-icon nzType="close-circle" nzTheme="fill"></i></ng-template>
+  <ng-template #clearIconTpl><i  aria-hidden="true"(click)="onClear()" nz-icon nzType="close-circle" nzTheme="fill"></i></ng-template>
 </nz-select>

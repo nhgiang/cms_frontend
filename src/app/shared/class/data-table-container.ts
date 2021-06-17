@@ -24,12 +24,7 @@ export abstract class DataTableContainer<T> implements OnInit {
     return this.route.snapshot.params;
   }
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
-
-  }
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   // tslint:disable-next-line: contextual-lifecycle
   ngOnInit() {
@@ -51,29 +46,36 @@ export abstract class DataTableContainer<T> implements OnInit {
   }
 
   onParamsChanged(event: any) {
-    const sort = event.sort.find(t => t.value !== null);
-    this.navigate({ ...this.currentParams, page: event.pageIndex, sort: sort?.key, order: sort?.value });
+    const sort = event.sort.find((t) => t.value !== null);
+    this.navigate({
+      ...this.currentParams,
+      page: event.pageIndex,
+      sort: sort?.key,
+      order: sort?.value,
+    });
   }
 
   protected abstract fetch(): Observable<QueryResult<T>>;
 
   protected subscribe() {
-    merge(...[this.refreshTrigger, this.route.params]).pipe(
-      tap(this.readRouteParams.bind(this)),
-      switchMap(() => {
-        this.isloading = true;
-        return this.fetch().pipe(finalize(() => this.isloading = false));
-      }),
-    ).subscribe({
-      next: result => this.handleResult(result)
-    });
+    merge(...[this.refreshTrigger, this.route.params])
+      .pipe(
+        tap(this.readRouteParams.bind(this)),
+        switchMap(() => {
+          this.isloading = true;
+          return this.fetch().pipe(finalize(() => (this.isloading = false)));
+        })
+      )
+      .subscribe({
+        next: (result) => this.handleResult(result),
+      });
   }
 
   protected readRouteParams(params: { [key: string]: any }) {
     const { page, quantity, sort, order } = params || {};
     this.page = +page || 1;
     this.quantity = +quantity || this.quantity;
-    if (this.metaData && this.metaData.some(t => t.sortable === true)) {
+    if (this.metaData && this.metaData.some((t) => t.sortable === true)) {
       this.metaData.forEach((column, i) => {
         if (column.key === sort) {
           this.metaData[i].sortOrder = order;
@@ -89,7 +91,7 @@ export abstract class DataTableContainer<T> implements OnInit {
     for (const key in trimData(parsedParams)) {
       try {
         parsedParams[key] = JSON.parse(parsedParams[key]);
-      } catch (e) { }
+      } catch (e) {}
     }
     this.params = parsedParams;
   }
@@ -103,7 +105,7 @@ export abstract class DataTableContainer<T> implements OnInit {
     this.meta = result.meta;
     this.items = result.items.map((item: T, index) => ({
       ...item,
-      index: (index + 1) + ((this.page - 1) * this.quantity)
+      index: index + 1 + (this.page - 1) * this.quantity,
     }));
   }
 }

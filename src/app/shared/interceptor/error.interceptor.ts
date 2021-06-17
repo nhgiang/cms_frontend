@@ -16,7 +16,9 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
+      if (!navigator.onLine) {
+        this.notification.error('Thất bại', 'Đường truyền mạng không ổn định. Vui lòng thử lại sau!');
+      } else if (error.status === 401) {
         // tslint:disable-next-line: max-line-length
         if (localStorage.getItem('token') && Number(jwt_decode<ITokenDecode>(localStorage.getItem('token') as string)?.exp) > Number(new Date().getTime()) / 1000) {
           this.notification.warning('', 'Tài khoản của bạn đã đăng nhập ở một thiết bị khác hoặc tạm thời bị khóa.');

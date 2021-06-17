@@ -47,8 +47,8 @@ export class FaqComponent implements OnInit {
       this.faqIndexs[index].isEdit = !this.faqIndexs[index].isEdit;
       return;
     }
-    this.submiting = true;
     Ultilities.validateForm(this.itemsControlArray.controls[index] as FormGroup);
+    this.submiting = true;
     this.settingApi.faq.post(this.form.value.items).pipe(finalize(() => this.submiting = false)).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật câu hỏi thường gặp thành công');
       this.faqIndexs[index].isEdit = !this.faqIndexs[index].isEdit;

@@ -90,7 +90,7 @@
           <nz-form-label class="text-left" nzRequired>
             Kỹ năng
           </nz-form-label>
-          <i nz-icon nzType="info-circle" nzTheme="outline" nz-tooltip
+          <i  aria-hidden="true"nz-icon nzType="info-circle" nzTheme="outline" nz-tooltip
             nzTooltipTitle="Chỉ cho phép chọn tối đa 4 kỹ năng"></i>
         </div>
         <nz-form-control nzErrorTip="Chọn kỹ năng đạt được cho khóa học">
@@ -117,7 +117,7 @@
       <div class="card-body">
         <div class="title px-3 py-2">
           <h5 class="mb-0">Đánh giá học viên</h5>
-          <span (click)="addFeedback()"><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+          <span (click)="addFeedback()"><i  aria-hidden="true"nz-icon nzType="plus" nzTheme="outline"></i></span>
         </div>
         <div class="feedbacks px-3">
           <div *ngFor="let feedback of feedbacks"
@@ -130,7 +130,7 @@
             <div class="text-muted">
               <span [confirmation]="'Bạn có chắc chắn muốn xóa thông tin đánh giá của học viên này?'"
                 (confirmed)="deleteFeedback(feedback?.id)">
-                <i nz-icon nzType="close-circle" nzTheme="fill" style="font-size: 20px;"></i>
+                <i  aria-hidden="true"nz-icon nzType="close-circle" nzTheme="fill" style="font-size: 20px;"></i>
               </span>
             </div>
           </div>
@@ -139,7 +139,7 @@
       <div class="card-body">
         <div class="title  px-3 py-2">
           <h5 class="mb-0">Cấp chứng chỉ</h5>
-          <span><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+          <span><i  aria-hidden="true"nz-icon nzType="plus" nzTheme="outline"></i></span>
         </div>
       </div>
     </div>
