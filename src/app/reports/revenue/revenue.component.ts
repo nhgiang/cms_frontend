@@ -4,6 +4,7 @@ import { ReportsApiService } from '@shared/api/reports.api.service';
 import * as fns from 'date-fns';
 import { getMonth, getYear } from 'date-fns';
 import { sum } from 'lodash-es';
+import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -23,9 +24,16 @@ export class RevenueComponent implements OnInit {
         display: true,
         scaleLabel: {
           display: false,
-          labelString: 'Month'
+          labelString: 'Month',
         },
-        gridLines: true,
+        gridLines: {
+          drawBorder: true,
+          offsetGridLines: false,
+          drawTicks: false,
+          borderDash: [3, 4],
+          zeroLineWidth: 1,
+          zeroLineBorderDash: [3, 4]
+        },
         ticks: {
           display: true,
           beginAtZero: true,
@@ -37,11 +45,11 @@ export class RevenueComponent implements OnInit {
       yAxes: [{
         display: true,
         scaleLabel: {
-          display: false,
-          labelString: 'Value'
+          display: true,
+          labelString: 'Doanh Thu (Triệu VNĐ)',
         },
         gridLines: {
-          drawBorder: false,
+          drawBorder: true,
           offsetGridLines: false,
           drawTicks: false,
           borderDash: [3, 4],
@@ -58,16 +66,16 @@ export class RevenueComponent implements OnInit {
         }
       }]
     },
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: function (val) {
-            console.log(val);
-            return 'aaavs';
-          }
-        }
+    tooltips: {
+      enabled: true,
+      displayColors: false,
+      xPadding: 15,
+      yPadding: 15,
+      callbacks: {
+        label: this.customToolTipLabel.bind(this),
       }
-    }
+
+    },
   };
   barChartLabels: string[] = [];
   barChartType = 'bar';
@@ -131,26 +139,18 @@ export class RevenueComponent implements OnInit {
   }
 
   customLabelY(label, index, labels) {
-    const string = JSON.stringify(label);
-    if (string.length > 9) {
-      return `${string.slice(0, string.length - 9)} tỉ ${(string.slice(string.length - 9, string.length - 6) === '000') ? '' : string.slice(string.length - 9, string.length - 6) + ' triệu'}`;
-    } else if (string.length > 6) {
-      return string.slice(0, string.length - 6) + ' triệu';
-    } else {
-      return string;
-    }
+    return label / 1000000;
   }
 
   customLabelX(label, index, labels) {
     if (this.form?.get('mode')?.value === 'Month') {
-      const date = label.split('/');
-      return `Tháng ${getMonth(new Date(date[2], date[1], date[0]))}/${getYear(new Date(date[2], date[1], date[0]))}`;
+      return `Tháng ${moment(label, 'dd/MM/YYYY').month() + 1}/${moment(label, 'dd/MM/YYYY').year() + 1}`;
     }
     return label;
   }
 
-  customToolTip(label, index) {
-    console.log(label, index);
+  customToolTipLabel(tooltipItem, data) {
+    return `Doanh thu: ${this.formatCurrency('vi-VN', tooltipItem.value)} VNĐ`;
   }
 
   formatCurrency(locate: string, value: number) {
