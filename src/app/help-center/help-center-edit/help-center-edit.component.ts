@@ -1,4 +1,4 @@
-import { Component, Inject, Renderer2 } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig, AngularEditorService } from '@kolkov/angular-editor';

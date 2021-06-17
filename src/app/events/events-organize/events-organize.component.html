@@ -1,30 +1,27 @@
 <nz-card>
   <div class="d-flex">
-    <button
-      class="ml-auto"
-      (click)="showCreateModal()"
-      nz-button
-      nzType="primary"
-    >
+    <button class="ml-auto"
+            (click)="showCreateModal()"
+            nz-button
+            nzType="primary">
       Thêm loại sự kiện
     </button>
   </div>
 
-  <nz-table
-    [nzData]="events"
-    [nzShowTotal]="total"
-    [nzPageIndex]="meta?.currentPage"
-    [nzLoading]="isDataLoading"
-    [nzFrontPagination]="false"
-    [nzPageSize]="meta?.itemsPerPage"
-    [nzTotal]="meta?.totalItems"
-    (nzPageIndexChange)="onPageIndexChange($event)"
-    [nzNoResult]="empty"
-  >
+  <nz-table [nzData]="events"
+            [nzShowTotal]="total"
+            [nzPageIndex]="meta?.currentPage"
+            [nzLoading]="isDataLoading"
+            [nzFrontPagination]="false"
+            [nzPageSize]="meta?.itemsPerPage"
+            [nzTotal]="meta?.totalItems"
+            (nzPageIndexChange)="onPageIndexChange($event)"
+            [nzNoResult]="empty">
     <thead>
       <tr>
-        <th>ID</th>
-        <th class="w-100">Tên loại sự kiện</th>
+        <th scope="col">ID</th>
+        <th scope="col"
+            class="w-100">Tên loại sự kiện</th>
       </tr>
     </thead>
 
@@ -33,25 +30,28 @@
         <td>#{{ event.eventIndex }}</td>
         <td class="w-100 d-flex align-items-center">
           {{ event.title }}
-          <a
-            class="ml-auto mr-1"
-            nz-button
-            nzType="default"
-            nzShape="circle"
-            (click)="showEditModal(event)"
-            nz-tooltip
-            nzTooltipTitle="Chỉnh sửa"
-          >
-            <i  aria-hidden="true"nz-icon nzType="edit"></i>
+          <a class="ml-auto mr-1"
+             nz-button
+             nzType="default"
+             nzShape="circle"
+             (click)="showEditModal(event)"
+             nz-tooltip
+             nzTooltipTitle="Chỉnh sửa">
+            <i aria-hidden="true"
+               nz-icon
+               nzType="edit"></i>
           </a>
-          <div
-            (confirmed)="deleteEvent(event)"
-            [confirmation]="
+          <div (confirmed)="deleteEvent(event)"
+               [confirmation]="
               'Bạn có chắc muốn xóa thông tin loại sự kiện này hay không?'
-            "
-          >
-            <a nz-button nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
-              <i  aria-hidden="true"nz-icon nzType="close"></i>
+            ">
+            <a nz-button
+               nzShape="circle"
+               nz-tooltip
+               nzTooltipTitle="Xóa">
+              <i aria-hidden="true"
+                 nz-icon
+                 nzType="close"></i>
             </a>
           </div>
         </td>
@@ -64,25 +64,24 @@
   <nz-empty nzNotFoundContent="Không có dữ liệu"></nz-empty>
 </ng-template>
 
-<nz-modal
-  [(nzVisible)]="isModalVisible"
-  [nzTitle]="modalTitle"
-  [nzContent]="modalContent"
-  [nzFooter]="modalFooter"
-  (nzOnCancel)="handleCancel()"
->
+<nz-modal [(nzVisible)]="isModalVisible"
+          [nzTitle]="modalTitle"
+          [nzContent]="modalContent"
+          [nzFooter]="modalFooter"
+          (nzOnCancel)="handleCancel()">
   <ng-template #modalTitle>Tên loại sự kiện</ng-template>
   <ng-template #modalContent>
-    <form [formGroup]="form" id="modal_form" (ngSubmit)="submitEvent()">
+    <form [formGroup]="form"
+          id="modal_form"
+          (ngSubmit)="submitEvent()">
       <nz-form-item>
         <nz-form-control [nzErrorTip]="customError">
-          <input
-            type="text"
-            formControlName="eventTitle"
-            nz-input
-            placeholder="Nhập loại sự kiện"
-          />
-          <ng-template #customError let-control="$implicit">
+          <input type="text"
+                 formControlName="eventTitle"
+                 nz-input
+                 placeholder="Nhập loại sự kiện" />
+          <ng-template #customError
+                       let-control="$implicit">
             <ng-container *ngIf="control.errors.required">
               Vui lòng nhập tên loại sự kiện
             </ng-container>
@@ -95,13 +94,11 @@
     </form>
   </ng-template>
   <ng-template #modalFooter>
-    <button
-      type="submit"
-      nz-button
-      nzType="primary"
-      form="modal_form"
-      [disabled]="!form.valid"
-    >
+    <button type="submit"
+            nz-button
+            nzType="primary"
+            form="modal_form"
+            [disabled]="!form.valid">
       Xác nhận
     </button>
   </ng-template>

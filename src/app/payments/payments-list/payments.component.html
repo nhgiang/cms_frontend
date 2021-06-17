@@ -16,13 +16,13 @@
   >
     <thead>
       <tr>
-        <th>ID</th>
-        <th nzAlign="center">Mã ngân hàng</th>
-        <th nzAlign="center">Logo</th>
-        <th>Số tài khoản</th>
-        <th>Chủ tài khoản</th>
-        <th>Chi nhánh</th>
-        <th></th>
+        <th scope="col">ID</th>
+        <th scope="col" nzAlign="center">Mã ngân hàng</th>
+        <th scope="col" nzAlign="center">Logo</th>
+        <th scope="col">Số tài khoản</th>
+        <th scope="col">Chủ tài khoản</th>
+        <th scope="col">Chi nhánh</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -33,6 +33,7 @@
           <img
             [src]="paymentInfo.imageActive"
             style="width: 105px; height: 50px"
+            alt=""
           />
         </td>
         <td>{{ paymentInfo.accountNumber }}</td>
