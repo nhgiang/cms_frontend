@@ -11,7 +11,7 @@ import * as moment from 'moment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { forkJoin } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { EventStatusOptions, EventUserStatusOptions, UserStatus } from 'types/enums';
+import { EventUserStatusOptions, UserStatus } from 'types/enums';
 import { Meta, User } from 'types/typemodel';
 
 @Component({
