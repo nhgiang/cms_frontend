@@ -29,16 +29,19 @@ export class RevenueComponent implements OnInit {
         gridLines: {
           drawBorder: true,
           offsetGridLines: false,
+          drawOnChartArea: false,
           drawTicks: false,
           borderDash: [3, 4],
           zeroLineWidth: 1,
-          zeroLineBorderDash: [3, 4]
+          zeroLineBorderDash: [3, 4],
+          color: 'rgb(0 0 0)'
         },
         ticks: {
           display: true,
           beginAtZero: true,
           fontSize: 13,
           padding: 10,
+          color: 'rgb(0 0 0)',
           callback: this.customLabelX.bind(this)
         }
       }],
@@ -51,10 +54,12 @@ export class RevenueComponent implements OnInit {
         gridLines: {
           drawBorder: true,
           offsetGridLines: false,
+          drawOnChartArea: false,
           drawTicks: false,
           borderDash: [3, 4],
           zeroLineWidth: 1,
-          zeroLineBorderDash: [3, 4]
+          zeroLineBorderDash: [3, 4],
+          color: 'rgb(0 0 0)'
         },
         ticks: {
           stepSize: 25000000,
@@ -62,6 +67,7 @@ export class RevenueComponent implements OnInit {
           beginAtZero: true,
           fontSize: 13,
           padding: 20,
+          color: '#fff',
           callback: this.customLabelY
         }
       }]
@@ -73,6 +79,7 @@ export class RevenueComponent implements OnInit {
       yPadding: 15,
       callbacks: {
         label: this.customToolTipLabel.bind(this),
+        title: this.customToolTipTitle.bind(this)
       }
 
     },
@@ -144,13 +151,20 @@ export class RevenueComponent implements OnInit {
 
   customLabelX(label, index, labels) {
     if (this.form?.get('mode')?.value === 'Month') {
-      return `Tháng ${moment(label, 'dd/MM/YYYY').month() + 1}/${moment(label, 'dd/MM/YYYY').year()}`;
+      return `T ${moment(label, 'dd/MM/YYYY').month() + 1}/${moment(label, 'dd/MM/YYYY').year()}`;
     }
     return label;
   }
 
   customToolTipLabel(tooltipItem, data) {
     return `Doanh thu: ${this.formatCurrency('vi-VN', tooltipItem.value)} VNĐ`;
+  }
+
+  customToolTipTitle(tooltipItem, data) {
+    if (this.form?.get('mode')?.value === 'Month') {
+      return `${moment(tooltipItem[0].label, 'dd/MM/YYYY').month() + 1}/${moment(tooltipItem[0].label, 'dd/MM/YYYY').year()}`
+    }
+    return tooltipItem[0].label;
   }
 
   formatCurrency(locate: string, value: number) {
