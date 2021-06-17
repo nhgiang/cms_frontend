@@ -13,24 +13,24 @@
       <a href="javascript:void(0);"
          class="ant-menu-submenu-title"
          *ngIf="item.submenu.length > 0">
-        <i *ngIf="item.iconType == 'nzIcon'"
+        <i  aria-hidden="true"*ngIf="item.iconType == 'nzIcon'"
            nz-icon
            [nzType]="item.icon"
            [theme]="item.iconTheme"></i>
-        <i *ngIf="item.iconType == 'fontawesome'"
+        <i  aria-hidden="true"*ngIf="item.iconType == 'fontawesome'"
            class="m-r-10"
            [ngClass]="[item.iconTheme , item.icon]"></i>
         <span>{{item.title}}</span>
-        <i class="ant-menu-submenu-arrow"></i>
+        <i  aria-hidden="true"class="ant-menu-submenu-arrow"></i>
       </a>
       <a [routerLink]="item.path"
          (click)="closeMobileMenu()"
          *ngIf="item.submenu.length === 0">
-        <i *ngIf="item.iconType == 'nzIcon'"
+        <i  aria-hidden="true"*ngIf="item.iconType == 'nzIcon'"
            nz-icon
            [nzType]="item.icon"
            [theme]="item.iconTheme"></i>
-        <i *ngIf="item.iconType == 'fontawesome'"
+        <i  aria-hidden="true"*ngIf="item.iconType == 'fontawesome'"
            class="m-r-10"
            [ngClass]="[item.iconTheme , item.icon]"></i>
         <span>{{item.title}}</span>
@@ -48,25 +48,25 @@
           <a href="javascript:void(0);"
              class="ant-menu-submenu-title p-l-50"
              *ngIf="subItem.submenu.length > 0">
-            <i *ngIf="subItem.iconType == 'nzIcon'"
+            <i  aria-hidden="true"*ngIf="subItem.iconType == 'nzIcon'"
                nz-icon
                [nzType]="subItem.icon"
                [theme]="subItem.iconTheme"></i>
-            <i *ngIf="subItem.iconType == 'fontawesome'"
+            <i  aria-hidden="true"*ngIf="subItem.iconType == 'fontawesome'"
                class="m-r-10"
                [ngClass]="[subItem.iconTheme , subItem.icon]"></i>
             <span>{{subItem.title}}</span>
-            <i class="ant-menu-submenu-arrow"></i>
+            <i  aria-hidden="true"class="ant-menu-submenu-arrow"></i>
           </a>
           <a [routerLink]="[item.path,subItem.path]"
              (click)="closeMobileMenu()"
              class="p-l-30"
              *ngIf="subItem.submenu.length === 0 ">
-            <i *ngIf="subItem.iconType == 'nzIcon'"
+            <i  aria-hidden="true"*ngIf="subItem.iconType == 'nzIcon'"
                nz-icon
                [nzType]="subItem.icon"
                [theme]="subItem.iconTheme"></i>
-            <i *ngIf="subItem.iconType == 'fontawesome'"
+            <i  aria-hidden="true"*ngIf="subItem.iconType == 'fontawesome'"
                class="m-r-10"
                [ngClass]="[subItem.iconTheme , subItem.icon]"></i>
             <span>{{subItem.title}}</span>
@@ -83,25 +83,25 @@
               <a href="javascript:void(0);"
                  class="ant-menu-submenu-title p-l-50"
                  *ngIf="subItem.submenu.length > 0">
-                <i *ngIf="subItem.iconType == 'nzIcon'"
+                <i  aria-hidden="true"*ngIf="subItem.iconType == 'nzIcon'"
                    nz-icon
                    [nzType]="subItem.icon"
                    [theme]="subItem.iconTheme"></i>
-                <i *ngIf="subItem.iconType == 'fontawesome'"
+                <i  aria-hidden="true"*ngIf="subItem.iconType == 'fontawesome'"
                    class="m-r-10"
                    [ngClass]="[subItem.iconTheme , subItem.icon]"></i>
                 <span>{{subItem.title}}</span>
-                <i class="ant-menu-submenu-arrow"></i>
+                <i  aria-hidden="true"class="ant-menu-submenu-arrow"></i>
               </a>
               <a [routerLink]="[item.path,subItem.path,subItem.path]"
                  (click)="closeMobileMenu()"
                  class="p-l-50"
                  *ngIf="subItem.submenu.length === 0">
-                <i *ngIf="subItem.iconType == 'nzIcon'"
+                <i  aria-hidden="true"*ngIf="subItem.iconType == 'nzIcon'"
                    nz-icon
                    [nzType]="subItem.icon"
                    [theme]="subItem.iconTheme"></i>
-                <i *ngIf="subItem.iconType == 'fontawesome'"
+                <i  aria-hidden="true"*ngIf="subItem.iconType == 'fontawesome'"
                    class="m-r-10"
                    [ngClass]="[subItem.iconTheme , subItem.icon]"></i>
                 <span>{{subItem.title}}</span>

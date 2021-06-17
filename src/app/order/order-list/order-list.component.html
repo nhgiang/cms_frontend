@@ -10,7 +10,7 @@
             </nz-input-group>
 
             <ng-template #prefixTemplate>
-              <i nz-icon nzType="search" class="opacity-05"></i>
+              <i aria-hidden="true" nz-icon nzType="search" class="opacity-05"></i>
             </ng-template>
           </div>
           <div class="m-b-10 m-r-20">
@@ -78,16 +78,16 @@
           <div class="d-flex justify-content-end">
             <a (click)="download(invoice?.id, i)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
               nzTooltipTitle="Tải xuống" *ngIf="!activity.is(i+'downloading') && invoice.status === 'Success'">
-              <i nz-icon nzType="vertical-align-bottom" nzTheme="outline"></i>
+              <i aria-hidden="true" nz-icon nzType="vertical-align-bottom" nzTheme="outline"></i>
 
             </a>
             <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Đang tải"
               *ngIf="activity.is(i+'downloading') && invoice.status === 'Success'">
-              <i nz-icon nzType="loading" nzTheme="outline"></i>
+              <i aria-hidden="true" nz-icon nzType="loading" nzTheme="outline"></i>
             </a>
             <a [routerLink]="['/order-management/order', invoice?.id]" class="m-r-5" nz-button nzType="default"
               nzShape="circle" nz-tooltip nzTooltipTitle="Chỉnh sửa">
-              <i nz-icon nzType="edit" theme="outline"></i>
+              <i aria-hidden="true" nz-icon nzType="edit" theme="outline"></i>
             </a>
           </div>
         </td>

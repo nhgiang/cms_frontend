@@ -145,7 +145,7 @@ export class SelectAdvanceComponent
   private pushToOption = (data: Option<any>[]) => {
     this.options = uniqBy([...this.options, ...data], 'value');
     this.handleDisabledOption();
-  };
+  }
 
   onClear() {
     this.csClear.emit();

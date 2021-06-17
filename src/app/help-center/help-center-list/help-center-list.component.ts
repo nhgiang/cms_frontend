@@ -95,6 +95,6 @@ export class HelpCenterListComponent extends DataTableContainer<HelpCenter> impl
     this.helpCenterApiService.delete(id).subscribe(res => {
       this.notification.success('Thành công', 'Xóa bài viết thành công');
       this.refreshTrigger.next();
-    })
+    });
   }
 }

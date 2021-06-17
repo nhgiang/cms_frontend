@@ -1,10 +1,10 @@
 <nz-card>
   <div style="text-align: right">
     <a nz-button nzType="default" class="m-r-5" (click)="isPreview = true">
-      <i nz-icon nzType="eye"></i> Xem trước
+      <i  aria-hidden="true"nz-icon nzType="eye"></i> Xem trước
     </a>
     <a (click)="createPayment()" nz-button nzType="primary">
-      <i nz-icon nzType="plus"></i> Tạo mới
+      <i  aria-hidden="true"nz-icon nzType="plus"></i> Tạo mới
     </a>
   </div>
 
@@ -48,7 +48,7 @@
             nzTooltipTitle="Sửa"
             (click)="editPayment(i)"
           >
-            <i nz-icon nzType="edit"></i>
+            <i  aria-hidden="true"nz-icon nzType="edit"></i>
           </a>
 
           <span
@@ -64,7 +64,7 @@
               nz-tooltip
               nzTooltipTitle="Xóa"
             >
-              <i nz-icon nzType="close"></i>
+              <i  aria-hidden="true"nz-icon nzType="close"></i>
             </a>
           </span>
         </td>

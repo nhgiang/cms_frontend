@@ -8,6 +8,6 @@ export class ReportsApiService extends BaseApi {
   endpoint = '';
 
   getRevenue(params) {
-    return this.httpClient.get(this.createUrl('revenue/analytics'), { params })
+    return this.httpClient.get(this.createUrl('revenue/analytics'), { params });
   }
 }

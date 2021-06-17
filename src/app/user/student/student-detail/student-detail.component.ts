@@ -11,7 +11,7 @@ import * as moment from 'moment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { forkJoin } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { EventStatusOptions, UserStatus } from 'types/enums';
+import { EventStatusOptions, EventUserStatusOptions, UserStatus } from 'types/enums';
 import { Meta, User } from 'types/typemodel';
 
 @Component({
@@ -22,7 +22,7 @@ import { Meta, User } from 'types/typemodel';
 export class StudentDetailComponent implements OnInit {
   studentStatusOptions = StudentStatusOptions;
   studentCourseStatusOptions = StudentCourseStatusOptions;
-  eventStatusOptions = EventStatusOptions;
+  eventStatusOptions = EventUserStatusOptions;
   user: User;
   userId: string;
   metaEvent: Meta;
@@ -82,16 +82,12 @@ export class StudentDetailComponent implements OnInit {
   getEvents(params = {}) {
     return this.eventApi.getByUser(this.userId, params).pipe(map(x => {
       x.items.forEach(y => {
-        y.startAt = moment(y.startAt).format('HH:mm DD-MM-YYYY');
-        if (Number(moment(y.startAt).format('x')) > Number(moment().format('x'))) {
+        if (moment().isBefore(y.startAt)) {
           y.status = 'Wait';
-        } else if (Number(moment(y.startAt).format('x')) < Number(moment().format('x'))
-          && Number(moment(y.endAt).format('x')) > Number(moment().format('x'))) {
-          y.status = 'Happening';
         } else {
-          y.status = 'Done';
+          y.status = moment().isBetween(y.startAt, y.endAt) ? 'Happening' : 'Done';
         }
-        return y;
+        y.startAt = moment(y.startAt).format('HH:mm DD-MM-YYYY');
       });
       return x;
     }), tap(res => {

@@ -1,12 +1,12 @@
 <div class="file-upload">
   <ng-container *ngIf="!customLabel; else labelCustom">
     <label [for]="inputId||'fileUpload'" *ngIf="!url">
-      <i class="mr-2" nz-icon nzType="upload" nzTheme="outline"></i>
+      <i  aria-hidden="true"class="mr-2" nz-icon nzType="upload" nzTheme="outline"></i>
       <span>Chọn file</span>
     </label>
     <ng-container *ngIf="url">
       <div class="preview" *ngIf="fileType === AssetType.Image">
-        <i nz-icon nzType="close-circle" nzTheme="fill" (click)="removeFile()"></i>
+        <i  aria-hidden="true"nz-icon nzType="close-circle" nzTheme="fill" (click)="removeFile()"></i>
         <img [src]="content" alt="">
       </div>
       <div class="preview" *ngIf="fileType === AssetType.File">

@@ -7,7 +7,6 @@ import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
-import { FileModel } from 'types/typemodel';
 
 @Component({
   selector: 'app-assistance-create',
@@ -25,7 +24,7 @@ export class AssistanceCreateComponent implements OnInit {
     private storageApi: StorageApiService,
     private assistanceApi: AssistanceApiService,
     private router: Router,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private notification: NzNotificationService
   ) { }
 

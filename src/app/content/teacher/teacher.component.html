@@ -37,12 +37,12 @@
 					<div class="d-flex">
 						<a (click)="editItem(index)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
 							nzTooltipTitle="Chỉnh sửa">
-							<i nz-icon nzType="edit" theme="outline"></i>
+							<i  aria-hidden="true"nz-icon nzType="edit" theme="outline"></i>
 						</a>
 						<div (confirmed)="deleteTeacher(index)"
 							[confirmation]="'Bạn chắc chắn muốn xóa thông tin giảng viên này?'">
 							<a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
-								<i nz-icon nzType="close" nzTheme="outline"></i>
+								<i  aria-hidden="true"nz-icon nzType="close" nzTheme="outline"></i>
 							</a>
 						</div>
 					</div>

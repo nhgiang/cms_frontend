@@ -27,7 +27,7 @@
             </div>
             <div>
               <nz-date-picker [nzMode]="'date'" [nzFormat]="'dd/MM/yyyy'" formControlName="endDate"
-                nzPlaceHolder="Đên ngày"></nz-date-picker>
+                nzPlaceHolder="Đến ngày"></nz-date-picker>
             </div>
           </div>
           <div><button (click)="downloadExcel()" nz-button nzType="primary"> Download excel
@@ -55,7 +55,7 @@
         <td>#{{ invoice?.index }}</td>
         <td>
           <div class="d-flex align-items-center">
-            {{ invoice?.user.fullName }}
+            {{ invoice?.user.fullName || invoice?.user.email }}
           </div>
         </td>
         <td nzEllipsis>{{ invoice?.user.email }}</td>
@@ -83,11 +83,11 @@
         <td nzEllipsis class="text-center">
           <ng-container *ngIf="invoice.type === invoiceType.Course;else memeberShipTime">
             <ng-container *ngFor="let item of invoice?.items">
-              <div>{{invoice?.transactionTime |date:'HH:mm'}}</div>
+              <div>{{invoice?.transactionTime |date:'dd/MM/YYYY HH:mm'}}</div>
             </ng-container>
           </ng-container>
           <ng-template #memeberShipTime>
-            <div>{{invoice?.transactionTime |date:'HH:mm'}}</div>
+            <div>{{invoice?.transactionTime |date:'dd/MM/YYYY HH:mm'}}</div>
           </ng-template>
         </td>
         <td nzEllipsis>
