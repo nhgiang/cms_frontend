@@ -1,4 +1,4 @@
 export const environment = {
-    production: true,
-    api: 'https://qa.backend.beautyup.ttc.software/v1'
+  production: true,
+  api: 'https://qa.backend.beautyup.asia/v1',
 };
