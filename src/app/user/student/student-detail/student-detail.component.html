@@ -89,7 +89,7 @@
               </td>
               <td>{{ item.teacherName }}</td>
               <td>{{ item.startDate |date:'dd-MM-YYYY'}}</td>
-              <td>{{ item.progress || 0 | number: '1.0-2' }}%</td>
+              <td>{{ item.accurateProgress || 0 | number: '1.0-2' }}%</td>
               <td>
                 <nz-badge [nzColor]="item.status | option:studentCourseStatusOptions:'color'"
                   [nzText]="item.status | option:studentCourseStatusOptions"></nz-badge>
