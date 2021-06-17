@@ -112,7 +112,7 @@ export class RevenueComponent implements OnInit {
     private reportsApiService: ReportsApiService
   ) {
     this.form = this.fb.group({
-      mode: ['Date'],
+      mode: ['Month'],
       startDate: [fns.subYears(new Date(), 1).toISOString()],
       endDate: [new Date().toISOString()]
     });
