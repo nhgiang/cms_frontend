@@ -29,8 +29,9 @@ export const ROUTES: SideNavInterface[] = [
       {
         path: 'assistance',
         title: 'Quản lý nhân viên',
-        submenu: []
-      }
+        submenu: [],
+        isAdminOnly: true,
+      },
     ],
   },
   {
@@ -173,14 +174,14 @@ export const ROUTES: SideNavInterface[] = [
       {
         path: 'event',
         title: 'Danh sách sự kiện',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'organize',
         title: 'Phân loại sự kiện',
-        submenu: []
-      }
-    ]
+        submenu: [],
+      },
+    ],
   },
   {
     path: 'blog',
@@ -243,9 +244,34 @@ export const ROUTES: SideNavInterface[] = [
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'customer-service',
-        submenu: []
-      }
+        submenu: [],
+      },
+      {
+        path: 'courses',
+        title: 'Báo cáo khóa học',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'book',
+        submenu: [],
+      },
+      {
+        path: 'royalty-rates',
+        title: 'Báo cáo chiết khấu',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'fund',
+        submenu: [],
+      },
     ],
+  },
+  {
+    path: 'payment-methods',
+    title: 'Thông tin ngân hàng',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'bank',
+    isAdminOnly: true,
+    submenu: [],
   },
   {
     path: 'settings-help',
@@ -260,8 +286,8 @@ export const ROUTES: SideNavInterface[] = [
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'customer-service',
-        submenu: []
-      }
+        submenu: [],
+      },
     ],
-  }
+  },
 ];
