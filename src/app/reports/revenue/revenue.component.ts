@@ -144,7 +144,7 @@ export class RevenueComponent implements OnInit {
 
   customLabelX(label, index, labels) {
     if (this.form?.get('mode')?.value === 'Month') {
-      return `Tháng ${moment(label, 'dd/MM/YYYY').month() + 1}/${moment(label, 'dd/MM/YYYY').year() + 1}`;
+      return `Tháng ${moment(label, 'dd/MM/YYYY').month() + 1}/${moment(label, 'dd/MM/YYYY').year()}`;
     }
     return label;
   }

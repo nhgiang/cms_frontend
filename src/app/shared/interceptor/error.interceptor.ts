@@ -16,7 +16,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
-      if (error.status === 0) {
+      if (!navigator.onLine) {
         this.notification.error('Thất bại', 'Đường truyền mạng không ổn định. Vui lòng thử lại sau!');
       } else if (error.status === 401) {
         // tslint:disable-next-line: max-line-length
