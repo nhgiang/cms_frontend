@@ -32,6 +32,10 @@ export class StudentDetailComponent implements OnInit {
   get btnUserStatus() {
     return this.user && this.user.status === UserStatus.InActive ? 'Mở khóa tài khoản' : 'Khóa tài khoản';
   }
+
+  get confirmMessage() {
+    return this.user && this.user.status === UserStatus.InActive ? 'Bạn có chắc chắn muốn mở khóa tài khoản học viên này không?' : 'Bạn có chắc chắn muốn khóa tài khoản học viên này không?';
+  }
   registeredEventListData = [];
   certificateObtainedListData = [];
   itemData = [];
