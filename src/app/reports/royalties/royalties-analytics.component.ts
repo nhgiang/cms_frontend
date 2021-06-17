@@ -13,6 +13,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 })
 export class RoyaltiesAnalyticsComponent implements OnInit {
   isDataLoading = false;
+  isTeacherViewLoading = false;
   studentViewMeta = {} as Meta;
   studentViewItems: any = [];
   teacherViewMeta = {} as Meta;
@@ -59,20 +60,24 @@ export class RoyaltiesAnalyticsComponent implements OnInit {
   }
 
   protected fetchTeacherView(params?: { [key: string]: any }) {
-    return this.royaltiesApi.getTeacherView(params).subscribe((data: any) => {
-      this.teacherViewMeta = data.meta;
-      this.teacherViewItems = data.items.map((item, index) => {
-        const i =
-          (data.meta.currentPage - 1) * data.meta.itemsPerPage + index + 1;
-        return {
-          ...item,
-          index: i,
-        };
+    this.isTeacherViewLoading = true;
+    return this.royaltiesApi
+      .getTeacherView(params)
+      .pipe(finalize(() => (this.isTeacherViewLoading = false)))
+      .subscribe((data: any) => {
+        this.teacherViewMeta = data.meta;
+        this.teacherViewItems = data.items.map((item, index) => {
+          const i =
+            (data.meta.currentPage - 1) * data.meta.itemsPerPage + index + 1;
+          return {
+            ...item,
+            index: i,
+          };
+        });
       });
-    });
   }
   toggleDrawer() {
-    this.fetchTeacherView()
+    this.fetchTeacherView();
     this.drawerService.create({
       nzContent: this.drawer,
       nzBodyStyle: { padding: '35px' },

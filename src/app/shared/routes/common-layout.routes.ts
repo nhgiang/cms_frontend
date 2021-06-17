@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthorizeByRoleGuard } from '@shared/guards/authorize-by-role.guard';
 import { ConfigQuickContactComponent } from 'src/app/config-quick-contact/config-quick-contact.component';
 import { PartnersComponent } from 'src/app/partners/partners.component';
 
@@ -103,21 +104,12 @@ export const CommonLayoutRoutes: Routes = [
     },
   },
   {
-    path: 'payment-methods', // - to-do đóng gói các module thành quyền quản trị admin
+    path: 'payment-methods',
+    canActivate: [AuthorizeByRoleGuard],
     loadChildren: () =>
       import('src/app/payments/payments.module').then((m) => m.PaymentsModule),
     data: {
       title: 'Quyền quản trị admin',
-    },
-  },
-  {
-    path: 'analytics',
-    loadChildren: () =>
-      import('src/app/analytics/analytics.module').then(
-        (m) => m.AnalyticsModule
-      ),
-    data: {
-      title: 'Báo cáo',
     },
   },
   {

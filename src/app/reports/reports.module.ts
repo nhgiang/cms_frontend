@@ -5,14 +5,16 @@ import { RevenueComponent } from './revenue/revenue.component';
 import { ReportsRoutes } from './reports.routing';
 import { NgChartjsModule } from 'ng-chartjs';
 import { DetailRevenueComponent } from './revenue/detail-revenue/detail-revenue.component';
+import { RoyaltiesAnalyticsComponent } from './royalties/royalties-analytics.component';
+import { CoursesAnalyticsComponent } from './courses/courses-analytics.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    ReportsRoutes,
-    NgChartjsModule
+  imports: [CommonModule, SharedModule, ReportsRoutes, NgChartjsModule],
+  declarations: [
+    RevenueComponent,
+    DetailRevenueComponent,
+    RoyaltiesAnalyticsComponent,
+    CoursesAnalyticsComponent,
   ],
-  declarations: [RevenueComponent, DetailRevenueComponent]
 })
-export class ReportsModule { }
+export class ReportsModule {}
