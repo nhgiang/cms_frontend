@@ -23,37 +23,46 @@ export class DetailRevenueComponent extends DataTableContainer<any> {
       key: 'name',
       name: 'Tên học viên',
       sortable: false,
+      width: '250px',
+      class: 'text-truncate'
     },
     {
       key: 'email',
       name: 'Email',
       sortable: false,
-    }, {
+      width: '200px',
+      class: 'text-truncate'
+    },
+    {
       key: 'phoneNumber',
       name: 'Điện thoại',
       sortable: false,
+      width: '150px'
     },
     {
       key: 'type',
       name: 'Loại tài khoản',
       sortable: false,
+      width: '150px'
     },
     {
       key: 'courseName',
       name: 'Tên khóa học',
       sortable: false,
+      width: '300px'
     },
     {
       key: 'time',
       name: 'Thời gian',
       sortable: false,
-      class: 'text-center'
+      class: 'text-center',
+      width: '200px'
     },
     {
       key: 'price',
       name: 'Đơn giá',
       sortable: false,
-      width: '130px'
+      width: '130px',
     },
     {
       key: 'fee',
