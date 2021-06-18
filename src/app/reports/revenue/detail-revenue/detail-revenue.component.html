@@ -6,7 +6,7 @@
           <div class="d-flex">
             <div class="m-b-10 m-r-20">
               <nz-input-group style="min-width: 275px" [nzPrefix]="prefixTemplate">
-                <input type="text" nz-input placeholder="Tìm kiếm tên khách hàng, email, mã hóa đơn"
+                <input type="text" nz-input placeholder="Tìm kiếm tên khách hàng, email, số điện thoại"
                   formControlName="q" />
               </nz-input-group>
             </div>
@@ -81,14 +81,7 @@
           </ng-template>
         </td>
         <td nzEllipsis class="text-center">
-          <ng-container *ngIf="invoice.type === invoiceType.Course;else memeberShipTime">
-            <ng-container *ngFor="let item of invoice?.items">
-              <div>{{invoice?.transactionTime |date:'dd/MM/YYYY HH:mm'}}</div>
-            </ng-container>
-          </ng-container>
-          <ng-template #memeberShipTime>
-            <div>{{invoice?.transactionTime |date:'dd/MM/YYYY HH:mm'}}</div>
-          </ng-template>
+          <div>{{invoice?.transactionTime |date:'dd/MM/YYYY HH:mm'}}</div>
         </td>
         <td nzEllipsis>
           <ng-container *ngIf="invoice.type === invoiceType.Course;else memeberShipPrice">

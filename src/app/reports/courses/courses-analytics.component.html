@@ -39,12 +39,12 @@
         <th scope="col">ID</th>
         <th scope="col" nzWidth="300px">Khóa học</th>
         <th scope="col" nzWidth="250px">Loại khóa học</th>
-        <th scope="col">Học viên đăng ký</th>
-        <th scope="col">Lượt xem</th>
-        <th scope="col">Đăng ký mới</th>
+        <th scope="col" nzAlign="center">Học viên đăng ký</th>
+        <th scope="col" nzAlign="center">Lượt xem</th>
+        <th scope="col" nzAlign="center">Đăng ký mới</th>
         <th scope="col">Hoàn thành khóa học</th>
-        <th scope="col">Số bình luận</th>
-        <th scope="col">Điểm đánh giá</th>
+        <th scope="col" nzAlign="center">Số bình luận</th>
+        <th scope="col" nzAlign="center">Điểm đánh giá</th>
         <th scope="col" nzWidth="160px">Giảng viên</th>
       </tr>
     </thead>
@@ -53,9 +53,9 @@
         <td>#{{ (table.nzPageIndex - 1) * table.nzPageSize + i + 1 }}</td>
         <td>{{ item.courseName }}</td>
         <td>{{ item.typeName }}</td>
-        <td>{{ item.totalStudent }}</td>
-        <td>{{ item.totalView }}</td>
-        <td>{{ item.totalRecentStudent }}</td>
+        <td nzAlign="center">{{ item.totalStudent }}</td>
+        <td nzAlign="center">{{ item.totalView }}</td>
+        <td nzAlign="center">{{ item.totalRecentStudent }}</td>
         <td>
           {{
             item.totalStudent > 0
@@ -70,8 +70,8 @@
             [nzShowInfo]="false"
           ></nz-progress>
         </td>
-        <td>{{ item.totalComment }}</td>
-        <td>
+        <td nzAlign="center">{{ item.totalComment }}</td>
+        <td nzAlign="center">
           {{ (item.avgFeedbackScore | number: "1.1-1") || "Chưa có đánh giá" }}
         </td>
         <td>

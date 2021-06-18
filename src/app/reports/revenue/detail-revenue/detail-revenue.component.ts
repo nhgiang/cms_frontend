@@ -99,7 +99,7 @@ export class DetailRevenueComponent extends DataTableContainer<any> {
       page: this.page
     };
     const { q, endDate, startDate, type } = this.params;
-    return this.invoiceApi.getList({ ...params, q, status: 'Success', endDate, startDate, type }).pipe(map(res => {
+    return this.invoiceApi.getListRevenue({ ...params, q, status: 'Success', endDate, startDate, type }).pipe(map(res => {
       const result = res;
       result.items = res.items.map((item: Invoice) => ({
         ...item,

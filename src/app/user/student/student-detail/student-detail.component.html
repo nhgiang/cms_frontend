@@ -13,8 +13,8 @@
                 [nzText]="user?.status | option:studentStatusOptions"></nz-badge>
             </p>
             <button class="ant-btn ant-btn-primary ant-btn-background-ghost"
-              (confirmed)="inActiveAccount(user?.id, user?.status)"
-              [confirmation]="'Bạn có chắc chắn muốn khóa tài khoản học viên này không?'">{{ btnUserStatus }} </button>
+              (confirmed)="inActiveAccount(user?.id, user?.status)" [confirmation]="confirmMessage">{{ btnUserStatus }}
+            </button>
           </div>
         </div>
         <div class="d-md-block d-none border-left"></div>

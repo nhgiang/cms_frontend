@@ -22,6 +22,18 @@ export class InvoiceApiService extends BaseApi {
     return this.httpClient.get<QueryResult<Invoice>>(this.createUrl(''), { params: this.createParams(params) });
   }
 
+  getListRevenue(params: {
+    page: number,
+    limit: number,
+    q: string,
+    status: any,
+    startDate: Date,
+    endDate: Date,
+    type?: string
+  }) {
+    return this.httpClient.get<QueryResult<Invoice>>(this.createUrl('/revenue'), { params: this.createParams(params) });
+  }
+
   getById(id) {
     return this.httpClient.get<Invoice>(this.createUrl(`/${id}`));
   }

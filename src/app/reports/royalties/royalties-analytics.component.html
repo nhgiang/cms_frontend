@@ -110,6 +110,7 @@
     [nzPageSize]="teacherViewMeta.itemsPerPage"
     (nzPageIndex)="(teacherViewMeta.currentPage)"
     (nzPageIndexChange)="onPageTeacherViewChange($event)"
+    [nzLoading]="isTeacherViewLoading"
   >
     <thead>
       <tr>
@@ -128,7 +129,7 @@
           }}</a>
         </td>
         <td>{{ item.teacherData?.royaltyPercentage || 0 | number }}%</td>
-        <td nzAlign="right">{{ item.royaltyAmount | number }}</td>
+        <td nzAlign="right">{{ item.royaltyAmount || 0 | number }}</td>
       </tr>
     </tbody>
   </nz-table>

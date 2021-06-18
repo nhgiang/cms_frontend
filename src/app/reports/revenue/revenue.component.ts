@@ -4,6 +4,7 @@ import { ReportsApiService } from '@shared/api/reports.api.service';
 import * as fns from 'date-fns';
 import { getMonth, getYear } from 'date-fns';
 import { sum } from 'lodash-es';
+import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -23,30 +24,42 @@ export class RevenueComponent implements OnInit {
         display: true,
         scaleLabel: {
           display: false,
-          labelString: 'Month'
+          labelString: 'Month',
         },
-        gridLines: true,
+        gridLines: {
+          drawBorder: true,
+          offsetGridLines: false,
+          drawOnChartArea: false,
+          drawTicks: false,
+          borderDash: [3, 4],
+          zeroLineWidth: 1,
+          zeroLineBorderDash: [3, 4],
+          color: 'rgb(0 0 0)'
+        },
         ticks: {
           display: true,
           beginAtZero: true,
           fontSize: 13,
           padding: 10,
+          color: 'rgb(0 0 0)',
           callback: this.customLabelX.bind(this)
         }
       }],
       yAxes: [{
         display: true,
         scaleLabel: {
-          display: false,
-          labelString: 'Value'
+          display: true,
+          labelString: 'Doanh Thu (Triệu VNĐ)',
         },
         gridLines: {
-          drawBorder: false,
+          drawBorder: true,
           offsetGridLines: false,
+          drawOnChartArea: false,
           drawTicks: false,
           borderDash: [3, 4],
           zeroLineWidth: 1,
-          zeroLineBorderDash: [3, 4]
+          zeroLineBorderDash: [3, 4],
+          color: 'rgb(0 0 0)'
         },
         ticks: {
           stepSize: 25000000,
@@ -54,20 +67,22 @@ export class RevenueComponent implements OnInit {
           beginAtZero: true,
           fontSize: 13,
           padding: 20,
+          color: '#fff',
           callback: this.customLabelY
         }
       }]
     },
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: function (val) {
-            console.log(val);
-            return 'aaavs';
-          }
-        }
+    tooltips: {
+      enabled: true,
+      displayColors: false,
+      xPadding: 15,
+      yPadding: 15,
+      callbacks: {
+        label: this.customToolTipLabel.bind(this),
+        title: this.customToolTipTitle.bind(this)
       }
-    }
+
+    },
   };
   barChartLabels: string[] = [];
   barChartType = 'bar';
@@ -97,7 +112,7 @@ export class RevenueComponent implements OnInit {
     private reportsApiService: ReportsApiService
   ) {
     this.form = this.fb.group({
-      mode: ['Date'],
+      mode: ['Month'],
       startDate: [fns.subYears(new Date(), 1).toISOString()],
       endDate: [new Date().toISOString()]
     });
@@ -131,26 +146,25 @@ export class RevenueComponent implements OnInit {
   }
 
   customLabelY(label, index, labels) {
-    const string = JSON.stringify(label);
-    if (string.length > 9) {
-      return `${string.slice(0, string.length - 9)} tỉ ${(string.slice(string.length - 9, string.length - 6) === '000') ? '' : string.slice(string.length - 9, string.length - 6) + ' triệu'}`;
-    } else if (string.length > 6) {
-      return string.slice(0, string.length - 6) + ' triệu';
-    } else {
-      return string;
-    }
+    return label / 1000000;
   }
 
   customLabelX(label, index, labels) {
     if (this.form?.get('mode')?.value === 'Month') {
-      const date = label.split('/');
-      return `Tháng ${getMonth(new Date(date[2], date[1], date[0]))}/${getYear(new Date(date[2], date[1], date[0]))}`;
+      return `T ${moment(label, 'dd/MM/YYYY').month() + 1}/${moment(label, 'dd/MM/YYYY').year()}`;
     }
     return label;
   }
 
-  customToolTip(label, index) {
-    console.log(label, index);
+  customToolTipLabel(tooltipItem, data) {
+    return `Doanh thu: ${this.formatCurrency('vi-VN', tooltipItem.value)} VNĐ`;
+  }
+
+  customToolTipTitle(tooltipItem, data) {
+    if (this.form?.get('mode')?.value === 'Month') {
+      return `${moment(tooltipItem[0].label, 'dd/MM/YYYY').month() + 1}/${moment(tooltipItem[0].label, 'dd/MM/YYYY').year()}`
+    }
+    return tooltipItem[0].label;
   }
 
   formatCurrency(locate: string, value: number) {
