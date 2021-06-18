@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
@@ -13,6 +13,7 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./course-type-edit.component.scss']
 })
 export class CourseTypeEditComponent implements OnInit {
+  @ViewChild('input', { static: true }) input: ElementRef
   @Input() id: string;
   @Output() edited = new EventEmitter();
   form: FormGroup;
@@ -30,6 +31,9 @@ export class CourseTypeEditComponent implements OnInit {
     this.courseTypesApi.getById(this.id).subscribe(res => {
       this.form.patchValue(res);
     });
+    this.modalRef.afterOpen.subscribe(() => {
+      this.input.nativeElement.focus();
+    })
   }
 
   buildForm() {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CourseTypesApiService } from '@shared/api/course-types.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
@@ -12,6 +12,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   styleUrls: ['./course-type-create.component.scss']
 })
 export class CourseTypeCreateComponent implements OnInit {
+  @ViewChild('input', { static: true }) input: ElementRef
   form: FormGroup;
   loading: boolean;
   @Output() created = new EventEmitter();
@@ -19,11 +20,16 @@ export class CourseTypeCreateComponent implements OnInit {
     private fb: FormBuilder,
     private courseTypesApi: CourseTypesApiService,
     private modalRef: NzModalRef,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
   ) { }
 
   ngOnInit(): void {
     this.buildForm();
+    this.modalRef.afterOpen.subscribe(() => {
+      setTimeout(() => {
+        this.input.nativeElement.focus();
+      })
+    })
   }
 
   buildForm() {
@@ -38,6 +44,10 @@ export class CourseTypeCreateComponent implements OnInit {
       this.modalRef.close();
       this.notification.success('Thành công', 'Thêm mới loại khóa học thành công!');
       this.created.emit();
+    }, err => {
+      if (err.status === 409) {
+        this.form.controls['name'].setErrors({ dbConflict: true });
+      }
     });
   }
 }

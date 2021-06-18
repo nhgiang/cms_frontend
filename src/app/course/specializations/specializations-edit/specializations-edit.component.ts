@@ -48,6 +48,10 @@ export class SpecializationsEditComponent implements OnInit {
       this.modalRef.close();
       this.notification.success('Thành công', 'Cập nhật chuyên môn giảng viên thành công');
       this.edited.emit();
+    }, err => {
+      if (err.status === 409) {
+        this.form.controls['name'].setErrors({ dbConflict: true });
+      }
     });
   }
 }

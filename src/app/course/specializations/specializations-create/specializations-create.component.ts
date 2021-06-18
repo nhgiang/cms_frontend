@@ -40,6 +40,10 @@ export class SpecializationsCreateComponent implements OnInit {
       this.modalRef.close();
       this.notification.success('Thành công', 'Thêm mới thông tin chuyên môn thành công!');
       this.created.emit();
+    }, err => {
+      if (err.status === 409) {
+        this.form.controls['name'].setErrors({ dbConflict: true });
+      }
     });
   }
 }

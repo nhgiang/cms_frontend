@@ -49,6 +49,10 @@ export class BlogTypeEditComponent implements OnInit {
       this.modalRef.close();
       this.notification.success('Thành công', 'Cập nhật thông tin loại bài viết thành công');
       this.edited.emit();
+    }, err => {
+      if (err.status === 409) {
+        this.form.controls['name'].setErrors({ dbConflict: true });
+      }
     });
   }
 }
