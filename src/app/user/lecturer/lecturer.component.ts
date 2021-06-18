@@ -78,16 +78,12 @@ export class LecturerComponent extends DataTableContainer<User> implements OnIni
   }
 
   deleteTeacher(id: string) {
-    const next = (res) => {
+    const next = () => {
       this.refresh();
-      if (res.type === 'Success') {
-        this.notification.success('Thành công', res.message);
-      } else {
-        this.notification.error('Thất bại', res.message);
-      }
+      this.notification.success('Thành công', 'Xóa thông tin giảng viên thành công!');
     };
-    const error = () => {
-      this.notification.success('Thất bại', 'Xóa thông tin giảng viên thất bại!');
+    const error = (res) => {
+      this.notification.error('Thất bại', res.error?.message || 'Xóa thông tin giảng viên thất bại!');
     };
     this.teacherApi.delete(id).subscribe(next, error);
   }
