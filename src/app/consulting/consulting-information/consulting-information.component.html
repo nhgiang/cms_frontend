@@ -33,7 +33,7 @@
             [nzSortOrder]="item.sortOrder">{{item.name}}</th>
           <th *ngIf="!item.sortable" scope="col" [nzColumnKey]="item.key">{{item.name}}</th>
         </ng-container>
-        <th scope="col"></th>
+        <th scope="col" nzWidth="70px"></th>
       </tr>
     </thead>
     <tbody>

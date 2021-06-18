@@ -49,6 +49,10 @@ export class CourseTypeEditComponent implements OnInit {
       this.modalRef.close();
       this.notification.success('Thành công', 'Cập nhật loại khóa học thành công');
       this.edited.emit();
+    }, err => {
+      if (err.status === 409) {
+        this.form.controls['name'].setErrors({ dbConflict: true });
+      }
     });
   }
 }
