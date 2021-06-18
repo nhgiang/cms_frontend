@@ -38,6 +38,7 @@
     [nzNoResult]="empty"
     [nzPageIndex]="studentViewMeta.currentPage"
     (nzPageIndexChange)="onPageStudentViewChange($event)"
+    [nzShowTotal]="showTotalTemplate"
   >
     <thead>
       <tr>
@@ -111,6 +112,7 @@
     (nzPageIndex)="(teacherViewMeta.currentPage)"
     (nzPageIndexChange)="onPageTeacherViewChange($event)"
     [nzLoading]="isTeacherViewLoading"
+    [nzShowTotal]="showTotalTemplate"
   >
     <thead>
       <tr>
@@ -134,3 +136,5 @@
     </tbody>
   </nz-table>
 </ng-template>
+
+<ng-template #showTotalTemplate let-total> Tổng cộng: {{ total }} </ng-template>

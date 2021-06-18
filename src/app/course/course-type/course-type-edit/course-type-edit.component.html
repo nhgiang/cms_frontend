@@ -2,9 +2,9 @@
 <form [formGroup]="form">
   <nz-form-item>
     <nz-form-control [nzErrorTip]="nameErrorTpl">
-      <input type="text" formControlName="name" nz-input placeholder="Nhập loại khóa học">
+      <input type="text" formControlName="name" nz-input placeholder="Nhập loại khóa học" #input>
     </nz-form-control>
-    <ng-template #nameErrorTpl>
+    <ng-template #nameErrorTpl let-control>
       <ng-container *ngIf="control.hasError('required')">
         Vui lòng nhập loại tên khóa học
       </ng-container>

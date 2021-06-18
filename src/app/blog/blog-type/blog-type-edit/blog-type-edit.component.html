@@ -1,9 +1,17 @@
 <nz-spin [nzSpinning]="loading">
   <form [formGroup]="form">
     <nz-form-item>
-      <nz-form-control nzErrorTip="Vui lòng nhập tên loại bài viết">
+      <nz-form-control [nzErrorTip]="nameErrorTpl">
         <input type="text" formControlName="name" nz-input placeholder="Nhập loại bài viết">
       </nz-form-control>
+      <ng-template #nameErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          Vui lòng nhập tên loại bài viết
+        </ng-container>
+        <ng-container *ngIf="control.hasError('dbConflict')">
+          Loại bài viết đã tồn tại trên hệ thống
+        </ng-container>
+      </ng-template>
     </nz-form-item>
     <div *nzModalFooter>
       <button nz-button nzType="primary" (click)="submit()" [nzLoading]="loading">Xác nhận</button>
