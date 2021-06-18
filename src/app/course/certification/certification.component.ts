@@ -97,7 +97,7 @@ export class CertificationComponent implements OnInit {
         };
         return this.certificateApi.update(data);
       }),
-      finalize(() => this.isLoading = true)
+      finalize(() => this.isLoading = false)
     ).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật thông tin chứng chỉ thành công');
     });

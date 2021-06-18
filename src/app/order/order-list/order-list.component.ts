@@ -19,7 +19,7 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
   invoiceStatusOptions = InvoiceStatusOptions;
   invoiceStatus = InvoiceStatus;
   invoiceType = InvoiceType;
-  slice = 3;
+  slice = Array(10).fill(3);
   activity = new Activity();
   constructor(
     router: Router,
@@ -65,7 +65,7 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
   }
 
   sliceData(index: number) {
-    this.slice = this.slice === 3 ? this.items[index]?.items.length : 3;
+    this.slice[index] = this.slice[index] === 3 ? this.items[index]?.items.length : 3;
   }
 
   exportExcel() {
@@ -86,5 +86,10 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
   download(id: string, index: any) {
     this.activity.start(`${index}downloading`);
     this.invoiceApi.download(id).pipe(finalize(() => this.activity.stop(`${index}downloading`))).subscribe();
+  }
+
+  handleResult(result: QueryResult<Invoice>) {
+    super.handleResult(result);
+    this.slice = Array(10).fill(3);
   }
 }

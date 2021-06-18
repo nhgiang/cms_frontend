@@ -32,16 +32,19 @@ export class StudentComponent extends DataTableContainer<User> implements OnInit
       key: 'phoneNumber',
       name: 'Số điện thoại',
       sortable: false,
+      width: '150px'
     },
     {
       key: '',
       name: 'Khóa học đã mua',
       sortable: false,
+      class: 'text-center'
     },
     {
       key: '',
       name: 'Tổng tiến độ',
       sortable: false,
+      class: 'text-center'
     },
   ];
   constructor(

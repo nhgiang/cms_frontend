@@ -29,7 +29,7 @@
       <tr>
         <th scope="col" [nzWidth]="'70px'">ID</th>
         <ng-container *ngFor="let item of metaData">
-          <th scope="col" [nzColumnKey]="item.key">{{item.name}}</th>
+          <th [classList]="item?.class" scope="col" [nzColumnKey]="item.key" [nzWidth]="item.width">{{item.name}}</th>
         </ng-container>
         <th scope="col" [nzWidth]="'120px'">Trạng thái</th>
       </tr>
@@ -45,10 +45,10 @@
             </div>
           </a>
         </td>
-        <td nzEllipsis>{{ item.email }}</td>
-        <td>{{ item.phoneNumber }}</td>
-        <td>{{ '1' }}</td>
-        <td>{{ '100%' }}</td>
+        <td nzEllipsis>{{ item?.email }}</td>
+        <td>{{ item?.phoneNumber }}</td>
+        <td class="text-center">{{ item?.totalPurchasedCourses }}</td>
+        <td class="text-center">{{ item?.avgProgress | percent  }}</td>
         <td>
           <nz-badge [nzColor]="item.status | option:studentStatusOptions:'color'"
             [nzText]="item.status | option:studentStatusOptions"></nz-badge>
