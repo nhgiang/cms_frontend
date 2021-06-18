@@ -1,17 +1,19 @@
 <nz-modal
-  [nzVisible]="isModalVisible"
+  [nzVisible]="isPreview"
   [nzFooter]="null"
   (nzOnCancel)="onCancel()"
   [nzTitle]="modalTitle"
   [nzContent]="modalContent"
   nzWidth="45%"
 >
-  <ng-template #modalTitle>
-    <span class="text-bold">Xem trước giao diện người dùng</span>
-  </ng-template>
+  <ng-template #modalTitle> Xem trước giao diện người dùng </ng-template>
   <ng-template #modalContent>
     <div class="row">
-      <div class="col-6 col-md-4" *ngFor="let bank of payments; index as i">
+      <div
+        class="col-6 col-md-4"
+        style="padding-top: 5px; padding-bottom: 5px"
+        *ngFor="let bank of payments; index as i"
+      >
         <img
           class="bank-image"
           [class.active]="activeBankIndex === i"
@@ -23,6 +25,10 @@
     </div>
 
     <div class="m-t-20">
+      <div class="bank-info-container">
+        <span>Tên ngân hàng</span>
+        <span class="text-bold">{{ payments[activeBankIndex].bankName }}</span>
+      </div>
       <div class="bank-info-container">
         <span>Số tài khoản</span>
         <span class="text-bold">{{

@@ -8,12 +8,12 @@
               <input type="text" nz-input placeholder="Tìm kiếm theo họ tên hoặc email" formControlName="q">
             </nz-input-group>
             <ng-template #prefixTemplate>
-              <i nz-icon nzType="search" class="opacity-05"></i>
+              <i  aria-hidden="true"nz-icon nzType="search" class="opacity-05"></i>
             </ng-template>
           </div>
           <div class="m-b-10 m-r-20 d-flex align-items-center">
             <nz-select style="min-width: 220px;" class="w-100" nzPlaceHolder="Chọn trạng thái" formControlName="status">
-              <nz-option nzLabel="All" nzValue=""></nz-option>
+              <nz-option nzLabel="All" nzValue="null"></nz-option>
               <nz-option [nzLabel]="UserStatus.Active" [nzValue]="UserStatus.Active"></nz-option>
               <nz-option [nzLabel]="UserStatus.InActive" [nzValue]="UserStatus.InActive"></nz-option>
             </nz-select>
@@ -29,7 +29,7 @@
       <tr>
         <th scope="col" [nzWidth]="'70px'">ID</th>
         <ng-container *ngFor="let item of metaData">
-          <th scope="col" [nzColumnKey]="item.key">{{item.name}}</th>
+          <th [classList]="item?.class" scope="col" [nzColumnKey]="item.key" [nzWidth]="item.width">{{item.name}}</th>
         </ng-container>
         <th scope="col" [nzWidth]="'120px'">Trạng thái</th>
       </tr>
@@ -45,11 +45,10 @@
             </div>
           </a>
         </td>
-        <td nzEllipsis>{{ item.email }}</td>
-        <td>{{ item.phone }}</td>
-        <td>{{ '1' }}</td>
-        <td>{{ '100%' }}</td>
-        <td>{{ 100 }}</td>
+        <td nzEllipsis>{{ item?.email }}</td>
+        <td>{{ item?.phoneNumber }}</td>
+        <td class="text-center">{{ item?.totalPurchasedCourses }}</td>
+        <td class="text-center">{{ item?.avgProgress | percent  }}</td>
         <td>
           <nz-badge [nzColor]="item.status | option:studentStatusOptions:'color'"
             [nzText]="item.status | option:studentStatusOptions"></nz-badge>

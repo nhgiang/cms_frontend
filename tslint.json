@@ -147,6 +147,7 @@
       "kebab-case"
     ],
     "no-unused-expression": true,
-    "no-unused-variable": true
+    "no-unused-variable": true,
+    "no-string-literal": false
   }
 }

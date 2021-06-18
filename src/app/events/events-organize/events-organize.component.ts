@@ -54,7 +54,6 @@ export class EventsOrganizeComponent implements OnInit {
 
   showCreateModal() {
     this.isModalVisible = true;
-    this.modalFormTitle = 'Tên loại sự kiện';
     this.form.reset();
     this.targetEventId = null;
   }
@@ -80,18 +79,22 @@ export class EventsOrganizeComponent implements OnInit {
           title: this.form.controls.eventTitle.value,
         });
 
-    upsertObservable
-      .pipe(finalize(() => (this.isDataLoading = false)))
-      .subscribe(() => {
-        this.isModalVisible = false;
-        this.notif.success(
-          'Thành công',
-          this.targetEventId === null
-            ? 'Thêm mới loại sự kiện thành công'
-            : 'Cập nhật loại sự kiện thành công'
-        );
-        this.fetch(1);
-      });
+    upsertObservable.pipe(
+      finalize(() => (this.isDataLoading = false))
+    ).subscribe(() => {
+      this.isModalVisible = false;
+      this.notif.success(
+        'Thành công',
+        this.targetEventId === null
+          ? 'Thêm mới loại sự kiện thành công'
+          : 'Cập nhật loại sự kiện thành công'
+      );
+      this.fetch(1);
+    }, (err) => {
+      if (err.status === 409) {
+        this.form.controls['eventTitle'].setErrors({ dbConflict: true });
+      }
+    });
   }
 
   deleteEvent(event: EventType) {

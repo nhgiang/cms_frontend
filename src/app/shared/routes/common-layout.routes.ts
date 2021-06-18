@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthorizeByRoleGuard } from '@shared/guards/authorize-by-role.guard';
 import { ConfigQuickContactComponent } from 'src/app/config-quick-contact/config-quick-contact.component';
 import { PartnersComponent } from 'src/app/partners/partners.component';
 
@@ -73,7 +74,8 @@ export const CommonLayoutRoutes: Routes = [
   },
   {
     path: 'event-management',
-    loadChildren: () => import('src/app/events/events.module').then(m => m.EventsModule),
+    loadChildren: () =>
+      import('src/app/events/events.module').then((m) => m.EventsModule),
     data: {
       headerDisplay: true,
       title: 'Quản lý sự kiện',
@@ -102,11 +104,30 @@ export const CommonLayoutRoutes: Routes = [
     },
   },
   {
-    path: 'payments',
+    path: 'payment-methods',
+    canActivate: [AuthorizeByRoleGuard],
     loadChildren: () =>
       import('src/app/payments/payments.module').then((m) => m.PaymentsModule),
     data: {
-      title: 'Quản lý phương thức thanh toán',
+      title: 'Quyền quản trị admin',
+    },
+  },
+  {
+    path: 'settings-help',
+    loadChildren: () =>
+      import('src/app/help-center/help-center.module').then(
+        (m) => m.HelpCenterModule
+      ),
+    data: {
+      title: 'Cài đặt bài viết hướng dẫn',
+    },
+  },
+  {
+    path: 'reports',
+    loadChildren: () =>
+      import('src/app/reports/reports.module').then((m) => m.ReportsModule),
+    data: {
+      title: 'Báo cáo',
     },
   },
 ];

@@ -18,7 +18,7 @@ import { DataTableColumnMetaData, User } from 'types/typemodel';
 })
 export class LecturerComponent extends DataTableContainer<User> implements OnInit {
   search: FormGroup;
-  metaData: DataTableColumnMetaData[]  = [
+  metaData: DataTableColumnMetaData[] = [
     {
       key: 'name',
       name: 'Tên giảng viên',
@@ -78,9 +78,13 @@ export class LecturerComponent extends DataTableContainer<User> implements OnIni
   }
 
   deleteTeacher(id: string) {
-    const next = () => {
+    const next = (res) => {
       this.refresh();
-      this.notification.success('Thành công', 'Xóa thông tin giảng viên thành công!');
+      if (res.type === 'Success') {
+        this.notification.success('Thành công', res.message);
+      } else {
+        this.notification.error('Thất bại', res.message);
+      }
     };
     const error = () => {
       this.notification.success('Thất bại', 'Xóa thông tin giảng viên thất bại!');

@@ -1,4 +1,11 @@
-import { ContactStatus, InvoiceStatus, InvoiceType, UserStatus } from './enums';
+import {
+  ContactStatus,
+  EventStatus,
+  InvoiceStatus,
+  InvoiceType,
+  PaymentMethod,
+  UserStatus,
+} from './enums';
 
 export interface QueryResult<T> {
   meta: Meta;
@@ -37,6 +44,7 @@ export interface User extends Entity {
   specializationName: string;
   index?: number;
   bio: string;
+  data?: any;
 }
 
 export interface TeacherCreateCommand {
@@ -96,6 +104,14 @@ export interface ConsultingInformation extends Entity {
   statusTransformed: string;
 }
 
+export interface HelpCenter extends Entity {
+  name: string;
+  title: string;
+  view: number;
+  like: number;
+  dislike: number;
+}
+
 export interface DataTableMetadata {
   columns: DataTableColumnMetaData[];
 }
@@ -105,6 +121,7 @@ export interface DataTableColumnMetaData {
   name: string;
   sortable: boolean;
   width?: string;
+  class?: string;
   sortOrder?: string;
 }
 export interface CourseType {
@@ -147,6 +164,7 @@ export interface EventEntity extends Entity {
   totalParticipant: number;
   gifts: string;
   type: EventType;
+  status: EventStatus;
 }
 
 export interface Invoice extends Entity {
@@ -164,6 +182,7 @@ export interface Invoice extends Entity {
   transactionCode: any;
   transactionTime: any;
   invoicePrice: number;
+  paymentMethod: PaymentMethod;
 }
 
 export interface InvoiceItem {
@@ -199,4 +218,9 @@ export interface Payment {
   branch: string;
   image: string;
   imageActive: string;
+}
+
+export interface Vnpay {
+  hashSecret: string;
+  tmnCode: string;
 }

@@ -1,0 +1,114 @@
+<nz-card>
+  <div class="row">
+    <div class="col-12">
+      <form nz-form [formGroup]="form">
+        <div class="d-md-flex justify-content-between">
+          <div class="d-flex">
+            <div class="m-b-10 m-r-20">
+              <nz-input-group style="min-width: 275px" [nzPrefix]="prefixTemplate">
+                <input type="text" nz-input placeholder="Tìm kiếm tên khách hàng, email, số điện thoại"
+                  formControlName="q" />
+              </nz-input-group>
+            </div>
+            <ng-template #prefixTemplate>
+              <i aria-hidden="true" nz-icon nzType="search" class="opacity-05"></i>
+            </ng-template>
+            <div class="m-b-10 m-r-20">
+              <nz-select style="width: 300px;" formControlName="type" nzPlaceHolder="Loại tài khoản">
+                <nz-option [nzValue]="null" nzLabel="Tất Cả"></nz-option>
+                <nz-option nzValue="Course" nzLabel="Gói lẻ"></nz-option>
+                <nz-option nzValue="Membership" nzLabel="Gói membership"></nz-option>
+              </nz-select>
+            </div>
+            <div class="m-b-10 m-r-20">
+              <nz-date-picker [nzMode]="'date'" [nzFormat]="'dd/MM/yyyy'" formControlName="startDate"
+                nzPlaceHolder="Từ ngày">
+              </nz-date-picker>
+            </div>
+            <div>
+              <nz-date-picker [nzMode]="'date'" [nzFormat]="'dd/MM/yyyy'" formControlName="endDate"
+                nzPlaceHolder="Đến ngày"></nz-date-picker>
+            </div>
+          </div>
+          <div><button (click)="downloadExcel()" nz-button nzType="primary"> Download excel
+            </button></div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <nz-table [nzShowTotal]="totalTemplate" [nzNoResult]="empty" #productsListTable [nzFrontPagination]="false"
+    [nzData]="items" [nzTotal]="meta?.totalItems" (nzQueryParams)="onParamsChanged($event)" [nzPageSize]="quantity"
+    [nzLoading]="isloading" [(nzPageIndex)]="page" nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th [nzWidth]="'70px'" scope="col">ID</th>
+        <ng-container *ngFor="let item of metaData">
+          <th [ngClass]="item.class" *ngIf="item.sortable" [nzWidth]="item.width" [nzSortFn]="item.sortable" scope="col"
+            [nzColumnKey]="item.key" [nzSortOrder]="item.sortOrder">{{item.name}}</th>
+          <th *ngIf="!item.sortable" [ngClass]="item.class" [nzWidth]="item.width" scope="col" [nzColumnKey]="item.key">
+            {{item.name}}</th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoice of productsListTable.data; let i = index">
+        <td>#{{ invoice?.index }}</td>
+        <td>
+          <div class="d-flex align-items-center">
+            {{ invoice?.user.fullName || invoice?.user.email }}
+          </div>
+        </td>
+        <td nzEllipsis>{{ invoice?.user.email }}</td>
+        <td nzEllipsis>{{ invoice?.user.phoneNumber }}</td>
+        <td nzEllipsis>
+          <ng-container *ngIf="invoice.type === invoiceType.Course;else memeberShip">
+            <div>Gói lẻ</div>
+          </ng-container>
+          <ng-template #memeberShip>
+            <div>Gói Membership</div>
+          </ng-template>
+        </td>
+        <td nzEllipsis>
+          <ng-container *ngIf="invoice.type === invoiceType.Course;else memeberShipCourse">
+            <ng-container *ngFor="let item of invoice?.items">
+              <div class="text-truncate">
+                <span [title]="item.courseName">{{item.courseName}}</span>
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-template #memeberShipCourse>
+            <div>Tất cả</div>
+          </ng-template>
+        </td>
+        <td nzEllipsis class="text-center">
+          <div>{{invoice?.transactionTime |date:'dd/MM/YYYY HH:mm'}}</div>
+        </td>
+        <td nzEllipsis>
+          <ng-container *ngIf="invoice.type === invoiceType.Course;else memeberShipPrice">
+            <ng-container *ngFor="let item of invoice?.items">
+              <div>{{item.price| number}}</div>
+            </ng-container>
+          </ng-container>
+          <ng-template #memeberShipPrice>
+            <div>{{invoice?.totalPrice| number}}</div>
+          </ng-template>
+        </td>
+        <td nzEllipsis class="text-center">
+          <ng-container *ngIf="invoice.type === invoiceType.Course;else memeberShipFee">
+            <ng-container *ngFor="let item of invoice?.items">
+              <div>0</div>
+            </ng-container>
+          </ng-container>
+          <ng-template #memeberShipFee>
+            <div>0</div>
+          </ng-template>
+
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>

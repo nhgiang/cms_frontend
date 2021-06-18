@@ -33,7 +33,7 @@ export class BlogHottestComponent implements OnInit {
           blogId: t.blogId ?? 0
         };
       });
-      this.form.patchValue(data, { emitEvent: false });
+      this.form.patchValue(data);
     });
     this.form.valueChanges.subscribe(value => {
       this.optionsDisabled = value.map(t => {
@@ -41,6 +41,8 @@ export class BlogHottestComponent implements OnInit {
           id: t.blogId
         };
       });
+      console.log(this.optionsDisabled);
+
     });
   }
 

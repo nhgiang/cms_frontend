@@ -26,6 +26,12 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Quản lý giảng viên',
         submenu: [],
       },
+      {
+        path: 'assistance',
+        title: 'Quản lý nhân viên',
+        submenu: [],
+        isAdminOnly: true,
+      },
     ],
   },
   {
@@ -168,14 +174,14 @@ export const ROUTES: SideNavInterface[] = [
       {
         path: 'event',
         title: 'Danh sách sự kiện',
-        submenu: []
+        submenu: [],
       },
       {
         path: 'organize',
         title: 'Phân loại sự kiện',
-        submenu: []
-      }
-    ]
+        submenu: [],
+      },
+    ],
   },
   {
     path: 'blog',
@@ -224,5 +230,64 @@ export const ROUTES: SideNavInterface[] = [
     iconTheme: 'outline',
     icon: 'customer-service',
     submenu: [],
+  },
+  {
+    path: 'reports',
+    title: 'Báo cáo',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'team',
+    submenu: [
+      {
+        path: 'revenue',
+        title: 'Báo cáo doanh thu',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'customer-service',
+        submenu: [],
+      },
+      {
+        path: 'courses',
+        title: 'Báo cáo khóa học',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'book',
+        submenu: [],
+      },
+      {
+        path: 'royalty-rates',
+        title: 'Báo cáo chiết khấu',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'fund',
+        submenu: [],
+      },
+    ],
+  },
+  {
+    path: 'payment-methods',
+    title: 'Thông tin ngân hàng',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'bank',
+    isAdminOnly: true,
+    submenu: [],
+  },
+  {
+    path: 'settings-help',
+    title: 'Cài đặt bài viết hướng dẫn',
+    iconType: 'nzIcon',
+    iconTheme: 'outline',
+    icon: 'customer-service',
+    submenu: [
+      {
+        path: 'help-center',
+        title: 'Danh sách bài viết',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'customer-service',
+        submenu: [],
+      },
+    ],
   },
 ];

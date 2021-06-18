@@ -1,62 +1,62 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { PaymentsApiService } from '@shared/api/payments.api.service';
-import { StorageApiService } from '@shared/api/storage.api.service';
-import { Ultilities } from '@shared/extentions/Ultilities';
-import { TValidators } from '@shared/extentions/validators';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { finalize, switchMap } from 'rxjs/operators';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Payment } from 'types/typemodel';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { TValidators } from '@shared/extentions/validators';
+import { Ultilities } from '@shared/extentions/Ultilities';
+import { StorageApiService } from '@shared/api/storage.api.service';
+import { switchMap, finalize } from 'rxjs/operators';
+import { PaymentsApiService } from '@shared/api/payments.api.service';
+import { EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-payments-create',
-  templateUrl: './payments-create.component.html',
-  styleUrls: ['./payments-create.component.scss'],
+  selector: 'app-payments-upsert',
+  templateUrl: './payments-upsert.component.html',
 })
-export class PaymentsCreateComponent implements OnInit {
+export class PaymentsUpsertComponent implements OnInit {
   paymentsForm: FormGroup;
   imageInactive: any = null;
   isLoading = false;
   @ViewChild('imageManipulation') canvas: ElementRef;
-  targetEdit: Payment = null;
-  paymentsList: Payment[];
+
+  @Input() targetEditIndex: number;
+  @Input() paymentsList: Payment[];
+  // tslint:disable-next-line: no-output-native
+  @Output() success: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
     private storageApi: StorageApiService,
-    private paymentsApi: PaymentsApiService,
-    private notif: NzNotificationService,
-    private router: Router
-  ) {
-    const targetEditIndex =
-      this.router.getCurrentNavigation().extras.state?.targetEditIndex;
-    this.isLoading = true;
-    this.paymentsApi.getList().subscribe((data: Payment[]) => {
-      this.paymentsList = data;
-      if (targetEditIndex !== undefined) {
-        this.targetEdit = this.paymentsList[targetEditIndex];
-        this.paymentsForm.patchValue(this.targetEdit);
-        this.imageInactive = this.targetEdit.image;
-      }
-      this.isLoading = false;
-      // chỉ loading = true khi thành công, ngăn người dùng nhập mới ở khi edit
-    });
-  }
+    private paymentsApi: PaymentsApiService
+  ) {}
 
   ngOnInit() {
     this.buildForm();
   }
 
   buildForm() {
+    const targetEdit =
+      this.targetEditIndex === null
+        ? null
+        : this.paymentsList[this.targetEditIndex];
     this.paymentsForm = this.formBuilder.group({
-      imageActive: ['', TValidators.required],
-      bankName: ['', TValidators.required],
-      bankCode: ['', TValidators.required],
-      accountNumber: ['', TValidators.required],
-      accountName: ['', TValidators.required],
-      branch: ['', TValidators.required],
+      imageActive: [targetEdit?.imageActive, TValidators.required],
+      bankName: [targetEdit?.bankName, TValidators.required],
+      bankCode: [targetEdit?.bankCode, TValidators.required],
+      accountNumber: [
+        targetEdit?.accountNumber,
+        [TValidators.required, TValidators.onlyNumber()],
+      ],
+      accountName: [targetEdit?.accountName, TValidators.required],
+      branch: [targetEdit?.branch, TValidators.required],
     });
+    this.imageInactive = targetEdit?.image;
   }
 
   prepareAndSubmit() {
@@ -85,11 +85,10 @@ export class PaymentsCreateComponent implements OnInit {
           const thisPayment = this.paymentsForm.value;
           thisPayment.image = fileNames[1];
           thisPayment.imageActive = fileNames[0];
-          thisPayment.method = 'Bank'; // $$to-do add Vnpay
+          thisPayment.method = 'Bank';
 
-          if (this.targetEdit) {
-            this.paymentsList[this.paymentsList.indexOf(this.targetEdit)] =
-              thisPayment;
+          if (this.targetEditIndex !== null) {
+            this.paymentsList[this.targetEditIndex] = thisPayment;
           } else {
             this.paymentsList = [...this.paymentsList, thisPayment];
           }
@@ -98,8 +97,7 @@ export class PaymentsCreateComponent implements OnInit {
         finalize(() => (this.isLoading = false))
       )
       .subscribe(() => {
-        this.notif.success('Thành công', 'Cập nhật thành công');
-        this.router.navigate(['/payments']);
+        this.success.emit();
       });
   }
 
@@ -124,8 +122,10 @@ export class PaymentsCreateComponent implements OnInit {
 
     const base64 = canvas.toDataURL();
     const binary = atob(base64.split(',')[1]);
-    const  bytesArr = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) { bytesArr[i] = binary.charCodeAt(i); }
+    const bytesArr = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytesArr[i] = binary.charCodeAt(i);
+    }
 
     return new File([bytesArr], 'inactive-bankimage-unknown', {
       type: 'image/png',

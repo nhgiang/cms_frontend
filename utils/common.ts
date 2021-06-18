@@ -41,3 +41,13 @@ export const toFixed = (x: any) => {
   }
   return x;
 };
+
+export const download = (data: Blob, contentType: string, name?: string) => {
+  const blob = new Blob([data], { type: contentType });
+  const url = window.URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.setAttribute('download', name);
+  anchor.setAttribute('href', url);
+  anchor.setAttribute('target', '_blank');
+  anchor.click();
+};

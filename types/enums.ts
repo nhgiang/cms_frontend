@@ -9,24 +9,24 @@ export enum UploaderStatus {
   NotSelected,
   Selected,
   InProgress,
-  Completed
+  Completed,
 }
 
 export enum AssetType {
   undefined = 0,
   Video,
   Image,
-  File
+  File,
 }
 
 export enum FileUploadErrors {
   Size = 1,
-  Type = 2
+  Type = 2,
 }
 
 export enum ContactStatus {
   NotContactedYet = 'NotContactedYet',
-  Contacted = 'Contacted'
+  Contacted = 'Contacted',
 }
 
 export enum UnitAndTest {
@@ -45,6 +45,12 @@ export const EventStatusOptions: Option[] = [
   { value: 'Done', label: 'Đã diễn ra', color: '#FFEC3D' },
   { value: 'Canceled', label: 'Hủy', color: '#F759AB' },
   { value: 'Draft', label: 'Nháp', color: '#D9D9D9' },
+];
+
+export const EventUserStatusOptions: Option[] = [
+  { value: 'Wait', label: 'Chưa diễn ra', color: '#73D13D' },
+  { value: 'Happening', label: 'Đang diễn ra', color: '#40A9FF' },
+  { value: 'Done', label: 'Đã diễn ra', color: '#FFEC3D' },
 ];
 
 export enum EventStatus {
@@ -72,4 +78,15 @@ export const InvoiceStatusOptions: Option[] = [
   { value: 'Processing', label: 'Đang xử lý', color: '#FFEC3D' },
   { value: 'Success', label: 'Thành công', color: '#73D13D' },
   { value: 'Failure', label: 'Thất bại', color: '#F759AB' },
+  { value: 'Canceled', label: 'Hủy bỏ', color: '#ca4e53' },
 ];
+
+export enum PaymentMethod {
+  Bank = 'Bank',
+  VNPay = 'VNPay',
+}
+
+export enum AccountType {
+  Course = 'Gói lẻ',
+  Membership = 'Membership',
+}

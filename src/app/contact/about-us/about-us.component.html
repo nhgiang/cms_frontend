@@ -23,11 +23,11 @@
         <div>
           <a class="ml-4" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Chỉnh sửa"
             (click)="submit()" *ngIf="!isEdit">
-            <i nz-icon nzType="edit" theme="outline" *ngIf="!isEdit"></i>
+            <i  aria-hidden="true"nz-icon nzType="edit" theme="outline" *ngIf="!isEdit"></i>
           </a>
           <a class="ml-4" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Cập nhật"
             (click)="submit()" *ngIf="isEdit">
-            <i nz-icon nzType="check" nzTheme="outline"></i>
+            <i  aria-hidden="true"nz-icon nzType="check" nzTheme="outline"></i>
           </a>
         </div>
       </nz-form-item>

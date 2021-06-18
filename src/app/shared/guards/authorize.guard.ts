@@ -19,7 +19,7 @@ export class AuthorizeGuard implements CanActivate {
     return this.authService.getMe().pipe(
       map(user => {
         this.tokenService.refreshTokenFn();
-        return user.role === 'Admin';
+        return user.role === 'Admin' || user.role === 'Assistance';
       }),
       catchError(e => {
         this.router.navigate(['/authentication/login']);

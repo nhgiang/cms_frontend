@@ -27,7 +27,7 @@ export class TokenService {
   }
 
   refreshTokenFn() {
-    const { exp } = jwt_decode(localStorage.getItem('token')) as ITokenDecode;
+    const { exp } = jwt_decode<ITokenDecode>(localStorage.getItem('token'))
     const timerReset = moment(exp * 1_000).subtract(new Date().getTime(), 'ms').unix() * 1_000 - 100_000;
     setTimeout(() => {
       const refreshToken = localStorage.getItem('refreshToken');

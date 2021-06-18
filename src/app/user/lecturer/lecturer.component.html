@@ -9,7 +9,7 @@
                 formControlName="q">
             </nz-input-group>
             <ng-template #prefixTemplate>
-              <i nz-icon nzType="search" class="opacity-05"></i>
+              <i  aria-hidden="true"nz-icon nzType="search" class="opacity-05"></i>
             </ng-template>
           </div>
           <div class="m-b-10 m-r-20 d-flex align-items-center">
@@ -43,8 +43,8 @@
         <td>#{{item?.index}}</td>
         <td>
           <div class="d-flex align-items-center">
-            <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item?.avatar"></nz-avatar>
-            <span class="m-l-10">{{item?.fullName}}</span>
+            <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item?.avatar" style="min-width: 28px"></nz-avatar>
+            <span class="m-l-10 truncate-1">{{item?.fullName}}</span>
           </div>
         </td>
         <td nzEllipsis>{{item?.specializationName}}</td>
@@ -55,12 +55,12 @@
           <div class="d-flex">
             <a [routerLink]="[item?.id]" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
               nzTooltipTitle="Chỉnh sửa">
-              <i nz-icon nzType="edit" theme="outline"></i>
+              <i  aria-hidden="true"nz-icon nzType="edit" theme="outline"></i>
             </a>
             <div (confirmed)="deleteTeacher(item?.id)"
               [confirmation]="'Bạn có chắc muốn xóa thông tin giảng viên này hay không?'">
               <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa">
-                <i nz-icon nzType="close" nzTheme="outline"></i>
+                <i  aria-hidden="true"nz-icon nzType="close" nzTheme="outline"></i>
               </a>
             </div>
           </div>

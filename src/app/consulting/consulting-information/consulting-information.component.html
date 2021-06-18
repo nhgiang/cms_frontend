@@ -8,7 +8,7 @@
               <input type="text" nz-input placeholder="Tìm kiếm email, tên và số điện thoại" formControlName="q">
             </nz-input-group>
             <ng-template #prefixTemplate>
-              <i nz-icon nzType="search" class="opacity-05"></i>
+              <i  aria-hidden="true"nz-icon nzType="search" class="opacity-05"></i>
             </ng-template>
           </div>
           <div class="m-b-10 m-r-20 d-flex align-items-center">
@@ -27,13 +27,13 @@
     (nzQueryParams)="onParamsChanged($event)" [nzLoading]="isloading" nzTableLayout="fixed">
     <thead>
       <tr>
-        <th scope="col">ID</th>
+        <th scope="col" nzWidth="70px">ID</th>
         <ng-container *ngFor="let item of metaData">
           <th *ngIf="item.sortable" [nzSortFn]="item.sortable" scope="col" [nzColumnKey]="item.key"
             [nzSortOrder]="item.sortOrder">{{item.name}}</th>
           <th *ngIf="!item.sortable" scope="col" [nzColumnKey]="item.key">{{item.name}}</th>
         </ng-container>
-        <th scope="col"></th>
+        <th scope="col" nzWidth="70px"></th>
       </tr>
     </thead>
     <tbody>
@@ -49,7 +49,7 @@
           <div class="d-flex justify-content-end">
             <a [routerLink]="['/consulting/information',item?.id]" class="m-r-5" nz-button nzType="default"
               nzShape="circle" nz-tooltip nzTooltipTitle="Chỉnh sửa">
-              <i nz-icon nzType="edit" theme="outline"></i>
+              <i  aria-hidden="true"nz-icon nzType="edit" theme="outline"></i>
             </a>
           </div>
         </td>

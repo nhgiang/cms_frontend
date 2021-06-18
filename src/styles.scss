@@ -1,12 +1,12 @@
-@import url('./assets/lib/hljs/styles/atom-one-light.css');
-@import url('../node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css');
-@import url('../node_modules/@fortawesome/fontawesome-free/css/all.min.css');
-@import './assets/scss/app.scss';
-@import url('//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&display=swap');
+@import url("./assets/lib/hljs/styles/atom-one-light.css");
+@import url("../node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css");
+@import url("../node_modules/@fortawesome/fontawesome-free/css/all.min.css");
+@import "./assets/scss/app.scss";
+@import url("//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&display=swap");
 
 .header {
   height: 50px;
-  background-color: #253D7F !important;
+  background-color: #253d7f !important;
 
   .logo {
     width: unset;
@@ -28,7 +28,7 @@
   top: 50px;
 }
 
-.truncate-3{
+.truncate-3 {
   display: -webkit-box;
   word-wrap: break-word;
   -webkit-box-orient: vertical;
@@ -38,7 +38,7 @@
   overflow: hidden;
 }
 
-.truncate-2{
+.truncate-2 {
   display: -webkit-box;
   word-wrap: break-word;
   -webkit-box-orient: vertical;
@@ -48,7 +48,7 @@
   overflow: hidden;
 }
 
-.truncate-1{
+.truncate-1 {
   display: -webkit-box;
   word-wrap: break-word;
   -webkit-box-orient: vertical;
@@ -65,7 +65,7 @@
 .login-container {
   .option {
     margin-top: 16px;
-    color: #626F95;
+    color: #626f95;
     display: flex;
     justify-content: space-between;
   }
@@ -100,4 +100,8 @@
   .ant-badge-status-text {
     font-size: 15px;
   }
+}
+
+.text-normal {
+  white-space: normal;
 }

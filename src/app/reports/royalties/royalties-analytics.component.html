@@ -1,0 +1,136 @@
+<nz-card>
+  <form class="d-md-flex" nz-form [formGroup]="queryForm">
+    <nz-select
+      class="m-r-20"
+      style="width: 250px"
+      nzPlaceHolder="Tất cả loại tài khoản"
+      formControlName="accountType"
+      nzAllowClear
+    >
+      <nz-option
+        nzValue="Membership"
+        nzLabel="{{ accountType.Membership }}"
+      ></nz-option>
+      <nz-option
+        nzValue="Course"
+        nzLabel="{{ accountType.Course }}"
+      ></nz-option>
+      <!--account types Id -->
+    </nz-select>
+
+    <button
+      nz-button
+      nzType="primary"
+      type="button"
+      style="margin-left: auto"
+      (click)="toggleDrawer()"
+    >
+      Chiết khấu giảng viên
+    </button>
+  </form>
+
+  <nz-table
+    [nzFrontPagination]="false"
+    [nzData]="studentViewItems"
+    [nzTotal]="studentViewMeta.totalItems"
+    [nzPageSize]="studentViewMeta.itemsPerPage"
+    [nzLoading]="isDataLoading"
+    [nzNoResult]="empty"
+    [nzPageIndex]="studentViewMeta.currentPage"
+    (nzPageIndexChange)="onPageStudentViewChange($event)"
+  >
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Tên học viên</th>
+        <th scope="col">Loại tài khoản</th>
+        <th scope="col">Thời gian</th>
+        <th scope="col">Khóa học đã học</th>
+        <th scope="col">Tên giảng viên</th>
+        <th scope="col" nzAlign="right">Đơn giá</th>
+        <th scope="col" nzAlign="right">Chiết khấu</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of studentViewItems; index as i">
+        <td>#{{ item.index }}</td>
+        <td>
+          <a href="/user/student/{{ item.studentId }}" target="_blank">{{
+            item.studentName
+          }}</a>
+        </td>
+        <td>{{ accountType[item.type] }}</td>
+        <td>{{ item.date | datetime }}</td>
+        <td>
+          <div
+            class="d-block course-name"
+            *ngFor="let course of item.courses"
+            nz-tooltip
+            [nzTooltipTitle]="course.courseName"
+            nzTooltipPlacement="topLeft"
+          >
+            {{ course.courseName }}
+          </div>
+        </td>
+        <td>
+          <a
+            class="d-block"
+            *ngFor="let course of item.courses"
+            href="/user/lecturer/{{ course.teacherId }}"
+            target="_blank"
+          >
+            {{ course.teacherName }}
+          </a>
+        </td>
+        <td nzAlign="right">
+          <div *ngFor="let course of item.courses">
+            {{ course.coursePrice | number }}
+          </div>
+        </td>
+        <td nzAlign="right">
+          <div *ngFor="let course of item.courses">
+            {{ course.royaltyAmount | number }}
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<ng-template #empty>
+  <nz-empty nzNotFoundContent="Không có dữ liệu"></nz-empty>
+</ng-template>
+
+<ng-template #drawer>
+  <nz-table
+    [nzData]="teacherViewItems"
+    [nzFrontPagination]="false"
+    [nzNoResult]="empty"
+    [nzTotal]="teacherViewMeta.totalItems"
+    [nzPageSize]="teacherViewMeta.itemsPerPage"
+    (nzPageIndex)="(teacherViewMeta.currentPage)"
+    (nzPageIndexChange)="onPageTeacherViewChange($event)"
+    [nzLoading]="isTeacherViewLoading"
+  >
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Tên giảng viên</th>
+        <th scope="col">Tỷ lệ</th>
+        <th scope="col" nzAlign="right">Tổng chiết khấu</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of teacherViewItems">
+        <td>#{{ item.index }}</td>
+        <td>
+          <a href="/user/lecturer/{{ item.teacherId }}" target="_blank">{{
+            item.teacherName
+          }}</a>
+        </td>
+        <td>{{ item.teacherData?.royaltyPercentage || 0 | number }}%</td>
+        <td nzAlign="right">{{ item.royaltyAmount || 0 | number }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</ng-template>

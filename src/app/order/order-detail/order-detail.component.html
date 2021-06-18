@@ -26,7 +26,8 @@
             <ul class="list-unstyled m-t-10 list-info">
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i class="m-r-10 text-primary"
+                  <i aria-hidden="true"
+                     class="m-r-10 text-primary"
                      nz-icon
                      nzType="mail"
                      theme="outline"></i>
@@ -36,7 +37,8 @@
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i class="m-r-10 text-primary"
+                  <i aria-hidden="true"
+                     class="m-r-10 text-primary"
                      nz-icon
                      nzType="phone"
                      theme="outline"></i>
@@ -46,7 +48,8 @@
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i class="m-r-10 text-primary"
+                  <i aria-hidden="true"
+                     class="m-r-10 text-primary"
                      nz-icon
                      nzType="man"
                      theme="outline"></i>
@@ -56,7 +59,8 @@
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i class="m-r-10 text-primary"
+                  <i aria-hidden="true"
+                     class="m-r-10 text-primary"
                      nz-icon
                      nzType="calendar"
                      theme="outline"></i>
@@ -66,7 +70,8 @@
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i class="m-r-10 text-primary"
+                  <i aria-hidden="true"
+                     class="m-r-10 text-primary"
                      nz-icon
                      nzType="compass"
                      theme="outline"></i>
@@ -99,13 +104,10 @@
             <nz-form-item>
               <nz-form-label class="text-left">Thông tin ngân hàng</nz-form-label>
               <nz-form-control [nzErrorTip]="'Vui lòng chọn thông tin ngân hàng'">
-                <nz-select formControlName="bankCode"
-                           [nzPlaceHolder]="'Chọn ngân hàng'">
-                  <nz-option [nzLabel]="item.bankCode"
-                             [nzValue]="item.bankCode"
-                             *ngFor="let item of paymentMethods">
-                  </nz-option>
-                </nz-select>
+                <input type="text"
+                       nz-input
+                       formControlName="bankCode"
+                       placeHolder="Nhập thông tin ngân hàng">
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -229,7 +231,10 @@
           </div>
           <div class="t-row">
             <div class="t-cell">{{order?.created | datetime: true}}</div>
-            <div class="t-cell">{{order?.bankCodePicked}}</div>
+            <div class="t-cell"
+                 *ngIf="order?.paymentMethod === paymentMethod.Bank">{{order?.bankCodePicked}}</div>
+            <div class="t-cell"
+                 *ngIf="order?.paymentMethod === paymentMethod.VNPay">VNPay</div>
           </div>
         </div>
       </nz-card>
