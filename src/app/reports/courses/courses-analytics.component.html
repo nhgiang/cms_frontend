@@ -33,6 +33,7 @@
     [nzData]="coursesAnalytics"
     [nzLoading]="isDataLoading"
     [nzPageSize]="10"
+    [nzShowTotal]="showTotalTemplate"
   >
     <thead>
       <tr>
@@ -87,3 +88,5 @@
 <ng-template #empty>
   <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
 </ng-template>
+
+<ng-template #showTotalTemplate let-total> Tổng cộng: {{ total }} </ng-template>
