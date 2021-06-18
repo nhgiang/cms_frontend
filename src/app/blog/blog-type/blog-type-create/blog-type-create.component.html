@@ -7,11 +7,11 @@
                nz-input
                placeholder="Nhập loại bài viết">
       </nz-form-control>
-      <ng-template #nameErrorTpl>
-        <ng-container *ngIf="control.hasError('required')">
+      <ng-template #nameErrorTpl let-control>
+        <ng-container *ngIf="control?.hasError('required')">
           Vui lòng nhập tên loại bài viết
         </ng-container>
-        <ng-container *ngIf="control.hasError('dbConflict')">
+        <ng-container *ngIf="control?.hasError('dbConflict')">
           Loại bài viết đã tồn tại trên hệ thống
         </ng-container>
       </ng-template>

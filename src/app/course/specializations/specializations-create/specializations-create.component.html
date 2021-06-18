@@ -4,7 +4,7 @@
       <nz-form-control [nzErrorTip]="nameErrorTpl">
         <input type="text" formControlName="name" nz-input placeholder="Nhập chuyên môn">
       </nz-form-control>
-      <ng-template #nameErrorTpl>
+      <ng-template #nameErrorTpl let-control>
         <ng-container *ngIf="control.hasError('required')">
           Vui lòng nhập chuyên môn
         </ng-container>
