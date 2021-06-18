@@ -56,12 +56,14 @@ export class SkillsModalComponent implements OnInit {
     this.isLoading = true;
     this.api(trimData(this.form.value)).pipe(
       finalize(() => this.isLoading = false)
-    ).subscribe(
-      () => {
-        // tslint:disable-next-line: max-line-length
-        this.notificationService.success('Thành công', (this.type === 'edit') ? 'Cập nhật kỹ năng thành công' : 'Tạo mới kỹ năng thành công');
-        this.modalRef.close(true);
+    ).subscribe(() => {
+      // tslint:disable-next-line: max-line-length
+      this.notificationService.success('Thành công', (this.type === 'edit') ? 'Cập nhật kỹ năng thành công' : 'Tạo mới kỹ năng thành công');
+      this.modalRef.close(true);
+    }, err => {
+      if (err.status === 409) {
+        this.form.controls['name'].setErrors({ dbConflict: true });
       }
-    );
+    });
   }
 }

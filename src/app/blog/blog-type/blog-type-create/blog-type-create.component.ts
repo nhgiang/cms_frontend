@@ -40,6 +40,10 @@ export class BlogTypeCreateComponent implements OnInit {
       this.modalRef.close();
       this.notification.success('Thành công', 'Thêm mới loại bài viết thành công!');
       this.created.emit();
+    }, err => {
+      if (err.status === 409) {
+        this.form.controls['name'].setErrors({ dbConflict: true });
+      }
     });
   }
 }
