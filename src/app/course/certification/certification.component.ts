@@ -95,6 +95,7 @@ export class CertificationComponent implements OnInit {
           logo: res.logo,
           signature: res.signature
         };
+        delete data.template;
         return this.certificateApi.update(data);
       }),
       finalize(() => this.isLoading = false)
