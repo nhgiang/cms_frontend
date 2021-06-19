@@ -121,7 +121,7 @@ export class RevenueComponent implements OnInit {
 
   ngOnInit() {
     this.form.valueChanges.pipe(map(val => {
-      return { mode: val.mode, startDate: new Date(val.startDate).toISOString(), endDate: new Date(val.endDate).toISOString() };
+      return { mode: val.mode, startDate: moment(val.startDate).format('YYYY-MM-DD'), endDate: moment(val.endDate).format('YYYY-MM-DD') };
     })).subscribe(val => {
       if (val.startDate && val.endDate) {
         this.getData(val);
