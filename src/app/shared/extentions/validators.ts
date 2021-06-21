@@ -70,19 +70,23 @@ export class TValidators extends Validators {
       return {
         textRange: true,
       };
-    }
+    };
 
   static numberRange =
     (min: number, max: number) =>
     (control: AbstractControl): ValidationErrors => {
       if (control.value) {
-        const value = Number(control.value.trim());
-        if (typeof value === 'number' && value <= max && value >= min) return null;
+        const value = Number(control.value.toString().trim());
+        if (typeof value === 'number' && value <= max && value >= min)
+          return null;
         return {
-          numberRange: true,
+          numberRange: {
+            min: min,
+            max: max,
+          },
         };
       }
-    }
+    };
 
   static emailRules(control: AbstractControl): ValidationErrors {
     if (!control.value) {
@@ -146,7 +150,7 @@ export class TValidators extends Validators {
       return { requiredAnswer: true };
     }
     return null;
-  }
+  };
 
   static timeValidator =
     (startField: string, endField: string) => (formGroup: AbstractControl) => {
@@ -162,7 +166,7 @@ export class TValidators extends Validators {
             endBeforeStart: true,
           }
         : null;
-    }
+    };
 
   static duplicateAnswers = (form: FormArray) => {
     const answers = form.value.map((x) => x.answer);
@@ -171,7 +175,7 @@ export class TValidators extends Validators {
     return TValidators.checkIfDuplicateExists(answers)
       ? { duplicate: true }
       : null;
-  }
+  };
 
   static checkIfDuplicateExists(w) {
     return new Set(w).size !== w.length;
