@@ -16,8 +16,6 @@ export class SettingMembershipsApiService extends BaseApi {
     return this.httpClient.get(this.createUrl(''));
   }
   post(params: SettingMemberships) {
-    return this.httpClient.post(this.createUrl(''), {
-      ...this.createParams(params),
-    });
+    return this.httpClient.post(this.createUrl(''), this.createParams(params));
   }
 }

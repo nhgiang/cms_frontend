@@ -6,6 +6,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { inRange } from 'lodash-es';
 import * as moment from 'moment';
 import { toFixed } from 'utils/common';
 export class TValidators extends Validators {
@@ -73,12 +74,11 @@ export class TValidators extends Validators {
     };
 
   static numberRange =
-    (min: number, max: number) =>
+    (min: number, max: number) => //inclusive
     (control: AbstractControl): ValidationErrors => {
       if (control.value) {
         const value = Number(control.value.toString().trim());
-        if (typeof value === 'number' && value <= max && value >= min)
-          return null;
+        if (inRange(value, min, max + 0.001)) return null;
         return {
           numberRange: {
             min: min,
