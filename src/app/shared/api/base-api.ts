@@ -19,7 +19,7 @@ export abstract class BaseApi {
   }
 
   protected createParams(params: { [key: string]: any }): any {
-    return omitBy(trimData(params), isNil); // TODO: Giang xem lại chỗ này xem sao nhé
+    return omitBy(trimData(params), isNil);
   }
 
   protected createUrl(url: string) {

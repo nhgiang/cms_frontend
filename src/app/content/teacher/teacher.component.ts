@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { SettingApiService } from '@shared/api/setting.api.service';
-import { TValidators } from '@shared/extentions/validators';
 import { DestroyService } from '@shared/services/destroy.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Subject } from 'rxjs';
-import { debounceTime, skip, switchMap, takeUntil, takeWhile } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
+import { AssetType } from 'types/enums';
 import { SettingTeacher } from 'types/typemodel';
 import { ContentStateService } from '../content-state.service';
 import { TeacherCreateComponent } from './teacher-create/teacher-create.component';
@@ -20,42 +20,30 @@ import { TeacherUpdateComponent } from './teacher-update/teacher-update.componen
 })
 export class TeacherComponent implements OnInit, OnDestroy {
   settingTeachers: SettingTeacher;
-  description: FormControl;
+  form: FormGroup;
   pageIndex = 1;
   destroy$ = new Subject();
+  assetType = AssetType;
   constructor(
     private contentState: ContentStateService,
     private settingApi: SettingApiService,
     private modalService: NzModalService,
     private destroy: DestroyService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    this.description = new FormControl(null, TValidators.textRange(1, 500));
+    this.buildForm();
     this.contentState.setttingTeacher$
       .pipe(takeUntil(this.destroy))
       .subscribe((res) => {
         this.settingTeachers = res;
-        if (this.description.value !== res?.description) {
-          this.description.setValue(res?.description);
-        }
+        this.form.patchValue(res);
       });
     this.settingApi.teacher.get().subscribe((res) => {
       this.contentState.initState(res);
     });
-    this.description.valueChanges.pipe(
-      skip(1),
-      takeWhile(val => {
-        this.description.markAsDirty();
-        return this.description.valid;
-      }),
-      debounceTime(1000),
-      switchMap(val => {
-        return this.contentState.updateDescripton(val.trim());
-      })).subscribe(() => {
-        this.notification.success('Thành công', 'Cập nhật mô tả chung thành công!');
-      });
   }
 
   deleteTeacher(index) {
@@ -76,6 +64,14 @@ export class TeacherComponent implements OnInit, OnDestroy {
       nzTitle: 'Cập nhật thông tin giảng viên',
       nzContent: TeacherUpdateComponent,
       nzComponentParams: { index },
+    });
+  }
+
+  buildForm() {
+    this.form = this.fb.group({
+      description: [],
+      image: [],
+      isShow: [],
     });
   }
 

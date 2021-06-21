@@ -5,6 +5,7 @@ import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
+import { AssetType } from 'types/enums';
 
 @Component({
   selector: 'app-footer',
@@ -14,6 +15,8 @@ import { finalize } from 'rxjs/operators';
 export class FooterComponent implements OnInit {
   form: FormGroup;
   isLoading: boolean;
+  assetType = AssetType;
+
   constructor(
     private fb: FormBuilder,
     private settingApi: SettingApiService,
@@ -33,7 +36,8 @@ export class FooterComponent implements OnInit {
       email: [null, [TValidators.emailRules, TValidators.required]],
       phoneNumber: [null, [TValidators.phoneNumber, TValidators.required]],
       facebook: [null, [TValidators.link, TValidators.required]],
-      youtube: [null, [TValidators.link, TValidators.required]]
+      youtube: [null, [TValidators.link, TValidators.required]],
+      image: [null]
     });
   }
 

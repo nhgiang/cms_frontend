@@ -29,6 +29,7 @@ export class ContentStateService {
   createTeacher(teacher: SettingTeacherItem) {
     const newSettingTeacherState = {
       description: this.setttingTeacher.description,
+      image: this.setttingTeacher.image,
       teachers: [...this.setttingTeacher.teachers, teacher],
     };
     return this.settingApi.teacher
@@ -39,6 +40,7 @@ export class ContentStateService {
   updateTeacher(teacher: SettingTeacherItem, index: number) {
     const newSettingTeacherState = {
       description: this.setttingTeacher.description,
+      image: this.setttingTeacher.image,
       teachers: [...this.setttingTeacher.teachers],
     };
     newSettingTeacherState.teachers[index] = teacher;
@@ -47,18 +49,18 @@ export class ContentStateService {
       .pipe(tap(() => (this.settingTeachers = newSettingTeacherState)));
   }
 
-  updateDescripton(description: string) {
+  updateDescripton(body: { description: string, image: string }) {
     const newSettingTeacherState = {
-      description,
+      ...body,
       teachers: [...this.setttingTeacher.teachers],
     };
-    return this.settingApi.teacher
-      .post(newSettingTeacherState);
+    return this.settingApi.teacher.post(newSettingTeacherState);
   }
 
   deleteTeacher(index) {
     const newSettingTeacherState = {
       description: this.setttingTeacher.description,
+      image: this.setttingTeacher.image,
       teachers: [
         ...this.setttingTeacher.teachers.slice(0, index),
         ...this.setttingTeacher.teachers.slice(index + 1),

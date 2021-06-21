@@ -5,7 +5,7 @@ import {
 } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import vi from '@angular/common/locales/vi';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '@env';

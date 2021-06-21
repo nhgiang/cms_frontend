@@ -78,6 +78,7 @@ export interface FileModel {
 }
 
 export interface SettingTeacher {
+  image: string;
   description: string;
   teachers: SettingTeacherItem[];
 }
