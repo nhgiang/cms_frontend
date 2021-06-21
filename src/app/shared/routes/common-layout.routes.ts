@@ -104,10 +104,10 @@ export const CommonLayoutRoutes: Routes = [
     },
   },
   {
-    path: 'payment-methods',
+    path: 'admin',
     canActivate: [AuthorizeByRoleGuard],
     loadChildren: () =>
-      import('src/app/payments/payments.module').then((m) => m.PaymentsModule),
+      import('src/app/admin/admin.module').then((m) => m.AdminModule),
     data: {
       title: 'Quyền quản trị admin',
     },

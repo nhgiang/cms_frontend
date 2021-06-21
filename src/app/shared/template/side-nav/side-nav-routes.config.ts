@@ -265,15 +265,6 @@ export const ROUTES: SideNavInterface[] = [
     ],
   },
   {
-    path: 'payment-methods',
-    title: 'Thông tin ngân hàng',
-    iconType: 'nzIcon',
-    iconTheme: 'outline',
-    icon: 'bank',
-    isAdminOnly: true,
-    submenu: [],
-  },
-  {
     path: 'settings-help',
     title: 'Cài đặt bài viết hướng dẫn',
     iconType: 'nzIcon',

@@ -1,0 +1,81 @@
+<nz-spin [nzSpinning]="isDataLoading">
+  <nz-card>
+    <div class="text-right">
+      <button nz-button nzType="text" (click)="toggleDrawer()">
+        Chú ý <i nz-icon nzType="right"></i>
+      </button>
+    </div>
+    <form [formGroup]="form" nz-form nzLayout="vertical" (ngSubmit)="submit()">
+      <nz-form-item>
+        <nz-form-label nzRequired> Giá tiền gói membership </nz-form-label>
+        <nz-form-control [nzErrorTip]="customError">
+          <nz-input-group nzSuffix="VND">
+            <input nz-input formControlName="price" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired> Chiết khấu gói membership </nz-form-label>
+        <nz-form-control [nzErrorTip]="customError">
+          <nz-input-group nzSuffix="%">
+            <input nz-input type="number" formControlName="royaltyPercentage" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="text-right">
+        <button type="submit" nz-button nzType="primary">Cập nhật</button>
+      </div>
+    </form>
+  </nz-card>
+</nz-spin>
+
+<ng-template #customError let-control="$implicit">
+  <ng-container *ngIf="control.errors.required">
+    Trường thông tin không được để trống
+  </ng-container>
+  <ng-container *ngIf="control.errors.numberRange">
+    Trường thông tin không hợp lệ, tỷ lệ chiết khấu phải nằm trong khoảng
+    {{ control.errors.numberRange.min }} - {{ control.errors.numberRange.max }}
+  </ng-container>
+  <ng-container *ngIf="control.errors.onlyNumber">
+    Trường thông tin không hợp lệ, giá tiền phải là một số
+  </ng-container>
+</ng-template>
+
+<ng-template #drawer>
+  <h4>Giá tiền gói membership</h4>
+  <p>
+    1. Giá tiền gói membership sẽ ảnh hưởng tới bảng giá và các màn hình thanh
+    toán
+  </p>
+  <p>
+    2. Tại bảng báo cáo, trước thời điểm thay đổi giá, thông tin của các học
+    viên mua gói membership không thay đổi
+  </p>
+  <p>
+    3. Tại bảng báo cáo, trước thời điểm thay đổi giá, thông tin của các học
+    viên mua gói membership được cập nhật theo mức giá mới
+  </p>
+
+  <h4 class="m-t-20">Chiết khấu gói membership</h4>
+  <p>
+    1. Chiết khấu gói membership là số tiền được trích từ tiền membership hằng
+    năm để chia đều cho các giảng viên
+  </p>
+  <p>2. Chiết khấu sẽ ảnh hưởng tới bảng báo cáo</p>
+  <p>
+    3. Tại bảng báo cáo, sau khi thay đổi tỷ lệ chiết khấu, các gói membership
+    cũ sẽ tiếp tục được chia chiết khấu theo tỷ lệ cũ cho đến hết thời hạn của
+    gói membership đó
+  </p>
+  <p>
+    4. Tại bảng báo cáo, sau khi thay đổi tỷ lệ chiết khấu, các gói membership
+    mới sẽ được tính theo tỷ lệ chiết khấy mới tính từ khi admin bắt đầu thay
+    đổi tỷ lệ chiết khấu
+  </p>
+  <p>
+    5. Khi master thay đổi tỷ lệ chiết khấu, báo cáo của toàn bộ hệ thống sẽ
+    thay đổi
+  </p>
+</ng-template>
