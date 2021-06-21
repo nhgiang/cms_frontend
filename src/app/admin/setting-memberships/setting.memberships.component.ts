@@ -6,6 +6,7 @@ import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { parse } from 'path';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -30,6 +31,8 @@ export class SettingMembershipsComponent implements OnInit {
         '',
         [TValidators.required, TValidators.numberRange(0, 100)], //inclusive
       ],
+      days: ['', [TValidators.required]],
+      courseDays: ['', [TValidators.required]],
     });
     this.fetch();
   }
@@ -51,6 +54,8 @@ export class SettingMembershipsComponent implements OnInit {
         royaltyPercentage: parseFloat(
           this.form.controls['royaltyPercentage'].value
         ),
+        days: parseFloat(this.form.controls['days'].value),
+        courseDays: parseFloat(this.form.controls['courseDays'].value),
       })
       .subscribe(() => {
         this.fetch();
