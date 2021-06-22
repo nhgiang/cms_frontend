@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-6">
         <nz-form-item>
-          <nz-form-label class="text-left w-100" nzRequired>Tên học viên</nz-form-label>
+          <nz-form-label class="text-left w-100" nzRequired>Tên học viện</nz-form-label>
           <nz-form-control nzErrorTip="Vui lòng nhập tên học viện" class="w-75">
             <input style="width: 90%" type="text" nz-input formControlName="name">
           </nz-form-control>
@@ -47,14 +47,17 @@
     <div class="row">
       <div class="col-md-6">
         <nz-form-item>
-          <nz-form-label class="text-left w-100" nzRequired>Quy Mô</nz-form-label>
+          <nz-form-label class="text-left w-100" nzRequired>Quy mô</nz-form-label>
           <nz-form-control [nzErrorTip]="errorSize" class="w-75">
-            <input style="width: 90%" type="number" nz-input formControlName="size">
+            <input [min]="1" style="width: 90%" type="number" nz-input formControlName="size">
             <ng-template #errorSize>
               <ng-container *ngIf="myForm.get('size').hasError('maxLength')">
                 Quy mô không được quá 6 chữ số
               </ng-container>
-              <ng-container *ngIf="!myForm.get('size').hasError('maxLength')">
+              <ng-container *ngIf="myForm.get('size').hasError('min')">
+                Quy mô không được nhỏ hơn 1
+              </ng-container>
+              <ng-container *ngIf="myForm.get('size').hasError('required')">
                 Vui lòng nhập quy mô
               </ng-container>
             </ng-template>

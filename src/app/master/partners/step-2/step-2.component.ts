@@ -11,11 +11,10 @@ import { map, switchMap } from 'rxjs/operators';
   templateUrl: './step-2.component.html',
   styleUrls: ['./step-2.component.scss']
 })
-export class Step2Component {
+export class Step2Component implements OnInit {
 
   @Input() form: FormGroup;
   @Input() currentStep: number;
-  @Input() data: any;
   @Output() currentStepChange = new EventEmitter();
   myForm: FormGroup;
 
@@ -25,8 +24,13 @@ export class Step2Component {
   ) {
     this.myForm = this.fb.group({
       domain: [null, [TValidators.required], this.validateDomain.bind(this)],
-      maxCourses: [null, [TValidators.required]],
+      maxCourses: [null, [TValidators.required, TValidators.maxLength(3), TValidators.min(1)]],
     });
+  }
+
+  ngOnInit(): void {
+    this.myForm.patchValue(this.form.value);
+    this.myForm.get('maxCourses').setValue(this.form.value.settings?.maxCourses);
   }
 
   validateDomain(control: AbstractControl): Observable<ValidationErrors | null> {

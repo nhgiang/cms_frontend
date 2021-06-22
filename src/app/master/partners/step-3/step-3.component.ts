@@ -8,8 +8,9 @@ import { TValidators } from '@shared/extentions/validators';
   templateUrl: './step-3.component.html',
   styleUrls: ['./step-3.component.scss']
 })
-export class Step3Component {
+export class Step3Component implements OnInit {
 
+  isPasswordVisible = false;
   @Input() form: FormGroup;
   @Input() currentStep: number;
   @Output() currentStepChange = new EventEmitter();
@@ -24,6 +25,11 @@ export class Step3Component {
       password: [null, [TValidators.required, TValidators.passwordRules]],
       confirmPassword: [null, [TValidators.required, TValidators.passwordRules]]
     }, { validator: TValidators.confirmPasswordValidator });
+  }
+
+  ngOnInit(): void {
+    this.myForm.patchValue(this.form.value.admin);
+    this.myForm.get('confirmPassword').setValue(this.form.value.admin.password);
   }
 
   preStep() {

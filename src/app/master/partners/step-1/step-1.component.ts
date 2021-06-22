@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
@@ -8,8 +8,9 @@ import { TValidators } from '@shared/extentions/validators';
   templateUrl: './step-1.component.html',
   styleUrls: ['./step-1.component.scss']
 })
-export class Step1Component {
+export class Step1Component implements OnInit {
   @Input() form: FormGroup;
+  @Input() data: any;
   @Input() currentStep!: string;
   @Output() currentStepChange = new EventEmitter();
   myForm: FormGroup;
@@ -22,9 +23,13 @@ export class Step1Component {
       representative: [null, [TValidators.required]],
       address: [null, [TValidators.required]],
       phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]],
-      size: [null, [TValidators.required, TValidators.maxLength(6)]],
+      size: [null, [TValidators.required, TValidators.maxLength(6), TValidators.min(1)]],
       email: [null, [TValidators.required, TValidators.emailRules]],
     });
+  }
+
+  ngOnInit(): void {
+    this.myForm.patchValue(this.form.value);
   }
 
   submit() {

@@ -59,7 +59,7 @@ export class PartnersCreateComponent implements OnInit {
     this.form.get('domain').setValue(this.form.get('domain').value + '.beautyup.asia');
     this.partnersApiService.create(this.form.value).subscribe(res => {
       this.notification.success('Thành công', 'Tạo mới đối tác thành công');
-      this.router.navigate(['/partners']);
+      this.router.navigate(['/master/partners']);
     });
   }
 }
