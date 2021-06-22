@@ -38,13 +38,13 @@
     <nz-form-control [nzErrorTip]="errorSize" class="w-75">
       <input type="number" nz-input formControlName="size">
       <ng-template #errorSize>
-        <ng-container *ngIf="myForm.get('size').hasError('maxLength')">
+        <ng-container *ngIf="form.get('size').hasError('maxLength')">
           Quy mô không được quá 6 chữ số
         </ng-container>
-        <ng-container *ngIf="myForm.get('size').hasError('min')">
+        <ng-container *ngIf="form.get('size').hasError('min')">
           Quy mô không được nhỏ hơn 1
         </ng-container>
-        <ng-container *ngIf="myForm.get('size').hasError('required')">
+        <ng-container *ngIf="form.get('size').hasError('required')">
           Vui lòng nhập quy mô
         </ng-container>
       </ng-template>
@@ -87,13 +87,13 @@
       <input type="text" style="width: 70%" nz-input formControlName="maxCourses"> Khóa học
     </nz-form-control>
     <ng-template #errorMaxCourse>
-      <ng-container *ngIf="myForm.get('maxCourses').hasError('maxLength')">
+      <ng-container *ngIf="form.get('maxCourses').hasError('maxLength')">
         Số lượng khóa học không được quá 3 chữ số
       </ng-container>
-      <ng-container *ngIf="myForm.get('maxCourses').hasError('min')">
+      <ng-container *ngIf="form.get('maxCourses').hasError('min')">
         Số lượng khóa học không được nhỏ hơn 1
       </ng-container>
-      <ng-container *ngIf="myForm.get('maxCourses').hasError('required')">
+      <ng-container *ngIf="form.get('maxCourses').hasError('required')">
         Vui lòng nhập số lượng khóa học
       </ng-container>
     </ng-template>
