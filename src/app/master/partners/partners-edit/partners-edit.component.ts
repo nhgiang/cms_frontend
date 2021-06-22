@@ -36,6 +36,7 @@ export class PartnersEditComponent implements OnInit {
       this.modalRef.close(true);
     };
     const err = () => {
+      this.form.get('domain').setValue(this.form.get('domain').value.replace('.beautyup.asia', ''));
       this.notification.error('Thất bại', 'Cập nhật thông tin partner thất bại!')
     }
     this.partnersApiService.update(this.data.id, this.form.value).subscribe(next, err);
