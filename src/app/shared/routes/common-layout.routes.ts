@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthorizeByRoleGuard } from '@shared/guards/authorize-by-role.guard';
 import { ConfigQuickContactComponent } from 'src/app/config-quick-contact/config-quick-contact.component';
-import { PartnersComponent } from 'src/app/partners/partners.component';
+import { PartnersRegistrationsComponent } from 'src/app/partners-registrations/partners-registations.component';
 
 export const CommonLayoutRoutes: Routes = [
   {
@@ -97,10 +97,21 @@ export const CommonLayoutRoutes: Routes = [
     },
   },
   {
-    path: 'partners',
-    component: PartnersComponent,
+    path: 'partners-registrations',
+    component: PartnersRegistrationsComponent,
     data: {
       title: 'Danh sách đối tác đăng ký',
+    },
+  },
+  {
+    path: 'partners',
+    canActivate: [AuthorizeByRoleGuard],
+    loadChildren: () =>
+      import('src/app/partners/partners.module').then(
+        (m) => m.PartnersModule
+      ),
+    data: {
+      title: 'Danh sách đối tác',
     },
   },
   {

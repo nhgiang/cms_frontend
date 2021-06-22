@@ -1,0 +1,20 @@
+<nz-card style="height: 80vh;">
+  <div class="col-10 mt-3">
+    <nz-steps [nzCurrent]="currentStep">
+      <nz-step nzTitle="Đang thực hiện" nzDescription="Thông tin cơ bản"></nz-step>
+      <nz-step nzTitle="In Progress" nzDescription="Cấu hình đối tác"></nz-step>
+      <nz-step nzTitle="Waiting" nzDescription="Tạo người quản trị đầu tiên"></nz-step>
+    </nz-steps>
+  </div>
+  <div class="mt-5">
+    <div *ngIf="currentStep === 0">
+      <app-step-1 [(currentStep)]="currentStep" [form]="form"></app-step-1>
+    </div>
+    <div *ngIf="currentStep === 1">
+      <app-step-2 [(currentStep)]="currentStep" [form]="form"></app-step-2>
+    </div>
+    <div *ngIf="currentStep === 2">
+      <app-step-3 [(currentStep)]="currentStep" [form]="form" (submitForm)="submit()"></app-step-3>
+    </div>
+  </div>
+</nz-card>

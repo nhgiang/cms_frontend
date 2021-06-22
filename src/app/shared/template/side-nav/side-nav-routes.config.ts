@@ -208,7 +208,7 @@ export const ROUTES: SideNavInterface[] = [
     ],
   },
   {
-    path: 'partners',
+    path: 'partners-registrations',
     title: 'Đối tác đăng ký',
     iconType: 'nzIcon',
     iconTheme: 'outline',

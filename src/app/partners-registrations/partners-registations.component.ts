@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Partner, Meta } from 'types/typemodel';
-import { PartnersApiService } from '@shared/api/partners.api.service';
+import { PartnersRegistrationsApiService } from '@shared/api/partners-registrations.api.service';
 import { finalize, debounceTime, switchMap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable, Observer } from 'rxjs';
@@ -8,17 +8,17 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-partners',
-  templateUrl: './partners.component.html',
+  templateUrl: './partners-registrations.component.html',
 })
-export class PartnersComponent implements OnInit {
+export class PartnersRegistrationsComponent implements OnInit {
   partners: Partner[] = [];
   meta = {} as Meta;
   isDataLoading = false;
   searchQuery: FormControl;
   constructor(
-    private partnersApi: PartnersApiService,
+    private partnersRegistrationsApi: PartnersRegistrationsApiService,
     private notif: NzNotificationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.fetch(1, undefined).subscribe(this.updateObserver());
@@ -33,7 +33,7 @@ export class PartnersComponent implements OnInit {
 
   protected fetch(page: number, searchQuery: any): Observable<any> {
     this.isDataLoading = true;
-    return this.partnersApi
+    return this.partnersRegistrationsApi
       .getList({ page, q: searchQuery })
       .pipe(finalize(() => (this.isDataLoading = false)));
   }
@@ -48,8 +48,8 @@ export class PartnersComponent implements OnInit {
             index + 1 + (this.meta.currentPage - 1) * this.meta.itemsPerPage,
         }));
       },
-      error() {},
-      complete() {},
+      error() { },
+      complete() { },
     };
   }
 
@@ -59,7 +59,7 @@ export class PartnersComponent implements OnInit {
 
   protected deletePartner(partner: Partner) {
     this.isDataLoading = true;
-    this.partnersApi.delete(partner.id).subscribe(() => {
+    this.partnersRegistrationsApi.delete(partner.id).subscribe(() => {
       this.notif.success('Thành công', 'Xóa đối tác thành công');
       this.fetch(1, undefined).subscribe(this.updateObserver()); // refresh
     });

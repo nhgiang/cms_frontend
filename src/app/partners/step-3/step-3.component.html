@@ -1,0 +1,54 @@
+<div>
+  <form [formGroup]="myForm">
+    <div class="row">
+      <nz-form-item class="col-12">
+        <nz-form-label class="text-left w-100" nzRequired>Tên tài khoản</nz-form-label>
+        <nz-form-control class="w-75" [nzErrorTip]="errorEmail">
+          <input style="width: 30%" type="text" nz-input formControlName="email">
+        </nz-form-control>
+        <ng-template #errorEmail>
+          <ng-container *ngIf="myForm.get('email').hasError('required')">
+            Vui lòng nhập email
+          </ng-container>
+          <ng-container *ngIf="myForm.get('email').hasError('emailRules')">
+            Vui lòng nhập email đúng định dạng
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+      <nz-form-item class="col-12">
+        <nz-form-label class="text-left input-space w-100" nzRequired>Mật khẩu</nz-form-label>
+        <nz-form-control [nzErrorTip]="errorPassword">
+          <input style="width: 30%" type="text" nz-input formControlName="password">
+        </nz-form-control>
+        <ng-template #errorPassword>
+          <ng-container *ngIf="myForm.get('password').hasError('required')">
+            Vui lòng nhập mật khẩu
+          </ng-container>
+          <ng-container *ngIf="myForm.get('password').hasError('passwordRules')">
+            Mật khẩu cần từ 8 kí tự,có kí tự in hoa,in thường và số
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+      <nz-form-item class="col-12">
+        <nz-form-label class="text-left input-space w-100" nzRequired>Nhập lại mật khẩu</nz-form-label>
+        <nz-form-control [nzErrorTip]="errorConfirmPassword">
+          <input style="width: 30%" type="text" nz-input formControlName="confirmPassword">
+        </nz-form-control>
+      </nz-form-item>
+      <ng-template #errorConfirmPassword>
+        <ng-container *ngIf="myForm.get('confirmPassword').hasError('required')">
+          Vui lòng nhập mật khẩu
+        </ng-container>
+        <ng-container *ngIf="myForm.get('confirmPassword').hasError('confirm')">
+          Nhập lại mật khẩu chưa chính xác
+        </ng-container>
+      </ng-template>
+    </div>
+    <div class="text-right btn-step-1">
+      <button nz-button type="button" (click)="preStep()" nzType="primary" nzGhost>Quay
+        lại</button>
+      <button nz-button nzType="primary" type="button" class="ml-3" (click)="submit()">Xác
+        nhận</button>
+    </div>
+  </form>
+</div>

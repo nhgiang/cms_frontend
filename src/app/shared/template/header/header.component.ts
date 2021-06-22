@@ -23,6 +23,17 @@ export class HeaderComponent implements OnInit {
     this.user$ = this.authService.currentUser;
   }
 
+  masterList = [
+    {
+      title: 'Danh sách đối tác',
+      link: '/partners'
+    },
+    {
+      title: 'Báo cáo đối tác',
+      link: 'partner-reports'
+    }
+  ];
+
   searchVisible = false;
   quickViewVisible = false;
   isFolded: boolean;
