@@ -26,11 +26,11 @@ export class HeaderComponent implements OnInit {
   masterList = [
     {
       title: 'Danh sách đối tác',
-      link: '/partners'
+      link: '/master/partners'
     },
     {
       title: 'Báo cáo đối tác',
-      link: 'partner-reports'
+      link: '/master/partner-reports'
     }
   ];
 

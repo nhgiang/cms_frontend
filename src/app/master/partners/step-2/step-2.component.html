@@ -1,0 +1,43 @@
+<div>
+  <form [formGroup]="myForm">
+    <div class="row">
+      <nz-form-item class="col-12">
+        <nz-form-label class="text-left w-100" nzRequired>Tên miền</nz-form-label>
+        <nz-form-control class="w-75" [nzErrorTip]="errorDomain">
+          <input style="width: 15%" type="text" nz-input formControlName="domain">.beautyup.asia
+        </nz-form-control>
+        <ng-template #errorDomain>
+          <ng-container *ngIf="myForm.get('domain').hasError('maxLength')">
+            Tên miền không được quá 10 kí tự
+          </ng-container>
+          <ng-container *ngIf="myForm.get('domain').hasError('required')">
+            Vui lòng nhập tên miền
+          </ng-container>
+          <ng-container *ngIf="myForm.get('domain').hasError('exits')">
+            Tên miền trùng với đối tác khác
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+      <nz-form-item class="col-12">
+        <nz-form-label class="text-left input-space w-100" nzRequired>Số lượng khóa học tải lên</nz-form-label>
+        <nz-form-control>
+          <input style="width: 15%" type="text" nz-input formControlName="maxCourses"> Khóa học
+        </nz-form-control>
+        <ng-template #errorDomain>
+          <ng-container *ngIf="myForm.get('maxCourses').hasError('maxLength')">
+            Tên miền không được quá 3 chữ số
+          </ng-container>
+          <ng-container *ngIf="!myForm.get('maxCourses').hasError('maxLength')">
+            Vui lòng nhập số lượng khóa học
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+    </div>
+    <div class="text-right btn-step-1">
+      <button nz-button type="button" (click)="preStep()" nzType="primary" nzGhost>Quay
+        lại</button>
+      <button nz-button nzType="primary" type="button" class="ml-3" (click)="submit()">Xác
+        nhận</button>
+    </div>
+  </form>
+</div>

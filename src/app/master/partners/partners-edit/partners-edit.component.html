@@ -1,0 +1,100 @@
+<form [formGroup]="form">
+  <nz-form-item class="col-md-12">
+    <nz-form-label class="text-left w-100" nzRequired>Tên học viên</nz-form-label>
+    <nz-form-control nzErrorTip="Vui lòng nhập tên học viện" class="w-75">
+      <input type="text" nz-input formControlName="name">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item class="col-md-12">
+    <nz-form-label class="text-left input-space w-100" nzRequired>Tên người đại diện</nz-form-label>
+    <nz-form-control nzErrorTip="Vui lòng nhập tên người đại diện">
+      <input type="text" nz-input formControlName="representative">
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item class="col-md-12">
+    <nz-form-label class="text-left w-100" nzRequired>Địa chỉ</nz-form-label>
+    <nz-form-control class="w-75" nzErrorTip="Vui lòng nhập địa chỉ">
+      <input type="text" nz-input formControlName="address">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item class="col-md-12">
+    <nz-form-label class="text-left input-space w-100" nzRequired>Số điện thoại</nz-form-label>
+    <nz-form-control [nzErrorTip]="errorPhone">
+      <input type="text" nz-input formControlName="phoneNumber">
+    </nz-form-control>
+    <ng-template #errorPhone>
+      <ng-container *ngIf="form.get('phoneNumber').hasError('phoneNumber')">
+        Vui lòng nhập đúng định dạng số điện thoại
+      </ng-container>
+      <ng-container *ngIf="form.get('phoneNumber').hasError('required')">
+        Vui lòng nhập số điện thoại
+      </ng-container>
+    </ng-template>
+  </nz-form-item>
+
+  <nz-form-item class="col-md-12">
+    <nz-form-label class="text-left w-100" nzRequired>Quy Mô</nz-form-label>
+    <nz-form-control [nzErrorTip]="errorSize" class="w-75">
+      <input type="number" nz-input formControlName="size">
+      <ng-template #errorSize>
+        <ng-container *ngIf="form.get('size').hasError('maxLength')">
+          Quy mô không được quá 6 chữ số
+        </ng-container>
+        <ng-container *ngIf="!form.get('size').hasError('maxLength')">
+          Vui lòng nhập quy mô
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item class="col-md-12">
+    <nz-form-label class="text-left input-space w-100" nzRequired>Email người liên hệ</nz-form-label>
+    <nz-form-control [nzErrorTip]="errorEmail">
+      <input type="text" nz-input formControlName="email">
+    </nz-form-control>
+    <ng-template #errorEmail>
+      <ng-container *ngIf="form.get('email').hasError('required')">
+        Vui lòng nhập email
+      </ng-container>
+      <ng-container *ngIf="form.get('email').hasError('emailRules')">
+        Vui lòng nhập email đúng định dạng
+      </ng-container>
+    </ng-template>
+  </nz-form-item>
+  <nz-form-item class="col-12">
+    <nz-form-label class="text-left w-100" nzRequired>Tên miền</nz-form-label>
+    <nz-form-control [nzErrorTip]="errorDomain">
+      <input type="text" style="width: 70%" nz-input formControlName="domain">.beautyup.asia
+    </nz-form-control>
+    <ng-template #errorDomain>
+      <ng-container *ngIf="form.get('domain').hasError('maxLength')">
+        Tên miền không được quá 10 kí tự
+      </ng-container>
+      <ng-container *ngIf="form.get('domain').hasError('required')">
+        Vui lòng nhập tên miền
+      </ng-container>
+      <ng-container *ngIf="form.get('domain').hasError('exits')">
+        Tên miền trùng với đối tác khác
+      </ng-container>
+    </ng-template>
+  </nz-form-item>
+  <nz-form-item class="col-12">
+    <nz-form-label class="text-left input-space w-100" nzRequired>Số lượng khóa học tải lên</nz-form-label>
+    <nz-form-control formGroupName="settings">
+      <input type="text" style="width: 70%" nz-input formControlName="maxCourses"> Khóa học
+    </nz-form-control>
+    <ng-template #errorDomain>
+      <ng-container *ngIf="form.get('maxCourses').hasError('maxLength')">
+        Tên miền không được quá 3 chữ số
+      </ng-container>
+      <ng-container *ngIf="!form.get('maxCourses').hasError('maxLength')">
+        Vui lòng nhập số lượng khóa học
+      </ng-container>
+    </ng-template>
+  </nz-form-item>
+  <div class="text-right btn-step-1">
+    <button (click)="close()" nz-button type="button" nzType="primary" nzGhost>Hủy</button>
+    <button nz-button nzType="primary" type="button" class="ml-3" (click)="submit()">Xác
+      nhận</button>
+  </div>
+</form>

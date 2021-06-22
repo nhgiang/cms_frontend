@@ -104,14 +104,14 @@ export const CommonLayoutRoutes: Routes = [
     },
   },
   {
-    path: 'partners',
+    path: 'master',
     canActivate: [AuthorizeByRoleGuard],
     loadChildren: () =>
-      import('src/app/partners/partners.module').then(
-        (m) => m.PartnersModule
+      import('src/app/master/master.module').then(
+        (m) => m.MasterModule
       ),
     data: {
-      title: 'Danh sách đối tác',
+      title: 'Quyền master',
     },
   },
   {

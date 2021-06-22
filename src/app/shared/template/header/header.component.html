@@ -34,23 +34,27 @@
           <li nz-menu-item routerLink="/user/assistance">Quản lý nhân viên</li>
         </ul>
       </nz-dropdown-menu>
+      <li [class.d-none]="(user$ | async)?.role !== 'Admin'" nz-dropdown [nzDropdownMenu]="masterPrivilege"
+        [nzTrigger]="'click'" style="z-index: 2;">
+        <a nz-tooltip [nzTooltipPlacement]="'bottom'" nzTooltipTitle="Quyền master"><i style="z-index: 1;" nz-icon
+            nzType="apartment"></i></a>
+      </li>
+      <nz-dropdown-menu #masterPrivilege="nzDropdownMenu">
+        <ul nz-menu *ngFor="let item of masterList">
+          <li nz-menu-item [routerLink]="item.link">
+            {{item.title}}
+          </li>
+        </ul>
+      </nz-dropdown-menu>
     </ul>
   </div>
-  <div class="desktop-toggle d-flex align-items-center">
-    <a nzPopoverPlacement="bottomLeft" nz-popover style="padding: 8px 17px;" nzPopoverTitle="Quyền master"
-      [nzPopoverContent]="dropdown">
+  <!-- <div class="desktop-toggle d-flex align-items-center" [class.d-none]="(user$ | async)?.role !== 'Admin'" nz-dropdown
+    [nzDropdownMenu]="dropdown" [nzTrigger]="'click'">
+    <a nz-tooltip [nzTooltipPlacement]="'bottom'" nzTooltipTitle="Quyền master">
       <i nz-icon style="color: #fff" nzType="apartment" nzTheme="outline"></i>
     </a>
-  </div>
-  <ng-template #dropdown>
-    <ng-container *ngFor="let item of masterList">
-      <div class="py-2">
-        <a [routerLink]="item.link" style="color: black">
-          {{item.title}}
-        </a>
-      </div>
-    </ng-container>
-  </ng-template>
+  </div> -->
+
   <div class="nav-wrap">
     <ul *ngIf="user$ | async; let user" class="nav-right">
       <li>
@@ -64,52 +68,40 @@
         </div>
       </li>
       <li>
-        <<<<<<< HEAD <span class="p-h-10 pointer" nz-dropdown [nzDropdownMenu]="profile" [nzTrigger]="'click'"
+        <span class="p-h-10 pointer" nz-dropdown [nzDropdownMenu]="profile" [nzTrigger]="'click'"
           [nzPlacement]="'bottomRight'">
-          =======
-          <span class="p-h-10 pointer" nz-dropdown [nzDropdownMenu]="profile" [nzTrigger]="'click'"
-            [nzPlacement]="'bottomRight'">
-            >>>>>>> e71b7f45d8be08d8cc8e05ec738a97466aabd701
-            <nz-avatar [nzIcon]="'user'" [nzSrc]="user?.avatar"></nz-avatar>
-          </span>
-          <nz-dropdown-menu #profile="nzDropdownMenu">
-            <ul nz-menu class="p-b-15 p-t-20">
-              <li class="p-h-20 p-b-15 border-bottom">
-                <div class="d-flex m-r-50">
-                  <nz-avatar nzSize="large" [nzSrc]="user?.avatar"></nz-avatar>
-                  <div class="m-l-10">
-                    <p class="m-b-0 text-dark font-weight-semibold">
-                      {{ user.fullName }}
-                    </p>
-                    <p class="m-b-0 opacity-07">{{ user.role }}</p>
-                  </div>
+          <nz-avatar [nzIcon]="'user'" [nzSrc]="user?.avatar"></nz-avatar>
+        </span>
+        <nz-dropdown-menu #profile="nzDropdownMenu">
+          <ul nz-menu class="p-b-15 p-t-20">
+            <li class="p-h-20 p-b-15 border-bottom">
+              <div class="d-flex m-r-50">
+                <nz-avatar nzSize="large" [nzSrc]="user?.avatar"></nz-avatar>
+                <div class="m-l-10">
+                  <p class="m-b-0 text-dark font-weight-semibold">
+                    {{ user.fullName }}
+                  </p>
+                  <p class="m-b-0 opacity-07">{{ user.role }}</p>
                 </div>
-              </li>
-              <li nz-menu-item>
-                <a (click)="changeAvatar()"> Cập nhật avatar </a>
-              </li>
-              <li nz-menu-item>
-                <a (click)="changePassword()">Cập nhật mật khẩu </a>
-              </li>
-              <li nz-menu-item>
-                <<<<<<< HEAD <a (click)="logout()" class="p-v-5 d-flex align-items-center justify-content-between">
-                  <div>
-                    <i aria-hidden="true" class="opacity-04 font-size-16" nz-icon nzType="logout" theme="outline"></i>
-                    <span class="m-l-10">Logout</span>
-                  </div>
-                  <i aria-hidden="true" class="font-size-10" nz-icon nzType="right" theme="outline"></i>
-                  =======
-                  <a (click)="logout()" class="p-v-5 d-flex align-items-center justify-content-between">
-                    <div>
-                      <i aria-hidden="true" class="opacity-04 font-size-16" nz-icon nzType="logout" theme="outline"></i>
-                      <span class="m-l-10">Logout</span>
-                    </div>
-                    <i aria-hidden="true" class="font-size-10" nz-icon nzType="right" theme="outline"></i>
-                    >>>>>>> e71b7f45d8be08d8cc8e05ec738a97466aabd701
-                  </a>
-              </li>
-            </ul>
-          </nz-dropdown-menu>
+              </div>
+            </li>
+            <li nz-menu-item>
+              <a (click)="changeAvatar()"> Cập nhật avatar </a>
+            </li>
+            <li nz-menu-item>
+              <a (click)="changePassword()">Cập nhật mật khẩu </a>
+            </li>
+            <li nz-menu-item>
+              <<<<<<< HEAD <a (click)="logout()" class="p-v-5 d-flex align-items-center justify-content-between">
+                <div>
+                  <i aria-hidden="true" class="opacity-04 font-size-16" nz-icon nzType="logout" theme="outline"></i>
+                  <span class="m-l-10">Logout</span>
+                </div>
+                <i aria-hidden="true" class="font-size-10" nz-icon nzType="right" theme="outline"></i>
+                </a>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
       </li>
     </ul>
   </div>
