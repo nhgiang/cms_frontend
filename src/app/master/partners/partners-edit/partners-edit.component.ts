@@ -63,7 +63,7 @@ export class PartnersEditComponent implements OnInit {
       representative: [this.data?.representative, [TValidators.required]],
       address: [this.data?.address, [TValidators.required]],
       domain: [this.data?.domain.replace('.beautyup.asia', ''), [TValidators.required], this.validateDomain.bind(this)],
-      phoneNumber: [this.data.phoneNumber, [TValidators.required, TValidators.maxLength(11)]],
+      phoneNumber: [this.data.phoneNumber, [TValidators.required, TValidators.phoneNumber]],
       size: [this.data.size, [TValidators.required, TValidators.maxLength(6), TValidators.min(1)]],
       email: [this.data.email, [TValidators.required]],
       settings: this.fb.group({
