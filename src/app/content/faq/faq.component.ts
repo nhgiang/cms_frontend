@@ -8,14 +8,14 @@ import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
 import { AssetType, SettingKey, SettingKeyEndPoint } from 'types/enums';
-import { Faq } from 'types/typemodel';
+import { Faq, QuestionAnswer } from 'types/typemodel';
 
 @Component({
   selector: 'app-faq',
   templateUrl: './faq.component.html',
   styleUrls: ['./faq.component.scss']
 })
-export class FaqComponent extends SettingContainer<Faq[]> implements OnInit {
+export class FaqComponent extends SettingContainer<QuestionAnswer> implements OnInit {
   form: FormGroup;
   faqIndexs = [];
   submiting: boolean;
@@ -26,7 +26,7 @@ export class FaqComponent extends SettingContainer<Faq[]> implements OnInit {
   }
   constructor(
     private fb: FormBuilder,
-    settingApi: SettingApiService<Faq[]>,
+    settingApi: SettingApiService<QuestionAnswer>,
     settingVisibleApi: SettingVisibleApiService,
     private notification: NzNotificationService,
     private storageApi: StorageApiService
@@ -52,8 +52,8 @@ export class FaqComponent extends SettingContainer<Faq[]> implements OnInit {
     });
   }
 
-  protected handleResult(result: { res: Faq[]; isVisible: boolean; }) {
-    this.itemsControlArray.patchValue(result.res);
+  protected handleResult(result: { res: QuestionAnswer; isVisible: boolean; }) {
+    this.form.patchValue(result.res);
     this.isVisible = result.isVisible
   }
 
@@ -63,9 +63,7 @@ export class FaqComponent extends SettingContainer<Faq[]> implements OnInit {
 
   protected buildForm() {
     this.form = this.fb.group({
-      description: [null],
-      avatar: [null],
-      isShow: [null],
+      coverAvatar: [null],
       items: this.fb.array([1, 2, 3].map(() => this.fb.group({
         question: [null, TValidators.textRange(10, 200)],
         answer: [null, TValidators.textRange(10, 600)],

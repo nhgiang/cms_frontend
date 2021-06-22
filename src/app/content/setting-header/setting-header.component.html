@@ -1,0 +1,31 @@
+<nz-card>
+  <nz-spin [nzSpinning]="isLoading">
+    <form [formGroup]="form"
+          (ngSubmit)="submit()"
+          nz-form>
+      <h5 class="title">Logo</h5>
+      <nz-form-item>
+        <nz-form-label class="text-left"
+                       [nzSpan]="3"
+                       nzRequired>
+          Hình ảnh
+        </nz-form-label>
+        <nz-form-control [nzErrorTip]="'Vui lòng tải lên logo cho header'">
+          <app-file-upload-control formControlName="logoImage"
+                                   [fileType]="assetType.Image"
+                                   [maxSize]="5000000">
+          </app-file-upload-control>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="text-right">
+        <button nz-button
+                nzType="primary"
+                type="submit">Lưu lại</button>
+        <button nz-button
+                nzType="primary"
+                type="button"
+                nzGhost>Quay lại</button>
+      </div>
+    </form>
+  </nz-spin>
+</nz-card>

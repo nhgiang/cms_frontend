@@ -5,13 +5,13 @@
 					nz-form>
 			<h5 class="title">Logo</h5>
 			<nz-form-item>
-				<nz-form-label class="text-left align-self-center"
+				<nz-form-label class="text-left"
 											 [nzSpan]="3"
 											 nzRequired>
 					Hình ảnh
 				</nz-form-label>
 				<nz-form-control>
-					<app-file-upload-control formControlName="coverAvatar"
+					<app-file-upload-control formControlName="logoImage"
 																	 [fileType]="assetType.Image"
 																	 [maxSize]="5000000">
 					</app-file-upload-control>
@@ -20,7 +20,7 @@
 			<div class="underline"></div>
 			<h5 class="title">Mục liên hệ</h5>
 			<nz-form-item>
-				<nz-form-label class="text-left align-self-center"
+				<nz-form-label class="text-left"
 											 [nzSpan]="3"
 											 nzRequired>Địa chỉ
 				</nz-form-label>

@@ -1,12 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingApiService, SettingVisibleApiService } from '@shared/api/setting.api.service';
+import { StorageApiService } from '@shared/api/storage.api.service';
 import { SettingContainer } from '@shared/class/setting-container';
+import { Ultilities } from '@shared/extentions/Ultilities';
+import { TValidators } from '@shared/extentions/validators';
 import { DestroyService } from '@shared/services/destroy.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, switchMap, takeUntil } from 'rxjs/operators';
 import { AssetType, SettingKey, SettingKeyEndPoint } from 'types/enums';
 import { SettingTeacher } from 'types/typemodel';
 import { ContentStateService } from '../content-state.service';
@@ -33,7 +36,8 @@ export class TeacherComponent extends SettingContainer<SettingTeacher> implement
     private modalService: NzModalService,
     private destroy: DestroyService,
     private notification: NzNotificationService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private storageApi: StorageApiService
   ) {
     super(settingVisibleApi, settingApi, SettingKey.Teacher, SettingKeyEndPoint.Teacher)
   }
@@ -69,6 +73,19 @@ export class TeacherComponent extends SettingContainer<SettingTeacher> implement
     });
   }
 
+  updateContent() {
+    Ultilities.validateForm(this.form);
+    this.isLoading = true;
+    this.storageApi.uploadFile(this.form.value.coverAvatar).pipe(
+      switchMap(url => {
+        this.form.get('coverAvatar').setValue(url);
+        return this.contentState.updateContent(this.form.value);
+      }),
+      finalize(() => this.isLoading = false)
+    ).subscribe(() => {
+
+    });
+  }
 
   protected handleResult(result: { res: SettingTeacher; isVisible: boolean; }) {
     this.contentState.initState(result.res);
@@ -81,8 +98,9 @@ export class TeacherComponent extends SettingContainer<SettingTeacher> implement
 
   buildForm() {
     this.form = this.fb.group({
-      description: [],
-      coverAvatar: [],
+      description: [null, TValidators.textRange(1, 500)],
+      coverAvatar: [null, Validators.required],
+      title: ['Giảng viên']
     });
   }
 

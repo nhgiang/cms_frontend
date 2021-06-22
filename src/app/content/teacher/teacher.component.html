@@ -1,11 +1,21 @@
 <nz-card>
 	<div class="card-header">
-		<form [formGroup]="form">
-			<div class="section-title">Section giảng viên tại trang chủ là phần hiển thị danh sách các giảng viên
-				mà phía trung tâm mong muốn để phục vụ mục đích truyền thông quảng cáo.
-				Section này khác với danh sách giảng viên mà bạn đang quản trị tại quản lý người dùng</div>
-			<nz-form-item class="mb-5">
-				<nz-form-label nzRequired>Mô tả chung</nz-form-label>
+		<div class="text-right mb-3">
+			<nz-switch [ngModel]="isVisible"
+								 [nzCheckedChildren]="checkedTemplate"
+								 [nzUnCheckedChildren]="unCheckedTemplate"
+								 (ngModelChange)="visible($event)"></nz-switch>
+			<ng-template #checkedTemplate><i nz-icon
+					 nzType="check"></i></ng-template>
+			<ng-template #unCheckedTemplate><i nz-icon
+					 nzType="close"></i></ng-template>
+		</div>
+		<form [formGroup]="form" (ngSubmit)="updateContent()">
+			<nz-form-item>
+				<nz-form-label nzRequired
+											 class="input-space text-left">
+					Mô tả chung
+				</nz-form-label>
 				<nz-form-control [nzErrorTip]="'Mô tả chung có độ dài từ 1 đến 500 ký tự'">
 					<input nz-input
 								 formControlName="description"
@@ -13,37 +23,33 @@
 				</nz-form-control>
 			</nz-form-item>
 			<nz-form-item>
-				<nz-form-label class="text-left"
+				<nz-form-label class="text-left input-space"
 											 nzRequired>
-					Avatar
+					Hình ảnh
 				</nz-form-label>
-				<nz-form-control>
-					<app-file-upload-control formControlName="image"
+				<nz-form-control [nzErrorTip]="'Vui lòng tải lên hình ảnh'">
+					<app-file-upload-control formControlName="coverAvatar"
 																	 [fileType]="assetType.Image"
 																	 [maxSize]="5000000">
 					</app-file-upload-control>
 				</nz-form-control>
 			</nz-form-item>
-			<nz-form-item>
-				<nz-form-label class="text-left"
-											 nzRequired>
-					Hiển thị thông tin giảng viên
-				</nz-form-label>
-				<nz-form-control>
-					<label nz-checkbox
-								 formControlName="isShow">
-					</label>
-				</nz-form-control>
-			</nz-form-item>
-			<div class="underline"></div>
-			<div class="text-right">
+			<div class="text-right mb-3">
 				<button class="text-left"
 								nz-button
-								nzType="primary"
-								[disabled]="settingTeachers?.teachers?.length >= 10"
-								(click)="addItem()">Thêm mới</button>
+								nzType="primary">
+					Lưu lại
+				</button>
 			</div>
 		</form>
+	</div>
+	<div class="underline"></div>
+	<div class="text-right">
+		<button class="text-left"
+						nz-button
+						nzType="primary"
+						[disabled]="settingTeachers?.teachers?.length >= 10"
+						(click)="addItem()">Thêm mới</button>
 	</div>
 	<nz-table [nzData]="settingTeachers?.teachers"
 						[(nzPageIndex)]="pageIndex"

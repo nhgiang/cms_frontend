@@ -42,16 +42,16 @@ export class FooterComponent implements OnInit {
       phoneNumber: [null, [TValidators.phoneNumber, TValidators.required]],
       facebook: [null, [TValidators.link, TValidators.required]],
       youtube: [null, [TValidators.link, TValidators.required]],
-      coverAvatar: [null]
+      logoImage: [null]
     });
   }
 
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.storageApi.uploadFile(this.form.value.coverAvatar).pipe(
+    this.storageApi.uploadFile(this.form.value.logoImage).pipe(
       switchMap(url => {
-        this.form.get('coverAvatar').setValue(url);
+        this.form.get('logoImage').setValue(url);
         return this.settingApi.post(this.form.value)
       }),
       finalize(() => this.isLoading = false)
