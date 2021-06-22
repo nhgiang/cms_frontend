@@ -4,7 +4,7 @@ const routes: Routes = [
   {
     path: 'partners',
     loadChildren: () =>
-      import('src/app/partners/partners.module').then(
+      import('src/app/master/partners/partners.module').then(
         (m) => m.PartnersModule
       ),
     data: {

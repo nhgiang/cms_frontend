@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PartnersApiService } from '@shared/api/partners.api.service';
 import { TValidators } from '@shared/extentions/validators';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-partners-create',
@@ -16,7 +17,8 @@ export class PartnersCreateComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private partnersApiService: PartnersApiService
+    private partnersApiService: PartnersApiService,
+    private notification: NzNotificationService
   ) {
     this.buildForm();
   }
@@ -54,7 +56,9 @@ export class PartnersCreateComponent implements OnInit {
   }
 
   submit() {
+    this.form.get('domain').setValue(this.form.get('domain').value + '.beautyup.asia');
     this.partnersApiService.create(this.form.value).subscribe(res => {
+      this.notification.success('Thành công', 'Tạo mới đối tác thành công');
       this.router.navigate(['/partners']);
     });
   }

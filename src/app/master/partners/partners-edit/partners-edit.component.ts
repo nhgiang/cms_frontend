@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors } from '@angular/forms';
 import { PartnersApiService } from '@shared/api/partners.api.service';
 import { TValidators } from '@shared/extentions/validators';
+import { replace } from 'lodash-es';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable, timer } from 'rxjs';
@@ -29,6 +30,7 @@ export class PartnersEditComponent implements OnInit {
   }
 
   submit() {
+    this.form.get('domain').setValue(this.form.get('domain').value + '.beautyup.asia');
     const next = () => {
       this.notification.success('Thành công', 'Cập nhật thông tin partner thành công!');
       this.modalRef.close(true);
@@ -60,7 +62,7 @@ export class PartnersEditComponent implements OnInit {
       name: [this.data?.name, [TValidators.required]],
       representative: [this.data?.representative, [TValidators.required]],
       address: [this.data?.address, [TValidators.required]],
-      domain: [this.data?.domain, [TValidators.required], this.validateDomain.bind(this)],
+      domain: [this.data?.domain.replace('.beautyup.asia', ''), [TValidators.required], this.validateDomain.bind(this)],
       phoneNumber: [this.data.phoneNumber, [TValidators.required, TValidators.maxLength(11)]],
       size: [this.data.size, [TValidators.required, TValidators.maxLength(6)]],
       email: [this.data.email, [TValidators.required]],
