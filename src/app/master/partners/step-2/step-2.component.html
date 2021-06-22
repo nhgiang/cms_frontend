@@ -21,18 +21,23 @@
       <nz-form-item class="col-12">
         <nz-form-label class="text-left input-space w-100" nzRequired>Số lượng khóa học tải lên</nz-form-label>
         <nz-form-control [nzErrorTip]="errorMaxCourse">
-          <input style="width: 15%" type="nụmber" nz-input formControlName="maxCourses"> Khóa học
+          <input style="width: 15%" type="nụmber" nz-input formControlName="maxCourses">
+          Khóa học
         </nz-form-control>
         <ng-template #errorMaxCourse>
+          <ng-container *ngIf="myForm.get('maxCourses').hasError('required')">
+            Vui lòng nhập số lượng khóa học
+          </ng-container>
           <ng-container *ngIf="myForm.get('maxCourses').hasError('maxLength')">
             Số lượng khóa học không được quá 3 chữ số
           </ng-container>
           <ng-container *ngIf="myForm.get('maxCourses').hasError('min')">
             Số lượng khóa học không được nhỏ hơn 1
           </ng-container>
-          <ng-container *ngIf="myForm.get('maxCourses').hasError('required')">
-            Vui lòng nhập số lượng khóa học
+          <ng-container *ngIf="myForm.get('maxCourses').hasError('onlyNumber')">
+            Số lượng khóa học không được là số thập phân
           </ng-container>
+
         </ng-template>
       </nz-form-item>
     </div>

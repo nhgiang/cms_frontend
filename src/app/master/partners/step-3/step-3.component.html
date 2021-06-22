@@ -35,8 +35,8 @@
       <nz-form-item class="col-12">
         <nz-form-label class="text-left input-space w-100" nzRequired>Nhập lại mật khẩu</nz-form-label>
         <nz-form-control [nzErrorTip]="errorConfirmPassword">
-          <nz-input-group style="width: 30%" [nzPrefix]="prefixLock" [nzSuffix]="suffixPassword">
-            <input [type]="isPasswordVisible ? 'text' : 'password'" nz-input formControlName="confirmPassword"
+          <nz-input-group style="width: 30%" [nzPrefix]="prefixLock" [nzSuffix]="suffixconfirmPassword">
+            <input [type]="isConfirmPasswordVisible ? 'text' : 'password'" nz-input formControlName="confirmPassword"
               placeholder="Nhập lại mật khẩu" required autocomplete="off" />
           </nz-input-group>
         </nz-form-control>
@@ -62,6 +62,11 @@
 <ng-template #suffixPassword>
   <i aria-hidden="true" nz-icon [nzType]="isPasswordVisible ? 'eye-invisible' : 'eye'"
     (click)="isPasswordVisible = !isPasswordVisible">
+  </i>
+</ng-template>
+<ng-template #suffixconfirmPassword>
+  <i aria-hidden="true" nz-icon [nzType]="isConfirmPasswordVisible ? 'eye-invisible' : 'eye'"
+    (click)="isConfirmPasswordVisible = !isConfirmPasswordVisible">
   </i>
 </ng-template>
 <ng-template #prefixLock><i aria-hidden="true" nz-icon nzType="lock"></i></ng-template>

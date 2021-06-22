@@ -41,6 +41,9 @@
         <ng-container *ngIf="form.get('size').hasError('maxLength')">
           Quy mô không được quá 6 chữ số
         </ng-container>
+        <ng-container *ngIf="form.get('size').hasError('onlyNumber')">
+          Quy mô không được là số thập phân
+        </ng-container>
         <ng-container *ngIf="form.get('size').hasError('min')">
           Quy mô không được nhỏ hơn 1
         </ng-container>
@@ -87,14 +90,17 @@
       <input type="text" style="width: 70%" nz-input formControlName="maxCourses"> Khóa học
     </nz-form-control>
     <ng-template #errorMaxCourse>
+      <ng-container *ngIf="form.get('maxCourses').hasError('required')">
+        Vui lòng nhập số lượng khóa học
+      </ng-container>
       <ng-container *ngIf="form.get('maxCourses').hasError('maxLength')">
         Số lượng khóa học không được quá 3 chữ số
       </ng-container>
       <ng-container *ngIf="form.get('maxCourses').hasError('min')">
         Số lượng khóa học không được nhỏ hơn 1
       </ng-container>
-      <ng-container *ngIf="form.get('maxCourses').hasError('required')">
-        Vui lòng nhập số lượng khóa học
+      <ng-container *ngIf="form.get('maxCourses').hasError('onlyNumber')">
+        Số lượng khóa học không được là số thập phân
       </ng-container>
     </ng-template>
   </nz-form-item>

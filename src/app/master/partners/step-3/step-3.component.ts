@@ -10,6 +10,7 @@ import { TValidators } from '@shared/extentions/validators';
 })
 export class Step3Component implements OnInit {
 
+  isConfirmPasswordVisible = false;
   isPasswordVisible = false;
   @Input() form: FormGroup;
   @Input() currentStep: number;

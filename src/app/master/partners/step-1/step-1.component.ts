@@ -23,7 +23,7 @@ export class Step1Component implements OnInit {
       representative: [null, [TValidators.required]],
       address: [null, [TValidators.required]],
       phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]],
-      size: [null, [TValidators.required, TValidators.maxLength(6), TValidators.min(1)]],
+      size: [null, [TValidators.required, TValidators.maxLength(6), TValidators.min(1), TValidators.onlyNumber()]],
       email: [null, [TValidators.required, TValidators.emailRules]],
     });
   }
