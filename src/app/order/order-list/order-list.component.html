@@ -13,7 +13,6 @@
                        placeholder="Tìm kiếm tên khách hàng, email, mã hóa đơn"
                        formControlName="q" />
               </nz-input-group>
-
               <ng-template #prefixTemplate>
                 <i aria-hidden="true"
                    nz-icon
@@ -39,12 +38,14 @@
             <div class="m-b-10 m-r-20">
               <nz-date-picker nzFormat="dd/MM/yyyy"
                               formControlName="startDate"
-                              nzPlaceHolder="Từ ngày"></nz-date-picker>
+                              nzPlaceHolder="Từ ngày">
+              </nz-date-picker>
             </div>
             <div>
               <nz-date-picker nzFormat="dd/MM/yyyy"
                               formControlName="endDate"
-                              nzPlaceHolder="Đến ngày"></nz-date-picker>
+                              nzPlaceHolder="Đến ngày">
+              </nz-date-picker>
             </div>
           </div>
         </div>
@@ -56,6 +57,12 @@
               (click)="exportExcel()"
               [nzLoading]="activity.is('downloading')">
         Download excel
+      </button>
+      <button nz-button
+              nzType="primary"
+              (click)="exportExcel()"
+              [nzLoading]="activity.is('downloading')">
+        Tạo mới
       </button>
     </div>
   </div>
@@ -82,7 +89,8 @@
         <th scope="col">Email khách hàng</th>
         <th scope="col"
             [nzWidth]="'250px'">Tên sản phẩm</th>
-        <th scope="col" [nzWidth]="'150px'">Trạng thái</th>
+        <th scope="col"
+            [nzWidth]="'150px'">Trạng thái</th>
         <th scope="col">Giá mua</th>
         <th scope="col"
             [nzWidth]="'150px'">Thời gian mua</th>

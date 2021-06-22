@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SettingApiService } from '@shared/api/setting.api.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { SettingFeedback } from 'types/typemodel';
+import { Feedback, SettingFeedback } from 'types/typemodel';
 import { FeedbackCreateComponent } from './feedback-create/feedback-create.component';
 import { FeedbackUpdateComponent } from './feedback-update/feedback-update.component';
 import { cloneDeep } from 'lodash-es';
+import { SettingKeyEndPoint } from 'types/enums';
 
 @Component({
   selector: 'app-feedback',
@@ -17,17 +18,20 @@ export class FeedbackComponent implements OnInit {
   feedbacks: SettingFeedback[];
 
   constructor(
-    private settingApi: SettingApiService,
+    private settingApi: SettingApiService<Feedback[]>,
     private modalService: NzModalService,
     private notification: NzNotificationService
-  ) { }
+  ) { 
+    this.settingApi.setEnpoint(SettingKeyEndPoint.Feedback);
+  }
 
   ngOnInit(): void {
+    console.log('init')
     this.fetch();
   }
 
   fetch() {
-    this.settingApi.feedbacks.get().subscribe(res => {
+    this.settingApi.get().subscribe(res => {
       this.feedbacks = res;
     });
   }
@@ -61,7 +65,7 @@ export class FeedbackComponent implements OnInit {
 
   delete(index) {
     this.feedbacks.splice(index, 1);
-    this.settingApi.feedbacks.post(this.feedbacks).subscribe(() => {
+    this.settingApi.post(this.feedbacks).subscribe(() => {
       this.notification.success('Thành công', 'Xóa đánh giá học viên thành công');
     });
   }

@@ -5,6 +5,7 @@ import { SettingApiService } from '@shared/api/setting.api.service';
 import { IPaginate } from '@shared/interfaces/paginate.type';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { map, tap } from 'rxjs/operators';
+import { SettingKeyEndPoint } from 'types/enums';
 import { Course } from 'types/models/course';
 
 @Component({
@@ -19,15 +20,17 @@ export class HottestCourseComponent implements OnInit {
   constructor(
     private courseApi: CourseApiService,
     private fb: FormBuilder,
-    private settingApi: SettingApiService,
+    private settingApi: SettingApiService<{ courseId: string }[]>,
     private notification: NzNotificationService
-  ) { }
+  ) {
+    this.settingApi.setEnpoint(SettingKeyEndPoint.HottestCourse);
+  }
 
   ngOnInit(): void {
     this.form = this.fb.array(Array(10).fill(0).map(() => this.fb.group({
       courseId: [null]
     })));
-    this.settingApi.hottestCoruse.get().subscribe(res => {
+    this.settingApi.get().subscribe(res => {
       const data = res.map(val => {
         return {
           courseId: val.courseId || 0
@@ -58,7 +61,7 @@ export class HottestCourseComponent implements OnInit {
         courseId: val.courseId || null
       };
     });
-    this.settingApi.hottestCoruse.post(body).subscribe(() => {
+    this.settingApi.post(body).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật thông tin khóa học hot nhất thành công!');
     });
   }

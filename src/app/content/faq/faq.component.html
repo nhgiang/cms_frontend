@@ -24,20 +24,10 @@
 						</app-file-upload-control>
 					</nz-form-control>
 				</nz-form-item>
-				<nz-form-item>
-					<nz-form-label class="text-left input-space"
-												 nzRequired>
-						Hiển thị câu hỏi thường gặp
-					</nz-form-label>
-					<nz-form-control>
-						<label nz-checkbox
-									 formControlName="isShow">
-						</label>
-					</nz-form-control>
-				</nz-form-item>
 			</div>
 			<div class="underline"></div>
-			<nz-table [nzTemplateMode]="true" class="mb-4">
+			<nz-table [nzTemplateMode]="true"
+								class="mb-4">
 				<thead>
 					<tr>
 						<th scope="col"
@@ -53,68 +43,34 @@
 						<tr [formGroupName]="index">
 							<td>#{{ index+1 }}</td>
 							<td>
-								<!-- <ng-container *ngIf="faqIndexs[index].isEdit;else questionTemp"> -->
-									<nz-form-control [nzErrorTip]="'Câu hỏi phải chứa từ 10 đến 300 ký tự'">
-										<input nz-input
-													 formControlName="question"
-													 placeholder="Nhập câu hỏi" />
-									</nz-form-control>
-								<!-- </ng-container> -->
+								<nz-form-control [nzErrorTip]="'Câu hỏi phải chứa từ 10 đến 300 ký tự'">
+									<input nz-input
+												 formControlName="question"
+												 placeholder="Nhập câu hỏi" />
+								</nz-form-control>
 								<ng-template #questionTemp>
 									<span class="editable truncate-3">{{ ctrl.value.question }}</span>
 								</ng-template>
 							</td>
 							<td>
-								<!-- <ng-container *ngIf="faqIndexs[index].isEdit;else answerTemp"> -->
-									<nz-form-control [nzErrorTip]="'Câu trả lời phải chứa từ 10 đến 600 ký tự'">
-										<textarea nz-input
-															formControlName="answer"
-															[nzAutosize]="{ minRows: 1, maxRows: 3 }"
-															placeholder="Nhập câu trả lời"></textarea>
-									</nz-form-control>
-								<!-- </ng-container> -->
+								<nz-form-control [nzErrorTip]="'Câu trả lời phải chứa từ 10 đến 600 ký tự'">
+									<textarea nz-input
+														formControlName="answer"
+														[nzAutosize]="{ minRows: 1, maxRows: 3 }"
+														placeholder="Nhập câu trả lời"></textarea>
+								</nz-form-control>
 								<ng-template #answerTemp>
 									<span class="editable truncate-3">{{ctrl.value.answer}}</span>
 								</ng-template>
 							</td>
-							<!-- <td class="text-md-right">
-								<label class="m-r-5"
-											 [for]="'isEdit'+index"
-											 nz-button
-											 nzType="default"
-											 nzShape="circle"
-											 nz-tooltip
-											 nzTooltipTitle="Chỉnh sửa"
-											 (click)="submit(index)"
-											 [disabled]="submiting"
-											 *ngIf="!faqIndexs[index].isEdit">
-									<i aria-hidden="true"
-										 nz-icon
-										 nzType="edit"
-										 theme="outline"></i>
-								</label>
-								<label class="m-r-5"
-											 [for]="'isEdit'+index"
-											 nz-button
-											 nzType="default"
-											 nzShape="circle"
-											 nz-tooltip
-											 nzTooltipTitle="Cập nhật"
-											 (click)="submit(index)"
-											 [disabled]="submiting"
-											 *ngIf="faqIndexs[index].isEdit">
-									<i aria-hidden="true"
-										 nz-icon
-										 nzType="check"
-										 nzTheme="outline"></i>
-								</label>
-							</td> -->
 						</tr>
 					</ng-container>
 				</tbody>
 			</nz-table>
 			<div class="text-right">
-				<button nz-button nzType="primary" [nzLoading]="submiting">Cập nhật</button>
+				<button nz-button
+								nzType="primary"
+								[nzLoading]="submiting">Cập nhật</button>
 			</div>
 		</form>
 	</nz-spin>

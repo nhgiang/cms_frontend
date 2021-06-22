@@ -5,6 +5,8 @@ import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
+import { SettingKeyEndPoint } from 'types/enums';
+import { Story } from 'types/typemodel';
 
 @Component({
   selector: 'app-story',
@@ -17,9 +19,10 @@ export class StoryComponent implements OnInit {
   isLoading: boolean;
   constructor(
     fb: FormBuilder,
-    private settingApi: SettingApiService,
+    private settingApi: SettingApiService<Story>,
     private notification: NzNotificationService
   ) {
+    this.settingApi.setEnpoint(SettingKeyEndPoint.Story);
     this.form = fb.group({
       images: [null, [TValidators.minLength(3)]],
       content: [null, [TValidators.maxLength(1000)]]
@@ -27,12 +30,12 @@ export class StoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.settingApi.stories.get().subscribe(res => this.form.patchValue(res));
+    this.settingApi.get().subscribe(res => this.form.patchValue(res));
   }
 
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.settingApi.stories.post(this.form.value).pipe(finalize(() => this.isLoading = false)).subscribe(() => this.notification.success('Thành Công', 'Cập nhật thông tin câu chuyện thành công'));
+    this.settingApi.post(this.form.value).pipe(finalize(() => this.isLoading = false)).subscribe(() => this.notification.success('Thành Công', 'Cập nhật thông tin câu chuyện thành công'));
   }
 }

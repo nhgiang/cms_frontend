@@ -1,5 +1,15 @@
 <nz-card>
 	<nz-spin [nzSpinning]="isLoading">
+		<div class="text-right mb-3">
+			<nz-switch [ngModel]="isVisible"
+								 [nzCheckedChildren]="checkedTemplate"
+								 [nzUnCheckedChildren]="unCheckedTemplate"
+								 (ngModelChange)="visible($event)"></nz-switch>
+			<ng-template #checkedTemplate><i nz-icon
+					 nzType="check"></i></ng-template>
+			<ng-template #unCheckedTemplate><i nz-icon
+					 nzType="close"></i></ng-template>
+		</div>
 		<form [formGroup]="form"
 					(ngSubmit)="submit()"
 					nz-form>
@@ -68,25 +78,13 @@
 				<nz-form-label class="text-left"
 											 [nzSpan]="7"
 											 nzRequired>
-					Avatar
+					Hình ảnh
 				</nz-form-label>
 				<nz-form-control [nzErrorTip]="errorLessionTpl">
-					<app-file-upload-control formControlName="image"
+					<app-file-upload-control formControlName="coverAvatar"
 																	 [fileType]="assetType.Image"
 																	 [maxSize]="5000000">
 					</app-file-upload-control>
-				</nz-form-control>
-			</nz-form-item>
-			<nz-form-item>
-				<nz-form-label class="text-left"
-											 [nzSpan]="7"
-											 nzRequired>
-					Hiển thị thông tin ưu đãi
-				</nz-form-label>
-				<nz-form-control>
-					<label nz-checkbox
-								 formControlName="isShow">
-					</label>
 				</nz-form-control>
 			</nz-form-item>
 			<div class="text-right">

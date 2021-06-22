@@ -57,6 +57,13 @@ const routes: Routes = [
     data: {
       title: 'Khóa học hot nhất'
     }
+  },
+  {
+    path: 'header',
+    component: HottestCourseComponent,
+    data: {
+      title: 'Khóa học hot nhất'
+    }
   }
 ];
 

@@ -21,6 +21,7 @@ import { NgChartjsModule } from 'ng-chartjs';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
 import { NZ_DATE_LOCALE, NZ_I18N, vi_VN } from 'ng-zorro-antd/i18n';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { Error404Component } from './authentication/error404/error404.component';
@@ -31,6 +32,8 @@ import { FullLayoutComponent } from './layouts/full-layout/full-layout.component
 import { PartnersComponent } from './partners/partners.component';
 
 registerLocaleData(vi);
+
+const appInit = () => of(null).toPromise().then().catch();
 
 const ngZorroConfig: NzConfig = {
   modal: {
@@ -58,6 +61,11 @@ const ngZorroConfig: NzConfig = {
     NgChartjsModule,
   ],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => appInit,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

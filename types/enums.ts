@@ -90,3 +90,43 @@ export enum AccountType {
   Course = 'Gói lẻ',
   Membership = 'Membership',
 }
+
+export enum SettingKeyEndPoint {
+  Premium = 'premiums',
+  Footer = 'footers',
+  QuestionAnswer = 'question-answers',
+  Feedback = 'feedbacks',
+  AboutUs = 'about-us',
+  Contact = 'contacts',
+  VideoIntro = 'video-intro',
+  VideoIntroContact = 'video-intro-contact',
+  HottestCourse = 'hottest-courses',
+  HottestBlog = 'hottest-blogs',
+  Story = 'stories',
+  Teacher = 'teachers',
+  ChatFacebook = 'chat-facebooks',
+  Membership = 'memberships',
+  Payment = 'payments',
+  VNPay = 'vnpays',
+}
+
+export enum SettingKey {
+  Premium = 'Premium',
+  Footer = 'Footer',
+  QuestionAnswer = 'QuestionAnswer',
+  Feedback = 'Feedback',
+  AboutUs = 'AboutUs',
+  Contact = 'Contact',
+  VideoIntro = 'VideoIntro',
+  VideoIntroContact = 'VideoIntroContact',
+  HottestCourse = 'HottestCourse',
+  HottestBlog = 'HottestBlog',
+  Story = 'Story',
+  Teacher = 'Teacher',
+  ChatFacebook = 'ChatFacebook',
+  Membership = 'Membership',
+  Payment = 'Payment',
+  VNPay = 'VNPay',
+}
+
+

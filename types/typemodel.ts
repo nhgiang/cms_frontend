@@ -212,7 +212,6 @@ export interface Partner extends Entity {
 export interface Payment {
   method: string;
   bankCode: string;
-
   bankName: string;
   accountNumber: string;
   accountName: string;
@@ -224,4 +223,45 @@ export interface Payment {
 export interface Vnpay {
   hashSecret: string;
   tmnCode: string;
+}
+
+export interface AboutUs {
+  content: string;
+  image: string;
+  title: string;
+  enpoint: number;
+}
+
+export interface Story {
+  content: string;
+  images: string[]
+}
+
+export interface VideoIntroContact extends VideoIntro {
+}
+
+export interface Faq {
+  answer: string;
+  question: string;
+}
+
+export interface Feedback {
+  courseName: string;
+  content: string;
+  photo: string;
+  studentName: string;
+}
+
+export interface Footer {
+  address: string;
+  email: string;
+  facebook: string;
+  phoneNumber: string;
+  youtube: string;
+}
+
+export interface Premium {
+  course: string;
+  discount: string;
+  lession: string;
 }

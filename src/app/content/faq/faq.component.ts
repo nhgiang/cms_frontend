@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { SettingApiService } from '@shared/api/setting.api.service';
+import { SettingApiService, SettingVisibleApiService } from '@shared/api/setting.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
+import { SettingContainer } from '@shared/class/setting-container';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
-import { AssetType } from 'types/enums';
+import { AssetType, SettingKey, SettingKeyEndPoint } from 'types/enums';
+import { Faq } from 'types/typemodel';
 
 @Component({
   selector: 'app-faq',
   templateUrl: './faq.component.html',
   styleUrls: ['./faq.component.scss']
 })
-export class FaqComponent implements OnInit {
+export class FaqComponent extends SettingContainer<Faq[]> implements OnInit {
   form: FormGroup;
   faqIndexs = [];
   submiting: boolean;
@@ -24,20 +26,42 @@ export class FaqComponent implements OnInit {
   }
   constructor(
     private fb: FormBuilder,
-    private settingApi: SettingApiService,
+    settingApi: SettingApiService<Faq[]>,
+    settingVisibleApi: SettingVisibleApiService,
     private notification: NzNotificationService,
     private storageApi: StorageApiService
-  ) { }
+  ) {
+    super(settingVisibleApi, settingApi, SettingKey.QuestionAnswer, SettingKeyEndPoint.QuestionAnswer)
+  }
 
   ngOnInit(): void {
-    this.buildForm();
-    this.settingApi.faq.get().subscribe(res => {
-      this.itemsControlArray.patchValue(res);
-    });
+    super.ngOnInit()
     this.faqIndexs = Array(3).fill(0).map(() => ({ isEdit: false }));
   }
 
-  buildForm() {
+  submit() {
+    Ultilities.validateForm(this.form);
+    this.submiting = true;
+    this.storageApi.uploadFile(this.form.value.image).pipe(
+      switchMap(url => {
+        return this.post({ ...this.form.value, image: url })
+      }),
+      finalize(() => this.submiting = false)
+    ).subscribe(() => {
+      this.notification.success('Thành công', 'Cập nhật câu hỏi thường gặp thành công');
+    });
+  }
+
+  protected handleResult(result: { res: Faq[]; isVisible: boolean; }) {
+    this.itemsControlArray.patchValue(result.res);
+    this.isVisible = result.isVisible
+  }
+
+  protected handleResulVisible() {
+    throw new Error('Method not implemented.');
+  }
+
+  protected buildForm() {
     this.form = this.fb.group({
       description: [null],
       avatar: [null],
@@ -46,26 +70,6 @@ export class FaqComponent implements OnInit {
         question: [null, TValidators.textRange(10, 200)],
         answer: [null, TValidators.textRange(10, 600)],
       })))
-    });
-  }
-
-  submit() {
-    // if (!this.faqIndexs[index].isEdit) {
-    //   this.faqIndexs[index].isEdit = !this.faqIndexs[index].isEdit;
-    //   return;
-    // }
-    // Ultilities.validateForm(this.itemsControlArray.controls[index] as FormGroup);
-
-    Ultilities.validateForm(this.form);
-
-    this.submiting = true;
-    this.storageApi.uploadFile(this.form.value.image).pipe(
-      switchMap(url => {
-        return this.settingApi.faq.post({ ...this.form.value, image: url })
-      }),
-      finalize(() => this.submiting = false)
-    ).subscribe(() => {
-      this.notification.success('Thành công', 'Cập nhật câu hỏi thường gặp thành công');
     });
   }
 }

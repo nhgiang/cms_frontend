@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { SettingApiService } from '@shared/api/setting.api.service';
+import { SettingApiService, SettingVisibleApiService } from '@shared/api/setting.api.service';
+import { SettingContainer } from '@shared/class/setting-container';
 import { DestroyService } from '@shared/services/destroy.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AssetType } from 'types/enums';
+import { AssetType, SettingKey, SettingKeyEndPoint } from 'types/enums';
 import { SettingTeacher } from 'types/typemodel';
 import { ContentStateService } from '../content-state.service';
 import { TeacherCreateComponent } from './teacher-create/teacher-create.component';
@@ -18,32 +19,33 @@ import { TeacherUpdateComponent } from './teacher-update/teacher-update.componen
   styleUrls: ['./teacher.component.scss'],
   providers: [DestroyService],
 })
-export class TeacherComponent implements OnInit, OnDestroy {
+export class TeacherComponent extends SettingContainer<SettingTeacher> implements OnInit, OnDestroy {
   settingTeachers: SettingTeacher;
   form: FormGroup;
   pageIndex = 1;
   destroy$ = new Subject();
   assetType = AssetType;
+
   constructor(
+    settingApi: SettingApiService<SettingTeacher>,
+    settingVisibleApi: SettingVisibleApiService,
     private contentState: ContentStateService,
-    private settingApi: SettingApiService,
     private modalService: NzModalService,
     private destroy: DestroyService,
     private notification: NzNotificationService,
     private fb: FormBuilder
-  ) { }
+  ) {
+    super(settingVisibleApi, settingApi, SettingKey.Teacher, SettingKeyEndPoint.Teacher)
+  }
 
   ngOnInit(): void {
-    this.buildForm();
+    super.ngOnInit();
     this.contentState.setttingTeacher$
       .pipe(takeUntil(this.destroy))
       .subscribe((res) => {
         this.settingTeachers = res;
         this.form.patchValue(res);
       });
-    this.settingApi.teacher.get().subscribe((res) => {
-      this.contentState.initState(res);
-    });
   }
 
   deleteTeacher(index) {
@@ -67,11 +69,20 @@ export class TeacherComponent implements OnInit, OnDestroy {
     });
   }
 
+
+  protected handleResult(result: { res: SettingTeacher; isVisible: boolean; }) {
+    this.contentState.initState(result.res);
+    this.isVisible = result.isVisible
+  }
+
+  protected handleResulVisible() {
+    throw new Error('Method not implemented.');
+  }
+
   buildForm() {
     this.form = this.fb.group({
       description: [],
-      image: [],
-      isShow: [],
+      coverAvatar: [],
     });
   }
 

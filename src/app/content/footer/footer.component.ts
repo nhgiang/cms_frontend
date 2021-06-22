@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { SettingApiService } from '@shared/api/setting.api.service';
+import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { finalize } from 'rxjs/operators';
-import { AssetType } from 'types/enums';
+import { finalize, switchMap } from 'rxjs/operators';
+import { AssetType, SettingKeyEndPoint } from 'types/enums';
+import { Footer } from 'types/typemodel';
 
 @Component({
   selector: 'app-footer',
@@ -19,13 +21,16 @@ export class FooterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private settingApi: SettingApiService,
-    private notification: NzNotificationService
-  ) { }
+    private settingApi: SettingApiService<Footer>,
+    private notification: NzNotificationService,
+    private storageApi: StorageApiService
+  ) {
+    this.settingApi.setEnpoint(SettingKeyEndPoint.Footer)
+  }
 
   ngOnInit(): void {
     this.buildForm();
-    this.settingApi.footer.get().subscribe(res => {
+    this.settingApi.get().subscribe(res => {
       this.form.patchValue(res);
     });
   }
@@ -37,18 +42,18 @@ export class FooterComponent implements OnInit {
       phoneNumber: [null, [TValidators.phoneNumber, TValidators.required]],
       facebook: [null, [TValidators.link, TValidators.required]],
       youtube: [null, [TValidators.link, TValidators.required]],
-      image: [null]
+      coverAvatar: [null]
     });
   }
 
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    const data = {
-      ...this.form.value
-    };
-    Object.keys(data).forEach(k => data[k] = data[k] && data[k].trim());
-    this.settingApi.footer.post(data).pipe(
+    this.storageApi.uploadFile(this.form.value.coverAvatar).pipe(
+      switchMap(url => {
+        this.form.get('coverAvatar').setValue(url);
+        return this.settingApi.post(this.form.value)
+      }),
       finalize(() => this.isLoading = false)
     ).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật cấu hình footer thành công');
