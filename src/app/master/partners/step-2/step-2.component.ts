@@ -29,14 +29,12 @@ export class Step2Component implements OnInit {
       domain: [this.form.get('domain').value, [TValidators.required, TValidators.maxLength(10)], this.validateDomain.bind(this)],
       maxCourses: [this.form.value.settings?.maxCourses, [TValidators.required, TValidators.maxLength(3), TValidators.min(1), TValidators.onlyNumber()]],
     });
-    // this.myForm.patchValue(this.form.value);
-    // this.myForm.get('maxCourses').setValue(this.form.value.settings?.maxCourses);
   }
 
   validateDomain(control: AbstractControl): Observable<ValidationErrors | null> {
     return timer(300).pipe(
       switchMap(() => {
-        return this.partnersApiService.validateDomain(control.value).pipe(
+        return this.partnersApiService.validateDomain(`${control.value}${this.partnersApiService.endpointUrl}`).pipe(
           map(res => {
             return res ? { exits: true } : null;
           })

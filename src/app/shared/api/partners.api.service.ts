@@ -7,6 +7,7 @@ import { BaseApi } from './base-api';
 })
 export class PartnersApiService extends BaseApi {
   endpoint = 'partners';
+  public endpointUrl = '.beautyup.asia';
 
   getList(params: any) {
     return this.httpClient.get<QueryResult<any>>(this.createUrl(''), { params: this.createParams(params) });

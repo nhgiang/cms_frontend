@@ -56,10 +56,14 @@ export class PartnersCreateComponent implements OnInit {
   }
 
   submit() {
-    this.form.get('domain').setValue(this.form.get('domain').value + '.beautyup.asia');
+    this.form.get('domain').setValue(this.form.get('domain').value + this.partnersApiService.endpointUrl);
     this.partnersApiService.create(this.form.value).subscribe(res => {
       this.notification.success('Thành công', 'Tạo mới đối tác thành công');
       this.router.navigate(['/master/partners']);
-    });
+    },
+      (err) => {
+        this.notification.error('Thất bại', err.message);
+        this.form.get('domain').setValue(this.form.get('domain').value.replace(this.partnersApiService.endpointUrl, ''));
+      });
   }
 }

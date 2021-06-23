@@ -4,7 +4,7 @@
       <nz-form-item class="col-12">
         <nz-form-label class="text-left w-100" nzRequired>Tên tài khoản</nz-form-label>
         <nz-form-control class="w-75" [nzErrorTip]="errorEmail">
-          <input style="width: 30%" type="text" nz-input formControlName="email">
+          <input placeholder="Tên tài khoản" style="width: 30%" type="text" nz-input formControlName="email">
         </nz-form-control>
         <ng-template #errorEmail>
           <ng-container *ngIf="myForm.get('email').hasError('required')">
