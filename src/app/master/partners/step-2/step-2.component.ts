@@ -22,15 +22,15 @@ export class Step2Component implements OnInit {
     private fb: FormBuilder,
     private partnersApiService: PartnersApiService
   ) {
-    this.myForm = this.fb.group({
-      domain: [null, [TValidators.required, TValidators.maxLength(10)], this.validateDomain.bind(this)],
-      maxCourses: [null, [TValidators.required, TValidators.maxLength(3), TValidators.min(1), TValidators.onlyNumber()]],
-    });
   }
 
   ngOnInit(): void {
-    this.myForm.patchValue(this.form.value);
-    this.myForm.get('maxCourses').setValue(this.form.value.settings?.maxCourses);
+    this.myForm = this.fb.group({
+      domain: [this.form.get('domain').value, [TValidators.required, TValidators.maxLength(10)], this.validateDomain.bind(this)],
+      maxCourses: [this.form.value.settings?.maxCourses, [TValidators.required, TValidators.maxLength(3), TValidators.min(1), TValidators.onlyNumber()]],
+    });
+    // this.myForm.patchValue(this.form.value);
+    // this.myForm.get('maxCourses').setValue(this.form.value.settings?.maxCourses);
   }
 
   validateDomain(control: AbstractControl): Observable<ValidationErrors | null> {

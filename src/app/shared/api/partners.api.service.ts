@@ -29,7 +29,7 @@ export class PartnersApiService extends BaseApi {
   }
 
   validateDomain(domain: string) {
-    return this.httpClient.get(this.createUrl(`/${domain}/exits`));
+    return this.httpClient.get(this.createUrl(`/${domain}/exists`));
   }
 
   getDomain(domain: string) {
