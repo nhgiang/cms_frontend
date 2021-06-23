@@ -51,14 +51,12 @@
           <nz-form-control [nzErrorTip]="errorSize" class="w-75">
             <input [min]="1" style="width: 90%" type="number" nz-input formControlName="size">
             <ng-template #errorSize>
-              <ng-container *ngIf="myForm.get('size').hasError('maxLength')">
-                Quy mô không được quá 6 chữ số
+              <ng-container
+                *ngIf="form.get('settings').get('size').hasError('onlyNumber') || form.get('settings').get('size').hasError('maxLength')">
+                Quy mô phải là số nguyên dương và không được quá 6 chữ số
               </ng-container>
-              <ng-container *ngIf="myForm.get('size').hasError('onlyNumber')">
-                Quy mô không được là số thập phân
-              </ng-container>
-              <ng-container *ngIf="myForm.get('size').hasError('min')">
-                Quy mô không được nhỏ hơn 1
+              <ng-container *ngIf="form.get('size').hasError('required')">
+                Vui lòng nhập quy mô
               </ng-container>
               <ng-container *ngIf="myForm.get('size').hasError('required')">
                 Vui lòng nhập quy mô
