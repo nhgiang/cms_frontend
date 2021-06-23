@@ -11,6 +11,7 @@ export class AuthenticationService {
   private baseURL = `${environment.api}/auth`;
   private currentUserSubject: BehaviorSubject<User>;
   readonly currentUser: Observable<User>;
+  partnerId: string;
 
   constructor(
     private httpClient: HttpClient,

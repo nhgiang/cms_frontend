@@ -10,8 +10,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '@env';
 import { API_BASE_URL } from '@shared/api/base-url';
+import { PartnersApiService } from '@shared/api/partners.api.service';
 import { ErrorInterceptor } from '@shared/interceptor/error.interceptor';
 import { JwtInterceptor } from '@shared/interceptor/token.interceptor';
+import { AuthenticationService } from '@shared/services/authentication.service';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { ThemeConstantService } from '@shared/services/theme-constant.service';
 import { SharedModule } from '@shared/shared.module';
@@ -33,7 +35,12 @@ import { PartnersRegistrationsComponent } from './partners-registrations/partner
 
 registerLocaleData(vi);
 
-const appInit = () => of(null).toPromise().then().catch();
+const appInit = (partnersApi: PartnersApiService, authenticationService: AuthenticationService) => {
+  return partnersApi.getDomain(location.origin)
+    .toPromise()
+    .then(res => authenticationService.partnerId = res)
+    .catch(console.log);
+};
 
 const ngZorroConfig: NzConfig = {
   modal: {
@@ -65,6 +72,7 @@ const ngZorroConfig: NzConfig = {
       provide: APP_INITIALIZER,
       useFactory: () => appInit,
       multi: true,
+      deps: [PartnersApiService, AuthenticationService]
     },
     {
       provide: HTTP_INTERCEPTORS,

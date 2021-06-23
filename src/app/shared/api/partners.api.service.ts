@@ -32,4 +32,7 @@ export class PartnersApiService extends BaseApi {
     return this.httpClient.get(this.createUrl(`/${domain}/exits`));
   }
 
+  getDomain(domain: string) {
+    return this.httpClient.get(this.createUrl('/domain'), { params: this.createParams({ q: domain }), responseType: 'text' });
+  }
 }
