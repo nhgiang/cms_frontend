@@ -49,9 +49,9 @@ export class PartnersEditComponent implements OnInit {
   validateDomain(control: AbstractControl): Observable<ValidationErrors | null> {
     return timer(300).pipe(
       switchMap(() => {
-        return this.partnersApiService.validateDomain(control.value).pipe(
+        return this.partnersApiService.validateDomain(`${control.value}${this.partnersApiService.endpointUrl}`).pipe(
           map((res) => {
-            return res && control.value !== this.data.domain ? { exits: true } : null;
+            return res && control.value !== this.data.domain.replace(this.partnersApiService.endpointUrl, '') ? { exits: true } : null;
           })
         );
       })
@@ -66,7 +66,7 @@ export class PartnersEditComponent implements OnInit {
       domain: [this.data?.domain.replace('.beautyup.asia', ''), [TValidators.required, TValidators.maxLength(10)], this.validateDomain.bind(this)],
       phoneNumber: [this.data.phoneNumber, [TValidators.required, TValidators.phoneNumber]],
       size: [this.data.size, [TValidators.required, TValidators.maxLength(6), TValidators.min(1), TValidators.onlyNumber()]],
-      email: [this.data.email, [TValidators.required]],
+      email: [this.data.email, [TValidators.required, TValidators.emailRules]],
       settings: this.fb.group({
         maxCourses: [Number(this.data?.settings?.maxCourses), [TValidators.required, TValidators.maxLength(3), TValidators.min(1), TValidators.onlyNumber()]],
       })
