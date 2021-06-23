@@ -23,7 +23,7 @@ export class Step2Component implements OnInit {
     private partnersApiService: PartnersApiService
   ) {
     this.myForm = this.fb.group({
-      domain: [null, [TValidators.required], this.validateDomain.bind(this)],
+      domain: [null, [TValidators.required, TValidators.maxLength(10)], this.validateDomain.bind(this)],
       maxCourses: [null, [TValidators.required, TValidators.maxLength(3), TValidators.min(1), TValidators.onlyNumber()]],
     });
   }
