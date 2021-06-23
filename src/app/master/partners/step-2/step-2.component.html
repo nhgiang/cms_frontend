@@ -29,10 +29,10 @@
             Vui lòng nhập số lượng khóa học
           </ng-container>
           <ng-container
-            *ngIf="form.get('settings').get('maxCourses').hasError('onlyNumber') || form.get('settings').get('size').hasError('maxLength')">
+            *ngIf="myForm.get('maxCourses').hasError('onlyNumber') || myForm.get('maxCourses').hasError('maxLength')">
             Số lượng khóa học phải là số nguyên dương và không được quá 3 chữ số
           </ng-container>
-          <ng-container *ngIf="form.get('maxCourses').hasError('required')">
+          <ng-container *ngIf="myForm.get('maxCourses').hasError('required')">
             Vui lòng nhập quy mô
           </ng-container>
 
