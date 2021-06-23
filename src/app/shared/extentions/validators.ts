@@ -33,8 +33,8 @@ export class TValidators extends Validators {
     return regex.test(value)
       ? null
       : {
-          passwordRules: true,
-        };
+        passwordRules: true,
+      };
   }
 
   static onlyNumber(): ValidatorFn {
@@ -47,8 +47,8 @@ export class TValidators extends Validators {
       return regex.test(toFixed(value))
         ? null
         : {
-            onlyNumber: true,
-          };
+          onlyNumber: true,
+        };
     };
   }
 
@@ -58,8 +58,8 @@ export class TValidators extends Validators {
     return regex.test(control.value && control.value.trim())
       ? null
       : {
-          link: true,
-        };
+        link: true,
+      };
   }
 
   static textRange =
@@ -75,30 +75,30 @@ export class TValidators extends Validators {
 
   static numberRange =
     (min: number, max: number) => //inclusive
-    (control: AbstractControl): ValidationErrors => {
-      if (control.value) {
-        const value = Number(control.value.toString().trim());
-        if (inRange(value, min, max + 0.001)) return null;
-        return {
-          numberRange: {
-            min: min,
-            max: max,
-          },
-        };
-      }
-    };
+      (control: AbstractControl): ValidationErrors => {
+        if (control.value) {
+          const value = Number(control.value.toString().trim());
+          if (inRange(value, min, max + 0.001)) return null;
+          return {
+            numberRange: {
+              min: min,
+              max: max,
+            },
+          };
+        }
+      };
 
   static emailRules(control: AbstractControl): ValidationErrors {
     if (!control.value) {
       return null;
     }
     const value = control.value && control.value.trim();
-    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return regex.test(value)
       ? null
       : {
-          emailRules: true,
-        };
+        emailRules: true,
+      };
   }
 
   static phoneNumber(control: AbstractControl): ValidationErrors {
@@ -106,12 +106,12 @@ export class TValidators extends Validators {
       return null;
     }
     const value = control.value && control.value.trim();
-    const regex = /^(84|0[3|5|7|8|9])+([0-9]{8})$/;
+    const regex = /^(0[3|5|7|8|9])+([0-9]{8})$/;
     return regex.test(value)
       ? null
       : {
-          phoneNumber: true,
-        };
+        phoneNumber: true,
+      };
   }
 
   static required(control: AbstractControl): ValidationErrors {
@@ -163,8 +163,8 @@ export class TValidators extends Validators {
       endDate = moment(endDate);
       return endDate < startDate
         ? {
-            endBeforeStart: true,
-          }
+          endBeforeStart: true,
+        }
         : null;
     };
 
