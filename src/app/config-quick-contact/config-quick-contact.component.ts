@@ -5,6 +5,7 @@ import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
+import { SettingKeyEndPoint } from 'types/enums';
 
 @Component({
   selector: 'app-config-quick-contact',
@@ -16,13 +17,15 @@ export class ConfigQuickContactComponent implements OnInit {
   isLoading: boolean;
   constructor(
     private fb: FormBuilder,
-    private settingApi: SettingApiService,
+    private settingApi: SettingApiService<{ fanpageId: string }>,
     private notification: NzNotificationService
-  ) { }
+  ) {
+    this.settingApi.setEnpoint(SettingKeyEndPoint.ChatFacebook)
+  }
 
   ngOnInit(): void {
     this.buildform();
-    this.settingApi.chatFacebook.get().subscribe(res => {
+    this.settingApi.get().subscribe(res => {
       this.form.patchValue(res);
     });
   }
@@ -30,7 +33,7 @@ export class ConfigQuickContactComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.settingApi.chatFacebook.post(this.form.value).pipe(finalize(() => this.isLoading = false)).subscribe(() => {
+    this.settingApi.post(this.form.value).pipe(finalize(() => this.isLoading = false)).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật Fanpage ID thành công');
     });
   }

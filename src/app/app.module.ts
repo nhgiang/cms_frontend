@@ -5,7 +5,7 @@ import {
 } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import vi from '@angular/common/locales/vi';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '@env';
@@ -21,6 +21,7 @@ import { NgChartjsModule } from 'ng-chartjs';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
 import { NZ_DATE_LOCALE, NZ_I18N, vi_VN } from 'ng-zorro-antd/i18n';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { Error404Component } from './authentication/error404/error404.component';
@@ -31,6 +32,8 @@ import { FullLayoutComponent } from './layouts/full-layout/full-layout.component
 import { PartnersRegistrationsComponent } from './partners-registrations/partners-registations.component';
 
 registerLocaleData(vi);
+
+const appInit = () => of(null).toPromise().then().catch();
 
 const ngZorroConfig: NzConfig = {
   modal: {
@@ -58,6 +61,11 @@ const ngZorroConfig: NzConfig = {
     NgChartjsModule,
   ],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => appInit,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

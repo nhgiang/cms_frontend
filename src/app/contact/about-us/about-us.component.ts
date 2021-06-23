@@ -1,62 +1,63 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { SettingApiService } from '@shared/api/setting.api.service';
+import { SettingApiService, SettingVisibleApiService } from '@shared/api/setting.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
+import { SettingContainer } from '@shared/class/setting-container';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
-import { AssetType } from 'types/enums';
-import { trimData } from 'utils/common';
+import { AssetType, SettingKey, SettingKeyEndPoint } from 'types/enums';
+import { AboutUs } from 'types/typemodel';
 
 @Component({
   selector: 'app-about-us',
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.scss']
 })
-export class AboutUsComponent implements OnInit {
+export class AboutUsComponent extends SettingContainer<AboutUs> {
   form: FormGroup;
   AssetType = AssetType;
   isEdit: boolean;
   isLoading: boolean;
+
   constructor(
     private fb: FormBuilder,
     private storageApi: StorageApiService,
-    private settingApi: SettingApiService,
-    private notification: NzNotificationService
-  ) { }
-
-  ngOnInit() {
-    this.buildForm();
-    this.settingApi.aboutUs.get().subscribe(res => {
-      this.form.patchValue(res);
-    });
+    settingApi: SettingApiService<AboutUs>,
+    private notification: NzNotificationService,
+    settingVisibleApiService: SettingVisibleApiService
+  ) {
+    super(settingVisibleApiService, settingApi, SettingKey.AboutUs, SettingKeyEndPoint.AboutUs)
   }
 
   submit() {
-    if (this.isEdit) {
-      Ultilities.validateForm(this.form);
-      this.isLoading = true;
-      this.storageApi.uploadFile(this.form.value.image).pipe(
-        switchMap(res => {
-          const body = {
-            ...this.form.value
-          };
-          body.image = res;
-          return this.settingApi.aboutUs.post(trimData(body));
-        }),
-        finalize(() => this.isLoading = false)
-      ).subscribe(() => {
-        this.notification.success('Thành công', 'Cập nhật nội dung giới thiệu về chúng tôi thành công!');
-      });
-    }
-    this.isEdit = !this.isEdit;
+    Ultilities.validateForm(this.form);
+    this.isLoading = true;
+    this.storageApi.uploadFile(this.form.value.coverAvatar).pipe(
+      switchMap(res => {
+        this.form.get('coverAvatar').setValue(res);
+        return this.post(this.form.value);
+      }),
+      finalize(() => this.isLoading = false)
+    ).subscribe(() => {
+      this.notification.success('Thành công', 'Cập nhật nội dung giới thiệu về chúng tôi thành công!');
+    });
   }
 
-  buildForm() {
+  protected handleResult(result: { res: AboutUs; isVisible: boolean; }) {
+    this.form.patchValue(result.res);
+    this.isVisible = result.isVisible
+  }
+
+  protected handleResulVisible() {
+    throw new Error('Method not implemented.');
+  }
+
+  protected buildForm() {
     this.form = this.fb.group({
       title: [null, TValidators.required],
-      image: [null, TValidators.required],
+      coverAvatar: [null, TValidators.required],
       content: [null, [TValidators.textRange(0, 1000), TValidators.required]]
     });
   }
