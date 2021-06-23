@@ -63,7 +63,7 @@ export class PartnersEditComponent implements OnInit {
       name: [this.data?.name, [TValidators.required]],
       representative: [this.data?.representative, [TValidators.required]],
       address: [this.data?.address, [TValidators.required]],
-      domain: [this.data?.domain.replace('.beautyup.asia', ''), [TValidators.required], this.validateDomain.bind(this)],
+      domain: [this.data?.domain.replace('.beautyup.asia', ''), [TValidators.required, TValidators.maxLength(10)], this.validateDomain.bind(this)],
       phoneNumber: [this.data.phoneNumber, [TValidators.required, TValidators.phoneNumber]],
       size: [this.data.size, [TValidators.required, TValidators.maxLength(6), TValidators.min(1), TValidators.onlyNumber()]],
       email: [this.data.email, [TValidators.required]],
