@@ -24,6 +24,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
 import { NZ_DATE_LOCALE, NZ_I18N, vi_VN } from 'ng-zorro-antd/i18n';
 import { of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { Error404Component } from './authentication/error404/error404.component';
@@ -36,10 +37,14 @@ import { PartnersRegistrationsComponent } from './partners-registrations/partner
 registerLocaleData(vi);
 
 const appInit = (partnersApi: PartnersApiService, authenticationService: AuthenticationService) => {
-  return partnersApi.getDomain(location.origin)
-    .toPromise()
-    .then(res => authenticationService.partnerId = res)
-    .catch(console.log);
+  return () => {
+    return partnersApi.getDomain(location.host)
+      .pipe(tap(console.log))
+      .toPromise()
+      .then(res => {
+        authenticationService.partnerId = res;
+      })
+  }
 };
 
 const ngZorroConfig: NzConfig = {
@@ -70,7 +75,7 @@ const ngZorroConfig: NzConfig = {
   providers: [
     {
       provide: APP_INITIALIZER,
-      useFactory: () => appInit,
+      useFactory: appInit,
       multi: true,
       deps: [PartnersApiService, AuthenticationService]
     },
@@ -96,10 +101,10 @@ const ngZorroConfig: NzConfig = {
       provide: LocationStrategy,
       useClass: PathLocationStrategy,
     },
-    {
-      provide: ErrorHandler,
-      useClass: ErrorHandlerService,
-    },
+    // {
+    //   provide: ErrorHandler,
+    //   useClass: ErrorHandlerService,
+    // },
     {
       provide: API_BASE_URL,
       useValue: environment.api,
