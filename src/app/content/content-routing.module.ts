@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EducationComponent } from './education/education.component';
 import { FaqComponent } from './faq/faq.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { FooterComponent } from './footer/footer.component';
@@ -64,6 +65,13 @@ const routes: Routes = [
     component: SettingHeaderComponent,
     data: {
       title: 'Header'
+    }
+  },
+  {
+    path: 'education',
+    component: EducationComponent,
+    data: {
+      title: 'Hệ thống khóa học'
     }
   }
 ];

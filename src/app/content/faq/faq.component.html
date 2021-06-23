@@ -69,9 +69,20 @@
 				</tbody>
 			</nz-table>
 			<div class="text-right">
-				<button nz-button
+				<button type="submit"
+								nz-button
 								nzType="primary"
-								[nzLoading]="submiting">Cập nhật</button>
+								[nzLoading]="submiting">
+					Lưu lại
+				</button>
+				<button class="ml-4"
+								[routerLink]="['/dashboard/home']"
+								type="button"
+								nz-button
+								nzType="primary"
+								nzGhost>
+					Quay lại
+				</button>
 			</div>
 		</form>
 	</nz-spin>

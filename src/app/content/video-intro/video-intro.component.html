@@ -13,11 +13,6 @@
     <form [formGroup]="form"
           nz-form
           (ngSubmit)="submit()">
-      <div class="card-header">
-        <h5>
-          <span>Video intro</span>
-        </h5>
-      </div>
       <nz-form-item>
         <nz-form-label nzRequired
                        class="label-space text-left">Tiêu đề video</nz-form-label>
@@ -25,6 +20,18 @@
           <nz-input-group>
             <textarea rows="4"
                       formControlName="title"
+                      nz-input
+                      placeholder="Nhập tiêu đề video"></textarea>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired
+                       class="label-space text-left">Tiêu đề background</nz-form-label>
+        <nz-form-control [nzErrorTip]="'Tiêu đề background không được vượt quá 100 ký tự'">
+          <nz-input-group>
+            <textarea rows="4"
+                      formControlName="titleBackground"
                       nz-input
                       placeholder="Nhập tiêu đề video"></textarea>
           </nz-input-group>

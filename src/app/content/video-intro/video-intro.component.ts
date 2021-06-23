@@ -63,7 +63,8 @@ export class VideoIntroComponent extends SettingContainer<VideoIntro> implements
     this.form = this.fb.group({
       title: [null, TValidators.required],
       image: [null, Validators.required],
-      video: [null]
+      video: [null],
+      titleBackground: [null, TValidators.maxLength(100)]
     });
   }
 }

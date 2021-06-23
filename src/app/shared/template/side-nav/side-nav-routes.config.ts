@@ -138,6 +138,16 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Khóa học hot nhất',
         submenu: [],
       },
+      {
+        path: 'header',
+        title: 'Header',
+        submenu: [],
+      },
+      {
+        path: 'education',
+        title: 'Hệ thống khóa học',
+        submenu: [],
+      },
     ],
   },
   {

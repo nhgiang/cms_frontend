@@ -60,11 +60,6 @@ export interface TeacherUpdateCommand extends TeacherCreateCommand {
   id: string;
 }
 
-export interface Faq {
-  question: string;
-  answer: string;
-}
-
 export interface SettingFeedback {
   studentName: string;
   courseName: string;
@@ -78,7 +73,7 @@ export interface FileModel {
 }
 
 export interface SettingTeacher {
-  image: string;
+  coverAvatar: string;
   description: string;
   teachers: SettingTeacherItem[];
 }
@@ -93,6 +88,7 @@ export interface VideoIntro {
   title: string;
   iamge: string;
   video: string;
+  titleBackground: string;
 }
 
 export interface ConsultingInformation extends Entity {
@@ -264,4 +260,17 @@ export interface Premium {
   course: string;
   discount: string;
   lession: string;
+}
+
+export interface Header {
+  logoImage: string;
+}
+
+export interface QuestionAnswer {
+  coverAvatar: string;
+  items: Faq[]
+}
+
+export interface Education {
+  coverAvatar: string;
 }

@@ -108,6 +108,8 @@ export enum SettingKeyEndPoint {
   Membership = 'memberships',
   Payment = 'payments',
   VNPay = 'vnpays',
+  HomepageHeader = 'header',
+  HomepageEducation = 'education'
 }
 
 export enum SettingKey {
@@ -127,6 +129,8 @@ export enum SettingKey {
   Membership = 'Membership',
   Payment = 'Payment',
   VNPay = 'VNPay',
+  HomepageHeader = 'HomepageHeader',
+  HomepageEducation = 'HomepageEducation',
 }
 
 

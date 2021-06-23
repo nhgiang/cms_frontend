@@ -7,7 +7,7 @@ import { Ultilities } from '@shared/extentions/Ultilities';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
 import { AssetType, SettingKey, SettingKeyEndPoint } from 'types/enums';
-import { Header, QuestionAnswer } from 'types/typemodel';
+import { Header } from 'types/typemodel';
 
 @Component({
   selector: 'app-setting-header',

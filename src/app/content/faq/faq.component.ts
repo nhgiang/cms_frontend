@@ -15,9 +15,8 @@ import { Faq, QuestionAnswer } from 'types/typemodel';
   templateUrl: './faq.component.html',
   styleUrls: ['./faq.component.scss']
 })
-export class FaqComponent extends SettingContainer<QuestionAnswer> implements OnInit {
+export class FaqComponent extends SettingContainer<QuestionAnswer> {
   form: FormGroup;
-  faqIndexs = [];
   submiting: boolean;
   assetType = AssetType;
 
@@ -32,11 +31,6 @@ export class FaqComponent extends SettingContainer<QuestionAnswer> implements On
     private storageApi: StorageApiService
   ) {
     super(settingVisibleApi, settingApi, SettingKey.QuestionAnswer, SettingKeyEndPoint.QuestionAnswer)
-  }
-
-  ngOnInit(): void {
-    super.ngOnInit()
-    this.faqIndexs = Array(3).fill(0).map(() => ({ isEdit: false }));
   }
 
   submit() {
