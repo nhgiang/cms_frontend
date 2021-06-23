@@ -1,5 +1,15 @@
 <nz-card>
-	<div class="text-right">
+	<div class=" d-flex align-items-center">
+		<div class="text-right mr-3 ml-auto">
+      <nz-switch [ngModel]="isVisible"
+                 [nzCheckedChildren]="checkedTemplate"
+                 [nzUnCheckedChildren]="unCheckedTemplate"
+                 (ngModelChange)="visible($event)"></nz-switch>
+      <ng-template #checkedTemplate><i nz-icon
+           nzType="check"></i></ng-template>
+      <ng-template #unCheckedTemplate><i nz-icon
+           nzType="close"></i></ng-template>
+    </div>
 		<button nz-button nzType="primary" (click)="addItem()" [disabled]="feedbacks?.length >= 10">Thêm
 			mới</button>
 	</div>

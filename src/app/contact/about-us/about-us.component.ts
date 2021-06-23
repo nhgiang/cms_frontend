@@ -47,12 +47,10 @@ export class AboutUsComponent extends SettingContainer<AboutUs> {
 
   protected handleResult(result: { res: AboutUs; isVisible: boolean; }) {
     this.form.patchValue(result.res);
-    this.isVisible = result.isVisible
+    this.isVisible = result.isVisible;
   }
 
-  protected handleResulVisible() {
-    throw new Error('Method not implemented.');
-  }
+  protected handleResulVisible() {}
 
   protected buildForm() {
     this.form = this.fb.group({

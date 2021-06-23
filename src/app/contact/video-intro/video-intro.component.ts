@@ -53,9 +53,7 @@ export class VideoIntroComponent extends SettingContainer<VideoIntroContact> imp
     this.form.patchValue(result.res);
     this.isVisible = result.isVisible;
   }
-  protected handleResulVisible() {
-    throw new Error('Method not implemented.');
-  }
+  protected handleResulVisible() {}
   
   protected buildForm() {
     this.form = this.fb.group({

@@ -39,19 +39,16 @@ export class VideoIntroComponent extends SettingContainer<VideoIntro> implements
       image: this.storageApi.uploadFile(this.form.value.image),
       video: this.storageApi.uploadFile(this.form.value.video)
     }).pipe(switchMap(({ image, video }) => {
-      const data = {
-        image,
-        video,
-        title: this.form.value.title.trim()
-      };
-      return this.post(data);
-    }), finalize(() => this.isLoading = false)).subscribe(res => {
+      this.form.get('image').setValue(image);
+      this.form.get('video').setValue(video);
+      return this.post(this.form.value);
+    }), finalize(() => this.isLoading = false)).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật thông tin video giới thiệu thành công');
     });
   }
 
   protected handleResulVisible() {
-    throw new Error('Method not implemented.');
+    this.notification.success('Thành công', 'Cập nhật thông tin video giới thiệu thành công');
   }
 
   protected handleResult(result: { res: VideoIntro; isVisible: boolean; }) {

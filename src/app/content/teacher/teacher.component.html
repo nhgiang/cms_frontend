@@ -24,10 +24,10 @@
 			</nz-form-item>
 			<nz-form-item>
 				<nz-form-label class="text-left input-space"
-											 nzRequired>
+											 >
 					Hình ảnh
 				</nz-form-label>
-				<nz-form-control [nzErrorTip]="'Vui lòng tải lên hình ảnh'">
+				<nz-form-control>
 					<app-file-upload-control formControlName="coverAvatar"
 																	 [fileType]="assetType.Image"
 																	 [maxSize]="5000000">

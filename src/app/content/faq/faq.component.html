@@ -11,22 +11,9 @@
 					 nzType="close"></i></ng-template>
 		</div>
 		<form [formGroup]="form"
-					nz-form>
-			<div class="card-header">
-				<nz-form-item>
-					<nz-form-label class="text-left input-space"
-												 nzRequired>
-						Avatar
-					</nz-form-label>
-					<nz-form-control>
-						<app-file-upload-control formControlName="coverAvatar"
-																		 [fileType]="assetType.Image"
-																		 [maxSize]="5000000">
-						</app-file-upload-control>
-					</nz-form-control>
-				</nz-form-item>
-			</div>
-			<div class="underline"></div>
+					nz-form
+					(ngSubmit)="submit()">
+
 			<nz-table [nzTemplateMode]="true"
 								class="mb-4">
 				<thead>
@@ -68,6 +55,29 @@
 					</ng-container>
 				</tbody>
 			</nz-table>
+			<div class="underline"></div>
+			<div class="row pt-4">
+				<div class="col-5">
+					<nz-card class="w-100 text-footer color-1">
+						<div class="w-100 underline mb-4 pb-4">
+							<h6>Hình ảnh đại diện</h6>
+							<nz-form-item class="mb-0">
+								<nz-form-control>
+									<app-image-cropper-control formControlName="coverAvatar"
+																						 [showAction]="true"
+																						 [allowCrop]="false"
+																						 class="custom-avatar">
+									</app-image-cropper-control>
+								</nz-form-control>
+							</nz-form-item>
+						</div>
+						<div>
+							Size tối đa mỗi tấm ảnh là 5MB<br />
+							Số lượng tối đa là 1 tấm ảnh
+						</div>
+					</nz-card>
+				</div>
+			</div>
 			<div class="text-right">
 				<button type="submit"
 								nz-button

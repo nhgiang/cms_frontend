@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { SettingApiService, SettingVisibleApiService } from '@shared/api/setting.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { SettingContainer } from '@shared/class/setting-container';
@@ -33,13 +33,12 @@ export class SettingHeaderComponent extends SettingContainer<Header> implements 
     this.storageApi.uploadFile(this.form.value.logoImage).pipe(
       switchMap(url => {
         this.form.get('logoImage').setValue(url);
-        return this.post(this.form.value)
+        return this.post(this.form.value);
       }),
       finalize(() => this.isLoading = false)
-    ).subscribe(()=> {
-      this.notification.success('Thành công','Cập nhật thông tin header thành công')
-    })
-
+    ).subscribe(() => {
+      this.notification.success('Thành công', 'Cập nhật thông tin header thành công');
+    });
   }
 
   protected handleResult(result: { res: Header; isVisible: boolean; }) {
@@ -47,10 +46,10 @@ export class SettingHeaderComponent extends SettingContainer<Header> implements 
   }
   protected buildForm(): void {
     this.form = this.fb.group({
-      logoImage: [null, Validators.required]
-    })
+      logoImage: [null]
+    });
   }
   protected handleResulVisible() {
-    throw new Error('Method not implemented.');
+    this.notification.success('Thành công', 'Cập nhật thông tin header thành công');
   }
 }

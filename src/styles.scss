@@ -109,3 +109,12 @@
 .ant-steps-item-description {
   font-size: 14px !important;
 }
+
+.custom-avatar {
+  .media {
+    flex-direction: column;
+    .label-content {
+      margin: 0 !important;
+    }
+  }
+}

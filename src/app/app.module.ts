@@ -37,8 +37,7 @@ registerLocaleData(vi);
 const appInit = (partnersApi: PartnersApiService, authenticationService: AuthenticationService) => {
   return () => {
     const domain = location.host.replace('.cms', '');
-    console.log(domain)
-    return partnersApi.getDomain(domain)
+    return partnersApi.getDomain('qa.beautyup.asia')
       .pipe(tap(console.log))
       .toPromise()
       .then(res => {

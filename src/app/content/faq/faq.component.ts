@@ -36,9 +36,9 @@ export class FaqComponent extends SettingContainer<QuestionAnswer> {
   submit() {
     Ultilities.validateForm(this.form);
     this.submiting = true;
-    this.storageApi.uploadFile(this.form.value.image).pipe(
+    this.storageApi.uploadFile(this.form.value.coverAvatar).pipe(
       switchMap(url => {
-        return this.post({ ...this.form.value, image: url })
+        return this.post({ ...this.form.value, coverAvatar: url });
       }),
       finalize(() => this.submiting = false)
     ).subscribe(() => {
@@ -48,11 +48,11 @@ export class FaqComponent extends SettingContainer<QuestionAnswer> {
 
   protected handleResult(result: { res: QuestionAnswer; isVisible: boolean; }) {
     this.form.patchValue(result.res);
-    this.isVisible = result.isVisible
+    this.isVisible = result.isVisible;
   }
 
   protected handleResulVisible() {
-    throw new Error('Method not implemented.');
+    this.notification.success('Thành công', 'Cập nhật câu hỏi thường gặp thành công');
   }
 
   protected buildForm() {

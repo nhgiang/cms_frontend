@@ -2,26 +2,34 @@
   <nz-spin [nzSpinning]="isLoading">
     <form [formGroup]="form"
           (ngSubmit)="submit()"
-          nz-form>
-      <h5 class="title">Logo</h5>
-      <nz-form-item>
-        <nz-form-label class="text-left"
-                       [nzSpan]="3"
-                       nzRequired>
-          Hình ảnh
-        </nz-form-label>
-        <nz-form-control [nzErrorTip]="'Vui lòng tải lên logo cho header'">
-          <app-file-upload-control formControlName="logoImage"
-                                   [fileType]="assetType.Image"
-                                   [maxSize]="5000000">
-          </app-file-upload-control>
-        </nz-form-control>
-      </nz-form-item>
+          nz-form
+          nzLayout="vertical">
+      <div class="row">
+        <div class="col-5">
+          <nz-card class="w-100 text-footer color-1">
+            <div class="w-100 underline mb-4 pb-4">
+              <h6>Hình ảnh đại diện</h6>
+              <nz-form-item class="mb-0">
+                <nz-form-control >
+                  <app-image-cropper-control formControlName="logoImage"
+                                             [showAction]="true"
+                                             [allowCrop]="false"
+                                             class="custom-avatar">
+                  </app-image-cropper-control>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div>
+              Size tối đa mỗi tấm ảnh là 5MB<br />
+              Số lượng tối đa là 1 tấm ảnh
+            </div>
+          </nz-card>
+        </div>
+      </div>
       <div class="text-right">
         <button type="submit"
                 nz-button
-                nzType="primary"
-                [nzLoading]="isLoading">
+                nzType="primary">
           Lưu lại
         </button>
         <button class="ml-4"

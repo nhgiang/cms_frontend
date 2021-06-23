@@ -9,7 +9,7 @@ import { BaseApi } from './base-api';
 export class SettingApiService<T> extends BaseApi {
 
   setEnpoint(key: SettingKeyEndPoint) {
-    this.endpoint = `setting-${key}`
+    this.endpoint = `setting-${key}`;
   }
 
   get(): Observable<T> {

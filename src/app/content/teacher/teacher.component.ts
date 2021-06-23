@@ -83,7 +83,7 @@ export class TeacherComponent extends SettingContainer<SettingTeacher> implement
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(() => {
-
+      this.notification.success('Thành công', 'Cập nhật thông tin section giảng viên thành công');
     });
   }
 
@@ -93,13 +93,13 @@ export class TeacherComponent extends SettingContainer<SettingTeacher> implement
   }
 
   protected handleResulVisible() {
-    throw new Error('Method not implemented.');
+    this.notification.success('Thành công', 'Cập nhật thông tin section giảng viên thành công');
   }
 
   buildForm() {
     this.form = this.fb.group({
       description: [null, TValidators.textRange(1, 500)],
-      coverAvatar: [null, Validators.required],
+      coverAvatar: [null],
       title: ['Giảng viên']
     });
   }

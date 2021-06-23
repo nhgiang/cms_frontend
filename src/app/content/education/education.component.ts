@@ -7,7 +7,7 @@ import { Ultilities } from '@shared/extentions/Ultilities';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { switchMap } from 'rxjs/operators';
 import { AssetType, SettingKey, SettingKeyEndPoint } from 'types/enums';
-import { Education, Header } from 'types/typemodel';
+import { Education } from 'types/typemodel';
 
 @Component({
   selector: 'app-education',
@@ -40,8 +40,8 @@ export class EducationComponent extends SettingContainer<Education> implements O
   }
 
   protected handleResult(result: { res: Education; isVisible: boolean; }) {
-    this.form.patchValue(result.res)
-    this.isVisible = result.isVisible
+    this.form.patchValue(result.res);
+    this.isVisible = result.isVisible;
   }
 
   protected buildForm(): void {
@@ -51,5 +51,6 @@ export class EducationComponent extends SettingContainer<Education> implements O
   }
 
   protected handleResulVisible() {
+    this.notification.success('Thành công', 'Cập nhật cấu hình nội dung hệ thông khóa học thành công');
   }
 }
