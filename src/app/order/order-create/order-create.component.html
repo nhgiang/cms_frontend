@@ -16,6 +16,7 @@
                     placeholder="Tìm theo tên, email người dùng"
                     [getOptionsFn]="user$"
                     formControlName="userId"
+                    [scrollable]="false"
                   >
                   </select-advance>
                 </nz-form-control>
@@ -153,12 +154,6 @@
                     *ngFor="let item of listBank"
                   ></nz-option>
                 </nz-select>
-                <!-- <input
-                  type="text"
-                  nz-input
-                  formControlName="bankCode"
-                  placeHolder="Nhập thông tin ngân hàng"
-                /> -->
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -258,7 +253,8 @@
             [formControl]="search"
             [hasNullOption]="false"
             (ngModelChange)="addCourse($event)"
-            [optionsDisabled]="form.value.items"
+            [optionsDisabled]="courseOptionsDisabled"
+            [scrollable]="false"
           >
           </select-advance>
 

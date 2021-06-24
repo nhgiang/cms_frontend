@@ -1,7 +1,7 @@
 import {
   LocationStrategy,
   PathLocationStrategy,
-  registerLocaleData
+  registerLocaleData,
 } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import vi from '@angular/common/locales/vi';
@@ -34,13 +34,21 @@ import { PartnersRegistrationsComponent } from './partners-registrations/partner
 
 registerLocaleData(vi);
 
-const appInit = (partnersApi: PartnersApiService, authenticationService: AuthenticationService) => {
+const appInit = (
+  partnersApi: PartnersApiService,
+  authenticationService: AuthenticationService
+) => {
   return () => {
     const domain = location.host;
-    return partnersApi.getDomain(domain.replace('cms.', ''))
+    return partnersApi
+      .getDomain(
+        domain.replace('cms.', '').includes('localhost')
+          ? 'qa.beautyup.asia'
+          : domain.replace('cms.', '')
+      )
       .pipe(tap(console.log))
       .toPromise()
-      .then(res => {
+      .then((res) => {
         authenticationService.partnerId = res;
       });
   };
@@ -76,7 +84,7 @@ const ngZorroConfig: NzConfig = {
       provide: APP_INITIALIZER,
       useFactory: appInit,
       multi: true,
-      deps: [PartnersApiService, AuthenticationService]
+      deps: [PartnersApiService, AuthenticationService],
     },
     {
       provide: HTTP_INTERCEPTORS,
@@ -110,10 +118,10 @@ const ngZorroConfig: NzConfig = {
     },
     {
       provide: NZ_DATE_LOCALE,
-      useValue: viVN
+      useValue: viVN,
     },
     ThemeConstantService,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

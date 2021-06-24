@@ -49,6 +49,7 @@ export class OrderCreateComponent implements OnInit {
   invoiceStatus = InvoiceStatus;
   invoiceType = InvoiceType;
   isLoading: boolean;
+  courseOptionsDisabled = [];
 
   constructor(
     private fb: FormBuilder,
@@ -104,6 +105,10 @@ export class OrderCreateComponent implements OnInit {
         });
       }
     });
+
+    this.form.get('items').valueChanges.subscribe((items) => {
+      this.courseOptionsDisabled = items.map((id) => ({ id }));
+    });
   }
 
   user$ = (params: any) => {
@@ -113,9 +118,9 @@ export class OrderCreateComponent implements OnInit {
       ),
       // tslint:disable-next-line: max-line-length
       map((res) => {
-        return res.items.map((x) => ({
+        return res.items.map((x, index) => ({
           value: x.id,
-          label: x.fullName || x.email,
+          label: `#${index} - ${x.email}`,
         }));
       })
     );
