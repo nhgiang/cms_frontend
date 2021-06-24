@@ -120,7 +120,7 @@ export class OrderCreateComponent implements OnInit {
       map((res) => {
         return res.items.map((x, index) => ({
           value: x.id,
-          label: `#${index} - ${x.email}`,
+          label: `#${index + 1} - ${x.email}`,
         }));
       })
     );
@@ -171,13 +171,16 @@ export class OrderCreateComponent implements OnInit {
     this.courseService.getList(params).pipe(
       tap((res) => res.items.forEach((c) => (this.objCourse[c.id] = c))),
       map((res) => {
-        return [
-          { value: MembershipId, label: 'Gói Membership' },
-          ...res.items.map((x) => ({
-            value: x.id,
-            label: x.name,
-          })),
-        ];
+        const listCourse = res.items.map((x) => ({
+          value: x.id,
+          label: x.name,
+        }));
+
+        if (!params.q) {
+          listCourse.unshift({ value: MembershipId, label: 'Gói Membership' });
+        }
+
+        return listCourse;
       })
     );
 
