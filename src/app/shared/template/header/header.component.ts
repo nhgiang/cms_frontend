@@ -13,6 +13,7 @@ import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
 })
 export class HeaderComponent implements OnInit {
   user$: Observable<any>;
+  anonymous: any = null;
 
   constructor(
     private themeService: ThemeConstantService,
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) {
     this.user$ = this.authService.currentUser;
+
   }
 
   masterList = [
@@ -73,6 +75,9 @@ export class HeaderComponent implements OnInit {
     this.themeService.isExpandChanges.subscribe(
       (isExpand) => (this.isExpand = isExpand)
     );
+    this.authService.anonymousPartnerId$.subscribe(res => {
+      this.anonymous = res;
+    });
   }
 
   toggleFold() {

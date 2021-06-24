@@ -5,7 +5,7 @@ import {
 } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import vi from '@angular/common/locales/vi';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '@env';
@@ -14,6 +14,7 @@ import { PartnersApiService } from '@shared/api/partners.api.service';
 import { ErrorInterceptor } from '@shared/interceptor/error.interceptor';
 import { JwtInterceptor } from '@shared/interceptor/token.interceptor';
 import { AuthenticationService } from '@shared/services/authentication.service';
+import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { ThemeConstantService } from '@shared/services/theme-constant.service';
 import { SharedModule } from '@shared/shared.module';
 import { TemplateModule } from '@shared/template/template.module';
@@ -37,9 +38,7 @@ registerLocaleData(vi);
 const appInit = (partnersApi: PartnersApiService, authenticationService: AuthenticationService) => {
   return () => {
     const domain = location.host.replace('.cms', '');
-    console.log(domain)
     return partnersApi.getDomain(domain)
-      .pipe(tap(console.log))
       .toPromise()
       .then(res => {
         authenticationService.partnerId = res;

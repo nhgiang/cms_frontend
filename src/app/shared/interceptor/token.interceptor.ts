@@ -12,13 +12,24 @@ export class JwtInterceptor implements HttpInterceptor {
     const token = localStorage.getItem('token');
     if (this.authenticationService.partnerId) {
       if (token) {
-        request = request.clone({
-          setHeaders: {
-            Authorization: `Bearer ${token}`,
-            'partner-id': this.authenticationService.partnerId
-          },
-          body: request.body && trimData(request.body)
-        });
+        if (JSON.parse(localStorage.getItem('impersonation'))) {
+          request = request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${token}`,
+              'partner-id': this.authenticationService.partnerId,
+              'anonymous-partner-id': JSON.parse(localStorage.getItem('impersonation'))?.id
+            },
+            body: request.body && trimData(request.body)
+          });
+        } else {
+          request = request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${token}`,
+              'partner-id': this.authenticationService.partnerId
+            },
+            body: request.body && trimData(request.body)
+          });
+        }
       } else {
         request = request.clone({
           setHeaders: {

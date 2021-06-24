@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PartnersApiService } from '@shared/api/partners.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
+import { AuthenticationService } from '@shared/services/authentication.service';
 import { DestroyService } from '@shared/services/destroy.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -48,7 +49,8 @@ export class PartnersListComponent extends DataTableContainer<any> {
     private partnersApiService: PartnersApiService,
     private notification: NzNotificationService,
     private modal: NzModalService,
-    private destroy$: DestroyService
+    private destroy$: DestroyService,
+    private authenticationService: AuthenticationService
   ) {
     super(route, router);
     this.buildForm();
@@ -93,5 +95,10 @@ export class PartnersListComponent extends DataTableContainer<any> {
     this.form = this.fb.group({
       q: [null]
     });
+  }
+
+  impersonation(partner: any) {
+    this.authenticationService.storageAnonymousPartnerValue(partner);
+    this.router.navigate(['']);
   }
 }

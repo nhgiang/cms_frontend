@@ -48,12 +48,19 @@
       </nz-dropdown-menu>
     </ul>
   </div>
-  <!-- <div class="desktop-toggle d-flex align-items-center" [class.d-none]="(user$ | async)?.role !== 'Admin'" nz-dropdown
-    [nzDropdownMenu]="dropdown" [nzTrigger]="'click'">
-    <a nz-tooltip [nzTooltipPlacement]="'bottom'" nzTooltipTitle="Quyền master">
-      <i nz-icon style="color: #fff" nzType="apartment" nzTheme="outline"></i>
-    </a>
-  </div> -->
+  <div *ngIf="anonymous?.id" class="ml-5 desktop-toggle d-flex align-items-center">
+    <nz-button-group>
+      <button nz-button nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight">{{anonymous?.id}}</button>
+      <button nz-button nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight">
+        <i nz-icon nzType="user"></i>
+      </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item>Thoát</li>
+        </ul>
+      </nz-dropdown-menu>
+    </nz-button-group>
+  </div>
 
   <div class="nav-wrap">
     <ul *ngIf="user$ | async; let user" class="nav-right">
@@ -92,13 +99,13 @@
               <a (click)="changePassword()">Cập nhật mật khẩu </a>
             </li>
             <li nz-menu-item>
-              <<<<<<< HEAD <a (click)="logout()" class="p-v-5 d-flex align-items-center justify-content-between">
+              <a (click)="logout()" class="p-v-5 d-flex align-items-center justify-content-between">
                 <div>
                   <i aria-hidden="true" class="opacity-04 font-size-16" nz-icon nzType="logout" theme="outline"></i>
                   <span class="m-l-10">Logout</span>
                 </div>
                 <i aria-hidden="true" class="font-size-10" nz-icon nzType="right" theme="outline"></i>
-                </a>
+              </a>
             </li>
           </ul>
         </nz-dropdown-menu>

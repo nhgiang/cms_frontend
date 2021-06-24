@@ -11,6 +11,7 @@ export class AuthenticationService {
   private baseURL = `${environment.api}/auth`;
   private currentUserSubject: BehaviorSubject<User>;
   readonly currentUser: Observable<User>;
+  anonymousPartnerId$: BehaviorSubject<any>;
   partnerId: string;
 
   constructor(
@@ -19,6 +20,17 @@ export class AuthenticationService {
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+    this.anonymousPartnerId$ = new BehaviorSubject<any>(null);
+    this.anonymousPartnerId$.next(localStorage.getItem('impersonation'));
+  }
+
+  anonymousPartnerValue(): any {
+    return this.anonymousPartnerId$.getValue() || localStorage.getItem('impersonation');
+  }
+
+  storageAnonymousPartnerValue(value: any) {
+    localStorage.setItem('impersonation', JSON.stringify(value));
+    this.anonymousPartnerId$.next(value);
   }
 
   private get currentUserValue(): User {
