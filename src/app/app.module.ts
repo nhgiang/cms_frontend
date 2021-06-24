@@ -36,8 +36,8 @@ registerLocaleData(vi);
 
 const appInit = (partnersApi: PartnersApiService, authenticationService: AuthenticationService) => {
   return () => {
-    const domain = location.host.replace('.cms', '');
-    return partnersApi.getDomain(domain)
+    const domain = location.host;
+    return partnersApi.getDomain(domain.replace('.cms', ''))
       .pipe(tap(console.log))
       .toPromise()
       .then(res => {
