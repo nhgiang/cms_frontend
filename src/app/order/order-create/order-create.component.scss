@@ -1,0 +1,28 @@
+.list-info {
+  li {
+    p:after {
+      content: '\200B';
+    }
+  }
+}
+.table {
+  border-collapse: unset;
+  display: table;
+  width: 100%;
+  border: none;
+  .t-cell {
+    display: table-cell;
+    padding: 10px 5px;
+    font-size: 1rem;
+  }
+  .t-head{
+    display: table-header-group;
+    font-weight: 600;
+    .t-cell {
+      border-bottom: 1px solid #EDF2F9;
+    }
+  }
+  .t-row {
+    display: table-row;
+  }
+}

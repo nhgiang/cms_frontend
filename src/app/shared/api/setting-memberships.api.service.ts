@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseApi } from './base-api';
 
-interface SettingMemberships {
+export interface SettingMemberships {
   price: number;
   royaltyPercentage: number;
   days: number;
