@@ -36,6 +36,12 @@
         <td>{{ item.phoneNumber }}</td>
         <td>
           <div class="d-flex justify-content-end">
+            <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Mạo danh">
+              <div [confirmation]="'Bạn muốn truy cập vào trang quản trị của ' + item.domain + '?'"
+                (confirmed)="impersonation(item)">
+                <i nz-icon nzType="user" nzTheme="outline"></i>
+              </div>
+            </a>
             <a (click)="edit(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
               nzTooltipTitle="Chỉnh sửa">
               <i aria-hidden="true" nz-icon nzType="edit" theme="outline"></i>
