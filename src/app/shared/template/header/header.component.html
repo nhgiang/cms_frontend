@@ -34,8 +34,8 @@
           <li nz-menu-item routerLink="/user/assistance">Quản lý nhân viên</li>
         </ul>
       </nz-dropdown-menu>
-      <li *ngIf="!anonymous" [class.d-none]="(user$ | async)?.role !== 'Admin'" nz-dropdown
-        [nzDropdownMenu]="masterPrivilege" [nzTrigger]="'click'" style="z-index: 2;">
+      <li *ngIf="(user$ | async)?.isMaster && !anonymous" nz-dropdown [nzDropdownMenu]="masterPrivilege"
+        [nzTrigger]="'click'" style="z-index: 2;">
         <a nz-tooltip [nzTooltipPlacement]="'leftBottom'" nzTooltipTitle="Quyền master"><i style="z-index: 1;" nz-icon
             nzType="apartment"></i></a>
       </li>

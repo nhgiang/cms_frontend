@@ -34,9 +34,9 @@ export class AboutUsComponent extends SettingContainer<AboutUs> {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.storageApi.uploadFile(this.form.value.coverAvatar).pipe(
+    this.storageApi.uploadFile(this.form.value.image).pipe(
       switchMap(res => {
-        this.form.get('coverAvatar').setValue(res);
+        this.form.get('image').setValue(res);
         return this.post(this.form.value);
       }),
       finalize(() => this.isLoading = false)
@@ -50,12 +50,12 @@ export class AboutUsComponent extends SettingContainer<AboutUs> {
     this.isVisible = result.isVisible;
   }
 
-  protected handleResulVisible() {}
+  protected handleResulVisible() { }
 
   protected buildForm() {
     this.form = this.fb.group({
-      title: [null, TValidators.required],
-      coverAvatar: [null, TValidators.required],
+      title: [null],
+      image: [null, TValidators.required],
       content: [null, [TValidators.textRange(0, 1000), TValidators.required]]
     });
   }

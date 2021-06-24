@@ -45,6 +45,7 @@ export interface User extends Entity {
   index?: number;
   bio: string;
   data?: any;
+  isMaster?: boolean;
 }
 
 export interface TeacherCreateCommand {
@@ -233,7 +234,7 @@ export interface Story {
   images: string[];
 }
 
-export interface VideoIntroContact extends VideoIntro {}
+export interface VideoIntroContact extends VideoIntro { }
 
 export interface Faq {
   answer: string;

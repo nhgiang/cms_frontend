@@ -1,58 +1,38 @@
 <nz-card>
   <nz-spin [nzSpinning]="isLoading">
     <div class="text-right mb-3">
-      <nz-switch [ngModel]="isVisible"
-                 [nzCheckedChildren]="checkedTemplate"
-                 [nzUnCheckedChildren]="unCheckedTemplate"
-                 (ngModelChange)="visible($event)"></nz-switch>
-      <ng-template #checkedTemplate><i nz-icon
-           nzType="check"></i></ng-template>
-      <ng-template #unCheckedTemplate><i nz-icon
-           nzType="close"></i></ng-template>
+      <nz-switch [ngModel]="isVisible" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"
+        (ngModelChange)="visible($event)"></nz-switch>
+      <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+      <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
     </div>
-    <form [formGroup]="form"
-          (ngSubmit)="submit()">
+    <form [formGroup]="form">
       <nz-form-item>
-        <nz-form-label class="text-left"
-                       [nzSpan]="3">Title</nz-form-label>
+        <nz-form-label class="text-left" [nzSpan]="3">Title</nz-form-label>
         <nz-form-control>
           <div class="text-muted">[Mặc định]</div>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label class="text-left"
-                       [nzSpan]="3">
+        <nz-form-label class="text-left" [nzSpan]="3">
           Hình ảnh
         </nz-form-label>
         <nz-form-control>
-          <app-file-upload-control formControlName="coverAvatar"
-                                   [fileType]="AssetType.Image"
-                                   [maxSize]="5000000">
+          <app-file-upload-control formControlName="coverAvatar" [fileType]="AssetType.Image" [maxSize]="5000000">
           </app-file-upload-control>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item class="align-items-center">
-        <nz-form-label class="text-left align-self-flex-end"
-                       [nzSpan]="3"
-                       nzRequired>Nội dung
+        <nz-form-label class="text-left align-self-flex-end" [nzSpan]="3" nzRequired>Nội dung
         </nz-form-label>
         <nz-form-control [nzErrorTip]="'Nội dung chứa tối đa 1000 ký tự'">
-          <textarea nz-input
-                    rows="3"
-                    formControlName="content"
-                    placeholder="Nhập nội dung">
+          <textarea nz-input rows="3" formControlName="content" placeholder="Nhập nội dung">
           </textarea>
         </nz-form-control>
       </nz-form-item>
       <div class="text-right">
-        <button nz-button
-                nzType="primary"
-                type="submit"
-                class="mr-3">Lưu lại</button>
-        <button nz-button
-                nzType="primary"
-                nzGhost
-                type="button">Lưu lại</button>
+        <button nz-button type="button" nzType="primary" routerLink="/" nzGhost class="mr-3">Quay lại</button>
+        <button nz-button nzType="primary" (click)="submit()" type="button">Lưu lại</button>
       </div>
     </form>
   </nz-spin>
