@@ -1,10 +1,6 @@
 <nz-card>
   <nz-spin [nzSpinning]="isLoading">
     <div class="text-right mb-3">
-      <nz-switch [ngModel]="isVisible"
-                 [nzCheckedChildren]="checkedTemplate"
-                 [nzUnCheckedChildren]="unCheckedTemplate"
-                 (ngModelChange)="visible($event)"></nz-switch>
       <ng-template #checkedTemplate><i nz-icon
            nzType="check"></i></ng-template>
       <ng-template #unCheckedTemplate><i nz-icon
