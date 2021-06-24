@@ -165,21 +165,21 @@ export interface EventEntity extends Entity {
 }
 
 export interface Invoice extends Entity {
-  code: number;
+  code?: number;
   status: InvoiceStatus;
   type: InvoiceType;
-  days: number;
+  days?: number;
   totalPrice: number;
-  note: string;
-  user: User;
-  items: InvoiceItem[];
-  bankCodePicked: string;
-  bankCode: any;
+  note?: string;
+  user?: User;
+  items?: InvoiceItem[];
+  bankCodePicked?: string;
+  bankCode?: any;
   transactionAmount: number;
   transactionCode: any;
   transactionTime: any;
   invoicePrice: number;
-  paymentMethod: PaymentMethod;
+  paymentMethod?: PaymentMethod;
 }
 
 export interface InvoiceItem {
@@ -230,11 +230,10 @@ export interface AboutUs {
 
 export interface Story {
   content: string;
-  images: string[]
+  images: string[];
 }
 
-export interface VideoIntroContact extends VideoIntro {
-}
+export interface VideoIntroContact extends VideoIntro {}
 
 export interface Faq {
   answer: string;
@@ -268,7 +267,7 @@ export interface Header {
 
 export interface QuestionAnswer {
   coverAvatar: string;
-  items: Faq[]
+  items: Faq[];
 }
 
 export interface Education {
