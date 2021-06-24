@@ -34,9 +34,9 @@
           <li nz-menu-item routerLink="/user/assistance">Quản lý nhân viên</li>
         </ul>
       </nz-dropdown-menu>
-      <li [class.d-none]="(user$ | async)?.role !== 'Admin'" nz-dropdown [nzDropdownMenu]="masterPrivilege"
-        [nzTrigger]="'click'" style="z-index: 2;">
-        <a nz-tooltip [nzTooltipPlacement]="'bottom'" nzTooltipTitle="Quyền master"><i style="z-index: 1;" nz-icon
+      <li *ngIf="!anonymous" [class.d-none]="(user$ | async)?.role !== 'Admin'" nz-dropdown
+        [nzDropdownMenu]="masterPrivilege" [nzTrigger]="'click'" style="z-index: 2;">
+        <a nz-tooltip [nzTooltipPlacement]="'leftBottom'" nzTooltipTitle="Quyền master"><i style="z-index: 1;" nz-icon
             nzType="apartment"></i></a>
       </li>
       <nz-dropdown-menu #masterPrivilege="nzDropdownMenu">
@@ -48,15 +48,15 @@
       </nz-dropdown-menu>
     </ul>
   </div>
-  <div *ngIf="anonymous?.id" class="ml-5 desktop-toggle d-flex align-items-center">
+  <div *ngIf="anonymous" class="ml-5 desktop-toggle d-flex align-items-center">
     <nz-button-group>
-      <button nz-button nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight">{{anonymous?.id}}</button>
-      <button nz-button nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight">
+      <button nz-button nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomLeft">{{anonymous?.name}}</button>
+      <button nz-button nzPlacement="bottomRight">
         <i nz-icon nzType="user"></i>
       </button>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
-          <li nz-menu-item>Thoát</li>
+          <li nz-menu-item><a (click)="logoutAnonymous()">Thoát</a></li>
         </ul>
       </nz-dropdown-menu>
     </nz-button-group>
