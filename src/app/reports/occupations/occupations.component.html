@@ -1,0 +1,19 @@
+<nz-card>
+  <nz-spin [nzSpinning]="isLoading">
+    <div class="d-flex justify-content-center w-100 h-100">
+      <div class="chart" style="min-height: 300px; width: 90%">
+        <canvas
+          ngChartjs
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [colors]="barChartColors"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+          [inlinePlugins]="inlinePlugins"
+        >
+        </canvas>
+      </div>
+    </div>
+  </nz-spin>
+</nz-card>

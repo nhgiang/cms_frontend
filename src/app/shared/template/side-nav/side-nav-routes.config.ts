@@ -283,6 +283,14 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'fund',
         submenu: [],
       },
+      {
+        path: 'occupations',
+        title: 'Báo cáo nghề nghiệp',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'money-collect',
+        submenu: [],
+      },
     ],
   },
   {
