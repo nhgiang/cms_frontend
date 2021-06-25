@@ -37,7 +37,7 @@ export class EducationComponent extends SettingContainer<Education> implements O
         return this.post(this.form.value);
       }),
       finalize(() => this.isLoading = false)
-    ).subscribe(() => this.notification.success('Thành công', 'Cập nhật cấu hình nội dung hệ thông khóa học thành công'))
+    ).subscribe(() => this.notification.success('Thành công', 'Cập nhật nội dung hệ thống khóa học thành công!'));
   }
 
   protected handleResult(result: { res: Education; isVisible: boolean; }) {
@@ -52,6 +52,6 @@ export class EducationComponent extends SettingContainer<Education> implements O
   }
 
   protected handleResulVisible() {
-    this.notification.success('Thành công', 'Cập nhật cấu hình nội dung hệ thông khóa học thành công');
+    this.notification.success('Thành công', 'Cập nhật nội dung hệ thống khóa học thành công!');
   }
 }

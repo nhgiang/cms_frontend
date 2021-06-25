@@ -17,7 +17,7 @@ export class SettingApiService<T> extends BaseApi {
   }
 
   post(body: any): Observable<T> {
-    return this.httpClient.post<T>(this.createUrl(``), body);
+    return this.httpClient.post<T>(this.createUrl(``), this.createParams(body));
   }
 }
 
@@ -32,6 +32,6 @@ export class SettingVisibleApiService extends BaseApi {
   }
 
   get(key: SettingKey) {
-    return this.httpClient.get<{visible: boolean}>(this.createUrl(`/check-visible/${key}`));
+    return this.httpClient.get<{ visible: boolean }>(this.createUrl(`/check-visible/${key}`));
   }
 }

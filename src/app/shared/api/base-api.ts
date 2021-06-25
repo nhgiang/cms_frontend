@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { omitBy } from 'lodash-es';
+import { isNil } from 'ng-zorro-antd/core/util';
 import { isValidValue, trimData } from 'utils/common';
 import { API_BASE_URL } from './base-url';
 
@@ -18,7 +19,9 @@ export abstract class BaseApi {
   }
 
   protected createParams(params: { [key: string]: any }): any {
-    return omitBy(trimData(params), isValidValue);
+    console.log(isValidValue(trimData(params)));
+
+    return isValidValue(trimData(params));
   }
 
   protected createUrl(url: string) {

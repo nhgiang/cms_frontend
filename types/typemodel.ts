@@ -87,9 +87,8 @@ export interface SettingTeacherItem {
 
 export interface VideoIntro {
   title: string;
-  iamge: string;
+  image: string;
   video: string;
-  titleBackground: string;
 }
 
 export interface ConsultingInformation extends Entity {

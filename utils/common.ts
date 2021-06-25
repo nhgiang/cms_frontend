@@ -64,16 +64,17 @@ export const bytesToSize = (bytes: number) => {
 
 export const isValidValue = (data) => {
   if (typeof data === 'object') {
-    const obj = cloneDeep(data);
     // tslint:disable-next-line: forin
-    for (const key in obj) {
-      if (typeof obj[key] === 'object') {
-        isValidValue(obj[key]);
-      } else {
-        if (obj[key]) { delete obj[key]; }
+    for (const key in data) {
+      if (typeof data[key] === 'object') {
+        isValidValue(data[key]);
+      } else if (!data[key]) {
+        delete data[key];
       }
     }
-    return obj;
+    console.log(data);
+
+    return data;
   } else {
     return data || null;
   }
