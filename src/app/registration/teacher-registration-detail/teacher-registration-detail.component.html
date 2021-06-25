@@ -46,11 +46,7 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="6" nzRequired>Phone</nz-form-label>
             <nz-form-control [nzErrorTip]="errorPhoneTpl">
-              <input
-                nz-input
-                formControlName="phoneNumber"
-                placeholder="Nhập Số điện thoại"
-              />
+              <input nz-input formControlName="phoneNumber" />
             </nz-form-control>
             <ng-template #errorPhoneTpl let-control>
               <ng-container *ngIf="control.hasError('required')">
@@ -76,11 +72,7 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="6" nzRequired>E-mail</nz-form-label>
             <nz-form-control [nzErrorTip]="errorEmailTpl">
-              <input
-                nz-input
-                formControlName="email"
-                placeholder="Nhập Email"
-              />
+              <input nz-input formControlName="email" />
             </nz-form-control>
             <ng-template #errorEmailTpl let-control>
               <ng-container *ngIf="control.hasError('required')">
@@ -101,14 +93,15 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-      </div>
-      <div>
-        <nz-form-item>
-          <nz-form-label>Ghi chú</nz-form-label>
-          <nz-form-control [nzErrorTip]="'Vui lòng nhập mô tả'">
-            <input nz-input formControlName="bio" placeholder="Nhập mô tả" />
-          </nz-form-control>
-        </nz-form-item>
+
+        <div class="col-md-12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="3">Ghi chú</nz-form-label>
+            <nz-form-control [nzErrorTip]="'Vui lòng nhập mô tả'">
+              <input nz-input formControlName="bio" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
       </div>
       <div class="text-center">
         <a class="m-r-10" nz-button [routerLink]="['/registrations/teacher']">
