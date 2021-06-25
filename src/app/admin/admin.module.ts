@@ -5,7 +5,7 @@ import { AdminRoutes } from './admin.routing';
 import { SettingMembershipsComponent } from './setting-memberships/setting.memberships.component';
 
 @NgModule({
-  imports: [CommonModule, AdminRoutes, SharedModule],
+  imports: [AdminRoutes, SharedModule],
   declarations: [SettingMembershipsComponent],
 })
 export class AdminModule {}
