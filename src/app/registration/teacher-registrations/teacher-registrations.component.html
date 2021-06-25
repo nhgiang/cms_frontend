@@ -2,12 +2,17 @@
   <form nz-form>
     <nz-form-item>
       <nz-form-control [nzSpan]="8">
-        <input
-          [formControl]="searchQuery"
-          nz-input
-          placeholder="Tìm kiếm tên, số điện thoại, chuyên môn"
-        />
+        <nz-input-group style="min-width: 275px" [nzPrefix]="prefixTemplate">
+          <input
+            [formControl]="searchQuery"
+            nz-input
+            placeholder="Tìm kiếm tên, số điện thoại, chuyên môn"
+          />
+        </nz-input-group>
       </nz-form-control>
+      <ng-template #prefixTemplate>
+        <i aria-hidden="true" nz-icon nzType="search" class="opacity-05"></i>
+      </ng-template>
     </nz-form-item>
   </form>
 

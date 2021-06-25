@@ -29,13 +29,23 @@ export class TeacherRegistrationDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
 
     this.form = this.fb.group({
-      fullName: [null, [TValidators.required]],
-      email: [null, [TValidators.required, TValidators.emailRules]],
-      specialization: [null, [TValidators.required]],
+      fullName: [null, [TValidators.required, TValidators.textRange(1, 100)]],
+      email: [
+        null,
+        [
+          TValidators.required,
+          TValidators.emailRules,
+          TValidators.maxLength(100),
+        ],
+      ],
+      specialization: [
+        null,
+        [TValidators.required, TValidators.textRange(1, 100)],
+      ],
       phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]],
-      address: [null],
+      address: [null, TValidators.maxLength(300)],
       coverLetter: [null],
-      degree: [null],
+      degree: [null, TValidators.maxLength(300)],
       id: [null],
       referenceLinks: [null],
     });
