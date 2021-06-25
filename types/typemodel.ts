@@ -45,6 +45,7 @@ export interface User extends Entity {
   index?: number;
   bio: string;
   data?: any;
+  isMaster?: boolean;
 }
 
 export interface TeacherCreateCommand {
@@ -60,11 +61,6 @@ export interface TeacherUpdateCommand extends TeacherCreateCommand {
   id: string;
 }
 
-export interface Faq {
-  question: string;
-  answer: string;
-}
-
 export interface SettingFeedback {
   studentName: string;
   courseName: string;
@@ -78,6 +74,7 @@ export interface FileModel {
 }
 
 export interface SettingTeacher {
+  coverAvatar: string;
   description: string;
   teachers: SettingTeacherItem[];
 }
@@ -90,7 +87,7 @@ export interface SettingTeacherItem {
 
 export interface VideoIntro {
   title: string;
-  iamge: string;
+  image: string;
   video: string;
 }
 
@@ -168,21 +165,21 @@ export interface EventEntity extends Entity {
 }
 
 export interface Invoice extends Entity {
-  code: number;
+  code?: number;
   status: InvoiceStatus;
   type: InvoiceType;
-  days: number;
+  days?: number;
   totalPrice: number;
-  note: string;
-  user: User;
-  items: InvoiceItem[];
-  bankCodePicked: string;
-  bankCode: any;
+  note?: string;
+  user?: User;
+  items?: InvoiceItem[];
+  bankCodePicked?: string;
+  bankCode?: any;
   transactionAmount: number;
   transactionCode: any;
   transactionTime: any;
   invoicePrice: number;
-  paymentMethod: PaymentMethod;
+  paymentMethod?: PaymentMethod;
 }
 
 export interface InvoiceItem {
@@ -208,10 +205,22 @@ export interface Partner extends Entity {
   numberOfParticipants: number;
 }
 
+export interface Teacher extends Entity {
+  fullname: string;
+  phoneNumber: string;
+  email: string;
+  specialization: string;
+  address: string;
+  dateOfBirth?: Date;
+  degree?: string;
+  coverLetter?: string;
+  referenceLinks?: string;
+  notes?: string;
+}
+
 export interface Payment {
   method: string;
   bankCode: string;
-
   bankName: string;
   accountNumber: string;
   accountName: string;
@@ -223,4 +232,57 @@ export interface Payment {
 export interface Vnpay {
   hashSecret: string;
   tmnCode: string;
+}
+
+export interface AboutUs {
+  content: string;
+  image: string;
+  title: string;
+  enpoint: number;
+}
+
+export interface Story {
+  content: string;
+  images: string[];
+}
+
+export interface VideoIntroContact extends VideoIntro { }
+
+export interface Faq {
+  answer: string;
+  question: string;
+}
+
+export interface Feedback {
+  courseName: string;
+  content: string;
+  photo: string;
+  studentName: string;
+}
+
+export interface Footer {
+  address: string;
+  email: string;
+  facebook: string;
+  phoneNumber: string;
+  youtube: string;
+}
+
+export interface Premium {
+  course: string;
+  discount: string;
+  lession: string;
+}
+
+export interface Header {
+  logoImage: string;
+}
+
+export interface QuestionAnswer {
+  coverAvatar: string;
+  items: Faq[];
+}
+
+export interface Education {
+  coverAvatar: string;
 }

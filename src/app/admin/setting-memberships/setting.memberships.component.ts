@@ -5,7 +5,6 @@ import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { parse } from 'path';
 import { finalize } from 'rxjs/operators';
 
 @Component({

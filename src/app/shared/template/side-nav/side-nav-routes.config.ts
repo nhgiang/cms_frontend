@@ -138,6 +138,16 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Khóa học hot nhất',
         submenu: [],
       },
+      {
+        path: 'header',
+        title: 'Header',
+        submenu: [],
+      },
+      {
+        path: 'education',
+        title: 'Hệ thống khóa học',
+        submenu: [],
+      },
     ],
   },
   {
@@ -208,12 +218,23 @@ export const ROUTES: SideNavInterface[] = [
     ],
   },
   {
-    path: 'partners',
+    path: 'registrations',
     title: 'Đối tác đăng ký',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'customer-service',
-    submenu: [],
+    submenu: [
+      {
+        path: 'teacher',
+        title: 'Giảng viên đăng ký',
+        submenu: [],
+      },
+      {
+        path: 'partner',
+        title: 'Học viện đăng ký',
+        submenu: [],
+      },
+    ],
   },
   {
     path: 'comment',

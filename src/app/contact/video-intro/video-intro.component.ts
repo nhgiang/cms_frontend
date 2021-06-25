@@ -1,44 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SettingApiService } from '@shared/api/setting.api.service';
+import { SettingApiService, SettingVisibleApiService } from '@shared/api/setting.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
+import { SettingContainer } from '@shared/class/setting-container';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { forkJoin } from 'rxjs';
 import { finalize, switchMap } from 'rxjs/operators';
-import { AssetType } from 'types/enums';
-import { VideoIntro } from 'types/typemodel';
+import { AssetType, SettingKey, SettingKeyEndPoint } from 'types/enums';
+import { VideoIntro, VideoIntroContact } from 'types/typemodel';
 
 @Component({
   selector: 'app-video-intro',
   templateUrl: './video-intro.component.html',
   styleUrls: ['./video-intro.component.scss']
 })
-export class VideoIntroComponent implements OnInit {
+export class VideoIntroComponent extends SettingContainer<VideoIntroContact> implements OnInit {
   form: FormGroup;
   AssetType = AssetType;
   isloading: boolean;
+  
   constructor(
     private fb: FormBuilder,
     private storageApi: StorageApiService,
-    private settingApi: SettingApiService,
+    settingApi: SettingApiService<VideoIntroContact>,
+    SettingVisibleApi: SettingVisibleApiService,
     private notification: NzNotificationService
-  ) { }
-
-  ngOnInit(): void {
-    this.buildForm();
-    this.settingApi.videoIntroContact.get().subscribe((res: VideoIntro) => {
-      this.form.patchValue(res);
-    });
-  }
-
-  buildForm() {
-    this.form = this.fb.group({
-      title: [null, TValidators.required],
-      image: [null, Validators.required],
-      video: [null]
-    });
+  ) {
+    super(SettingVisibleApi, settingApi, SettingKey.VideoIntroContact, SettingKeyEndPoint.VideoIntroContact);
   }
 
   submit() {
@@ -53,9 +43,23 @@ export class VideoIntroComponent implements OnInit {
         video,
         title: this.form.value.title.trim()
       };
-      return this.settingApi.videoIntroContact.post(data);
+      return this.post(data);
     }), finalize(() => this.isloading = false)).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật thông tin video giới thiệu thành công');
+    });
+  }
+
+  protected handleResult(result: { res: VideoIntroContact; isVisible: boolean; }) {
+    this.form.patchValue(result.res);
+    this.isVisible = result.isVisible;
+  }
+  protected handleResulVisible() {}
+  
+  protected buildForm() {
+    this.form = this.fb.group({
+      title: [null, TValidators.required],
+      image: [null, Validators.required],
+      video: [null]
     });
   }
 }

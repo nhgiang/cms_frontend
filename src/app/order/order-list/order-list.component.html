@@ -1,94 +1,123 @@
 <nz-card>
   <div class="row m-b-30">
     <div class="col-9 d-flex">
-      <form nz-form
-            [formGroup]="search">
+      <form nz-form [formGroup]="search">
         <div class="d-xl-flex">
           <div class="d-md-flex">
             <div class="m-b-10 m-r-20">
-              <nz-input-group style="min-width: 220px"
-                              [nzPrefix]="prefixTemplate">
-                <input type="text"
-                       nz-input
-                       placeholder="Tìm kiếm tên khách hàng, email, mã hóa đơn"
-                       formControlName="q" />
+              <nz-input-group
+                style="min-width: 220px"
+                [nzPrefix]="prefixTemplate"
+              >
+                <input
+                  type="text"
+                  nz-input
+                  placeholder="Tìm kiếm tên khách hàng, email, mã hóa đơn"
+                  formControlName="q"
+                />
               </nz-input-group>
-
               <ng-template #prefixTemplate>
-                <i aria-hidden="true"
-                   nz-icon
-                   nzType="search"
-                   class="opacity-05"></i>
+                <i
+                  aria-hidden="true"
+                  nz-icon
+                  nzType="search"
+                  class="opacity-05"
+                ></i>
               </ng-template>
             </div>
             <div class="m-b-10 m-r-20">
-              <nz-select style="min-width: 180px"
-                         class="w-100"
-                         nzPlaceHolder="Chọn trạng thái"
-                         formControlName="status">
-                <nz-option nzLabel="Tất cả"
-                           nzValue="null"></nz-option>
-                <nz-option [nzLabel]="item.label"
-                           [nzValue]="item.value"
-                           *ngFor="let item of invoiceStatusOptions">
+              <nz-select
+                style="min-width: 180px"
+                class="w-100"
+                nzPlaceHolder="Chọn trạng thái"
+                formControlName="status"
+              >
+                <nz-option nzLabel="Tất cả" nzValue="null"></nz-option>
+                <nz-option
+                  [nzLabel]="item.label"
+                  [nzValue]="item.value"
+                  *ngFor="let item of invoiceStatusOptions"
+                >
                 </nz-option>
               </nz-select>
             </div>
           </div>
           <div class="d-md-flex">
             <div class="m-b-10 m-r-20">
-              <nz-date-picker nzFormat="dd/MM/yyyy"
-                              formControlName="startDate"
-                              nzPlaceHolder="Từ ngày"></nz-date-picker>
+              <nz-date-picker
+                nzFormat="dd/MM/yyyy"
+                formControlName="startDate"
+                nzPlaceHolder="Từ ngày"
+              >
+              </nz-date-picker>
             </div>
             <div>
-              <nz-date-picker nzFormat="dd/MM/yyyy"
-                              formControlName="endDate"
-                              nzPlaceHolder="Đến ngày"></nz-date-picker>
+              <nz-date-picker
+                nzFormat="dd/MM/yyyy"
+                formControlName="endDate"
+                nzPlaceHolder="Đến ngày"
+              >
+              </nz-date-picker>
             </div>
           </div>
         </div>
       </form>
     </div>
-    <div class="col-3 text-right">
-      <button nz-button
-              nzType="primary"
-              (click)="exportExcel()"
-              [nzLoading]="activity.is('downloading')">
-        Download excel
+    <div class="col-3 text-right d-flex justify-content-end">
+      <button
+        nz-button
+        nzType="primary"
+        [routerLink]="['/order-management/order/manual-create']"
+        class="m-r-5"
+      >
+        Tạo mới
       </button>
+
+      <button
+        nz-button
+        nz-popover
+        [nzPopoverContent]="contentTemplate"
+        nzPopoverPlacement="bottomRight"
+      >
+        <i nz-icon nzType="more" nzTheme="outline"></i>
+      </button>
+      <ng-template #contentTemplate>
+        <button
+          nz-button
+          nzType="text"
+          (click)="exportExcel()"
+          [nzLoading]="activity.is('downloading')"
+        >
+          Download excel
+        </button>
+      </ng-template>
     </div>
   </div>
-  <nz-table [nzShowTotal]="totalTemplate"
-            [nzNoResult]="empty"
-            #productsListTable
-            [nzFrontPagination]="false"
-            [nzData]="items"
-            [nzTotal]="meta?.totalItems"
-            (nzQueryParams)="onParamsChanged($event)"
-            [nzPageSize]="quantity"
-            [nzLoading]="isloading"
-            [(nzPageIndex)]="page"
-            nzTableLayout="fixed"
-            [nzScroll]="{ x: '1300px' }">
+  <nz-table
+    [nzShowTotal]="totalTemplate"
+    [nzNoResult]="empty"
+    #productsListTable
+    [nzFrontPagination]="false"
+    [nzData]="items"
+    [nzTotal]="meta?.totalItems"
+    (nzQueryParams)="onParamsChanged($event)"
+    [nzPageSize]="quantity"
+    [nzLoading]="isloading"
+    [(nzPageIndex)]="page"
+    nzTableLayout="fixed"
+    [nzScroll]="{ x: '1300px' }"
+  >
     <thead>
       <tr>
-        <th nzLeft
-            [nzWidth]="'70px'"
-            scope="col">ID</th>
-        <th nzLeft
-            scope="col"
-            [nzWidth]="'200px'">Tên khách hàng</th>
+        <th nzLeft [nzWidth]="'70px'" scope="col">ID</th>
+        <th nzLeft scope="col" [nzWidth]="'200px'">Tên khách hàng</th>
         <th scope="col">Email khách hàng</th>
-        <th scope="col"
-            [nzWidth]="'250px'">Tên sản phẩm</th>
+        <th scope="col" [nzWidth]="'250px'">Tên sản phẩm</th>
         <th scope="col" [nzWidth]="'150px'">Trạng thái</th>
         <th scope="col">Giá mua</th>
-        <th scope="col"
-            [nzWidth]="'150px'">Thời gian mua</th>
+        <th scope="col" [nzWidth]="'150px'">Thời gian mua</th>
         <th scope="col">Thời gian giao dịch</th>
-        <th scope="col"
-            [nzWidth]="'150px'"></th>
+        <th scope="col" [nzWidth]="'150px'"></th>
       </tr>
     </thead>
     <tbody>
@@ -96,34 +125,47 @@
         <td nzLeft>#{{ invoice?.index }}</td>
         <td nzLeft>
           <div class="d-flex align-items-center">
-            <nz-avatar nzShape="square"
-                       [nzSize]="28"
-                       nzIcon="picture"
-                       [nzSrc]="invoice?.user.avatar"
-                       style="min-width: 28px;"></nz-avatar>
-            <span class="m-l-10 truncate-1"
-                  [title]="invoice?.user.fullName">{{ invoice?.user.fullName }}</span>
+            <nz-avatar
+              nzShape="square"
+              [nzSize]="28"
+              nzIcon="picture"
+              [nzSrc]="invoice?.user.avatar"
+              style="min-width: 28px"
+            ></nz-avatar>
+            <span class="m-l-10 truncate-1" [title]="invoice?.user.fullName">{{
+              invoice?.user.fullName
+            }}</span>
           </div>
         </td>
-        <td nzEllipsis
-            [title]="invoice?.user.email">
+        <td nzEllipsis [title]="invoice?.user.email">
           {{ invoice?.user.email }}
         </td>
         <td nzEllipsis>
-          <ng-container *ngIf="invoice.type === invoiceType.Course;else memeberShip">
-            <div *ngFor="let item of invoice?.items | slice:0:slice[i]"
-                 class="truncate-1 text-normal">{{ item?.courseName }}</div>
-            <a href=javascript:void(0)
-               *ngIf="invoice?.items.length > 3"
-               (click)="sliceData(i)">[...]</a>
+          <ng-container
+            *ngIf="invoice.type === invoiceType.Course; else memeberShip"
+          >
+            <div
+              *ngFor="let item of invoice?.items | slice: 0:slice[i]"
+              class="truncate-1 text-normal"
+            >
+              {{ item?.courseName }}
+            </div>
+            <a
+              href="javascript:void(0)"
+              *ngIf="invoice?.items.length > 3"
+              (click)="sliceData(i)"
+              >[...]</a
+            >
           </ng-container>
           <ng-template #memeberShip>
             <div>Gói Membership</div>
           </ng-template>
         </td>
         <td>
-          <nz-badge [nzColor]="invoice.status | option: invoiceStatusOptions:'color'"
-                    [nzText]="invoice.status | option: invoiceStatusOptions"></nz-badge>
+          <nz-badge
+            [nzColor]="invoice.status | option: invoiceStatusOptions:'color'"
+            [nzText]="invoice.status | option: invoiceStatusOptions"
+          ></nz-badge>
         </td>
         <td>{{ invoice?.invoicePrice | number }} đ</td>
         <td>{{ invoice?.created | datetime: true }}</td>
@@ -134,43 +176,53 @@
         </td>
         <td class="text-md-right">
           <div class="d-flex justify-content-end">
-            <a (click)="download(invoice?.id, i)"
-               class="m-r-5"
-               nz-button
-               nzType="default"
-               nzShape="circle"
-               nz-tooltip
-               nzTooltipTitle="Tải xuống"
-               *ngIf="!activity.is(i+'downloading') && invoice.status === 'Success'">
-              <i aria-hidden="true"
-                 nz-icon
-                 nzType="vertical-align-bottom"
-                 nzTheme="outline"></i>
-
+            <a
+              (click)="download(invoice?.id, i)"
+              class="m-r-5"
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              nz-tooltip
+              nzTooltipTitle="Tải xuống"
+              *ngIf="
+                !activity.is(i + 'downloading') && invoice.status === 'Success'
+              "
+            >
+              <i
+                aria-hidden="true"
+                nz-icon
+                nzType="vertical-align-bottom"
+                nzTheme="outline"
+              ></i>
             </a>
-            <a class="m-r-5"
-               nz-button
-               nzType="default"
-               nzShape="circle"
-               nz-tooltip
-               nzTooltipTitle="Đang tải"
-               *ngIf="activity.is(i+'downloading') && invoice.status === 'Success'">
-              <i aria-hidden="true"
-                 nz-icon
-                 nzType="loading"
-                 nzTheme="outline"></i>
+            <a
+              class="m-r-5"
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              nz-tooltip
+              nzTooltipTitle="Đang tải"
+              *ngIf="
+                activity.is(i + 'downloading') && invoice.status === 'Success'
+              "
+            >
+              <i
+                aria-hidden="true"
+                nz-icon
+                nzType="loading"
+                nzTheme="outline"
+              ></i>
             </a>
-            <a [routerLink]="['/order-management/order', invoice?.id]"
-               class="m-r-5"
-               nz-button
-               nzType="default"
-               nzShape="circle"
-               nz-tooltip
-               nzTooltipTitle="Chỉnh sửa">
-              <i aria-hidden="true"
-                 nz-icon
-                 nzType="edit"
-                 theme="outline"></i>
+            <a
+              [routerLink]="['/order-management/order', invoice?.id]"
+              class="m-r-5"
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              nz-tooltip
+              nzTooltipTitle="Chỉnh sửa"
+            >
+              <i aria-hidden="true" nz-icon nzType="edit" theme="outline"></i>
             </a>
           </div>
         </td>
@@ -181,5 +233,4 @@
 <ng-template #empty>
   <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
 </ng-template>
-<ng-template #totalTemplate
-             let-total> Tổng cộng: {{ total }} </ng-template>
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>

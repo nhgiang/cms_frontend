@@ -1,56 +1,99 @@
 <nz-card>
 	<nz-spin [nzSpinning]="submiting">
-		<form [formGroup]="form" nz-form>
-			<nz-table [nzTemplateMode]="true">
+		<div class="text-right mb-3">
+			<nz-switch [ngModel]="isVisible"
+								 [nzCheckedChildren]="checkedTemplate"
+								 [nzUnCheckedChildren]="unCheckedTemplate"
+								 (ngModelChange)="visible($event)"></nz-switch>
+			<ng-template #checkedTemplate><i nz-icon
+					 nzType="check"></i></ng-template>
+			<ng-template #unCheckedTemplate><i nz-icon
+					 nzType="close"></i></ng-template>
+		</div>
+		<form [formGroup]="form"
+					nz-form
+					(ngSubmit)="submit()">
+
+			<nz-table [nzTemplateMode]="true"
+								class="mb-4">
 				<thead>
 					<tr>
-						<th scope="col" nzWidth="5%">ID</th>
-						<th scope="col" nzWidth="30%">Câu hỏi</th>
+						<th scope="col"
+								nzWidth="5%">ID</th>
+						<th scope="col"
+								nzWidth="30%">Câu hỏi</th>
 						<th scope="col">Câu trả lời</th>
-						<th scope="col" nzWidth="40px"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<ng-container formArrayName="items" *ngFor="let ctrl of itemsControlArray.controls; let index = index">
+					<ng-container formArrayName="items"
+												*ngFor="let ctrl of itemsControlArray.controls; let index = index">
 						<tr [formGroupName]="index">
 							<td>#{{ index+1 }}</td>
 							<td>
-								<ng-container *ngIf="faqIndexs[index].isEdit;else questionTemp">
-									<nz-form-control [nzErrorTip]="'Câu hỏi phải chứa từ 10 đến 300 ký tự'">
-										<input nz-input formControlName="question" placeholder="Nhập câu hỏi" />
-									</nz-form-control>
-								</ng-container>
+								<nz-form-control [nzErrorTip]="'Câu hỏi phải chứa từ 10 đến 300 ký tự'">
+									<input nz-input
+												 formControlName="question"
+												 placeholder="Nhập câu hỏi" />
+								</nz-form-control>
 								<ng-template #questionTemp>
 									<span class="editable truncate-3">{{ ctrl.value.question }}</span>
 								</ng-template>
 							</td>
 							<td>
-								<ng-container *ngIf="faqIndexs[index].isEdit;else answerTemp">
-									<nz-form-control [nzErrorTip]="'Câu trả lời phải chứa từ 10 đến 600 ký tự'">
-										<textarea nz-input formControlName="answer" [nzAutosize]="{ minRows: 1, maxRows: 3 }"
-											placeholder="Nhập câu trả lời"></textarea>
-									</nz-form-control>
-								</ng-container>
+								<nz-form-control [nzErrorTip]="'Câu trả lời phải chứa từ 10 đến 600 ký tự'">
+									<textarea nz-input
+														formControlName="answer"
+														[nzAutosize]="{ minRows: 1, maxRows: 3 }"
+														placeholder="Nhập câu trả lời"></textarea>
+								</nz-form-control>
 								<ng-template #answerTemp>
 									<span class="editable truncate-3">{{ctrl.value.answer}}</span>
 								</ng-template>
-							</td>
-							<td class="text-md-right">
-								<label class="m-r-5" [for]="'isEdit'+index" nz-button nzType="default" nzShape="circle" nz-tooltip
-									nzTooltipTitle="Chỉnh sửa" (click)="submit(index)" [disabled]="submiting"
-									*ngIf="!faqIndexs[index].isEdit">
-									<i  aria-hidden="true"nz-icon nzType="edit" theme="outline"></i>
-								</label>
-								<label class="m-r-5" [for]="'isEdit'+index" nz-button nzType="default" nzShape="circle" nz-tooltip
-									nzTooltipTitle="Cập nhật" (click)="submit(index)" [disabled]="submiting"
-									*ngIf="faqIndexs[index].isEdit">
-									<i  aria-hidden="true"nz-icon nzType="check" nzTheme="outline"></i>
-								</label>
 							</td>
 						</tr>
 					</ng-container>
 				</tbody>
 			</nz-table>
+			<div class="underline"></div>
+			<div class="row pt-4">
+				<div class="col-5">
+					<nz-card class="w-100 text-footer color-1">
+						<div class="w-100 underline mb-4 pb-4">
+							<h6>Hình ảnh đại diện</h6>
+							<nz-form-item class="mb-0">
+								<nz-form-control>
+									<app-image-cropper-control formControlName="coverAvatar"
+																						 [showAction]="true"
+																						 [allowCrop]="false"
+																						 class="custom-avatar">
+									</app-image-cropper-control>
+								</nz-form-control>
+							</nz-form-item>
+						</div>
+						<div>
+							Size tối đa mỗi tấm ảnh là 5MB<br />
+							Số lượng tối đa là 1 tấm ảnh
+						</div>
+					</nz-card>
+				</div>
+			</div>
+			<div class="text-right">
+				<button type="submit"
+								nz-button
+								nzType="primary"
+								[nzLoading]="submiting">
+					Lưu lại
+				</button>
+				<button class="ml-4"
+								[routerLink]="['/dashboard/home']"
+								type="button"
+								nz-button
+								nzType="primary"
+								nzGhost>
+					Quay lại
+				</button>
+			</div>
 		</form>
 	</nz-spin>
 </nz-card>

@@ -1,4 +1,4 @@
-import { isArray } from 'lodash-es';
+import { cloneDeep, isArray } from 'lodash-es';
 
 export const trimData = (data: any) => {
   if (typeof data === 'object' && !isArray(data)) {
@@ -50,4 +50,32 @@ export const download = (data: Blob, contentType: string, name?: string) => {
   anchor.setAttribute('href', url);
   anchor.setAttribute('target', '_blank');
   anchor.click();
+};
+
+export const bytesToSize = (bytes: number) => {
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  if (bytes === 0) {
+    return '0 Byte';
+  }
+  // tslint:disable-next-line: radix
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+  return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i];
+};
+
+export const isValidValue = (data) => {
+  if (typeof data === 'object') {
+    // tslint:disable-next-line: forin
+    for (const key in data) {
+      if (typeof data[key] === 'object') {
+        isValidValue(data[key]);
+      } else if (!data[key]) {
+        delete data[key];
+      }
+    }
+    console.log(data);
+
+    return data;
+  } else {
+    return data || null;
+  }
 };

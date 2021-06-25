@@ -39,16 +39,19 @@ export class CourseListComponent extends DataTableContainer<Course> implements O
       key: 'studentPrice',
       name: 'Giá học viên',
       sortable: true,
+      class: 'text-right'
     },
     {
       key: 'partnerPrice',
       name: 'Giá đối tác',
       sortable: true,
+      class: 'text-right'
     },
     {
       key: 'totalStudent',
       name: 'Tổng học viên',
       sortable: true,
+      class: 'text-center'
     },
     {
       key: 'created',

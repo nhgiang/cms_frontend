@@ -17,6 +17,7 @@ import {
   concatMap,
   debounceTime,
   distinctUntilChanged,
+  filter,
   finalize,
   startWith,
   switchMap,
@@ -54,6 +55,7 @@ export class SelectAdvanceComponent
   @Input() optionsDisabled: any[];
   @Input() hasNullOption: boolean;
   @Input() nzAllowClear = true;
+  @Input() scrollable = true;
   @Output() readonly csClear = new EventEmitter<void>();
   isLoading = false;
   page = 1;
@@ -128,6 +130,7 @@ export class SelectAdvanceComponent
   loadMore(): void {
     this.loadMore$
       .pipe(
+        filter(() => this.scrollable),
         tap(() => (this.isLoading = true)),
         concatMap(() =>
           this.getOptionsFn({ page: this.page, q: this.q }).pipe(
@@ -145,7 +148,7 @@ export class SelectAdvanceComponent
   private pushToOption = (data: Option<any>[]) => {
     this.options = uniqBy([...this.options, ...data], 'value');
     this.handleDisabledOption();
-  }
+  };
 
   onClear() {
     this.csClear.emit();

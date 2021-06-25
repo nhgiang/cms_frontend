@@ -1,0 +1,346 @@
+<nz-spin [nzSpinning]="false">
+  <form [formGroup]="form" nzLayout="vertical" class="ant-form-vertical">
+    <nz-card>
+      <div class="row align-items-center">
+        <div class="col-xl-6 col-md-6 d-flex justify-content-between">
+          <div
+            class="d-md-flex align-items-center"
+            style="width: 95%; max-width: 500px"
+          >
+            <div class="text-center text-sm-left m-v-15" style="width: 100%">
+              <nz-form-item>
+                <nz-form-control
+                  [nzErrorTip]="'Vui lòng chọn người dùng đang hoạt động'"
+                >
+                  <select-advance
+                    placeholder="Tìm theo email người dùng"
+                    [getOptionsFn]="user$"
+                    formControlName="userId"
+                    [scrollable]="false"
+                  >
+                  </select-advance>
+                </nz-form-control>
+              </nz-form-item>
+
+              <p class="text-opacity font-size-13 m-t-15">
+                Trạng thái:
+                <nz-badge
+                  [nzColor]="
+                    objKey[form.value.userId]?.status
+                      | option: StudentStatusOptions:'color'
+                  "
+                  [nzText]="
+                    objKey[form.value.userId]?.status
+                      | option: StudentStatusOptions
+                  "
+                ></nz-badge>
+              </p>
+            </div>
+          </div>
+          <div class="d-md-block d-none border-left"></div>
+        </div>
+        <div class="col-xl-6 col-md-6">
+          <div class="row">
+            <div class="col font-size-12">
+              <ul class="list-unstyled m-t-10 list-info">
+                <li class="row">
+                  <p class="col-md-4 font-weight-semibold text-dark m-b-5">
+                    <i
+                      aria-hidden="true"
+                      class="m-r-10 text-primary"
+                      nz-icon
+                      nzType="mail"
+                      theme="outline"
+                    ></i>
+                    <span>Email: </span>
+                  </p>
+                  <p class="col-md-8 font-weight-semibold">
+                    {{ objKey[form.value.userId]?.email }}
+                  </p>
+                </li>
+                <li class="row">
+                  <p class="col-md-4 font-weight-semibold text-dark m-b-5">
+                    <i
+                      aria-hidden="true"
+                      class="m-r-10 text-primary"
+                      nz-icon
+                      nzType="phone"
+                      theme="outline"
+                    ></i>
+                    <span>Số điện thoại: </span>
+                  </p>
+                  <p class="col-md-8 font-weight-semibold">
+                    {{ objKey[form.value.userId]?.phoneNumber }}
+                  </p>
+                </li>
+                <li class="row">
+                  <p class="col-md-4 font-weight-semibold text-dark m-b-5">
+                    <i
+                      aria-hidden="true"
+                      class="m-r-10 text-primary"
+                      nz-icon
+                      nzType="man"
+                      theme="outline"
+                    ></i>
+                    <span>Giới tính: </span>
+                  </p>
+                  <p class="col-md-8 font-weight-semibold">
+                    {{ objKey[form.value.userId]?.gender }}
+                  </p>
+                </li>
+                <li class="row">
+                  <p class="col-md-4 font-weight-semibold text-dark m-b-5">
+                    <i
+                      aria-hidden="true"
+                      class="m-r-10 text-primary"
+                      nz-icon
+                      nzType="calendar"
+                      theme="outline"
+                    ></i>
+                    <span>Ngày sinh: </span>
+                  </p>
+                  <p class="col-md-8 font-weight-semibold">
+                    {{ objKey[form.value.userId]?.dateOfBirth | datetime }}
+                  </p>
+                </li>
+                <li class="row">
+                  <p class="col-md-4 font-weight-semibold text-dark m-b-5">
+                    <i
+                      aria-hidden="true"
+                      class="m-r-10 text-primary"
+                      nz-icon
+                      nzType="compass"
+                      theme="outline"
+                    ></i>
+                    <span>Địa chỉ : </span>
+                  </p>
+                  <p class="col-md-8 font-weight-semibold">
+                    {{ objKey[form.value.userId]?.address }}
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nz-card>
+    <div class="row">
+      <div class="col-6">
+        <nz-card>
+          <nz-spin [nzSpinning]="isLoading">
+            <h5>Thông tin hóa đơn</h5>
+            <nz-form-item>
+              <nz-form-label class="text-left">Mã hoá đơn</nz-form-label>
+              <nz-form-control>
+                <input type="text" nz-input formControlName="code" />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label class="text-left"
+                >Thông tin ngân hàng</nz-form-label
+              >
+              <nz-form-control
+                [nzErrorTip]="'Vui lòng chọn thông tin ngân hàng'"
+              >
+                <nz-select
+                  style="min-width: 220px"
+                  class="w-100"
+                  nzPlaceHolder="Nhập thông tin ngân hàng"
+                  formControlName="bankCode"
+                >
+                  <nz-option
+                    [nzLabel]="item.bankCode"
+                    [nzValue]="item.bankCode"
+                    *ngFor="let item of listBank"
+                  ></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label class="text-left"
+                >Mã giao dịch ngân hàng</nz-form-label
+              >
+              <nz-form-control
+                [nzErrorTip]="'Vui lòng nhập mã giao dịch ngân hàng'"
+              >
+                <input
+                  type="text"
+                  nz-input
+                  placeholder="Nhập mã giao dịch ngân hàng"
+                  formControlName="transactionCode"
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label class="text-left"
+                >Thời điểm giao dịch</nz-form-label
+              >
+              <nz-form-control
+                [nzErrorTip]="'Vui lòng chọn thời điểm giao dịch'"
+              >
+                <nz-date-picker
+                  [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                  nzFormat="dd/MM/yyyy HH:mm"
+                  formControlName="transactionTime"
+                  nzPlaceHolder="Chọn thời điểm giao dịch. Định dạng: dd/MM/yyyy HH:mm"
+                  class="w-100"
+                >
+                </nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label class="text-left">Số tiền giao dịch</nz-form-label>
+              <nz-form-control [nzErrorTip]="errorAmountTpl">
+                <input-number
+                  formControlName="transactionAmount"
+                  placeholder="Nhập số tiền giao dịch"
+                  class="w-100"
+                >
+                </input-number>
+              </nz-form-control>
+              <ng-template #errorAmountTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  Vui lòng nhập số tiền
+                </ng-container>
+                <ng-container *ngIf="control.hasError('onlyNumber')">
+                  Số tiền giao dịch phải là một số
+                </ng-container>
+                <ng-container *ngIf="control.hasError('maxLength')">
+                  Số tiền giao dịch không được vượt quá 10 ký tự
+                </ng-container>
+              </ng-template>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label class="text-left"
+                >Trạng thái đơn hàng</nz-form-label
+              >
+              <nz-form-control>
+                <nz-select
+                  style="min-width: 220px"
+                  class="w-100"
+                  nzPlaceHolder="Chọn trạng thái"
+                  formControlName="status"
+                >
+                  <nz-option
+                    [nzLabel]="item.label"
+                    [nzValue]="item.value"
+                    *ngFor="let item of invoiceStatusOptions"
+                  ></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label class="text-left">Ghi chú</nz-form-label>
+              <nz-form-control>
+                <textarea
+                  nz-input
+                  formControlName="note"
+                  placeholder="Nhập ghi chú"
+                  rows="3"
+                >
+                </textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-spin>
+        </nz-card>
+      </div>
+      <div class="col-6">
+        <nz-card>
+          <h5>Thông tin sản phẩm</h5>
+          <select-advance
+            placeholder="Tìm kiếm sản phẩm"
+            [getOptionsFn]="onSearchCourses"
+            [formControl]="search"
+            [hasNullOption]="false"
+            (ngModelChange)="addCourse($event)"
+            [optionsDisabled]="courseOptionsDisabled"
+            [scrollable]="false"
+          >
+          </select-advance>
+
+          <nz-table #itemsTable [nzData]="[1]" [nzShowPagination]="false">
+            <thead>
+              <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Giá gốc</th>
+                <th scope="col">Giá mua</th>
+                <th scope="col">Thời hạn</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container>
+                <tr *ngFor="let item of form.value.items; let index = index">
+                  <td>#{{ index + 1 }}</td>
+                  <td>{{ objCourse[item]?.name }}</td>
+                  <td class="text-nowrap">
+                    {{ objCourse[item]?.studentPrice | number }} đ
+                  </td>
+                  <td>{{ objCourse[item]?.studentPrice | number }} đ</td>
+                  <td>
+                    {{
+                      objCourse[item].id === "Membership"
+                        ? membershipInfo?.days
+                        : membershipInfo?.courseDays
+                    }}
+                    ngày
+                  </td>
+                  <td>
+                    <a
+                      class="m-r-5"
+                      nz-button
+                      nzType="default"
+                      nzShape="circle"
+                      nz-tooltip
+                      nzTooltipTitle="Xóa"
+                      (click)="removeCourse(item)"
+                    >
+                      <i
+                        aria-hidden="true"
+                        nz-icon
+                        nzType="close"
+                        nzTheme="outline"
+                      ></i>
+                    </a>
+                  </td>
+                </tr>
+              </ng-container>
+              <tr>
+                <td></td>
+                <td class="text-primary text-semibold">Tổng tiền</td>
+                <td></td>
+                <td class="text-primary text-semibold text-nowrap">
+                  {{ calcTotalPrice() | number }}
+                  đ
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </nz-card>
+      </div>
+    </div>
+  </form>
+
+  <div class="text-right">
+    <button
+      nz-button
+      type="button"
+      [routerLink]="['../']"
+      nzType="primary"
+      nzGhost
+    >
+      Hủy bỏ
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      type="button"
+      class="ml-3"
+      [disabled]="!form.value?.items?.length"
+      (click)="submit()"
+    >
+      Tạo
+    </button>
+  </div>
+</nz-spin>
