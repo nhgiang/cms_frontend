@@ -16,6 +16,7 @@ import { AboutUs } from 'types/typemodel';
   styleUrls: ['./about-us.component.scss']
 })
 export class AboutUsComponent extends SettingContainer<AboutUs> {
+
   form: FormGroup;
   AssetType = AssetType;
   isEdit: boolean;
@@ -28,7 +29,7 @@ export class AboutUsComponent extends SettingContainer<AboutUs> {
     private notification: NzNotificationService,
     settingVisibleApiService: SettingVisibleApiService
   ) {
-    super(settingVisibleApiService, settingApi, SettingKey.AboutUs, SettingKeyEndPoint.AboutUs)
+    super(settingVisibleApiService, settingApi, SettingKey.AboutUs, SettingKeyEndPoint.AboutUs);
   }
 
   submit() {
@@ -46,12 +47,14 @@ export class AboutUsComponent extends SettingContainer<AboutUs> {
     });
   }
 
+  protected handleResulVisible() {
+    this.notification.success('Thành công', 'Cập nhật cấu hình ưu đãi thành công');
+  }
+
   protected handleResult(result: { res: AboutUs; isVisible: boolean; }) {
     this.form.patchValue(result.res);
     this.isVisible = result.isVisible;
   }
-
-  protected handleResulVisible() { }
 
   protected buildForm() {
     this.form = this.fb.group({
