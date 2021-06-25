@@ -40,7 +40,8 @@ export class AboutUsComponent extends SettingContainer<AboutUs> {
         return this.post(this.form.value);
       }),
       finalize(() => this.isLoading = false)
-    ).subscribe(() => {
+    ).subscribe((res) => {
+      this.form.patchValue(res);
       this.notification.success('Thành công', 'Cập nhật nội dung giới thiệu về chúng tôi thành công!');
     });
   }
@@ -55,8 +56,8 @@ export class AboutUsComponent extends SettingContainer<AboutUs> {
   protected buildForm() {
     this.form = this.fb.group({
       title: [null],
-      image: [null, TValidators.required],
-      content: [null, [TValidators.textRange(0, 1000), TValidators.required]]
+      image: [null],
+      content: [null, [TValidators.textRange(0, 1000)]]
     });
   }
 }
