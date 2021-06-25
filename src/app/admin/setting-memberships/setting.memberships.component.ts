@@ -25,7 +25,7 @@ export class SettingMembershipsComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      price: ['', [TValidators.required, TValidators.onlyNumber()]],
+      price: ['', [TValidators.required]],
       royaltyPercentage: [
         '',
         [TValidators.required, TValidators.numberRange(0, 100)], //inclusive
