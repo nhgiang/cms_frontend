@@ -206,6 +206,19 @@ export interface Partner extends Entity {
   numberOfParticipants: number;
 }
 
+export interface Teacher extends Entity {
+  fullname: string;
+  phoneNumber: string;
+  email: string;
+  specialization: string;
+  address: string;
+  dateOfBirth?: Date;
+  degree?: string;
+  coverLetter?: string;
+  referenceLinks?: string;
+  notes?: string;
+}
+
 export interface Payment {
   method: string;
   bankCode: string;

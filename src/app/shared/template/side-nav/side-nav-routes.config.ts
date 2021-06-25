@@ -218,12 +218,23 @@ export const ROUTES: SideNavInterface[] = [
     ],
   },
   {
-    path: 'partners-registrations',
+    path: 'registrations',
     title: 'Đối tác đăng ký',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'customer-service',
-    submenu: [],
+    submenu: [
+      {
+        path: 'teacher',
+        title: 'Giảng viên đăng ký',
+        submenu: [],
+      },
+      {
+        path: 'partner',
+        title: 'Học viện đăng ký',
+        submenu: [],
+      },
+    ],
   },
   {
     path: 'comment',

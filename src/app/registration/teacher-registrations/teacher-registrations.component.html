@@ -1,0 +1,82 @@
+<nz-card>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-control [nzSpan]="8">
+        <input
+          [formControl]="searchQuery"
+          nz-input
+          placeholder="Tìm kiếm tên, số điện thoại, chuyên môn"
+        />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <nz-table
+    [nzData]="teachers"
+    nzShowPagination
+    [nzFrontPagination]="false"
+    [nzPageIndex]="meta.currentPage"
+    [nzPageSize]="meta.itemsPerPage"
+    [nzTotal]="meta.totalItems"
+    [nzNoResult]="empty"
+    (nzPageIndexChange)="onPageIndexChange($event)"
+    [nzLoading]="isDataLoading"
+    [nzShowTotal]="total"
+  >
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Tên giảng viên</th>
+        <th scope="col">Số điện thoại</th>
+        <th scope="col">Email</th>
+        <th scope="col">Chuyên môn</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let teacher of teachers; index as i">
+        <td>#{{ teacher.teacherIndex }}</td>
+        <td>{{ teacher.fullName }}</td>
+        <td>{{ teacher.phoneNumber }}</td>
+        <td>{{ teacher.email }}</td>
+        <td>{{ teacher.specialization }}</td>
+        <td class="w-100 d-flex align-items-center">
+          <a
+            [routerLink]="['/registrations/teacher', teacher?.id]"
+            class="ml-auto mr-1"
+            nz-button
+            nzType="default"
+            nzShape="circle"
+            nz-tooltip
+            nzTooltipTitle="Chỉnh sửa"
+          >
+            <i aria-hidden="true" nz-icon nzType="edit"></i>
+          </a>
+          <div
+            [confirmation]="
+              'Bạn có chắc chắn muốn xóa thông tin giảng viên này không?'
+            "
+            (confirmed)="deleteTeacher(teacher)"
+          >
+            <a
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              nz-tooltip
+              nzTooltipTitle="Xóa"
+            >
+              <i aria-hidden="true" nz-icon nzType="close"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<ng-template #empty>
+  <nz-empty nzNotFoundContent="Chưa có dữ liệu"></nz-empty>
+</ng-template>
+
+<ng-template #total> Tổng cộng: {{ meta.totalItems }} </ng-template>
