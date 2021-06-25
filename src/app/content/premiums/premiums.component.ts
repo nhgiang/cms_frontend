@@ -42,7 +42,7 @@ export class PremiumsComponent extends SettingContainer<Premium> implements OnIn
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(() => {
-      this.notification.success('Thành công', 'Cập nhật cấu hình ưu đãi thành công');
+      this.notification.success('Thành công', 'Cập nhật thông tin ưu đãi thành công');
     });
   }
 
@@ -51,7 +51,7 @@ export class PremiumsComponent extends SettingContainer<Premium> implements OnIn
     this.isVisible = result.isVisible
   }
   protected handleResulVisible() {
-    this.notification.success('Thành công', 'Cập nhật cấu hình ưu đãi thành công');
+    this.notification.success('Thành công', 'Cập nhật thông tin ưu đãi thành công');
   }
 
   protected buildForm() {

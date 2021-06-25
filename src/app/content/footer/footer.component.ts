@@ -56,7 +56,7 @@ export class FooterComponent implements OnInit {
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(() => {
-      this.notification.success('Thành công', 'Cập nhật cấu hình footer thành công');
+      this.notification.success('Thành công', 'Cập nhật thông tin footer thành công!');
     });
   }
 }

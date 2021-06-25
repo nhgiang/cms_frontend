@@ -77,7 +77,6 @@ export class HeaderComponent implements OnInit {
     );
     this.authService.anonymousPartnerId$.subscribe(res => {
       this.anonymous = res;
-      console.log(this.anonymous);
     });
   }
 

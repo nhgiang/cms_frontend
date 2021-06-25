@@ -68,7 +68,7 @@ export class FeedbackComponent extends SettingContainer<Feedback[]> {
   delete(index) {
     this.feedbacks.splice(index, 1);
     this.post(this.feedbacks).subscribe(() => {
-      this.notification.success('Thành công', 'Xóa đánh giá học viên thành công');
+      this.notification.success('Thành công', 'Xóa thông tin đánh giá học viên thành công!');
     });
   }
 }

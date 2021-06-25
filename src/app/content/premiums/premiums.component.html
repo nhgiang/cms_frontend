@@ -60,7 +60,9 @@
         <nz-form-control [nzErrorTip]="errorLessionTpl">
           <app-file-upload-control formControlName="coverAvatar" [fileType]="assetType.Image" [maxSize]="5000000">
           </app-file-upload-control>
-          <div class="pt-4" style="line-height: 2rem;">Size tối đa mỗi tấm ảnh là 5MB <br />Số lượng tối đa là
+          <div *ngIf="!form.get('coverAvatar').value" class="pt-4" style="line-height: 2rem;">Size tối đa mỗi tấm
+            ảnh
+            là 5MB <br />Số lượng tối đa là
             1 tấm ảnh</div>
         </nz-form-control>
       </nz-form-item>

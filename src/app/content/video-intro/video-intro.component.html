@@ -20,6 +20,11 @@
         <nz-form-control [nzErrorTip]="errFileTemp">
           <app-file-upload-control formControlName="image" [fileType]="AssetType.Image" [maxSize]="5000000">
           </app-file-upload-control>
+          <div *ngIf="!form.get('image').value" class="pt-4" style="line-height: 2rem;">Size tối đa mỗi tấm ảnh
+            là 5MB
+            <br />Số lượng tối đa là
+            1 tấm ảnh
+          </div>
         </nz-form-control>
         <ng-template #errFileTemp let-control>
           <ng-container *ngIf="control.hasError('required')">

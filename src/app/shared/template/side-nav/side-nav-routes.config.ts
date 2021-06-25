@@ -104,8 +104,8 @@ export const ROUTES: SideNavInterface[] = [
     icon: 'profile',
     submenu: [
       {
-        path: 'premiums',
-        title: 'Ưu đãi',
+        path: 'header',
+        title: 'Header',
         submenu: [],
       },
       {
@@ -114,13 +114,23 @@ export const ROUTES: SideNavInterface[] = [
         submenu: [],
       },
       {
-        path: 'feedbacks',
-        title: 'Đánh giá học viên',
+        path: 'education',
+        title: 'Hệ thống khóa học',
         submenu: [],
       },
       {
-        path: 'video-intro',
-        title: 'Video giới thiệu',
+        path: 'hottest-course',
+        title: 'Khóa học hot nhất',
+        submenu: [],
+      },
+      {
+        path: 'premiums',
+        title: 'Ưu đãi',
+        submenu: [],
+      },
+      {
+        path: 'feedbacks',
+        title: 'Đánh giá học viên',
         submenu: [],
       },
       {
@@ -134,18 +144,8 @@ export const ROUTES: SideNavInterface[] = [
         submenu: [],
       },
       {
-        path: 'hottest-course',
-        title: 'Khóa học hot nhất',
-        submenu: [],
-      },
-      {
-        path: 'header',
-        title: 'Header',
-        submenu: [],
-      },
-      {
-        path: 'education',
-        title: 'Hệ thống khóa học',
+        path: 'video-intro',
+        title: 'Video giới thiệu',
         submenu: [],
       },
     ],

@@ -22,7 +22,7 @@ export class BlogHottestComponent implements OnInit {
     private settingApi: SettingApiService<{ blogId: string }[]>,
     private notification: NzNotificationService,
     private postsApi: PostsApiService
-  ) { 
+  ) {
     this.settingApi.setEnpoint(SettingKeyEndPoint.HottestBlog);
   }
 
@@ -44,8 +44,6 @@ export class BlogHottestComponent implements OnInit {
           id: t.blogId
         };
       });
-      console.log(this.optionsDisabled);
-
     });
   }
 

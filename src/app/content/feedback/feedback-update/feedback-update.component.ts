@@ -73,7 +73,7 @@ export class FeedbackUpdateComponent implements OnInit {
       this.isLoading = false;
       this.modalRef.close();
     })).subscribe(() => {
-      this.notification.success('Thành công', 'Cập nhật đánh giá học viên thành công!');
+      this.notification.success('Thành công', 'Cập nhật thông tin đánh giá học viên thành công!');
       this.edited.emit();
     });
   }
