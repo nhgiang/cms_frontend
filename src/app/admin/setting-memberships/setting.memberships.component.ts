@@ -1,3 +1,4 @@
+import { formatNumber } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SettingMembershipsApiService } from '@shared/api/setting-memberships.api.service';
@@ -5,7 +6,6 @@ import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { parse } from 'path';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -25,7 +25,7 @@ export class SettingMembershipsComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      price: ['', [TValidators.required, TValidators.onlyNumber()]],
+      price: ['', [TValidators.required]],
       royaltyPercentage: [
         '',
         [TValidators.required, TValidators.numberRange(0, 100)], //inclusive

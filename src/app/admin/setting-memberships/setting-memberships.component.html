@@ -9,18 +9,14 @@
       <nz-form-item>
         <nz-form-label nzRequired> Giá tiền gói membership </nz-form-label>
         <nz-form-control [nzErrorTip]="customError">
-          <nz-input-group nzSuffix="VND">
-            <input nz-input formControlName="price" />
-          </nz-input-group>
+          <input-number formControlName="price" class="w-100"></input-number>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label nzRequired> Chiết khấu gói membership </nz-form-label>
         <nz-form-control [nzErrorTip]="customError">
-          <nz-input-group nzSuffix="%">
-            <input nz-input type="number" formControlName="royaltyPercentage" />
-          </nz-input-group>
+          <input-number formControlName="royaltyPercentage" class="w-100"></input-number>
         </nz-form-control>
       </nz-form-item>
       <div class="text-right">
