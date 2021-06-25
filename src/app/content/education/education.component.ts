@@ -4,8 +4,9 @@ import { SettingApiService, SettingVisibleApiService } from '@shared/api/setting
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { SettingContainer } from '@shared/class/setting-container';
 import { Ultilities } from '@shared/extentions/Ultilities';
+import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { switchMap } from 'rxjs/operators';
+import { finalize, switchMap } from 'rxjs/operators';
 import { AssetType, SettingKey, SettingKeyEndPoint } from 'types/enums';
 import { Education } from 'types/typemodel';
 
@@ -29,13 +30,13 @@ export class EducationComponent extends SettingContainer<Education> implements O
   }
 
   submit() {
-    Ultilities.validateForm(this.form)
     this.isLoading = true;
     this.storageApi.uploadFile(this.form.value.coverAvatar).pipe(
       switchMap(url => {
         this.form.get('coverAvatar').setValue(url);
         return this.post(this.form.value);
-      })
+      }),
+      finalize(() => this.isLoading = false)
     ).subscribe(() => this.notification.success('Thành công', 'Cập nhật cấu hình nội dung hệ thông khóa học thành công'))
   }
 

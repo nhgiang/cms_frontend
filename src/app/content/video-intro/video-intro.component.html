@@ -1,49 +1,26 @@
 <nz-card>
   <nz-spin [nzSpinning]="isLoading">
     <div class="text-right mb-3">
-      <ng-template #checkedTemplate><i nz-icon
-           nzType="check"></i></ng-template>
-      <ng-template #unCheckedTemplate><i nz-icon
-           nzType="close"></i></ng-template>
+      <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+      <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
     </div>
-    <form [formGroup]="form"
-          nz-form
-          (ngSubmit)="submit()">
+    <form [formGroup]="form" nz-form (ngSubmit)="submit()">
       <nz-form-item>
-        <nz-form-label nzRequired
-                       class="label-space text-left">Tiêu đề background</nz-form-label>
+        <nz-form-label nzRequired class="label-space text-left">Tiêu đề background</nz-form-label>
         <nz-form-control [nzErrorTip]="'Tiêu đề background không được vượt quá 100 ký tự'">
           <nz-input-group>
-            <textarea rows="4"
-                      formControlName="titleBackground"
-                      nz-input
-                      placeholder="Nhập tiêu đề background"></textarea>
+            <textarea rows="4" formControlName="titleBackground" nz-input
+              placeholder="Nhập tiêu đề background"></textarea>
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label nzRequired
-                       class="label-space text-left">Tiêu đề video</nz-form-label>
-        <nz-form-control [nzErrorTip]="'Vui lòng nhập tiêu đề'">
-          <nz-input-group>
-            <textarea rows="4"
-                      formControlName="title"
-                      nz-input
-                      placeholder="Nhập tiêu đề video"></textarea>
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzRequired
-                       class="label-space text-left">Image poster</nz-form-label>
+        <nz-form-label nzRequired class="label-space text-left">Image poster</nz-form-label>
         <nz-form-control [nzErrorTip]="errFileTemp">
-          <app-file-upload-control formControlName="image"
-                                   [fileType]="AssetType.Image"
-                                   [maxSize]="5000000">
+          <app-file-upload-control formControlName="image" [fileType]="AssetType.Image" [maxSize]="5000000">
           </app-file-upload-control>
         </nz-form-control>
-        <ng-template #errFileTemp
-                     let-control>
+        <ng-template #errFileTemp let-control>
           <ng-container *ngIf="control.hasError('required')">
             Vui lòng tải ảnh lên
           </ng-container>
@@ -63,18 +40,10 @@
         </nz-form-control>
       </nz-form-item>
       <div class="text-right">
-        <button nz-button
-                nzType="primary"
-                type="submit"
-                class="mr-3"
-                [nzLoading]="isLoading">
+        <button nz-button nzType="primary" type="submit" class="mr-3" [nzLoading]="isLoading">
           Xác nhận
         </button>
-        <button nz-button
-                nzType="primary"
-                type="button"
-                nzGhost
-                [routerLink]="['/dashboard/home']">
+        <button nz-button nzType="primary" type="button" nzGhost [routerLink]="['/dashboard/home']">
           Quay lại
         </button>
       </div>

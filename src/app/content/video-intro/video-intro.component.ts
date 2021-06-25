@@ -53,12 +53,11 @@ export class VideoIntroComponent extends SettingContainer<VideoIntro> implements
 
   protected handleResult(result: { res: VideoIntro; isVisible: boolean; }) {
     this.form.patchValue(result.res);
-    this.isVisible = result.isVisible
+    this.isVisible = result.isVisible;
   }
 
   protected buildForm() {
     this.form = this.fb.group({
-      title: [null, TValidators.required],
       image: [null, Validators.required],
       video: [null],
       titleBackground: [null, TValidators.maxLength(100)]

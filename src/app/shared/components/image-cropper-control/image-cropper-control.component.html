@@ -2,16 +2,16 @@
   <div class="image-cropper" [class.has-image]="imageUrl && showAction">
     <label [for]="inputId">
       <div class="avatar">
-        <img class="upload" [src]="imageUrl" alt="image upload" *ngIf="imageUrl">
+        <img class="upload" [src]="imageUrl |safeUrl" alt="image upload" *ngIf="imageUrl">
         <div class="upload" *ngIf="!imageUrl">+Upload</div>
       </div>
     </label>
     <div class="actions" *ngIf="imageUrl && showAction">
       <span (click)="previewVisible = true">
-        <i  aria-hidden="true"class="mr-3" nz-icon nzType="eye" nzTheme="outline"></i>
+        <i aria-hidden="true" class="mr-3" nz-icon nzType="eye" nzTheme="outline"></i>
       </span>
       <span (confirmed)="handleRemove()" [confirmation]="'Bạn có chắc chắn muốn xóa ảnh này không?'">
-        <i  aria-hidden="true"nz-icon nzType="delete" nzTheme="outline"></i>
+        <i aria-hidden="true" nz-icon nzType="delete" nzTheme="outline"></i>
       </span>
     </div>
   </div>
@@ -24,6 +24,6 @@
 <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
   (nzOnCancel)="previewVisible = false">
   <ng-template #modalContent>
-    <img [src]="imageUrl" [ngStyle]="{ width: '100%' }" alt="preview"/>
+    <img [src]="imageUrl" [ngStyle]="{ width: '100%' }" alt="preview" />
   </ng-template>
 </nz-modal>

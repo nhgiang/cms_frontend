@@ -1,4 +1,4 @@
-import { isArray } from 'lodash-es';
+import { cloneDeep, isArray } from 'lodash-es';
 
 export const trimData = (data: any) => {
   if (typeof data === 'object' && !isArray(data)) {
@@ -60,4 +60,21 @@ export const bytesToSize = (bytes: number) => {
   // tslint:disable-next-line: radix
   const i = Math.floor(Math.log(bytes) / Math.log(1024));
   return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i];
-}
+};
+
+export const isValidValue = (data) => {
+  if (typeof data === 'object') {
+    const obj = cloneDeep(data);
+    // tslint:disable-next-line: forin
+    for (const key in obj) {
+      if (typeof obj[key] === 'object') {
+        isValidValue(obj[key]);
+      } else {
+        if (obj[key]) { delete obj[key]; }
+      }
+    }
+    return obj;
+  } else {
+    return data || null;
+  }
+};
