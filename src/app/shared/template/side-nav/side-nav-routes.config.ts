@@ -109,11 +109,6 @@ export const ROUTES: SideNavInterface[] = [
         submenu: [],
       },
       {
-        path: 'footer',
-        title: 'Footer',
-        submenu: [],
-      },
-      {
         path: 'education',
         title: 'Hệ thống khóa học',
         submenu: [],
@@ -146,6 +141,11 @@ export const ROUTES: SideNavInterface[] = [
       {
         path: 'video-intro',
         title: 'Video giới thiệu',
+        submenu: [],
+      },
+      {
+        path: 'footer',
+        title: 'Footer',
         submenu: [],
       },
     ],
