@@ -17,7 +17,7 @@ export class SettingApiService<T> extends BaseApi {
   }
 
   post(body: any): Observable<T> {
-    return this.httpClient.post<T>(this.createUrl(``), this.createParams(body));
+    return this.httpClient.post<T>(this.createUrl(``), body);
   }
 }
 
