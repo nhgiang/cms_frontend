@@ -9,7 +9,7 @@
     <form [formGroup]="form" nz-form (ngSubmit)="submit()">
       <nz-form-item>
         <nz-form-label nzRequired class="label-space text-left">Tiêu đề background</nz-form-label>
-        <nz-form-control [nzErrorTip]="'Vui lòng nhập tiêu đề'">
+        <nz-form-control>
           <nz-input-group>
             <textarea rows="4" formControlName="title" nz-input placeholder="Nhập tiêu đề video"></textarea>
           </nz-input-group>

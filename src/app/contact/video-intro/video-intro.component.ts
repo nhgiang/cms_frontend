@@ -20,7 +20,7 @@ export class VideoIntroComponent extends SettingContainer<VideoIntroContact> imp
   form: FormGroup;
   AssetType = AssetType;
   isloading: boolean;
-  
+
   constructor(
     private fb: FormBuilder,
     private storageApi: StorageApiService,
@@ -53,11 +53,11 @@ export class VideoIntroComponent extends SettingContainer<VideoIntroContact> imp
     this.form.patchValue(result.res);
     this.isVisible = result.isVisible;
   }
-  protected handleResulVisible() {}
-  
+  protected handleResulVisible() { }
+
   protected buildForm() {
     this.form = this.fb.group({
-      title: [null, TValidators.required],
+      title: [null],
       image: [null, Validators.required],
       video: [null]
     });

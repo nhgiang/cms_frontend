@@ -59,10 +59,10 @@ export class ContactsComponent extends SettingContainer<AboutUs> {
   protected buildForm() {
     this.form = this.fb.group({
       coverAvatar: [null],
-      companyName: [null, [TValidators.required]],
-      address: [null, [TValidators.required]],
-      email: [null, [TValidators.required]],
-      phoneNumber: [null, [TValidators.required]]
+      companyName: [null, [TValidators.required, TValidators.maxLength(200)]],
+      address: [null, [TValidators.required, TValidators.maxLength(200)]],
+      email: [null, [TValidators.required, TValidators.emailRules]],
+      phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]]
     });
   }
 }

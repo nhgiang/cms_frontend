@@ -48,7 +48,7 @@ export class AboutUsComponent extends SettingContainer<AboutUs> {
   }
 
   protected handleResulVisible() {
-    this.notification.success('Thành công', 'Cập nhật cấu hình ưu đãi thành công');
+    this.notification.success('Thành công', 'Cập nhật nội dung giới thiệu về chúng tôi thành công!');
   }
 
   protected handleResult(result: { res: AboutUs; isVisible: boolean; }) {
