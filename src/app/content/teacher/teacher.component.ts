@@ -83,7 +83,7 @@ export class TeacherComponent extends SettingContainer<SettingTeacher> implement
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(() => {
-      this.notification.success('Thành công', 'Cập nhật thông tin section giảng viên thành công');
+      this.notification.success('Thành công', 'Cập nhật thông tin giảng viên thành công!');
     });
   }
 
@@ -93,7 +93,7 @@ export class TeacherComponent extends SettingContainer<SettingTeacher> implement
   }
 
   protected handleResulVisible() {
-    this.notification.success('Thành công', 'Cập nhật thông tin section giảng viên thành công');
+    this.notification.success('Thành công', 'Cập nhật thông tin giảng viên thành công!');
   }
 
   buildForm() {
