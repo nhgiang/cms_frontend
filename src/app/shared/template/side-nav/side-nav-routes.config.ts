@@ -172,6 +172,11 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Câu chuyện',
         submenu: [],
       },
+      {
+        path: 'contact-info',
+        title: 'Liên hệ',
+        submenu: [],
+      },
     ],
   },
   {

@@ -5,6 +5,7 @@ import { ContactRoutes } from './contact.routing';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { StoryComponent } from './story/story.component';
 import { VideoIntroComponent } from './video-intro/video-intro.component';
+import { ContactsComponent } from './contact/contact.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { VideoIntroComponent } from './video-intro/video-intro.component';
   declarations: [
     AboutUsComponent,
     StoryComponent,
-    VideoIntroComponent
+    VideoIntroComponent,
+    ContactsComponent
   ]
 })
 export class ContactModule { }
