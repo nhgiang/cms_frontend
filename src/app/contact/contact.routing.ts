@@ -2,7 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ContactsComponent } from './contact/contact.component';
 import { StoryComponent } from './story/story.component';
-import { VideoIntroComponent } from './video-intro/video-intro.component';
+import { VideoIntroContactComponent } from './video-intro/video-intro.component';
 
 const routes: Routes = [
   {
@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'video',
-    component: VideoIntroComponent,
+    component: VideoIntroContactComponent,
     data: {
       title: 'Video giới thiệu'
     }

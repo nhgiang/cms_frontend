@@ -16,7 +16,7 @@ import { VideoIntro, VideoIntroContact } from 'types/typemodel';
   templateUrl: './video-intro.component.html',
   styleUrls: ['./video-intro.component.scss']
 })
-export class VideoIntroComponent extends SettingContainer<VideoIntroContact> implements OnInit {
+export class VideoIntroContactComponent extends SettingContainer<VideoIntroContact> implements OnInit {
   form: FormGroup;
   AssetType = AssetType;
   isloading: boolean;
