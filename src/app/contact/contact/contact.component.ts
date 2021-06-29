@@ -48,7 +48,7 @@ export class ContactsComponent extends SettingContainer<AboutUs> {
   }
 
   protected handleResulVisible() {
-    this.notification.success('Thành công', 'Cập nhật thông tin liên hệ thành công');
+    this.notification.success('Thành công', 'Cập nhật nội dung thông tin liên hệ thành công');
   }
 
   protected handleResult(result: { res: AboutUs; isVisible: boolean; }) {

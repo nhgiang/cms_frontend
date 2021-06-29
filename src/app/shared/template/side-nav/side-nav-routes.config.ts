@@ -163,13 +163,13 @@ export const ROUTES: SideNavInterface[] = [
         submenu: [],
       },
       {
-        path: 'about-us',
-        title: 'Về chúng tôi',
+        path: 'story',
+        title: 'Câu chuyện',
         submenu: [],
       },
       {
-        path: 'story',
-        title: 'Câu chuyện',
+        path: 'about-us',
+        title: 'Về chúng tôi',
         submenu: [],
       },
       {

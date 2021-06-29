@@ -56,7 +56,7 @@ export class StoryComponent extends SettingContainer<Story> {
       finalize(() => this.isLoading = false)
     ).subscribe((res) => {
       this.form.patchValue(res);
-      this.notification.success('Thành công', 'Cập nhật nội dung thông tin liên hệ thành công!');
+      this.notification.success('Thành công', 'Cập nhật thông tin câu chuyện thành công!');
     });
   }
 }
