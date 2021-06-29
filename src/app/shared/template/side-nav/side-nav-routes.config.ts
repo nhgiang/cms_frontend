@@ -104,23 +104,33 @@ export const ROUTES: SideNavInterface[] = [
     icon: 'profile',
     submenu: [
       {
-        path: 'premiums',
-        title: 'Ưu đãi',
-        submenu: [],
-      },
-      {
-        path: 'footer',
-        title: 'Footer',
-        submenu: [],
-      },
-      {
-        path: 'feedbacks',
-        title: 'Đánh giá học viên',
+        path: 'header',
+        title: 'Header',
         submenu: [],
       },
       {
         path: 'video-intro',
         title: 'Video giới thiệu',
+        submenu: [],
+      },
+      {
+        path: 'education',
+        title: 'Hệ thống khóa học',
+        submenu: [],
+      },
+      {
+        path: 'hottest-course',
+        title: 'Khóa học hot nhất',
+        submenu: [],
+      },
+      {
+        path: 'premiums',
+        title: 'Ưu đãi',
+        submenu: [],
+      },
+      {
+        path: 'feedbacks',
+        title: 'Đánh giá học viên',
         submenu: [],
       },
       {
@@ -134,8 +144,8 @@ export const ROUTES: SideNavInterface[] = [
         submenu: [],
       },
       {
-        path: 'hottest-course',
-        title: 'Khóa học hot nhất',
+        path: 'footer',
+        title: 'Footer',
         submenu: [],
       },
     ],
@@ -153,13 +163,18 @@ export const ROUTES: SideNavInterface[] = [
         submenu: [],
       },
       {
+        path: 'story',
+        title: 'Câu chuyện',
+        submenu: [],
+      },
+      {
         path: 'about-us',
         title: 'Về chúng tôi',
         submenu: [],
       },
       {
-        path: 'story',
-        title: 'Câu chuyện',
+        path: 'contact-info',
+        title: 'Liên hệ',
         submenu: [],
       },
     ],
@@ -208,12 +223,23 @@ export const ROUTES: SideNavInterface[] = [
     ],
   },
   {
-    path: 'partners',
+    path: 'registrations',
     title: 'Đối tác đăng ký',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'customer-service',
-    submenu: [],
+    submenu: [
+      {
+        path: 'teacher',
+        title: 'Giảng viên đăng ký',
+        submenu: [],
+      },
+      {
+        path: 'partner',
+        title: 'Học viện đăng ký',
+        submenu: [],
+      },
+    ],
   },
   {
     path: 'comment',
@@ -262,16 +288,15 @@ export const ROUTES: SideNavInterface[] = [
         icon: 'fund',
         submenu: [],
       },
+      {
+        path: 'occupations',
+        title: 'Báo cáo nghề nghiệp',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'money-collect',
+        submenu: [],
+      },
     ],
-  },
-  {
-    path: 'payment-methods',
-    title: 'Thông tin ngân hàng',
-    iconType: 'nzIcon',
-    iconTheme: 'outline',
-    icon: 'bank',
-    isAdminOnly: true,
-    submenu: [],
   },
   {
     path: 'settings-help',

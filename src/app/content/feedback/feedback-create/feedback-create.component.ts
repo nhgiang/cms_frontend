@@ -7,7 +7,8 @@ import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, switchMap } from 'rxjs/operators';
-import { SettingFeedback, FileModel } from 'types/typemodel';
+import { SettingKeyEndPoint } from 'types/enums';
+import { SettingFeedback, FileModel, Feedback } from 'types/typemodel';
 import { trimData } from 'utils/common';
 
 @Component({
@@ -24,11 +25,13 @@ export class FeedbackCreateComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private settingApi: SettingApiService,
+    private settingApi: SettingApiService<Feedback>,
     private storageApi: StorageApiService,
     private notification: NzNotificationService,
     private modalRef: NzModalRef,
-  ) { }
+  ) {
+    this.settingApi.setEnpoint(SettingKeyEndPoint.Feedback)
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -65,12 +68,12 @@ export class FeedbackCreateComponent implements OnInit {
         ...this.form.value
       };
       this.feedbacks.push(trimData(data));
-      return this.settingApi.feedbacks.post(this.feedbacks);
+      return this.settingApi.post(this.feedbacks);
     }), finalize(() => {
       this.isLoading = false;
       this.modalRef.close();
     })).subscribe(() => {
-      this.notification.success('Thành công', 'Thêm mới đánh giá học viên thành công!');
+      this.notification.success('Thành công', 'Thêm mới thông tin đánh giá học viên thành công!');
       this.created.emit();
     });
   }

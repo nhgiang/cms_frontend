@@ -1,0 +1,91 @@
+<div>
+  <form [formGroup]="myForm">
+    <div class="row">
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label class="text-left w-100" nzRequired>Tên học viện</nz-form-label>
+          <nz-form-control nzErrorTip="Vui lòng nhập tên học viện" class="w-75">
+            <input style="width: 90%" type="text" nz-input formControlName="name">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label class="text-left input-space w-100" nzRequired>Tên người đại diện</nz-form-label>
+          <nz-form-control nzErrorTip="Vui lòng nhập tên người đại diện">
+            <input style="width: 90%" type="text" nz-input formControlName="representative">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label class="text-left w-100" nzRequired>Địa chỉ</nz-form-label>
+          <nz-form-control class="w-75" nzErrorTip="Vui lòng nhập địa chỉ">
+            <input style="width: 90%" type="text" nz-input formControlName="address">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label class="text-left input-space w-100" nzRequired>Số điện thoại</nz-form-label>
+          <nz-form-control [nzErrorTip]="errorPhone">
+            <input style="width: 90%" type="text" nz-input formControlName="phoneNumber">
+          </nz-form-control>
+          <ng-template #errorPhone>
+            <ng-container *ngIf="myForm.get('phoneNumber').hasError('phoneNumber')">
+              Vui lòng nhập đúng định dạng số điện thoại
+            </ng-container>
+            <ng-container *ngIf="myForm.get('phoneNumber').hasError('required')">
+              Vui lòng nhập số điện thoại
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label class="text-left w-100" nzRequired>Quy mô</nz-form-label>
+          <nz-form-control [nzErrorTip]="errorSize" class="w-75">
+            <input [min]="1" style="width: 90%" type="number" nz-input formControlName="size">
+            <ng-template #errorSize>
+              <ng-container
+                *ngIf="myForm.get('size').hasError('onlyNumber') || myForm.get('size').hasError('maxLength')">
+                Quy mô phải là số nguyên dương và không được quá 6 chữ số
+              </ng-container>
+              <ng-container *ngIf="myForm.get('size').hasError('required')">
+                Vui lòng nhập quy mô
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label class="text-left input-space w-100" nzRequired>Email người liên hệ</nz-form-label>
+          <nz-form-control [nzErrorTip]="errorEmail">
+            <input style="width: 90%" type="text" nz-input formControlName="email">
+          </nz-form-control>
+          <ng-template #errorEmail>
+            <ng-container *ngIf="myForm.get('email').hasError('required')">
+              Vui lòng nhập email
+            </ng-container>
+            <ng-container *ngIf="myForm.get('email').hasError('emailRules')">
+              Vui lòng nhập email đúng định dạng
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+    </div>
+
+
+    <div class="text-right btn-step-1">
+      <button nz-button type="button" [routerLink]="'/master/partners'" nzType="primary" nzGhost>Quay
+        lại</button>
+      <button nz-button nzType="primary" type="button" class="ml-3" (click)="submit()">Xác
+        nhận</button>
+    </div>
+  </form>
+</div>

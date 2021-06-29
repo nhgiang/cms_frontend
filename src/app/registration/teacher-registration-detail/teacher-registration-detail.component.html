@@ -1,0 +1,141 @@
+<nz-card nzTitle="Thông tin cơ bản">
+  <nz-spin [nzSpinning]="isLoading">
+    <form nz-form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzRequired>Họ và tên</nz-form-label>
+            <nz-form-control [nzErrorTip]="errorFullNameTpl">
+              <input
+                nz-input
+                formControlName="fullName"
+                placeholder="Nhập Họ và tên"
+              />
+            </nz-form-control>
+            <ng-template #errorFullNameTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Vui lòng nhập họ và tên
+              </ng-container>
+              <ng-container *ngIf="control.hasError('textRange')">
+                Vui lòng nhập từ 1 đến 100 kí tự
+              </ng-container>
+            </ng-template>
+          </nz-form-item>
+        </div>
+
+        <div class="col-md-6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6">Link thêm</nz-form-label>
+            <nz-form-control nzErrorTip="Vui lòng nhập họ và tên">
+              <input nz-input formControlName="referenceLinks" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div class="col-md-6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzRequired>Chuyên môn</nz-form-label>
+            <nz-form-control [nzErrorTip]="errorSpecializationTpl">
+              <input nz-input formControlName="specialization" />
+            </nz-form-control>
+            <ng-template #errorSpecializationTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Vui lòng nhập chuyên môn
+              </ng-container>
+              <ng-container *ngIf="control.hasError('textRange')">
+                Vui lòng nhập từ 1 đến 100 kí tự
+              </ng-container>
+            </ng-template>
+          </nz-form-item>
+        </div>
+
+        <div class="col-md-6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6">Địa chỉ</nz-form-label>
+            <nz-form-control nzErrorTip="Vui lòng nhập tối đa 300 kí tự">
+              <input nz-input formControlName="address" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div class="col-md-6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzRequired>Phone</nz-form-label>
+            <nz-form-control [nzErrorTip]="errorPhoneTpl">
+              <input nz-input formControlName="phoneNumber" />
+            </nz-form-control>
+            <ng-template #errorPhoneTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Vui lòng nhập số điện thoại
+              </ng-container>
+              <ng-container *ngIf="control.hasError('phoneNumber')">
+                Số điện thoại không hợp lệ
+              </ng-container>
+            </ng-template>
+          </nz-form-item>
+        </div>
+
+        <div class="col-md-6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6">Bằng cấp</nz-form-label>
+            <nz-form-control nzErrorTip="Vui lòng nhập tối đa 300 kí tự">
+              <input nz-input formControlName="degree" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div class="col-md-6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzRequired>E-mail</nz-form-label>
+            <nz-form-control [nzErrorTip]="errorEmailTpl">
+              <input nz-input formControlName="email" />
+            </nz-form-control>
+            <ng-template #errorEmailTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Vui lòng nhập Email
+              </ng-container>
+              <ng-container *ngIf="control.hasError('emailRules')">
+                Không đúng định dạng email
+              </ng-container>
+              <ng-container *ngIf="control.hasError('maxLength')">
+                Vui lòng nhập tối đa 100 kí tự
+              </ng-container>
+            </ng-template>
+          </nz-form-item>
+        </div>
+
+        <div class="col-md-6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6">CV</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="coverLetter" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div class="col-md-12">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="3">Ghi chú</nz-form-label>
+            <nz-form-control [nzErrorTip]="'Vui lòng nhập mô tả'">
+              <input nz-input formControlName="bio" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div class="text-center">
+        <a class="m-r-10" nz-button [routerLink]="['/registrations/teacher']">
+          Thoát
+        </a>
+        <button
+          type="submit"
+          nz-button
+          nzType="primary"
+          (click)="submitForm()"
+          [nzLoading]="isLoading"
+        >
+          Lưu lại
+        </button>
+      </div>
+    </form>
+  </nz-spin>
+</nz-card>

@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EducationComponent } from './education/education.component';
 import { FaqComponent } from './faq/faq.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { FooterComponent } from './footer/footer.component';
 import { HottestCourseComponent } from './hottest-course/hottest-course.component';
 import { PremiumsComponent } from './premiums/premiums.component';
+import { SettingHeaderComponent } from './setting-header/setting-header.component';
 import { TeacherComponent } from './teacher/teacher.component';
 import { VideoIntroComponent } from './video-intro/video-intro.component';
 
@@ -56,6 +58,20 @@ const routes: Routes = [
     component: HottestCourseComponent,
     data: {
       title: 'Khóa học hot nhất'
+    }
+  },
+  {
+    path: 'header',
+    component: SettingHeaderComponent,
+    data: {
+      title: 'Header'
+    }
+  },
+  {
+    path: 'education',
+    component: EducationComponent,
+    data: {
+      title: 'Hệ thống khóa học'
     }
   }
 ];

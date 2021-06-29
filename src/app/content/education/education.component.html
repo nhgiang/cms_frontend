@@ -1,0 +1,45 @@
+<nz-card>
+  <nz-spin [nzSpinning]="isLoading">
+    <div class="text-right mb-3">
+      <nz-switch [ngModel]="isVisible" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"
+        (ngModelChange)="visible($event)"></nz-switch>
+      <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+      <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="submit()" nz-form nzLayout="vertical">
+      <div class="row">
+        <div class="col-5">
+          <nz-card class="w-100 text-footer color-1">
+            <div class="w-100 underline mb-4 pb-4">
+              <h6>Hình ảnh đại diện</h6>
+              <nz-form-item class="mb-0">
+                <nz-form-control>
+                  <app-image-cropper-control formControlName="coverAvatar" [showAction]="true" [allowCrop]="false"
+                    class="custom-avatar">
+                  </app-image-cropper-control>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div>
+              Size tối đa mỗi tấm ảnh là 5MB<br />
+              Số lượng tối đa là 1 tấm ảnh
+            </div>
+          </nz-card>
+        </div>
+      </div>
+      <div class="underline mb-3"></div>
+      <div class="note">
+        <h5>Danh mục khóa học</h5>
+        <p>Danh mục loại khóa học được hiển thị tại website được hệ thống sắp xếp tự động theo lượt mua</p>
+      </div>
+      <div class="text-right">
+        <button type="submit" nz-button nzType="primary">
+          Lưu lại
+        </button>
+        <button class="ml-4" [routerLink]="['/dashboard/home']" type="button" nz-button nzType="primary" nzGhost>
+          Quay lại
+        </button>
+      </div>
+    </form>
+  </nz-spin>
+</nz-card>

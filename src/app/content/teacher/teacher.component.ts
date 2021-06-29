@@ -1,12 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { SettingApiService } from '@shared/api/setting.api.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SettingApiService, SettingVisibleApiService } from '@shared/api/setting.api.service';
+import { StorageApiService } from '@shared/api/storage.api.service';
+import { SettingContainer } from '@shared/class/setting-container';
+import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { DestroyService } from '@shared/services/destroy.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Subject } from 'rxjs';
-import { debounceTime, skip, switchMap, takeUntil, takeWhile } from 'rxjs/operators';
+import { finalize, switchMap, takeUntil } from 'rxjs/operators';
+import { AssetType, SettingKey, SettingKeyEndPoint } from 'types/enums';
 import { SettingTeacher } from 'types/typemodel';
 import { ContentStateService } from '../content-state.service';
 import { TeacherCreateComponent } from './teacher-create/teacher-create.component';
@@ -18,43 +22,33 @@ import { TeacherUpdateComponent } from './teacher-update/teacher-update.componen
   styleUrls: ['./teacher.component.scss'],
   providers: [DestroyService],
 })
-export class TeacherComponent implements OnInit, OnDestroy {
+export class TeacherComponent extends SettingContainer<SettingTeacher> implements OnInit, OnDestroy {
   settingTeachers: SettingTeacher;
-  description: FormControl;
+  form: FormGroup;
   pageIndex = 1;
   destroy$ = new Subject();
+  assetType = AssetType;
+
   constructor(
+    settingApi: SettingApiService<SettingTeacher>,
+    settingVisibleApi: SettingVisibleApiService,
     private contentState: ContentStateService,
-    private settingApi: SettingApiService,
     private modalService: NzModalService,
     private destroy: DestroyService,
-    private notification: NzNotificationService
-  ) { }
+    private notification: NzNotificationService,
+    private fb: FormBuilder,
+    private storageApi: StorageApiService
+  ) {
+    super(settingVisibleApi, settingApi, SettingKey.Teacher, SettingKeyEndPoint.Teacher)
+  }
 
   ngOnInit(): void {
-    this.description = new FormControl(null, TValidators.textRange(1, 500));
+    super.ngOnInit();
     this.contentState.setttingTeacher$
       .pipe(takeUntil(this.destroy))
       .subscribe((res) => {
         this.settingTeachers = res;
-        if (this.description.value !== res?.description) {
-          this.description.setValue(res?.description);
-        }
-      });
-    this.settingApi.teacher.get().subscribe((res) => {
-      this.contentState.initState(res);
-    });
-    this.description.valueChanges.pipe(
-      skip(1),
-      takeWhile(val => {
-        this.description.markAsDirty();
-        return this.description.valid;
-      }),
-      debounceTime(1000),
-      switchMap(val => {
-        return this.contentState.updateDescripton(val.trim());
-      })).subscribe(() => {
-        this.notification.success('Thành công', 'Cập nhật mô tả chung thành công!');
+        this.form.patchValue(res);
       });
   }
 
@@ -76,6 +70,37 @@ export class TeacherComponent implements OnInit, OnDestroy {
       nzTitle: 'Cập nhật thông tin giảng viên',
       nzContent: TeacherUpdateComponent,
       nzComponentParams: { index },
+    });
+  }
+
+  updateContent() {
+    Ultilities.validateForm(this.form);
+    this.isLoading = true;
+    this.storageApi.uploadFile(this.form.value.coverAvatar).pipe(
+      switchMap(url => {
+        this.form.get('coverAvatar').setValue(url);
+        return this.contentState.updateContent(this.form.value);
+      }),
+      finalize(() => this.isLoading = false)
+    ).subscribe(() => {
+      this.notification.success('Thành công', 'Cập nhật thông tin giảng viên thành công!');
+    });
+  }
+
+  protected handleResult(result: { res: SettingTeacher; isVisible: boolean; }) {
+    this.contentState.initState(result.res);
+    this.isVisible = result.isVisible
+  }
+
+  protected handleResulVisible() {
+    this.notification.success('Thành công', 'Cập nhật thông tin giảng viên thành công!');
+  }
+
+  buildForm() {
+    this.form = this.fb.group({
+      description: [null, TValidators.textRange(1, 500)],
+      coverAvatar: [null],
+      title: ['Giảng viên']
     });
   }
 

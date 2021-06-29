@@ -1,17 +1,19 @@
 import {
   LocationStrategy,
   PathLocationStrategy,
-  registerLocaleData
+  registerLocaleData,
 } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import vi from '@angular/common/locales/vi';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '@env';
 import { API_BASE_URL } from '@shared/api/base-url';
+import { PartnersApiService } from '@shared/api/partners.api.service';
 import { ErrorInterceptor } from '@shared/interceptor/error.interceptor';
 import { JwtInterceptor } from '@shared/interceptor/token.interceptor';
+import { AuthenticationService } from '@shared/services/authentication.service';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { ThemeConstantService } from '@shared/services/theme-constant.service';
 import { SharedModule } from '@shared/shared.module';
@@ -21,6 +23,7 @@ import { NgChartjsModule } from 'ng-chartjs';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
 import { NZ_DATE_LOCALE, NZ_I18N, vi_VN } from 'ng-zorro-antd/i18n';
+import { tap } from 'rxjs/operators';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { Error404Component } from './authentication/error404/error404.component';
@@ -28,9 +31,28 @@ import { Error500Component } from './authentication/error500/error500.component'
 import { ConfigQuickContactComponent } from './config-quick-contact/config-quick-contact.component';
 import { CommonLayoutComponent } from './layouts/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
-import { PartnersComponent } from './partners/partners.component';
 
 registerLocaleData(vi);
+
+const appInit = (
+  partnersApi: PartnersApiService,
+  authenticationService: AuthenticationService
+) => {
+  return () => {
+    const domain = location.host;
+    return partnersApi
+      .getDomain(
+        domain.replace('cms.', '').includes('localhost')
+          ? 'qa.beautyup.asia'
+          : domain.replace('cms.', '')
+      )
+      .pipe(tap(console.log))
+      .toPromise()
+      .then((res) => {
+        authenticationService.partnerId = res;
+      });
+  };
+};
 
 const ngZorroConfig: NzConfig = {
   modal: {
@@ -46,7 +68,6 @@ const ngZorroConfig: NzConfig = {
     Error404Component,
     Error500Component,
     ConfigQuickContactComponent,
-    PartnersComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +79,12 @@ const ngZorroConfig: NzConfig = {
     NgChartjsModule,
   ],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInit,
+      multi: true,
+      deps: [PartnersApiService, AuthenticationService],
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
@@ -90,7 +117,7 @@ const ngZorroConfig: NzConfig = {
     },
     {
       provide: NZ_DATE_LOCALE,
-      useValue: viVN
+      useValue: viVN,
     },
     ThemeConstantService,
   ],

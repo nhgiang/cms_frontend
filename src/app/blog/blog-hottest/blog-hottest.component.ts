@@ -4,6 +4,7 @@ import { PostsApiService } from '@shared/api/posts.api.service';
 import { SettingApiService } from '@shared/api/setting.api.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, map, tap } from 'rxjs/operators';
+import { SettingKeyEndPoint } from 'types/enums';
 import { Blog } from 'types/typemodel';
 
 @Component({
@@ -18,16 +19,18 @@ export class BlogHottestComponent implements OnInit {
   isLoading: boolean;
   constructor(
     private fb: FormBuilder,
-    private settingApi: SettingApiService,
+    private settingApi: SettingApiService<{ blogId: string }[]>,
     private notification: NzNotificationService,
     private postsApi: PostsApiService
-  ) { }
+  ) {
+    this.settingApi.setEnpoint(SettingKeyEndPoint.HottestBlog);
+  }
 
   ngOnInit(): void {
     this.form = this.fb.array(Array(3).fill(0).map(() => this.fb.group({
       blogId: [null]
     })));
-    this.settingApi.hottestBlog.get().subscribe(res => {
+    this.settingApi.get().subscribe(res => {
       const data = res.map(t => {
         return {
           blogId: t.blogId ?? 0
@@ -41,8 +44,6 @@ export class BlogHottestComponent implements OnInit {
           id: t.blogId
         };
       });
-      console.log(this.optionsDisabled);
-
     });
   }
 
@@ -63,7 +64,7 @@ export class BlogHottestComponent implements OnInit {
         blogId: val.blogId || null
       };
     });
-    this.settingApi.hottestBlog.post(body).pipe(finalize(() => this.isLoading = false)).subscribe(() => {
+    this.settingApi.post(body).pipe(finalize(() => this.isLoading = false)).subscribe(() => {
       this.notification.success('Thành công', 'Cập nhật thông tin bài viết hot nhất thành công');
     });
   }

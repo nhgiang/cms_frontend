@@ -13,6 +13,8 @@ import { TeacherCreateComponent } from './teacher/teacher-create/teacher-create.
 import { TeacherUpdateComponent } from './teacher/teacher-update/teacher-update.component';
 import { VideoIntroComponent } from './video-intro/video-intro.component';
 import { HottestCourseComponent } from './hottest-course/hottest-course.component';
+import { SettingHeaderComponent } from './setting-header/setting-header.component';
+import { EducationComponent } from './education/education.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { HottestCourseComponent } from './hottest-course/hottest-course.componen
     TeacherCreateComponent,
     TeacherUpdateComponent,
     VideoIntroComponent,
-    HottestCourseComponent
+    HottestCourseComponent,
+    SettingHeaderComponent,
+    EducationComponent
   ],
   imports: [
     CommonModule,

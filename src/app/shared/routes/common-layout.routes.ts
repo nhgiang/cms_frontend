@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthorizeByRoleGuard } from '@shared/guards/authorize-by-role.guard';
+import { AuthorizeRoleMasterGuard } from '@shared/guards/authorize-role-master.guard';
 import { ConfigQuickContactComponent } from 'src/app/config-quick-contact/config-quick-contact.component';
-import { PartnersComponent } from 'src/app/partners/partners.component';
 
 export const CommonLayoutRoutes: Routes = [
   {
@@ -97,17 +97,30 @@ export const CommonLayoutRoutes: Routes = [
     },
   },
   {
-    path: 'partners',
-    component: PartnersComponent,
+    path: 'registrations',
+    canActivate: [AuthorizeByRoleGuard],
+    loadChildren: () =>
+      import('src/app/registration/registration.module').then(
+        (m) => m.RegistrationsModule
+      ),
     data: {
-      title: 'Danh sách đối tác đăng ký',
+      title: 'Đối tác đăng ký',
     },
   },
   {
-    path: 'payment-methods',
+    path: 'master',
+    canActivate: [AuthorizeRoleMasterGuard],
+    loadChildren: () =>
+      import('src/app/master/master.module').then((m) => m.MasterModule),
+    data: {
+      title: 'Quyền master',
+    },
+  },
+  {
+    path: 'admin',
     canActivate: [AuthorizeByRoleGuard],
     loadChildren: () =>
-      import('src/app/payments/payments.module').then((m) => m.PaymentsModule),
+      import('src/app/admin/admin.module').then((m) => m.AdminModule),
     data: {
       title: 'Quyền quản trị admin',
     },

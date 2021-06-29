@@ -1,16 +1,17 @@
 <nz-card>
   <nz-spin [nzSpinning]="isloading">
+    <div class="text-right mb-3">
+      <nz-switch [ngModel]="isVisible" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"
+        (ngModelChange)="visible($event)"></nz-switch>
+      <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+      <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+    </div>
     <form [formGroup]="form" nz-form (ngSubmit)="submit()">
-      <div class="card-header">
-        <h5>
-          <span>Video intro</span>
-        </h5>
-      </div>
       <nz-form-item>
-        <nz-form-label nzRequired class="label-space text-left">Tiêu đề video</nz-form-label>
-        <nz-form-control [nzErrorTip]="'Vui lòng nhập tiêu đề'">
+        <nz-form-label nzRequired class="label-space text-left">Title background</nz-form-label>
+        <nz-form-control>
           <nz-input-group>
-            <textarea rows="4" formControlName="title" nz-input placeholder="Nhập tiêu đề video"></textarea>
+            <textarea rows="4" formControlName="title" nz-input placeholder="Nhập title background"></textarea>
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>

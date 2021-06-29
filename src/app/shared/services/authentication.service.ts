@@ -11,6 +11,8 @@ export class AuthenticationService {
   private baseURL = `${environment.api}/auth`;
   private currentUserSubject: BehaviorSubject<User>;
   readonly currentUser: Observable<User>;
+  anonymousPartnerId$: BehaviorSubject<any>;
+  partnerId: string;
 
   constructor(
     private httpClient: HttpClient,
@@ -18,6 +20,22 @@ export class AuthenticationService {
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+    this.anonymousPartnerId$ = new BehaviorSubject<any>(null);
+    this.anonymousPartnerId$.next(JSON.parse(localStorage.getItem('impersonation')));
+  }
+
+  anonymousPartnerValue(): any {
+    return this.anonymousPartnerId$.getValue() || JSON.parse(localStorage.getItem('impersonation'));
+  }
+
+  storageAnonymousPartnerValue(value: any) {
+    localStorage.setItem('impersonation', JSON.stringify(value));
+    this.anonymousPartnerId$.next(value);
+  }
+
+  clearAnonymous() {
+    localStorage.removeItem('impersonation');
+    this.anonymousPartnerId$.next(null);
   }
 
   private get currentUserValue(): User {
@@ -41,6 +59,7 @@ export class AuthenticationService {
     this.tokenService.destroySubject.complete();
     localStorage.clear();
     this.currentUserSubject.next(null);
+    this.anonymousPartnerId$.next(null);
   }
 
   private storeUser(user: any) {

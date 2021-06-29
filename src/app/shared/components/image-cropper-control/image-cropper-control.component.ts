@@ -93,7 +93,6 @@ export class ImageCropperControlComponent extends AbstractControlDirective imple
         }
       };
     }
-
   }
 
   handleRemove() {

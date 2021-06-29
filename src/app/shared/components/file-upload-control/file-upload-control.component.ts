@@ -5,6 +5,7 @@ import { AssetType, FileUploadErrors, UploaderStatus } from 'types/enums';
 import { isFunction } from 'lodash-es';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { bytesToSize } from 'utils/common';
 
 @Component({
   selector: 'app-file-upload-control',
@@ -62,7 +63,7 @@ export class FileUploadControlComponent extends AbstractControlDirective impleme
     }
 
     if (!this.validateSize(file)) {
-      this.messageService.error(`Kích cỡ file khoogn được vượt quá 5MB`);
+      this.messageService.error(`Kích cỡ file không được vượt quá ${bytesToSize(this.maxSize)}`);
       return;
     }
 

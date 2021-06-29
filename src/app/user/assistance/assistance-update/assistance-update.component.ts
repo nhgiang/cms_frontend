@@ -62,7 +62,6 @@ export class AssistanceUpdateComponent implements OnInit {
       this.router.navigate(['../'], { relativeTo: this.route });
       this.notification.success('Thành công', 'Cập nhật thông tin nhân viên thành công!');
     }, err => {
-      console.log(err);
       if (err.error.statusCode === 409) {
         this.form.get('email').setErrors({ notUnique: true });
       }

@@ -1,4 +1,3 @@
-
 <nz-card>
   <div class="row m-b-30">
     <div>
@@ -6,10 +5,10 @@
         <div class="d-md-flex">
           <div class="m-b-10 m-r-20">
             <nz-input-group style="min-width: 275px;" [nzPrefix]="prefixTemplate">
-              <input type="text" nz-input placeholder="Tìm kiếm theo tên, nội dung" formControlName="q">
+              <input type="text" nz-input placeholder="Tìm kiếm theo tên" formControlName="q">
             </nz-input-group>
             <ng-template #prefixTemplate>
-              <i  aria-hidden="true"nz-icon nzType="search" class="opacity-05"></i>
+              <i aria-hidden="true" nz-icon nzType="search" class="opacity-05"></i>
             </ng-template>
           </div>
           <div class="m-b-10 m-r-20 d-flex align-items-center">
@@ -50,7 +49,8 @@
                       <div class="font-size-20 mb-2 text-dark d-flex justify-content-between ">
                         <a class="text-dark" [routerLink]="[item.id]">{{item?.title}}</a>
                         <span>
-                          <nz-badge class="large-badge text-nowrap" [nzColor]="item.status | option:eventStatusOptions:'color'"
+                          <nz-badge class="large-badge text-nowrap"
+                            [nzColor]="item.status | option:eventStatusOptions:'color'"
                             [nzText]="item.status | option:eventStatusOptions"></nz-badge>
                         </span>
                       </div>
