@@ -61,7 +61,7 @@ export class ContactsComponent extends SettingContainer<AboutUs> {
       coverAvatar: [null],
       companyName: [null, [TValidators.required, TValidators.maxLength(200)]],
       address: [null, [TValidators.required, TValidators.maxLength(200)]],
-      email: [null, [TValidators.required, TValidators.emailRules]],
+      email: [null, [TValidators.required, TValidators.emailRules, TValidators.maxLength(200)]],
       phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]]
     });
   }

@@ -47,6 +47,9 @@
           <ng-container *ngIf="form.get('email').hasError('emailRules')">
             Vui lòng nhập đúng định dạng email
           </ng-container>
+          <ng-container *ngIf="form.get('email').hasError('maxLength') && !form.get('email').hasError('emailRules')">
+            Email không được quá 200 kí tự
+          </ng-container>
         </ng-template>
       </nz-form-item>
       <nz-form-item>
