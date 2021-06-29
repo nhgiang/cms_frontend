@@ -22,6 +22,8 @@ export class OccupationsAnalyticsComponent implements OnInit {
           scaleLabel: {
             display: true,
             labelString: 'Nghề nghiệp',
+            fontSize: 17,
+            fontColor: 'black',
           },
           gridLines: {
             drawBorder: true,
@@ -38,7 +40,7 @@ export class OccupationsAnalyticsComponent implements OnInit {
             beginAtZero: true,
             fontSize: 13,
             padding: 10,
-            color: 'rgb(0 0 0)',
+            color: 'rgb(0,0,0)',
             //callback: this.customLabelX.bind(this),
           },
         },
@@ -49,6 +51,8 @@ export class OccupationsAnalyticsComponent implements OnInit {
           scaleLabel: {
             display: true,
             labelString: 'Số lượng học viên',
+            fontSize: 17,
+            fontColor: 'black',
           },
           gridLines: {
             drawBorder: true,
