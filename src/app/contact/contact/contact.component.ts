@@ -43,12 +43,12 @@ export class ContactsComponent extends SettingContainer<AboutUs> {
       finalize(() => this.isLoading = false)
     ).subscribe((res) => {
       this.form.patchValue(res);
-      this.notification.success('Thành công', 'Cập nhật nội dung thông tin liên hệ thành công!');
+      this.notification.success('Thành công', 'Cập nhật thông tin liên hệ thành công!');
     });
   }
 
   protected handleResulVisible() {
-    this.notification.success('Thành công', 'Cập nhật nội dung thông tin liên hệ thành công');
+    this.notification.success('Thành công', 'Cập nhật thông tin liên hệ thành công');
   }
 
   protected handleResult(result: { res: AboutUs; isVisible: boolean; }) {
