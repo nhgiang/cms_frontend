@@ -53,7 +53,9 @@ export class VideoIntroComponent extends SettingContainer<VideoIntroContact> imp
     this.form.patchValue(result.res);
     this.isVisible = result.isVisible;
   }
-  protected handleResulVisible() { }
+  protected handleResulVisible() {
+    this.notification.success('Thành công', 'Cập nhật thông tin video giới thiệu thành công');
+  }
 
   protected buildForm() {
     this.form = this.fb.group({

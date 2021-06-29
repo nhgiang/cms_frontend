@@ -100,6 +100,10 @@ export class EventCreateComponent implements OnInit {
       Ultilities.validateForm(this.form);
     } else {
       if (this.form.controls.title.invalid && this.form.controls.typeId) {
+        this.form.get('title').markAsDirty();
+        this.form.get('typeId').markAsDirty();
+        this.form.get('typeId').updateValueAndValidity();
+        this.form.get('title').updateValueAndValidity();
         return;
       }
     }
