@@ -8,6 +8,7 @@ import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { Option } from '@shared/interfaces/option.type';
 import { IPaginate } from '@shared/interfaces/paginate.type';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
 import { finalize, map, switchMap } from 'rxjs/operators';
 import { FileModel } from 'types/typemodel';
@@ -29,8 +30,9 @@ export class LecturerCreateComponent implements OnInit {
     private storageApi: StorageApiService,
     private teacherApi: TeacherApiService,
     private router: Router,
-    private specializationApi: SpecializationApiService
-  ) {}
+    private specializationApi: SpecializationApiService,
+    private notification: NzNotificationService
+  ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -69,6 +71,7 @@ export class LecturerCreateComponent implements OnInit {
       )
       .subscribe(
         () => {
+          this.notification.success('Thành công', 'Tạo mới thông tin giảng viên thành công!');
           this.router.navigate(['/user/lecturer']);
         },
         (err) => {

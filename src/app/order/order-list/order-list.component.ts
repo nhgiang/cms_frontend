@@ -8,6 +8,8 @@ import { debounceTime, finalize, map } from 'rxjs/operators';
 import { InvoiceStatus, InvoiceStatusOptions, InvoiceType } from 'types/enums';
 import { Invoice, QueryResult } from 'types/typemodel';
 import { Activity } from 'utils/Activity';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-order-list',
@@ -41,8 +43,8 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
     this.search.valueChanges.pipe(debounceTime(500)).subscribe(val => {
       const params = {
         ...val,
-        endDate: val.endDate && val.endDate.toISOString(),
-        startDate: val.startDate && val.startDate.toISOString()
+        startDate: moment(val.startDate).format('YYYY-MM-DD'),
+        endDate: moment(val.endDate).format('YYYY-MM-DD')
       };
       this.onSearchParamsChanged(params);
     });
