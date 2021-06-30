@@ -43,8 +43,8 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
     this.search.valueChanges.pipe(debounceTime(500)).subscribe(val => {
       const params = {
         ...val,
-        startDate: moment(val.startDate).format('YYYY-MM-DD'),
-        endDate: moment(val.endDate).format('YYYY-MM-DD')
+        startDate: val.startDate && moment(val.startDate).format('YYYY-MM-DD'),
+        endDate: val.endDate && moment(val.endDate).format('YYYY-MM-DD')
       };
       this.onSearchParamsChanged(params);
     });
