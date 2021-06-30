@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { finalize, map, switchMap } from 'rxjs/operators';
 import { FileModel, User } from 'types/typemodel';
 import { Option } from '@shared/interfaces/option.type';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class LecturerUpdateComponent implements OnInit {
     private storageApi: StorageApiService,
     private teacherApi: TeacherApiService,
     private router: Router,
-    private specializationApi: SpecializationApiService
+    private specializationApi: SpecializationApiService,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -84,6 +86,7 @@ export class LecturerUpdateComponent implements OnInit {
       )
       .subscribe(
         () => {
+          this.notification.success('Thành công', 'Cập nhật thông tin giảng viên thành công!');
           this.router.navigate(['/user/lecturer']);
         },
         (err) => {
