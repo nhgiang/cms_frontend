@@ -283,6 +283,7 @@ export class InputNumberComponent implements ControlValueAccessor, AfterViewInit
   }
 
   updateDisplayValue(value: number): void {
+    console.log(value)
     const displayValue = isNotNil(this.nzFormatter(value)) ? this.nzFormatter(value) : '';
     this.displayValue = displayValue;
     this.inputElement.nativeElement.value = `${displayValue}`;
@@ -302,7 +303,7 @@ export class InputNumberComponent implements ControlValueAccessor, AfterViewInit
     // tslint:disable-next-line: deprecation
     } else if (e.keyCode === ENTER) {
       // tslint:disable-next-line: no-non-null-assertion
-      this.updateDisplayValue(this.value);
+      // this.updateDisplayValue(this.value);
     }
   }
 

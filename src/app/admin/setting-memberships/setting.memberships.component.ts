@@ -46,7 +46,7 @@ export class SettingMembershipsComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
-
+    
     this.settingMembershipsApi
       .post({
         price: parseFloat(this.form.controls['price'].value),
@@ -57,7 +57,7 @@ export class SettingMembershipsComponent implements OnInit {
         courseDays: parseFloat(this.form.controls['courseDays'].value),
       })
       .subscribe(() => {
-        this.fetch();
+        // this.fetch();
         this.notif.success(
           'Thành công',
           'Cập nhật thông tin gói membership thành công!'
