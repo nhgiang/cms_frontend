@@ -72,8 +72,6 @@ export const isValidValue = (data) => {
         delete data[key];
       }
     }
-    console.log(data);
-
     return data;
   } else {
     return data || null;

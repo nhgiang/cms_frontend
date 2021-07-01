@@ -11,11 +11,11 @@ import { AssetType, SettingKey, SettingKeyEndPoint } from 'types/enums';
 import { AboutUs } from 'types/typemodel';
 
 @Component({
-  selector: 'app-about-us',
-  templateUrl: './about-us.component.html',
-  styleUrls: ['./about-us.component.scss']
+  selector: 'app-contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.scss']
 })
-export class AboutUsComponent extends SettingContainer<AboutUs> {
+export class ContactsComponent extends SettingContainer<AboutUs> {
 
   form: FormGroup;
   AssetType = AssetType;
@@ -29,26 +29,26 @@ export class AboutUsComponent extends SettingContainer<AboutUs> {
     private notification: NzNotificationService,
     settingVisibleApiService: SettingVisibleApiService
   ) {
-    super(settingVisibleApiService, settingApi, SettingKey.AboutUs, SettingKeyEndPoint.AboutUs);
+    super(settingVisibleApiService, settingApi, SettingKey.Contact, SettingKeyEndPoint.Contact);
   }
 
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    this.storageApi.uploadFile(this.form.value.image).pipe(
+    this.storageApi.uploadFile(this.form.value.coverAvatar).pipe(
       switchMap(res => {
-        this.form.get('image').setValue(res);
+        this.form.get('coverAvatar').setValue(res);
         return this.post(this.form.value);
       }),
       finalize(() => this.isLoading = false)
     ).subscribe((res) => {
       this.form.patchValue(res);
-      this.notification.success('Thành công', 'Cập nhật nội dung giới thiệu về chúng tôi thành công!');
+      this.notification.success('Thành công', 'Cập nhật thông tin liên hệ thành công!');
     });
   }
 
   protected handleResulVisible() {
-    this.notification.success('Thành công', 'Cập nhật nội dung giới thiệu về chúng tôi thành công!');
+    this.notification.success('Thành công', 'Cập nhật thông tin liên hệ thành công');
   }
 
   protected handleResult(result: { res: AboutUs; isVisible: boolean; }) {
@@ -58,9 +58,11 @@ export class AboutUsComponent extends SettingContainer<AboutUs> {
 
   protected buildForm() {
     this.form = this.fb.group({
-      title: [null],
-      image: [null],
-      content: [null, [TValidators.textRange(0, 1000)]]
+      coverAvatar: [null],
+      companyName: [null, [TValidators.required, TValidators.maxLength(200)]],
+      address: [null, [TValidators.required, TValidators.maxLength(200)]],
+      email: [null, [TValidators.required, TValidators.emailRules, TValidators.maxLength(200)]],
+      phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]]
     });
   }
 }

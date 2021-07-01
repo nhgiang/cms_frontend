@@ -7,6 +7,7 @@ import { NgChartjsModule } from 'ng-chartjs';
 import { DetailRevenueComponent } from './revenue/detail-revenue/detail-revenue.component';
 import { RoyaltiesAnalyticsComponent } from './royalties/royalties-analytics.component';
 import { CoursesAnalyticsComponent } from './courses/courses-analytics.component';
+import { OccupationsAnalyticsComponent } from './occupations/occupations.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule, ReportsRoutes, NgChartjsModule],
@@ -15,6 +16,7 @@ import { CoursesAnalyticsComponent } from './courses/courses-analytics.component
     DetailRevenueComponent,
     RoyaltiesAnalyticsComponent,
     CoursesAnalyticsComponent,
+    OccupationsAnalyticsComponent,
   ],
 })
 export class ReportsModule {}

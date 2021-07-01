@@ -5,13 +5,21 @@
         <div class="col-md-6">
           <nz-form-item>
             <nz-form-label [nzSpan]="6" nzRequired>Họ và tên</nz-form-label>
-            <nz-form-control [nzErrorTip]="'Vui lòng nhập họ và tên'">
+            <nz-form-control [nzErrorTip]="errorFullNameTpl">
               <input
                 nz-input
                 formControlName="fullName"
                 placeholder="Nhập Họ và tên"
               />
             </nz-form-control>
+            <ng-template #errorFullNameTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Vui lòng nhập họ và tên
+              </ng-container>
+              <ng-container *ngIf="control.hasError('textRange')">
+                Vui lòng nhập từ 1 đến 100 kí tự
+              </ng-container>
+            </ng-template>
           </nz-form-item>
         </div>
 
@@ -27,16 +35,24 @@
         <div class="col-md-6">
           <nz-form-item>
             <nz-form-label [nzSpan]="6" nzRequired>Chuyên môn</nz-form-label>
-            <nz-form-control nzErrorTip="Vui lòng nhập chuyên môn">
+            <nz-form-control [nzErrorTip]="errorSpecializationTpl">
               <input nz-input formControlName="specialization" />
             </nz-form-control>
+            <ng-template #errorSpecializationTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Vui lòng nhập chuyên môn
+              </ng-container>
+              <ng-container *ngIf="control.hasError('textRange')">
+                Vui lòng nhập từ 1 đến 100 kí tự
+              </ng-container>
+            </ng-template>
           </nz-form-item>
         </div>
 
         <div class="col-md-6">
           <nz-form-item>
             <nz-form-label [nzSpan]="6">Địa chỉ</nz-form-label>
-            <nz-form-control>
+            <nz-form-control nzErrorTip="Vui lòng nhập tối đa 300 kí tự">
               <input nz-input formControlName="address" />
             </nz-form-control>
           </nz-form-item>
@@ -62,7 +78,7 @@
         <div class="col-md-6">
           <nz-form-item>
             <nz-form-label [nzSpan]="6">Bằng cấp</nz-form-label>
-            <nz-form-control>
+            <nz-form-control nzErrorTip="Vui lòng nhập tối đa 300 kí tự">
               <input nz-input formControlName="degree" />
             </nz-form-control>
           </nz-form-item>
@@ -80,6 +96,9 @@
               </ng-container>
               <ng-container *ngIf="control.hasError('emailRules')">
                 Không đúng định dạng email
+              </ng-container>
+              <ng-container *ngIf="control.hasError('maxLength')">
+                Vui lòng nhập tối đa 100 kí tự
               </ng-container>
             </ng-template>
           </nz-form-item>

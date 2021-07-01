@@ -1,5 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { CoursesAnalyticsComponent } from './courses/courses-analytics.component';
+import { OccupationsAnalyticsComponent } from './occupations/occupations.component';
 import { DetailRevenueComponent } from './revenue/detail-revenue/detail-revenue.component';
 import { RevenueComponent } from './revenue/revenue.component';
 import { RoyaltiesAnalyticsComponent } from './royalties/royalties-analytics.component';
@@ -37,6 +38,13 @@ const routes: Routes = [
       title: 'Báo cáo chiết khấu',
     },
     component: RoyaltiesAnalyticsComponent,
+  },
+  {
+    path: 'occupations',
+    data: {
+      title: 'Báo cáo nghề nghiệp',
+    },
+    component: OccupationsAnalyticsComponent,
   },
 ];
 

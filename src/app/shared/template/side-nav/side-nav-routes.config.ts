@@ -104,23 +104,33 @@ export const ROUTES: SideNavInterface[] = [
     icon: 'profile',
     submenu: [
       {
-        path: 'premiums',
-        title: 'Ưu đãi',
-        submenu: [],
-      },
-      {
-        path: 'footer',
-        title: 'Footer',
-        submenu: [],
-      },
-      {
-        path: 'feedbacks',
-        title: 'Đánh giá học viên',
+        path: 'header',
+        title: 'Header',
         submenu: [],
       },
       {
         path: 'video-intro',
         title: 'Video giới thiệu',
+        submenu: [],
+      },
+      {
+        path: 'education',
+        title: 'Hệ thống khóa học',
+        submenu: [],
+      },
+      {
+        path: 'hottest-course',
+        title: 'Khóa học hot nhất',
+        submenu: [],
+      },
+      {
+        path: 'premiums',
+        title: 'Ưu đãi',
+        submenu: [],
+      },
+      {
+        path: 'feedbacks',
+        title: 'Đánh giá học viên',
         submenu: [],
       },
       {
@@ -134,18 +144,8 @@ export const ROUTES: SideNavInterface[] = [
         submenu: [],
       },
       {
-        path: 'hottest-course',
-        title: 'Khóa học hot nhất',
-        submenu: [],
-      },
-      {
-        path: 'header',
-        title: 'Header',
-        submenu: [],
-      },
-      {
-        path: 'education',
-        title: 'Hệ thống khóa học',
+        path: 'footer',
+        title: 'Footer',
         submenu: [],
       },
     ],
@@ -165,6 +165,11 @@ export const ROUTES: SideNavInterface[] = [
       {
         path: 'about-us',
         title: 'Về chúng tôi',
+        submenu: [],
+      },
+      {
+        path: 'contact-info',
+        title: 'Liên hệ',
         submenu: [],
       },
       {
@@ -281,6 +286,14 @@ export const ROUTES: SideNavInterface[] = [
         iconType: 'nzIcon',
         iconTheme: 'outline',
         icon: 'fund',
+        submenu: [],
+      },
+      {
+        path: 'occupations',
+        title: 'Báo cáo nghề nghiệp',
+        iconType: 'nzIcon',
+        iconTheme: 'outline',
+        icon: 'money-collect',
         submenu: [],
       },
     ],

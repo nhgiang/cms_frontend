@@ -48,7 +48,7 @@ export class EducationComponent extends SettingContainer<Education> implements O
   protected buildForm(): void {
     this.form = this.fb.group({
       coverAvatar: [null]
-    })
+    });
   }
 
   protected handleResulVisible() {

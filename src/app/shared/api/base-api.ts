@@ -19,9 +19,7 @@ export abstract class BaseApi {
   }
 
   protected createParams(params: { [key: string]: any }): any {
-    console.log(isValidValue(trimData(params)));
-
-    return isValidValue(trimData(params));
+    return omitBy(trimData(params), isNil);
   }
 
   protected createUrl(url: string) {

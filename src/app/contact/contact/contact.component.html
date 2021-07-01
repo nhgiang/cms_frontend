@@ -1,0 +1,89 @@
+<nz-card>
+  <nz-spin [nzSpinning]="isLoading">
+    <div class="text-right mb-3">
+      <nz-switch [ngModel]="isVisible" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"
+        (ngModelChange)="visible($event)"></nz-switch>
+      <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+      <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+    </div>
+    <form [formGroup]="form">
+      <nz-form-item>
+        <nz-form-label nzRequired class="text-left" [nzSpan]="3">Tên công ty</nz-form-label>
+        <nz-form-control [nzErrorTip]="companyNameErr">
+          <input nz-input formControlName="companyName" placeholder="Nhập tên công ty" />
+        </nz-form-control>
+        <ng-template #companyNameErr>
+          <ng-container *ngIf="form.get('companyName').hasError('required')">
+            Vui lòng nhập tên công ty
+          </ng-container>
+          <ng-container *ngIf="form.get('companyName').hasError('maxLength')">
+            Tên công ty không được quá 200 kí tự
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired class="text-left" [nzSpan]="3">Địa chỉ</nz-form-label>
+        <nz-form-control [nzErrorTip]="addressErr">
+          <input nz-input formControlName="address" placeholder="Nhập địa chỉ" />
+        </nz-form-control>
+        <ng-template #addressErr>
+          <ng-container *ngIf="form.get('address').hasError('required')">
+            Vui lòng nhập tên địa chỉ
+          </ng-container>
+          <ng-container *ngIf="form.get('address').hasError('maxLength')">
+            Địa chỉ không được quá 200 kí tự
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired class="text-left" [nzSpan]="3">Email</nz-form-label>
+        <nz-form-control [nzErrorTip]="emailErr">
+          <input nz-input formControlName="email" placeholder="Nhập tên email" />
+        </nz-form-control>
+        <ng-template #emailErr>
+          <ng-container *ngIf="form.get('email').hasError('required')">
+            Vui lòng nhập email
+          </ng-container>
+          <ng-container *ngIf="form.get('email').hasError('emailRules')">
+            Vui lòng nhập đúng định dạng email
+          </ng-container>
+          <ng-container *ngIf="form.get('email').hasError('maxLength') && !form.get('email').hasError('emailRules')">
+            Email không được quá 200 kí tự
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired class="text-left" [nzSpan]="3">Số điện thoại</nz-form-label>
+        <nz-form-control nzErrorTip="Vui lòng nhập số điện thoại liên hệ">
+          <input nz-input formControlName="phoneNumber" placeholder="Nhập số điện thoại liên hệ" />
+        </nz-form-control>
+        <ng-template #emailErr>
+          <ng-container *ngIf="form.get('phoneNumber').hasError('required')">
+            Vui lòng nhập số điện thoại
+          </ng-container>
+          <ng-container *ngIf="form.get('phoneNumber').hasError('phoneNumber')">
+            Vui lòng nhập đúng định dạng số điện thoại
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="3">
+          Hình ảnh
+        </nz-form-label>
+        <nz-form-control>
+          <app-file-upload-control formControlName="coverAvatar" [fileType]="AssetType.Image" [maxSize]="5000000">
+          </app-file-upload-control>
+          <div *ngIf="!this.form.get('coverAvatar').value" class="mt-4">
+            Size tối đa mỗi tấm ảnh là 5MB<br />
+            Số lượng tối đa là 1 tấm ảnh
+          </div>
+        </nz-form-control>
+
+      </nz-form-item>
+      <div class="text-right">
+        <button nz-button type="button" nzType="primary" routerLink="/" nzGhost class="mr-3">Quay lại</button>
+        <button nz-button nzType="primary" (click)="submit()" type="button">Lưu lại</button>
+      </div>
+    </form>
+  </nz-spin>
+</nz-card>

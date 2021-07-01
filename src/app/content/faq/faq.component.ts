@@ -42,7 +42,7 @@ export class FaqComponent extends SettingContainer<QuestionAnswer> {
       }),
       finalize(() => this.submiting = false)
     ).subscribe(() => {
-      this.notification.success('Thành công', 'Cập nhật câu hỏi thường gặp thành công');
+      this.notification.success('Thành công', 'Cập nhật câu hỏi thường gặp thành công!');
     });
   }
 
@@ -52,7 +52,7 @@ export class FaqComponent extends SettingContainer<QuestionAnswer> {
   }
 
   protected handleResulVisible() {
-    this.notification.success('Thành công', 'Cập nhật câu hỏi thường gặp thành công');
+    this.notification.success('Thành công', 'Cập nhật câu hỏi thường gặp thành công!');
   }
 
   protected buildForm() {

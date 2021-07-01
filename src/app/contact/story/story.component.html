@@ -1,7 +1,14 @@
 <nz-card class="w-100 card-wrap">
   <nz-spin [nzSpinning]="isLoading">
     <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="text-right mb-3">
+        <nz-switch [ngModel]="isVisible" [ngModelOptions]="{standalone: true}" [nzCheckedChildren]="checkedTemplate"
+          [nzUnCheckedChildren]="unCheckedTemplate" (ngModelChange)="visible($event)"></nz-switch>
+        <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+        <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+      </div>
       <div class="row form-wrap">
+
         <div class="col-5">
           <nz-card class="w-100 text-footer color-1">
             <div class="w-100 underline mb-4 pb-4">

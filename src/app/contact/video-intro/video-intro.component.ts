@@ -16,11 +16,11 @@ import { VideoIntro, VideoIntroContact } from 'types/typemodel';
   templateUrl: './video-intro.component.html',
   styleUrls: ['./video-intro.component.scss']
 })
-export class VideoIntroComponent extends SettingContainer<VideoIntroContact> implements OnInit {
+export class VideoIntroContactComponent extends SettingContainer<VideoIntroContact> implements OnInit {
   form: FormGroup;
   AssetType = AssetType;
   isloading: boolean;
-  
+
   constructor(
     private fb: FormBuilder,
     private storageApi: StorageApiService,
@@ -53,11 +53,13 @@ export class VideoIntroComponent extends SettingContainer<VideoIntroContact> imp
     this.form.patchValue(result.res);
     this.isVisible = result.isVisible;
   }
-  protected handleResulVisible() {}
-  
+  protected handleResulVisible() {
+    this.notification.success('Thành công', 'Cập nhật thông tin video giới thiệu thành công');
+  }
+
   protected buildForm() {
     this.form = this.fb.group({
-      title: [null, TValidators.required],
+      title: [null],
       image: [null, Validators.required],
       video: [null]
     });
