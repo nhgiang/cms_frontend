@@ -46,7 +46,7 @@ export class SettingMembershipsComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
-
+    
     this.settingMembershipsApi
       .post({
         price: parseFloat(this.form.controls['price'].value),
