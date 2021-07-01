@@ -8,7 +8,7 @@
     </div>
     <form [formGroup]="form">
       <nz-form-item>
-        <nz-form-label class="text-left" [nzSpan]="3">Tên công ty</nz-form-label>
+        <nz-form-label nzRequired class="text-left" [nzSpan]="3">Tên công ty</nz-form-label>
         <nz-form-control [nzErrorTip]="companyNameErr">
           <input nz-input formControlName="companyName" placeholder="Nhập tên công ty" />
         </nz-form-control>
@@ -22,7 +22,7 @@
         </ng-template>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label class="text-left" [nzSpan]="3">Địa chỉ</nz-form-label>
+        <nz-form-label nzRequired class="text-left" [nzSpan]="3">Địa chỉ</nz-form-label>
         <nz-form-control [nzErrorTip]="addressErr">
           <input nz-input formControlName="address" placeholder="Nhập địa chỉ" />
         </nz-form-control>
@@ -36,7 +36,7 @@
         </ng-template>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label class="text-left" [nzSpan]="3">Email</nz-form-label>
+        <nz-form-label nzRequired class="text-left" [nzSpan]="3">Email</nz-form-label>
         <nz-form-control [nzErrorTip]="emailErr">
           <input nz-input formControlName="email" placeholder="Nhập tên email" />
         </nz-form-control>
@@ -53,7 +53,7 @@
         </ng-template>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label class="text-left" [nzSpan]="3">Số điện thoại</nz-form-label>
+        <nz-form-label nzRequired class="text-left" [nzSpan]="3">Số điện thoại</nz-form-label>
         <nz-form-control nzErrorTip="Vui lòng nhập số điện thoại liên hệ">
           <input nz-input formControlName="phoneNumber" placeholder="Nhập số điện thoại liên hệ" />
         </nz-form-control>
