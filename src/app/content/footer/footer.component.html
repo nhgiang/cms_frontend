@@ -28,13 +28,13 @@
       <nz-form-item>
         <nz-form-label class="text-left" [nzSpan]="3" nzRequired>Email</nz-form-label>
         <nz-form-control [nzErrorTip]="errorEmailTpl">
-          <input nz-input formControlName="email" placeholder="Nhập số lượng khóa học" />
+          <input nz-input formControlName="email" placeholder="Nhập email" />
         </nz-form-control>
         <ng-template #errorEmailTpl let-control>
           <ng-container *ngIf="control.hasError('required')">
             Vui lòng nhập email
           </ng-container>
-          <ng-container *ngIf="control.hasError('emailRules')">
+          <ng-container *ngIf="control.hasError('emailRules') && !control.hasError('required')">
             Email không đúng định dạng
           </ng-container>
         </ng-template>
@@ -48,7 +48,7 @@
           <ng-container *ngIf="control.hasError('required')">
             Vui lòng nhập số điện thoại
           </ng-container>
-          <ng-container *ngIf="control.hasError('phoneNumber')">
+          <ng-container *ngIf="control.hasError('phoneNumber') && !control.hasError('required')">
             Số điện thoại không hợp lệ
           </ng-container>
         </ng-template>
@@ -64,7 +64,7 @@
           <ng-container *ngIf="control.hasError('required')">
             Vui lòng nhập link facebook
           </ng-container>
-          <ng-container *ngIf="control.hasError('link')">
+          <ng-container *ngIf="control.hasError('link') && !control.hasError('required')">
             Sai định dạng đường dẫn
           </ng-container>
         </ng-template>
@@ -78,7 +78,7 @@
           <ng-container *ngIf="control.hasError('required')">
             Vui lòng nhập link youtube
           </ng-container>
-          <ng-container *ngIf="control.hasError('link')">
+          <ng-container *ngIf="control.hasError('link') && !control.hasError('required')">
             Sai định dạng đường dẫn
           </ng-container>
         </ng-template>
