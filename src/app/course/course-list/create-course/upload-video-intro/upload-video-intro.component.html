@@ -1,8 +1,9 @@
 <div>
   <div *ngIf="isUploadLink === VideoType.Youtube">
-    <nz-form-control>
+    <nz-form-control [class.pe-none]="isDisable">
       <input nz-input
              class="mb-4"
+             [disabled]="isHidden"
              [(ngModel)]="linkYoutubeInput"
              (keyup)="changeLink($event.target.value)"
              placeholder="Nhập link video giới thiệu">
@@ -18,6 +19,7 @@
   <div *ngIf="isUploadLink === VideoType.Vimeo">
     <app-upload-vimeo-control [ngModel]="fileVideo"
                               (ngModelChange)="uploadVideo($event)"
+                              [isDisable]="isDisable || isHidden"
                               [isPrivate]="false"
                               [confirmationText]="'Bạn có chắc chắn muốn xóa video giới thiệu khóa học này không!'">
     </app-upload-vimeo-control>
