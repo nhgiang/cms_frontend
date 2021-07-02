@@ -283,7 +283,6 @@ export class InputNumberComponent implements ControlValueAccessor, AfterViewInit
   }
 
   updateDisplayValue(value: number): void {
-    console.log(value)
     const displayValue = isNotNil(this.nzFormatter(value)) ? this.nzFormatter(value) : '';
     this.displayValue = displayValue;
     this.inputElement.nativeElement.value = `${displayValue}`;

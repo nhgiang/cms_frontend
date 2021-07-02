@@ -46,7 +46,6 @@ const appInit = (
           ? 'qa.beautyup.asia'
           : domain.replace('cms.', '')
       )
-      .pipe(tap(console.log))
       .toPromise()
       .then((res) => {
         authenticationService.partnerId = res;
