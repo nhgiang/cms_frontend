@@ -10,6 +10,7 @@ import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { FeedbackFormComponent } from '@shared/components/feedback-form/feedback-form.component';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import { AuthenticationService } from '@shared/services/authentication.service';
 import { omit } from 'lodash-es';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -17,6 +18,7 @@ import { iif, of } from 'rxjs';
 import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { AssetType, VideoType } from 'types/enums';
 import { Course, Feedback } from 'types/models/course';
+import { User } from 'types/typemodel';
 import { trimData } from 'utils/common';
 
 @Component({
@@ -34,6 +36,11 @@ export class EditCourseComponent implements OnInit {
   isLoading = false;
   feedbacks: Feedback[];
   VideoType = VideoType;
+  user: User;
+  anonymous: any;
+  isDisableAll = false;
+  isHidden = false;
+  textHidden = 'Ẩn khóa học';
   constructor(
     fb: FormBuilder,
     private teacherApiService: TeacherApiService,
@@ -44,7 +51,8 @@ export class EditCourseComponent implements OnInit {
     private storageApiService: StorageApiService,
     private notification: NzNotificationService,
     private route: ActivatedRoute,
-    private feedbackApi: FeedbackApiService
+    private feedbackApi: FeedbackApiService,
+    private authService: AuthenticationService
   ) {
     this.form = fb.group({
       photo: [null, Validators.required],
@@ -58,11 +66,23 @@ export class EditCourseComponent implements OnInit {
       skills: [[], [Validators.required]],
       videoIntroType: [VideoType.Youtube, Validators.required]
     });
+    this.authService.currentUser.subscribe(x => {
+      this.user = x;
+    });
   }
 
   ngOnInit(): void {
+    this.authService.anonymousPartnerId$.subscribe(res => {
+      this.anonymous = res;
+    });
     const courseId = this.route.snapshot.paramMap.get('courseId');
-    this.courseApiService.getById(courseId).pipe(switchMap(course => {
+    this.courseApiService.getById(courseId).pipe(switchMap((course: any) => {
+      this.isDisableAll = !course?.isOwner;
+      if (course?.isHidden) {
+        this.form.disable();
+      }
+      this.isHidden = course?.isHidden;
+      this.textHidden = course?.isHidden ? 'Hiện khóa học' : 'Ẩn khóa học'
       this.course = course;
       this.form.get('videoIntroType').patchValue(course.videoIntroType);
       setTimeout(() => {
@@ -172,5 +192,21 @@ export class EditCourseComponent implements OnInit {
     }, err => {
       this.notification.error('Thất bại', 'Khóa học phải có bài giảng mới có thể công khai!');
     });
+  }
+
+  hiddenCourses() {
+    this.courseApiService.hidden(this.course.id, { isHidden: !this.isHidden }).subscribe((x) => {
+      this.isHidden = x.isHidden;
+      if (x.isHidden) {
+        this.form.disable()
+      } else {
+        this.form.enable()
+      }
+      const message = this.isHidden ? 'Ẩn khóa học thành công!' : 'Hiện khóa học thành công!';
+      this.notification.success('Thành công', message);
+      this.textHidden = this.isHidden ? 'Hiện khóa học' : 'Ẩn khóa học';
+    }, () => {
+      this.notification.error('Thất bại', 'Thao tác thất bại!');
+    })
   }
 }
