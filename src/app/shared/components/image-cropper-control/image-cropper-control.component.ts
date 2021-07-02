@@ -28,6 +28,7 @@ export class ImageCropperControlComponent extends AbstractControlDirective imple
   @Input() showAction: boolean;
   @Input() isRequired = true;
   @Input() hint: TemplateRef<void>;
+  @Input() isDisable: boolean;
   inputId: string;
   imageUrl: string;
   previewVisible: boolean;

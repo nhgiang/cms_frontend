@@ -33,12 +33,13 @@ import { VideoType } from 'types/enums';
 export class UploadVideoIntroComponent extends AbstractControlDirective implements OnInit, OnChanges {
   @ViewChild('inputUpload', { static: false }) inputUpload: ElementRef;
   @Input() isUploadLink: VideoType;
+  @Input() isDisable: boolean;
+  @Input() isHidden: boolean;
   displayPreviewYT = false;
   linkYoutubeInput: string;
   fileVideo: File | null;
   @Input() url1: string;
   VideoType = VideoType;
-
   constructor() {
     super();
   }

@@ -25,6 +25,7 @@ export class UploadVimeoControlComponent extends AbstractControlDirective implem
   @ViewChild('video', { static: false }) video: ElementRef;
   @Input() confirmationText: string;
   @Input() isPrivate = true;
+  @Input() isDisable: boolean;
   UploaderStatus = UploaderStatus;
   status: UploaderStatus = UploaderStatus.NotSelected;
   url: any;
