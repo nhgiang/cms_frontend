@@ -217,8 +217,8 @@
   <button nz-button
           class="mr-2 ant-btn-background-ghost"
           nzType="primary"
-          (click)="hiddenCourses()"
-          *ngIf="(!user?.isMaster || anonymous) && isDisableAll">{{textHidden}}</button>
+          *ngIf="(!user?.isMaster || anonymous) && isDisableAll"> <span [confirmation]="textConfirm"
+          (confirmed)="hiddenCourses()"> {{textHidden}} </span></button>
   <button nz-button
           *ngIf="!course?.published"
           nzType="primary"
