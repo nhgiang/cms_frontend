@@ -2,6 +2,7 @@ import { VideoType } from 'types/enums';
 import { Entity } from 'types/typemodel';
 
 export interface Course extends Entity {
+  hasStudent: any;
   name: string;
   teacherAvatar: string;
   teacherName: string;

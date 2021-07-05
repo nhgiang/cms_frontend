@@ -92,7 +92,7 @@ export class EditCourseComponent implements OnInit {
       }
       this.isHidden = course?.isHidden;
       this.textHidden = course?.isHidden ? 'Hiện khóa học' : 'Ẩn khóa học';
-      this.textConfirm = this.isHidden ? 'Bạn có muốn hiện khóa học này?' : 'Khóa học này có thể có học viên. Bạn có chắc chắn muốn ẩn khóa học này?';
+      this.textConfirm = this.isHidden ? 'Bạn có muốn hiện khóa học này?' : (this.course?.hasStudent ? 'Khóa học này có học viên.' : '' + ' Bạn có chắc chắn muốn ẩn khóa học này?');
       this.course = course;
       this.form.get('videoIntroType').patchValue(course.videoIntroType);
       setTimeout(() => {
@@ -214,7 +214,7 @@ export class EditCourseComponent implements OnInit {
       } else {
         this.form.enable()
       }
-      this.textConfirm = this.isHidden ? 'Bạn có muốn hiện khóa học này?' : 'Khóa học này có thể có học viên. Bạn có chắc chắn muốn ẩn khóa học này?';
+      this.textConfirm = this.isHidden ? 'Bạn có muốn hiện khóa học này?' : (this.course?.hasStudent ? 'Khóa học này có học viên.' : '' + ' Bạn có chắc chắn muốn ẩn khóa học này?');
       const message = this.isHidden ? 'Ẩn khóa học thành công!' : 'Hiện khóa học thành công!';
       this.notification.success('Thành công', message);
       this.textHidden = this.isHidden ? 'Hiện khóa học' : 'Ẩn khóa học';
