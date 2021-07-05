@@ -40,9 +40,7 @@
             *ngIf="datum.total > 0"
             [nzPercent]="(datum.certed / datum.total) * 100"
           ></nz-progress>
-          {{
-            datum.total ? datum.certed + "/" + datum.total : "Chưa có học viên"
-          }}
+          {{ datum.render }}
         </td>
       </tr>
     </tbody>

@@ -36,7 +36,6 @@ export class CoursesReportComponent implements OnInit {
       .pipe(finalize(() => (this.isDataLoading = false)))
       .subscribe((obj: any) => {
         this.courses = obj.courses;
-        console.log(this.courses);
         this.coursesData = obj.courses.items.map((i) => ({
           id: i.id,
           name: i.name,
@@ -62,11 +61,13 @@ export class CoursesReportComponent implements OnInit {
           c.dataByPartners.push({
             certed: 0,
             total: 0,
+            render: 'Chưa có học viên',
           });
         else
           c.dataByPartners.push({
             certed: datum.certedStudents,
             total: datum.totalStudents,
+            render: datum.certedStudents + '/' + datum.totalStudents,
           });
       }
     }
