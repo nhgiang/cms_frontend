@@ -1,0 +1,50 @@
+<nz-card>
+  <nz-table
+    [nzLoading]="isDataLoading"
+    [nzData]="coursesData"
+    [nzFrontPagination]="false"
+    [nzPageIndex]="courses?.meta?.currentPage"
+    [nzTotal]="courses?.meta?.totalItems"
+    (nzPageIndexChange)="onPageChange($event)"
+  >
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th nzWidth="200px">Tên khóa học</th>
+        <th *ngFor="let partner of partners" nzWidth="230px">
+          {{ partner.name }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of coursesData; index as i">
+        <td>
+          {{
+            i + 1 + (courses.meta.currentPage - 1) * courses.meta.itemsPerPage
+          }}
+        </td>
+        <td>
+          <div
+            style="
+              white-space: nowrap;
+              width: 200px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            "
+          >
+            {{ course.name }}
+          </div>
+        </td>
+        <td *ngFor="let datum of course.dataByPartners">
+          <nz-progress
+            *ngIf="datum.total > 0"
+            [nzPercent]="(datum.certed / datum.total) * 100"
+          ></nz-progress>
+          {{
+            datum.total ? datum.certed + "/" + datum.total : "Chưa có học viên"
+          }}
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
