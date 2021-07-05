@@ -42,7 +42,7 @@ export class EditCourseComponent implements OnInit {
   isHidden = false;
   textHidden = 'Ẩn khóa học';
   listSkill = [];
-  teacher: { value: any; label: string; };
+  coursesType: any;
   textConfirm = 'Khóa học này có thể có học viên. Bạn có chắc chắn muốn ẩn khóa học này?';
   constructor(
     fb: FormBuilder,
@@ -86,13 +86,9 @@ export class EditCourseComponent implements OnInit {
       if (course?.isHidden) {
         this.form.disable();
       }
-      this.teacher = {
-        value: course.userId,
-        label: course.teacherName
-      }
       this.isHidden = course?.isHidden;
       this.textHidden = course?.isHidden ? 'Hiện khóa học' : 'Ẩn khóa học';
-      this.textConfirm = this.isHidden ? 'Bạn có muốn hiện khóa học này?' : (this.course?.hasStudent ? 'Khóa học này có học viên.' : '' + ' Bạn có chắc chắn muốn ẩn khóa học này?');
+      this.textConfirm = this.isHidden ? 'Bạn có muốn hiện khóa học này?' : (course?.hasStudent ? 'Khóa học này có học viên.' : '') + ' Bạn có chắc chắn muốn ẩn khóa học này?';
       this.course = course;
       this.form.get('videoIntroType').patchValue(course.videoIntroType);
       setTimeout(() => {
@@ -106,11 +102,11 @@ export class EditCourseComponent implements OnInit {
   }
 
   teachers = (params: any) => {
-    return this.isDisableAll ? from([this.teacher]).pipe(toArray()) : this.teacherApiService.getList(params).pipe(map(res => res.items.map(x => ({ value: x.id, label: x.fullName }))));
+    return this.isDisableAll ? from([this.course]).pipe(map(res => ({ value: res.userId, label: res.teacherName })), toArray()) : this.teacherApiService.getList(params).pipe(map(res => res.items.map(x => ({ value: x.id, label: x.fullName }))));
   }
 
   courseTypes = (params: any) => {
-    return this.courseTypesApiService.getList(params).pipe(map(res => res.items.map(x => ({ value: x.id, label: x.name }))));
+    return this.isDisableAll ? from([this.course]).pipe(map(res => ({ value: res.typeId, label: res.typeName })), toArray()) : this.courseTypesApiService.getList(params).pipe(map(res => res.items.map(x => ({ value: x.id, label: x.name }))));
   }
 
   skills = (params: any) => {
@@ -214,7 +210,7 @@ export class EditCourseComponent implements OnInit {
       } else {
         this.form.enable()
       }
-      this.textConfirm = this.isHidden ? 'Bạn có muốn hiện khóa học này?' : (this.course?.hasStudent ? 'Khóa học này có học viên.' : '' + ' Bạn có chắc chắn muốn ẩn khóa học này?');
+      this.textConfirm = this.isHidden ? 'Bạn có muốn hiện khóa học này?' : (this.course?.hasStudent ? 'Khóa học này có học viên.' : '') + ' Bạn có chắc chắn muốn ẩn khóa học này?';
       const message = this.isHidden ? 'Ẩn khóa học thành công!' : 'Hiện khóa học thành công!';
       this.notification.success('Thành công', message);
       this.textHidden = this.isHidden ? 'Hiện khóa học' : 'Ẩn khóa học';
