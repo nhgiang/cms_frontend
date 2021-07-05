@@ -6,6 +6,8 @@
     [nzPageIndex]="courses?.meta?.currentPage"
     [nzTotal]="courses?.meta?.totalItems"
     (nzPageIndexChange)="onPageChange($event)"
+    [nzShowTotal]="showTotal"
+    nzBordered
   >
     <thead>
       <tr>
@@ -39,6 +41,7 @@
           <nz-progress
             *ngIf="datum.total > 0"
             [nzPercent]="(datum.certed / datum.total) * 100"
+            [nzShowInfo]="false"
           ></nz-progress>
           {{ datum.render }}
         </td>
@@ -46,3 +49,10 @@
     </tbody>
   </nz-table>
 </nz-card>
+
+<ng-template #showTotal>
+  Tổng cộng: {{ courses?.meta.totalItems }}
+</ng-template>
+<ng-template #empty>
+  <nz-empty nzNotFoundContent="Không có dữ liệu"></nz-empty>
+</ng-template>
