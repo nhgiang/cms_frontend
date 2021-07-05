@@ -3,14 +3,16 @@ import { QueryResult } from 'types/typemodel';
 import { BaseApi } from './base-api';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PartnersApiService extends BaseApi {
   endpoint = 'partners';
   public endpointUrl = '.beautyup.asia';
 
   getList(params: any) {
-    return this.httpClient.get<QueryResult<any>>(this.createUrl(''), { params: this.createParams(params) });
+    return this.httpClient.get<QueryResult<any>>(this.createUrl(''), {
+      params: this.createParams(params),
+    });
   }
 
   getOne(id: string) {
@@ -34,6 +36,13 @@ export class PartnersApiService extends BaseApi {
   }
 
   getDomain(domain: string) {
-    return this.httpClient.get(this.createUrl('/domain'), { params: { q: domain }, responseType: 'text' });
+    return this.httpClient.get(this.createUrl('/domain'), {
+      params: { q: domain },
+      responseType: 'text',
+    });
+  }
+
+  getAll() {
+    return this.httpClient.get(this.createUrl('/all'));
   }
 }
