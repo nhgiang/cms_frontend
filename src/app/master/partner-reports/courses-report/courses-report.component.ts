@@ -40,7 +40,7 @@ export class CoursesReportComponent implements OnInit {
           id: i.id,
           name: i.name,
         }));
-        this.partners = obj.partners.items.map((i) => ({
+        this.partners = obj.partners.map((i) => ({
           id: i.id,
           name: i.name,
         }));
