@@ -11,7 +11,7 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Option } from '@shared/interfaces/option.type';
 import { DestroyService } from '@shared/services/destroy.service';
-import { isArray, isEmpty, uniqBy } from 'lodash-es';
+import { isArray, isEmpty, isObject, uniqBy } from 'lodash-es';
 import { Observable, Subject } from 'rxjs';
 import {
   concatMap,
@@ -46,8 +46,7 @@ export interface ParamsSelectAdvance {
 })
 export class SelectAdvanceComponent
   extends AbstractControlDirective
-  implements OnInit, OnChanges
-{
+  implements OnInit, OnChanges {
   @Input() getOptionsFn: (
     params: ParamsSelectAdvance | any
   ) => Observable<Option[]>;
@@ -87,7 +86,8 @@ export class SelectAdvanceComponent
     if (isEmpty(obj)) {
       return;
     }
-    this.getOptionsFn({ page: 1, ids: isArray(obj) ? obj : [obj] })
+    const ids = isArray(obj) ? (obj.every(x => isObject(x)) ? obj.map((x: any) => x.id) : obj) : [obj];
+    this.getOptionsFn({ page: 1, ids })
       .pipe(
         tap((data) => {
           this.options = uniqBy([...this.options, ...data], 'value');

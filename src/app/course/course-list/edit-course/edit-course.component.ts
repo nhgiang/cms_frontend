@@ -14,8 +14,8 @@ import { AuthenticationService } from '@shared/services/authentication.service';
 import { omit } from 'lodash-es';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { iif, of } from 'rxjs';
-import { finalize, map, switchMap, tap } from 'rxjs/operators';
+import { from, iif, of } from 'rxjs';
+import { finalize, map, switchMap, tap, toArray } from 'rxjs/operators';
 import { AssetType, VideoType } from 'types/enums';
 import { Course, Feedback } from 'types/models/course';
 import { User } from 'types/typemodel';
@@ -41,6 +41,9 @@ export class EditCourseComponent implements OnInit {
   isDisableAll = false;
   isHidden = false;
   textHidden = 'Ẩn khóa học';
+  listSkill = [];
+  teacher: { value: any; label: string; };
+  textConfirm = 'Khóa học này có thể có học viên. Bạn có chắc chắn muốn ẩn khóa học này?';
   constructor(
     fb: FormBuilder,
     private teacherApiService: TeacherApiService,
@@ -76,13 +79,20 @@ export class EditCourseComponent implements OnInit {
       this.anonymous = res;
     });
     const courseId = this.route.snapshot.paramMap.get('courseId');
-    this.courseApiService.getById(courseId).pipe(switchMap((course: any) => {
+    this.courseApiService.getById(courseId).pipe(switchMap((course) => {
+      this.listSkill = [...course.skills];
+      course.skills = course.skills.map(x => x.id);
       this.isDisableAll = !course?.isOwner;
       if (course?.isHidden) {
         this.form.disable();
       }
+      this.teacher = {
+        value: course.userId,
+        label: course.teacherName
+      }
       this.isHidden = course?.isHidden;
-      this.textHidden = course?.isHidden ? 'Hiện khóa học' : 'Ẩn khóa học'
+      this.textHidden = course?.isHidden ? 'Hiện khóa học' : 'Ẩn khóa học';
+      this.textConfirm = this.isHidden ? 'Bạn có muốn hiện khóa học này?' : 'Khóa học này có thể có học viên. Bạn có chắc chắn muốn ẩn khóa học này?';
       this.course = course;
       this.form.get('videoIntroType').patchValue(course.videoIntroType);
       setTimeout(() => {
@@ -96,7 +106,7 @@ export class EditCourseComponent implements OnInit {
   }
 
   teachers = (params: any) => {
-    return this.teacherApiService.getList(params).pipe(map(res => res.items.map(x => ({ value: x.id, label: x.fullName }))));
+    return this.isDisableAll ? from([this.teacher]).pipe(toArray()) : this.teacherApiService.getList(params).pipe(map(res => res.items.map(x => ({ value: x.id, label: x.fullName }))));
   }
 
   courseTypes = (params: any) => {
@@ -104,11 +114,13 @@ export class EditCourseComponent implements OnInit {
   }
 
   skills = (params: any) => {
-    return this.skillsApiService.findAll(params).pipe(map(res => res.items.map(x => ({ value: x.id, label: x.name }))));
+    return this.isDisableAll ? from([...this.listSkill]).pipe(map(res => ({ value: res.id, label: res.name })), toArray()) : this.skillsApiService.findAll(params).pipe(map(res => res.items.map(x => ({ value: x.id, label: x.name }))));
   }
 
   submit() {
     Ultilities.validateForm(this.form);
+    console.log(this.form);
+
     this.isLoading = true;
     iif(() => (this.form.value.photo instanceof Blob),
       this.storageApiService.uploadFile(this.form.get('photo').value).pipe(tap(res => this.form.controls.photo.setValue(res))),
@@ -202,6 +214,7 @@ export class EditCourseComponent implements OnInit {
       } else {
         this.form.enable()
       }
+      this.textConfirm = this.isHidden ? 'Bạn có muốn hiện khóa học này?' : 'Khóa học này có thể có học viên. Bạn có chắc chắn muốn ẩn khóa học này?';
       const message = this.isHidden ? 'Ẩn khóa học thành công!' : 'Hiện khóa học thành công!';
       this.notification.success('Thành công', message);
       this.textHidden = this.isHidden ? 'Hiện khóa học' : 'Ẩn khóa học';

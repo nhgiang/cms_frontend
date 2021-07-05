@@ -15,6 +15,10 @@ export interface Course extends Entity {
   videoIntro: string;
   index: number;
   published: boolean;
+  skills: any[];
+  userId: any;
+  isOwner: any;
+  isHidden: any;
 }
 export interface Specialization extends Entity {
   name: string;
