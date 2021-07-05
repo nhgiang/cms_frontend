@@ -8,10 +8,11 @@ import {
 import { PartnersApiService } from '@shared/api/partners.api.service';
 import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
+import merge from 'lodash-es/merge';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable, timer } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-partners-edit',
@@ -28,7 +29,7 @@ export class PartnersEditComponent implements OnInit {
     private fb: FormBuilder,
     private modalRef: NzModalRef<PartnersEditComponent>,
     private notification: NzNotificationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.buildForm();
@@ -36,10 +37,7 @@ export class PartnersEditComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
-    this.form
-      .get('domain')
-      .setValue(this.form.get('domain').value + '.beautyup.asia');
-
+    const domain = `${this.form.get('domain').value + this.partnersApiService.endpointUrl}`;
     const next = () => {
       this.notification.success(
         'Thành công',
@@ -48,47 +46,53 @@ export class PartnersEditComponent implements OnInit {
       this.modalRef.close(true);
     };
     const err = () => {
-      this.form
-        .get('domain')
-        .setValue(this.form.get('domain').value.replace('.beautyup.asia', ''));
       this.notification.error(
         'Thất bại',
         'Cập nhật thông tin partner thất bại!'
       );
+      this.modalRef.close(true);
     };
-    this.partnersApiService
-      .update(this.data.id, this.form.value)
-      .subscribe(next, err);
+    this.partnersApiService.validateDomain(domain).pipe(
+      tap(res => {
+        if (res) {
+          this.form.get('domain').setErrors({ exits: true });
+        }
+      }),
+      filter(x => !x),
+      switchMap(() => {
+        return this.partnersApiService.update(this.data.id, merge(this.form.value, { domain }));
+      })
+    ).subscribe(next, err);
   }
 
   close() {
     this.modalRef.close(false);
   }
 
-  validateDomain(
-    control: AbstractControl
-  ): Observable<ValidationErrors | null> {
-    return timer(300).pipe(
-      switchMap(() => {
-        return this.partnersApiService
-          .validateDomain(
-            `${control.value}${this.partnersApiService.endpointUrl}`
-          )
-          .pipe(
-            map((res) => {
-              return res &&
-                control.value !==
-                  this.data.domain.replace(
-                    this.partnersApiService.endpointUrl,
-                    ''
-                  )
-                ? { exits: true }
-                : null;
-            })
-          );
-      })
-    );
-  }
+  // validateDomain(
+  //   control: AbstractControl
+  // ): Observable<ValidationErrors | null> {
+  //   return timer(300).pipe(
+  //     switchMap(() => {
+  //       return this.partnersApiService
+  //         .validateDomain(
+  //           `${control.value}${this.partnersApiService.endpointUrl}`
+  //         )
+  //         .pipe(
+  //           map((res) => {
+  //             return res &&
+  //               control.value !==
+  //               this.data.domain.replace(
+  //                 this.partnersApiService.endpointUrl,
+  //                 ''
+  //               )
+  //               ? { exits: true }
+  //               : null;
+  //           })
+  //         );
+  //     })
+  //   );
+  // }
 
   buildForm() {
     this.form = this.fb.group({
@@ -98,7 +102,6 @@ export class PartnersEditComponent implements OnInit {
       domain: [
         this.data?.domain.replace('.beautyup.asia', ''),
         [TValidators.required, TValidators.maxLength(10)],
-        // this.validateDomain.bind(this),
       ],
       phoneNumber: [
         this.data.phoneNumber,
