@@ -102,9 +102,6 @@ export class StorageApiService extends BaseApi {
       switchMap(res => {
         return this.putToAzure(res.uploadUrl, file, res.fileName).pipe(mapTo(res.fileName));
       }),
-      switchMap(video => {
-        return this.encodeVideo({ fileName: video }).pipe(mapTo(video));
-      })
     );
   }
 
