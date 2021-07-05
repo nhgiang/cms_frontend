@@ -19,6 +19,17 @@ export class TeacherApiService extends BaseApi {
     });
   }
 
+  getListSearch(params: {
+    limit: number,
+    page: number,
+    q: string,
+    specializationId?: string
+  }) {
+    return this.httpClient.get<QueryResult<User>>(this.createUrl('/search'), {
+      params: this.createParams(params),
+    });
+  }
+
   create(body: TeacherCreateCommand) {
     return this.httpClient.post(this.createUrl(''), body);
   }

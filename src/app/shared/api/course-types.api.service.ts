@@ -12,6 +12,10 @@ export class CourseTypesApiService extends BaseApi {
     return this.httpClient.get<QueryResult<CourseType>>(this.createUrl(''), { params: this.createParams(params) });
   }
 
+  getListSearch(params: { page: number, limit: number }) {
+    return this.httpClient.get<QueryResult<CourseType>>(this.createUrl('/search'), { params: this.createParams(params) });
+  }
+
   create(name: string) {
     return this.httpClient.post(this.createUrl(''), { name });
   }

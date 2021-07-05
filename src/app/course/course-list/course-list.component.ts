@@ -92,13 +92,13 @@ export class CourseListComponent extends DataTableContainer<Course> implements O
   }
 
   teacher$ = (params): Observable<Option[]> => {
-    return this.teacherApi.getList(params).pipe(map(res => res.items.map(x => {
+    return this.teacherApi.getListSearch(params).pipe(map(res => res.items.map(x => {
       return { value: x.id, label: x.fullName };
     })));
   }
 
   type$ = (params): Observable<Option[]> => {
-    return this.courseTypeApi.getList(params).pipe(map(res => res.items.map(x => {
+    return this.courseTypeApi.getListSearch(params).pipe(map(res => res.items.map(x => {
       return { value: x.id, label: x.name };
     })));
   }

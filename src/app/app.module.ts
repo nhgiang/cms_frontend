@@ -23,7 +23,6 @@ import { NgChartjsModule } from 'ng-chartjs';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
 import { NZ_DATE_LOCALE, NZ_I18N, vi_VN } from 'ng-zorro-antd/i18n';
-import { tap } from 'rxjs/operators';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { Error404Component } from './authentication/error404/error404.component';
