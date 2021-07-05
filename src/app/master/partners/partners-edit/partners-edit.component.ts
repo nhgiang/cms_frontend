@@ -6,6 +6,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { PartnersApiService } from '@shared/api/partners.api.service';
+import { Ultilities } from '@shared/extentions/Ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -34,9 +35,11 @@ export class PartnersEditComponent implements OnInit {
   }
 
   submit() {
+    Ultilities.validateForm(this.form);
     this.form
       .get('domain')
       .setValue(this.form.get('domain').value + '.beautyup.asia');
+
     const next = () => {
       this.notification.success(
         'Thành công',
@@ -95,7 +98,7 @@ export class PartnersEditComponent implements OnInit {
       domain: [
         this.data?.domain.replace('.beautyup.asia', ''),
         [TValidators.required, TValidators.maxLength(10)],
-        this.validateDomain.bind(this),
+        // this.validateDomain.bind(this),
       ],
       phoneNumber: [
         this.data.phoneNumber,

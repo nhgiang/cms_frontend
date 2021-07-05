@@ -36,7 +36,7 @@
             nz-input
             formControlName="maxFileSizeUpload"
           />
-          Dung lượng video upload (theo GB)
+          GB
         </nz-form-control>
         <ng-template #errorMaxCourse>
           <ng-container
@@ -51,11 +51,6 @@
             "
           >
             Dung lượng upload phải là số nguyên dương và không được quá 3 chữ số
-          </ng-container>
-          <ng-container
-            *ngIf="myForm.get('maxFileSizeUpload').hasError('required')"
-          >
-            Vui lòng nhập tổng dung lượng video có thể upload
           </ng-container>
         </ng-template>
       </nz-form-item>

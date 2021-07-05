@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form nz-form [formGroup]="form">
   <nz-form-item class="col-md-12">
     <nz-form-label class="text-left w-100" nzRequired
       >Tên học viện</nz-form-label
@@ -107,7 +107,7 @@
         nz-input
         formControlName="maxFileSizeUpload"
       />
-      Dung lượng video upload (theo GB)
+      GB
     </nz-form-control>
     <ng-template #errorMaxCourse>
       <ng-container
