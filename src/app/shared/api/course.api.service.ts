@@ -45,4 +45,8 @@ export class CourseApiService extends BaseApi {
   hidden(id: string, body: any): Observable<any> {
     return this.httpClient.put(this.createUrl(`/hidden/${id}`), body);
   }
+
+  count() {
+    return this.httpClient.get(this.createUrl('/count'));
+  }
 }
