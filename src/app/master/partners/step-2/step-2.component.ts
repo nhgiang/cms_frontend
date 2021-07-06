@@ -6,7 +6,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { PartnersApiService } from '@shared/api/partners.api.service';
-import { Ultilities } from '@shared/extentions/Ultilities';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';

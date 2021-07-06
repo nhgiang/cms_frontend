@@ -6,7 +6,7 @@ import { API_BASE_URL } from '@shared/api/base-url';
 import { PostTypesApiService } from '@shared/api/post-types.api.service';
 import { PostsApiService } from '@shared/api/posts.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
-import { Ultilities } from '@shared/extentions/Ultilities';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { FixFontEditorDirective } from '@shared/services/fix-font-editor-service.ts/fix-font-editor.directive';
 import { NzNotificationService } from 'ng-zorro-antd/notification';

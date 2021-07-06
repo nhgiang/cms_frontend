@@ -8,7 +8,7 @@ import { SkillsApiService } from '@shared/api/skills.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { FeedbackFormComponent } from '@shared/components/feedback-form/feedback-form.component';
-import { Ultilities } from '@shared/extentions/Ultilities';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { AuthenticationService } from '@shared/services/authentication.service';
 import { omit } from 'lodash-es';

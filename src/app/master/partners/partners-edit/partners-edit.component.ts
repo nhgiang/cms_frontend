@@ -6,7 +6,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { PartnersApiService } from '@shared/api/partners.api.service';
-import { Ultilities } from '@shared/extentions/Ultilities';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import merge from 'lodash-es/merge';
 import { NzModalRef } from 'ng-zorro-antd/modal';
