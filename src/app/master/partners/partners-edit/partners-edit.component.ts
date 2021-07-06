@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormGroup,
-  ValidationErrors,
 } from '@angular/forms';
 import { PartnersApiService } from '@shared/api/partners.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
@@ -11,8 +9,8 @@ import { TValidators } from '@shared/extentions/validators';
 import merge from 'lodash-es/merge';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { Observable, timer } from 'rxjs';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { iif, of } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-partners-edit',
@@ -37,6 +35,8 @@ export class PartnersEditComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
+    console.log(123);
+
     const domain = `${this.form.get('domain').value + this.partnersApiService.endpointUrl}`;
     const next = () => {
       this.notification.success(
@@ -52,12 +52,15 @@ export class PartnersEditComponent implements OnInit {
       );
       this.modalRef.close(true);
     };
-    this.partnersApiService.validateDomain(domain).pipe(
-      tap(res => {
-        if (res) {
-          this.form.get('domain').setErrors({ exits: true });
-        }
-      }),
+    iif(() => domain === this.data.domain,
+      of(false),
+      this.partnersApiService.validateDomain(domain).pipe(
+        tap(res => {
+          if (res) {
+            this.form.get('domain').setErrors({ exits: true });
+          }
+        }))
+    ).pipe(
       filter(x => !x),
       switchMap(() => {
         return this.partnersApiService.update(this.data.id, merge(this.form.value, { domain }));
