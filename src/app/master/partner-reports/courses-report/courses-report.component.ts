@@ -29,17 +29,19 @@ export class CoursesReportComponent implements OnInit {
   protected fetch() {
     this.isDataLoading = true;
     forkJoin({
-      courses: this.coursesApi.getList({}),
+      courses: this.coursesApi.getList({ published: true }),
       partners: this.partnersApi.getAll(),
       analytic: this.analyticsApi.analytics(),
     })
       .pipe(finalize(() => (this.isDataLoading = false)))
       .subscribe((obj: any) => {
         this.courses = obj.courses;
-        this.coursesData = obj.courses.items.map((i) => ({
-          id: i.id,
-          name: i.name,
-        }));
+        this.coursesData = obj.courses.items
+          .filter((i) => i.published === true)
+          .map((i) => ({
+            id: i.id,
+            name: i.name,
+          }));
         this.partners = obj.partners.map((i) => ({
           id: i.id,
           name: i.name,
@@ -76,14 +78,16 @@ export class CoursesReportComponent implements OnInit {
   onPageChange(index) {
     this.isDataLoading = true;
     this.coursesApi
-      .getList({ page: index })
+      .getList({ page: index, published: true })
       .pipe(finalize(() => (this.isDataLoading = false)))
       .subscribe((val) => {
         this.courses = val;
-        this.coursesData = this.courses.items.map((i) => ({
-          id: i.id,
-          name: i.name,
-        }));
+        this.coursesData = this.courses.items
+          .filter((i) => i.published === true)
+          .map((i) => ({
+            id: i.id,
+            name: i.name,
+          }));
         this.tableView();
       });
   }
