@@ -29,7 +29,7 @@ export class CoursesReportComponent implements OnInit {
   protected fetch() {
     this.isDataLoading = true;
     forkJoin({
-      courses: this.coursesApi.getList({}),
+      courses: this.coursesApi.getList({ published: true }),
       partners: this.partnersApi.getAll(),
       analytic: this.analyticsApi.analytics(),
     })
@@ -76,7 +76,7 @@ export class CoursesReportComponent implements OnInit {
   onPageChange(index) {
     this.isDataLoading = true;
     this.coursesApi
-      .getList({ page: index })
+      .getList({ page: index, published: true })
       .pipe(finalize(() => (this.isDataLoading = false)))
       .subscribe((val) => {
         this.courses = val;
