@@ -123,9 +123,13 @@ export class PartnersListComponent extends DataTableContainer<any> {
 
   unlock(item) {
     this.partnersApiService
-      .update(item.id, { ...item, status: 'Active' })
+      .update(item.id, { ...item, status: item.status === 'InActive' ? 'Active':'InActive' })
       .subscribe(() => {
-        this.notification.success('Thành công','Mở khóa tài khoản đối tác thành công');
+        this.notification.success(
+          'Thành công',
+          `${item.status === 'InActive' ? 'Mở khóa' : 'Khóa'} tài khoản đối tác thành công!`
+        );
+        this.refresh();
       });
   }
 }

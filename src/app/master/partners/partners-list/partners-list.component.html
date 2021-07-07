@@ -96,28 +96,27 @@
                nzType="default"
                nzShape="circle"
                nz-tooltip
-               nzTooltipTitle="Xóa"
-               *ngIf="item.status === 'Active'">
-              <div [confirmation]="'Bạn có chắc chắn muốn khóa tài khoản partner này không?'"
-                   (confirmed)="delete(item?.id)">
-                <i aria-hidden="true"
-                   nz-icon
-                   nzType="close"
-                   nzTheme="outline"></i>
+               [nzTooltipTitle]="item.status === 'Active' ? 'Khóa' : 'Mở khóa'">
+              <div [confirmation]="'Bạn có chắc chắn muốn ' + (item.status === 'InActive' ? 'mở khóa' : 'khóa') +  ' partner này không?'"
+                   (confirmed)="unlock(item)">
+                   <i aria-hidden="true" nz-icon [nzType]="item.status === 'Active' ? 'lock':'unlock'" nzTheme="outline"></i>
               </div>
             </a>
             <a class="m-r-5"
-               nz-button
-               nzType="default"
-               nzShape="circle"
-               nz-tooltip
-               nzTooltipTitle="Mở khóa"
-               *ngIf="item.status === 'InActive'">
-              <div [confirmation]="'Bạn có chắc chắn muốn mở khóa partner này không?'"
-                   (confirmed)="unlock(item)">
-                   <i aria-hidden="true" nz-icon nzType="unlock" nzTheme="outline"></i>
-              </div>
-            </a>
+            nz-button
+            nzType="default"
+            nzShape="circle"
+            nz-tooltip
+            nzTooltipTitle="Xóa"
+            [class.disable]="item.status === 'Active'">
+           <div [confirmation]="'Bạn có chắc chắn muốn khóa tài khoản partner này không?'"
+                (confirmed)="delete(item?.id)">
+             <i aria-hidden="true"
+                nz-icon
+                nzType="close"
+                nzTheme="outline"></i>
+           </div>
+         </a>
           </div>
         </td>
       </tr>
