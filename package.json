@@ -14,7 +14,8 @@
     "build:prod": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod",
     "build:prod:state": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod --stats-json",
     "bundle:report": "webpack-bundle-analyzer dist/enlink/stats.json",
-    "deploy": "npm run build:prod && firebase use ttc-technology-solutions && firebase deploy --only hosting:cms-beautyup"
+    "deploy": "npm run build:prod && firebase use ttc-technology-solutions && firebase deploy --only hosting:cms-beautyup",
+    "deploy:vps": "npm run build:prod && scp -r dist root@143.198.201.199:/home/cms-frontend"
   },
   "private": true,
   "dependencies": {
