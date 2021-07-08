@@ -6,7 +6,7 @@ import { CourseApiService } from '@shared/api/course.api.service';
 import { SkillsApiService } from '@shared/api/skills.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { TeacherApiService } from '@shared/api/teacher.api.service';
-import { Ultilities } from '@shared/extentions/Ultilities';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { iif, of } from 'rxjs';

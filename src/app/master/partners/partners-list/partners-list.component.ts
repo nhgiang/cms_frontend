@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PartnersApiService } from '@shared/api/partners.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
+import { StudentStatusOptions } from '@shared/options/student-status.options';
 import { AuthenticationService } from '@shared/services/authentication.service';
 import { DestroyService } from '@shared/services/destroy.service';
+import { th } from 'date-fns/locale';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
@@ -16,11 +18,12 @@ import { PartnersEditComponent } from '../partners-edit/partners-edit.component'
   selector: 'app-partners-list',
   templateUrl: './partners-list.component.html',
   styleUrls: ['./partners-list.component.scss'],
-  providers: [DestroyService]
+  providers: [DestroyService],
 })
 export class PartnersListComponent extends DataTableContainer<any> {
   form: FormGroup;
   @ViewChild('footerModal') footerModal: TemplateRef<any>;
+  studentStatusOptions = StudentStatusOptions;
   metaData = [
     {
       key: 'name',
@@ -31,7 +34,8 @@ export class PartnersListComponent extends DataTableContainer<any> {
       key: 'domain',
       name: 'Tên miền',
       sortable: false,
-    }, {
+    },
+    {
       key: 'username',
       name: 'Đại diện',
       sortable: false,
@@ -39,6 +43,11 @@ export class PartnersListComponent extends DataTableContainer<any> {
     {
       key: 'phone',
       name: 'Số điện thoại',
+      sortable: false,
+    },
+    {
+      key: 'status',
+      name: 'Trạng thái',
       sortable: false,
     },
   ];
@@ -54,7 +63,7 @@ export class PartnersListComponent extends DataTableContainer<any> {
   ) {
     super(route, router);
     this.buildForm();
-    this.form.valueChanges.pipe(debounceTime(300)).subscribe(value => {
+    this.form.valueChanges.pipe(debounceTime(300)).subscribe((value) => {
       this.onSearchParamsChanged(value);
     });
   }
@@ -64,41 +73,63 @@ export class PartnersListComponent extends DataTableContainer<any> {
       limit: this.quantity,
       page: this.page,
       sort: this.sort,
-      order: this.order
+      order: this.order,
     };
     const { q } = this.params;
     return this.partnersApiService.getList({ ...params, q });
   }
 
   edit(data: any) {
-    this.modal.create({
-      nzTitle: 'Cập nhật thông tin đối tác',
-      nzContent: PartnersEditComponent,
-      nzFooter: null,
-      nzComponentParams: {
-        data
-      },
-    }).afterClose.pipe(filter(x => x), takeUntil(this.destroy$)).subscribe(() => this.refreshTrigger.next());
+    this.modal
+      .create({
+        nzTitle: 'Cập nhật thông tin đối tác',
+        nzContent: PartnersEditComponent,
+        nzFooter: null,
+        nzComponentParams: {
+          data,
+        },
+      })
+      .afterClose.pipe(
+        filter((x) => x),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => this.refreshTrigger.next());
   }
 
   delete(id: string) {
     const next = () => {
-      this.notification.success('Thành công', 'Xóa thông tin đối tác thành công!');
+      this.refresh();
+      this.notification.success(
+        'Thành công',
+        'Khóa tài khoản đối tác thành công!'
+      );
     };
     const err = () => {
-      this.notification.error('Thất bại', 'Xóa thông tin đối tác thất bại!');
+      this.notification.error('Thất bại', 'Khóa tài khoản đối tác thất bại!');
     };
     this.partnersApiService.delete(id).subscribe(next, err);
   }
 
   buildForm() {
     this.form = this.fb.group({
-      q: [null]
+      q: [null],
     });
   }
 
   impersonation(partner: any) {
     this.authenticationService.storageAnonymousPartnerValue(partner);
     this.router.navigate(['']);
+  }
+
+  unlock(item) {
+    this.partnersApiService
+      .update(item.id, { ...item, status: item.status === 'InActive' ? 'Active':'InActive' })
+      .subscribe(() => {
+        this.notification.success(
+          'Thành công',
+          `${item.status === 'InActive' ? 'Mở khóa' : 'Khóa'} tài khoản đối tác thành công!`
+        );
+        this.refresh();
+      });
   }
 }

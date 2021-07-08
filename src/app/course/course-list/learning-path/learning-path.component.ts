@@ -13,6 +13,7 @@ import { Lesson } from 'types/models/course';
 })
 export class LearningPathComponent implements OnInit, OnChanges {
   @Input() courseId: string;
+  @Input() isDisable: boolean;
   isAddStep: boolean;
   lessonTitle: FormControl;
   lessons: Lesson[] = [];

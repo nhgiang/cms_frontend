@@ -10,6 +10,16 @@ const routes: Routes = [
     data: {
       title: 'Danh sách đối tác',
     },
+  },
+  {
+    path: 'partner-reports',
+    loadChildren: () =>
+      import('src/app/master/partner-reports/partner-reports.module').then(
+        (m) => m.PartnerReportsModule
+      ),
+    data: {
+      title: 'Báo cáo đối tác',
+    },
   }
 ];
 

@@ -1,0 +1,60 @@
+<nz-card>
+  <nz-table
+    [nzLoading]="isDataLoading"
+    [nzData]="coursesData"
+    [nzFrontPagination]="false"
+    [nzPageIndex]="courses?.meta?.currentPage"
+    [nzTotal]="courses?.meta?.totalItems"
+    (nzPageIndexChange)="onPageChange($event)"
+    [nzShowTotal]="showTotal"
+    nzBordered
+  >
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th nzWidth="200px">Tên khóa học</th>
+        <th *ngFor="let partner of partners" nzWidth="230px">
+          {{ partner.name }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of coursesData; index as i">
+        <td>
+          {{
+            i + 1 + (courses.meta.currentPage - 1) * courses.meta.itemsPerPage
+          }}
+        </td>
+        <td>
+          <div
+            style="
+              white-space: nowrap;
+              width: 200px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            "
+            nz-tooltip
+            [nzTooltipTitle]="course.name"
+          >
+            {{ course.name }}
+          </div>
+        </td>
+        <td *ngFor="let datum of course.dataByPartners">
+          <nz-progress
+            *ngIf="datum.total > 0"
+            [nzPercent]="(datum.certed / datum.total) * 100"
+            [nzShowInfo]="false"
+          ></nz-progress>
+          {{ datum.render }}
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<ng-template #showTotal>
+  Tổng cộng: {{ courses?.meta.totalItems }}
+</ng-template>
+<ng-template #empty>
+  <nz-empty nzNotFoundContent="Không có dữ liệu"></nz-empty>
+</ng-template>

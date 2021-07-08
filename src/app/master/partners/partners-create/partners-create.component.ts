@@ -8,7 +8,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 @Component({
   selector: 'app-partners-create',
   templateUrl: './partners-create.component.html',
-  styleUrls: ['./partners-create.component.scss']
+  styleUrls: ['./partners-create.component.scss'],
 })
 export class PartnersCreateComponent implements OnInit {
   form: FormGroup;
@@ -23,8 +23,7 @@ export class PartnersCreateComponent implements OnInit {
     this.buildForm();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   buildForm() {
     this.form = this.fb.group({
@@ -37,11 +36,11 @@ export class PartnersCreateComponent implements OnInit {
       email: [null, [TValidators.required]],
       admin: this.fb.group({
         email: [null, [TValidators.required]],
-        password: [null, [TValidators.required]]
+        password: [null, [TValidators.required]],
       }),
       settings: this.fb.group({
-        maxCourses: [null, [TValidators.required]],
-      })
+        maxFileSizeUpload: [null, [TValidators.required]],
+      }),
     });
   }
 
@@ -49,21 +48,31 @@ export class PartnersCreateComponent implements OnInit {
     this.currentStep += 1;
   }
 
-
-
   back() {
     this.router.navigate(['/partners']);
   }
 
   submit() {
-    this.form.get('domain').setValue(this.form.get('domain').value + this.partnersApiService.endpointUrl);
-    this.partnersApiService.create(this.form.value).subscribe(res => {
-      this.notification.success('Thành công', 'Tạo mới đối tác thành công');
-      this.router.navigate(['/master/partners']);
-    },
+    this.form
+      .get('domain')
+      .setValue(
+        this.form.get('domain').value + this.partnersApiService.endpointUrl
+      );
+    this.partnersApiService.create(this.form.value).subscribe(
+      (res) => {
+        this.notification.success('Thành công', 'Tạo mới đối tác thành công');
+        this.router.navigate(['/master/partners']);
+      },
       (err) => {
         this.notification.error('Thất bại', err.message);
-        this.form.get('domain').setValue(this.form.get('domain').value.replace(this.partnersApiService.endpointUrl, ''));
-      });
+        this.form
+          .get('domain')
+          .setValue(
+            this.form
+              .get('domain')
+              .value.replace(this.partnersApiService.endpointUrl, '')
+          );
+      }
+    );
   }
 }

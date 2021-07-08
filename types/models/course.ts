@@ -2,6 +2,8 @@ import { VideoType } from 'types/enums';
 import { Entity } from 'types/typemodel';
 
 export interface Course extends Entity {
+  typeId: any;
+  hasStudent: any;
   name: string;
   teacherAvatar: string;
   teacherName: string;
@@ -15,6 +17,10 @@ export interface Course extends Entity {
   videoIntro: string;
   index: number;
   published: boolean;
+  skills: any[];
+  userId: any;
+  isOwner: any;
+  isHidden: any;
 }
 export interface Specialization extends Entity {
   name: string;

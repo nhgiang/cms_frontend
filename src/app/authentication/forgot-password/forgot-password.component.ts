@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthApiService } from '@shared/api/auth.api.service';
-import { Ultilities } from '@shared/extentions/Ultilities';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { finalize } from 'rxjs/operators';
 import { trimData } from 'utils/common';

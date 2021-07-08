@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingApiService, SettingVisibleApiService } from '@shared/api/setting.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { SettingContainer } from '@shared/class/setting-container';
-import { Ultilities } from '@shared/extentions/Ultilities';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { DestroyService } from '@shared/services/destroy.service';
 import { NzModalService } from 'ng-zorro-antd/modal';

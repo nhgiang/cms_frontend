@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { EventTypesApiService } from '@shared/api/event-types.api.service';
 import { QueryResult, EventType, Meta } from 'types/typemodel';
 import { TValidators } from '@shared/extentions/validators';
-import { Ultilities } from '@shared/extentions/Ultilities';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { finalize } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 

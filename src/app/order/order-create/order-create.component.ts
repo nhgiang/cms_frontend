@@ -14,7 +14,7 @@ import {
   SettingMembershipsApiService,
 } from '@shared/api/setting-memberships.api.service';
 import { StudentApiService } from '@shared/api/student.api.service';
-import { Ultilities } from '@shared/extentions/Ultilities';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { StudentStatusOptions } from '@shared/options/student-status.options';
 import { omitBy } from 'lodash-es';

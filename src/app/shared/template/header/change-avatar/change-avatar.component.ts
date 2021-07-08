@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthApiService } from '@shared/api/auth.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
-import { Ultilities } from '@shared/extentions/Ultilities';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { AuthenticationService } from '@shared/services/authentication.service';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { NzNotificationService } from 'ng-zorro-antd/notification';

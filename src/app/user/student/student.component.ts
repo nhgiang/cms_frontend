@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CourseApiService } from '@shared/api/course.api.service';
 import { StudentApiService } from '@shared/api/student.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { StudentStatusOptions } from '@shared/options/student-status.options';
@@ -17,7 +18,8 @@ export class StudentComponent extends DataTableContainer<User> implements OnInit
   studentStatusOptions = StudentStatusOptions;
   UserStatus = UserStatus;
   partners: any[];
-  metaData: DataTableColumnMetaData[]  = [
+  numberCourseMembership: number = 0;
+  metaData: DataTableColumnMetaData[] = [
     {
       key: 'name',
       name: 'Người dùng',
@@ -51,7 +53,8 @@ export class StudentComponent extends DataTableContainer<User> implements OnInit
     private studentApi: StudentApiService,
     private fb: FormBuilder,
     route: ActivatedRoute,
-    router: Router
+    router: Router,
+    private courseApi: CourseApiService
   ) {
     super(route, router);
   }
@@ -59,6 +62,7 @@ export class StudentComponent extends DataTableContainer<User> implements OnInit
   ngOnInit() {
     this.buildform();
     super.ngOnInit();
+    this.courseApi.count().subscribe((res: number) => this.numberCourseMembership = res);
     this.form.valueChanges.pipe(debounceTime(500)).subscribe((res) => this.onSearchParamsChanged(res));
   }
 

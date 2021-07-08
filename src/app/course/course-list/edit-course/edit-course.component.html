@@ -1,9 +1,19 @@
+<nz-alert *ngIf="isDisableAll"
+          class="mb-3 mt-3"
+          nzShowIcon
+          nzType="warning"
+          nzMessage="Bạn không thể chỉnh sửa thông tin khoá học mặc định trong hệ thống"></nz-alert>
 <nz-card nzTitle="Bước 1: Thiết lập thông tin cơ bản">
   <nz-spin [nzSpinning]="isLoading">
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form [formGroup]="form"
+          (ngSubmit)="submit()">
       <nz-form-item class="row">
         <nz-form-control nzErrorTip="File phải là file ảnh và nhỏ hơn 5MB">
-          <app-image-cropper-control formControlName="photo" [height]="750" [width]="1440">
+          <app-image-cropper-control formControlName="photo"
+                                     [isDisable]="isDisableAll || isHidden"
+                                     [showAction]="true"
+                                     [height]="750"
+                                     [width]="1440">
             <label class="label-avatar">Chọn ảnh đại diện cho khoá học <span class="text-danger">*</span></label>
             <p class="opacity-07 font-size-12 m-b-0">
               Kích thước đề xuất: 750x1440 <br>
@@ -13,13 +23,19 @@
         </nz-form-control>
       </nz-form-item>
 
-      <nz-form-item class="row">
-        <nz-form-label class="text-left input-space" nzRequired>Video giới thiệu</nz-form-label>
-        <nz-radio-group nzAutoFocus formControlName="videoIntroType" class="d-flex align-items-center row">
-          <nz-radio-button nz-radio [nzValue]="VideoType.Youtube">
+      <nz-form-item class="row"
+                    [class.pe-none]="isDisableAll">
+        <nz-form-label class="text-left input-space"
+                       nzRequired>Video giới thiệu</nz-form-label>
+        <nz-radio-group nzAutoFocus
+                        formControlName="videoIntroType"
+                        class="d-flex align-items-center row">
+          <nz-radio-button nz-radio
+                           [nzValue]="VideoType.Youtube">
             Nhập link youtube
           </nz-radio-button>
-          <nz-radio-button nz-radio [nzValue]="VideoType.Vimeo">
+          <nz-radio-button nz-radio
+                           [nzValue]="VideoType.Vimeo">
             Tải lên file video
           </nz-radio-button>
         </nz-radio-group>
@@ -29,79 +45,113 @@
         <label class="text-left input-space"></label>
         <nz-form-control nzErrorTip="Vui lòng upload hoặc nhập link video giới thiệu">
           <div class="d-flex justify-content-between">
-            <app-upload-video-intro class="w-100" formControlName="videoIntro"
-              [isUploadLink]="form.value.videoIntroType">
+            <app-upload-video-intro class="w-100"
+                                    [isDisable]="isDisableAll"
+                                    [isHidden]="isHidden"
+                                    formControlName="videoIntro"
+                                    [isUploadLink]="form.value.videoIntroType">
             </app-upload-video-intro>
           </div>
         </nz-form-control>
       </nz-form-item>
 
-      <div class="d-flex justify-content-between row">
+      <div class="d-flex justify-content-between row"
+           [class.pe-none]="isDisableAll">
         <nz-form-item class="col-6">
-          <nz-form-label class="text-left input-space" nzRequired>Tên khóa học</nz-form-label>
+          <nz-form-label class="text-left input-space"
+                         nzRequired>Tên khóa học</nz-form-label>
           <nz-form-control nzErrorTip="Nhập tên khóa học">
-            <input nz-input formControlName="name" placeholder="Nhập tên khóa học">
+            <input nz-input
+                   formControlName="name"
+                   placeholder="Nhập tên khóa học">
           </nz-form-control>
         </nz-form-item>
         <nz-form-item class="col-6">
-          <nz-form-label class="text-left input-space" nzRequired>Chọn giảng viên</nz-form-label>
+          <nz-form-label class="text-left input-space"
+                         nzRequired>Chọn giảng viên</nz-form-label>
           <nz-form-control nzErrorTip="Chọn giảng viên cho khóa học">
-            <select-advance [getOptionsFn]="teachers" formControlName="userId"
-              placeholder="Chọn giảng viên cho khóa học">
+            <select-advance [getOptionsFn]="teachers"
+                            formControlName="userId"
+                            placeholder="Chọn giảng viên cho khóa học">
             </select-advance>
           </nz-form-control>
         </nz-form-item>
       </div>
 
-      <nz-form-item>
-        <nz-form-label class="text-left input-space" nzRequired>Loại khóa học</nz-form-label>
+      <nz-form-item [class.pe-none]="isDisableAll">
+        <nz-form-label class="text-left input-space"
+                       nzRequired>Loại khóa học</nz-form-label>
         <nz-form-control nzErrorTip="Chọn loại khóa học">
-          <select-advance [getOptionsFn]="courseTypes" formControlName="typeId" placeholder="Chọn loại cho khóa học">
+          <select-advance [getOptionsFn]="courseTypes"
+                          formControlName="typeId"
+                          placeholder="Chọn loại cho khóa học">
           </select-advance>
         </nz-form-control>
       </nz-form-item>
 
-      <nz-form-item>
-        <nz-form-label class="text-left input-space" nzRequired>Mô tả</nz-form-label>
+      <nz-form-item [class.pe-none]="isDisableAll">
+        <nz-form-label class="text-left input-space"
+                       nzRequired>Mô tả</nz-form-label>
         <nz-form-control nzErrorTip="Nhập mô tả khóa học">
-          <textarea style="resize: no;" nz-input rows="3" formControlName="description"
-            placeholder="Nhập mô tả khóa học"></textarea>
+          <textarea style="resize: no;"
+                    nz-input
+                    rows="3"
+                    formControlName="description"
+                    placeholder="Nhập mô tả khóa học"></textarea>
         </nz-form-control>
       </nz-form-item>
 
-      <div class="d-flex justify-content-between row">
+      <div class="d-flex justify-content-between row"
+           [class.pe-none]="isDisableAll">
         <nz-form-item class="col-6">
-          <nz-form-label class="text-left input-space" nzRequired>Giá cho học viên</nz-form-label>
+          <nz-form-label class="text-left input-space"
+                         nzRequired>Giá cho học viên</nz-form-label>
           <nz-form-control nzErrorTip="Nhập giá cho học viên">
-            <input-number formControlName="studentPrice" placeholder="Nhập giá cho học viên" class="w-100">
+            <input-number formControlName="studentPrice"
+                          placeholder="Nhập giá cho học viên"
+                          class="w-100">
             </input-number>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item class="col-6">
-          <nz-form-label class="text-left input-space" nzRequired>Giá cho đối tác</nz-form-label>
+          <nz-form-label class="text-left input-space"
+                         nzRequired>Giá cho đối tác</nz-form-label>
           <nz-form-control nzErrorTip="Nhập giá cho đối tác">
-            <input-number formControlName="partnerPrice" placeholder="Nhập giá cho đối tác" class="w-100">
+            <input-number formControlName="partnerPrice"
+                          placeholder="Nhập giá cho đối tác"
+                          class="w-100">
             </input-number>
           </nz-form-control>
         </nz-form-item>
       </div>
-      <nz-form-item>
+      <nz-form-item [class.pe-none]="isDisableAll">
         <div class="d-flex align-items-center input-space">
-          <nz-form-label class="text-left" nzRequired>
+          <nz-form-label class="text-left"
+                         nzRequired>
             Kỹ năng
           </nz-form-label>
-          <i  aria-hidden="true"nz-icon nzType="info-circle" nzTheme="outline" nz-tooltip
-            nzTooltipTitle="Chỉ cho phép chọn tối đa 4 kỹ năng"></i>
+          <i aria-hidden="true"
+             nz-icon
+             nzType="info-circle"
+             nzTheme="outline"
+             nz-tooltip
+             nzTooltipTitle="Chỉ cho phép chọn tối đa 4 kỹ năng"></i>
         </div>
         <nz-form-control nzErrorTip="Chọn kỹ năng đạt được cho khóa học">
-          <app-multiple-selection [maxMultipleCount]="4" [getOptionsFn]="skills" formControlName="skills"
-            placeholder="Chọn kỹ năng đạt được">
+          <app-multiple-selection [maxMultipleCount]="4"
+                                  [getOptionsFn]="skills"
+                                  formControlName="skills"
+                                  placeholder="Chọn kỹ năng đạt được">
           </app-multiple-selection>
         </nz-form-control>
       </nz-form-item>
 
       <div class="w-100 d-flex justify-content-end">
-        <button nz-button [nzType]="'primary'" type="submit" [nzLoading]="isLoading">Lưu dữ liệu</button>
+        <button nz-button
+                [disabled]="isDisableAll"
+                [nzType]="'primary'"
+                type="submit"
+                [nzLoading]="isLoading">Lưu dữ liệu</button>
       </div>
     </form>
   </nz-spin>
@@ -110,27 +160,42 @@
   <div class="row">
     <div class="col-7">
       <div class="card-body p-0">
-        <app-learning-path [courseId]="course?.id"></app-learning-path>
+        <app-learning-path [courseId]="course?.id"
+                           [isDisable]="isDisableAll"></app-learning-path>
       </div>
     </div>
     <div class="col-5">
       <div class="card-body">
         <div class="title px-3 py-2">
           <h5 class="mb-0">Đánh giá học viên</h5>
-          <span (click)="addFeedback()"><i  aria-hidden="true"nz-icon nzType="plus" nzTheme="outline"></i></span>
+          <span (click)="addFeedback()"
+                *ngIf="!isDisableAll"><i aria-hidden="true"
+               nz-icon
+               nzType="plus"
+               nzTheme="outline"></i></span>
         </div>
         <div class="feedbacks px-3">
           <div *ngFor="let feedback of feedbacks"
-            class="feedback d-flex align-items-center py-3 justify-content-between">
-            <nz-avatar [nzShape]="'square'" [nzSize]="68" [nzIcon]="'user'" [nzSrc]="feedback.photo"></nz-avatar>
+               class="feedback d-flex align-items-center py-3 justify-content-between">
+            <nz-avatar [nzShape]="'square'"
+                       [nzSize]="68"
+                       [nzIcon]="'user'"
+                       [nzSrc]="feedback.photo"></nz-avatar>
             <div class="ml-3 feedback-content">
-              <h5 class="mb-0" (click)="editFeedback(feedback?.id)">{{feedback?.studentName}}</h5>
+              <h5 class="mb-0"
+                  [class.pe-none]="isDisableAll"
+                  (click)="editFeedback(feedback?.id)">{{feedback?.studentName}}</h5>
               <div class="truncate-2 text-muted">{{feedback?.content}}</div>
             </div>
-            <div class="text-muted">
+            <div class="text-muted"
+                 *ngIf="!isDisableAll">
               <span [confirmation]="'Bạn có chắc chắn muốn xóa thông tin đánh giá của học viên này?'"
-                (confirmed)="deleteFeedback(feedback?.id)">
-                <i  aria-hidden="true"nz-icon nzType="close-circle" nzTheme="fill" style="font-size: 20px;"></i>
+                    (confirmed)="deleteFeedback(feedback?.id)">
+                <i aria-hidden="true"
+                   nz-icon
+                   nzType="close-circle"
+                   nzTheme="fill"
+                   style="font-size: 20px;"></i>
               </span>
             </div>
           </div>
@@ -139,12 +204,23 @@
       <div class="card-body">
         <div class="title  px-3 py-2">
           <h5 class="mb-0">Cấp chứng chỉ</h5>
-          <span><i  aria-hidden="true"nz-icon nzType="plus" nzTheme="outline"></i></span>
+          <span *ngIf="!isDisableAll"><i aria-hidden="true"
+               nz-icon
+               nzType="plus"
+               nzTheme="outline"></i></span>
         </div>
       </div>
     </div>
   </div>
 </nz-card>
-<div class="text-right" *ngIf="!course?.published">
-  <button nz-button nzType="primary" (click)="publish()">Công khai khóa học</button>
+<div class="text-right">
+  <button nz-button
+          class="mr-2 ant-btn-background-ghost"
+          nzType="primary"
+          *ngIf="(!user?.isMaster || anonymous) && isDisableAll"> <span [confirmation]="textConfirm"
+          (confirmed)="hiddenCourses()"> {{textHidden}} </span></button>
+  <button nz-button
+          *ngIf="!course?.published"
+          nzType="primary"
+          (click)="publish()">Công khai khóa học</button>
 </div>

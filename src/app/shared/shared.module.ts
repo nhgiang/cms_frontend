@@ -12,7 +12,7 @@ import { DatetimePipe } from './pipes/datetime.pipe';
 import { ImageCropperModalComponent } from './components/image-cropper-modal/image-cropper-modal.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropperDirective } from './directives/image-cropper.directive';
-import { ConfirmationComponent } from './components/confirmation/confirmation.Component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { RouterMatchDirective } from './directives/router-match.directive';
 import { SelectAdvanceComponent } from './controls/select-advance/select-advance.component';
 import { PicturesWallUploadComponent } from './controls/pictures-wall-upload/pictures-wall-upload.component';

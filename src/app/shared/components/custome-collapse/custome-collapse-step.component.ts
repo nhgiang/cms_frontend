@@ -25,6 +25,7 @@ import { UnitTestApiService } from '@shared/api/unit-test.api.service';
 })
 export class CustomeCollapseStepComponent extends NzCollapsePanelComponent implements OnInit {
   @Input() data: Lesson;
+  @Input() isDisable: boolean;
   @Output() refresh = new EventEmitter();
   isEdit: boolean;
   UnitAndTest = UnitAndTest;

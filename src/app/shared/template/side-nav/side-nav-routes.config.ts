@@ -87,7 +87,7 @@ export const ROUTES: SideNavInterface[] = [
     title: 'Quản lý đơn hàng',
     iconType: 'nzIcon',
     iconTheme: 'outline',
-    icon: 'profile',
+    icon: 'shopping-cart',
     submenu: [
       {
         path: 'order',

@@ -5,7 +5,7 @@ import { AngularEditorConfig, AngularEditorService } from '@kolkov/angular-edito
 import { EventTypeApiService } from '@shared/api/event-type.api.service';
 import { EventApiService } from '@shared/api/event.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
-import { Ultilities } from '@shared/extentions/Ultilities';
+import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { FixFontEditorDirective } from '@shared/services/fix-font-editor-service.ts/fix-font-editor.directive';
 import { NzNotificationService } from 'ng-zorro-antd/notification';

@@ -1,0 +1,62 @@
+<nz-card>
+  <div class="text-right mb-3">
+    <button nz-button nzType="primary" (click)="refresh()">Làm mới</button>
+  </div> 
+  <nz-table [nzData]="items"
+            (nzQueryParams)="onParamsChanged($event)"
+            [nzPageSize]="quantity"
+            [nzLoading]="isloading"
+            [nzTotal]="meta?.totalItems"
+            [nzFrontPagination]="false"
+            [nzShowTotal]="totalTemplate"
+            [(nzPageIndex)]="page"
+            nzBordered>
+    <thead>
+      <tr>
+        <th scope="col"
+            nzWidth="70px">ID</th>
+        <ng-container *ngFor="let col of metaData">
+          <th *ngIf="!col.sortable"
+              [classList]="col?.class"
+              [nzWidth]="col?.width"
+              scope="col">{{col.name}}</th>
+          <th [classList]="col?.class"
+              *ngIf="col.sortable"
+              scope="col"
+              [nzSortFn]="col.sortable"
+              [nzSortOrder]="col?.sortOrder"
+              [nzColumnKey]="col.key">{{col.name}}</th>
+        </ng-container>
+        <th scope="col"
+            nzWidth="230px"
+            class="text-center">
+          Tỷ lệ chuyển đổi <i class="pointer" nz-tooltip nzTooltipTitle="Tỷ lệ chuyển đổi = học viên mua khoá học / tổng học viên" nz-icon nzType="question-circle" nzTheme="outline"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>#{{item?.index}}</td>
+        <td>
+          {{item?.partnerName}}
+        </td>
+        <td class="text-center">
+          {{item?.totalLearner}}
+        </td>
+        <td class="text-center">{{item?.learnerHasPurchase}}</td>
+        <td class="text-center">{{item?.learnerHasCertificate}}</td>
+        <td class="text-center">{{item?.convensionRate|percent}}</td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td>Tổng</td>
+        <td class="text-center">{{totalLearner}}</td>
+        <td class="text-center">{{learnerHasPurchase}}</td>
+        <td class="text-center">{{learnerHasCertificate}}</td>
+        <td class="text-center"></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #totalTemplate
+             let-total> Tổng cộng: {{ total }} </ng-template>
