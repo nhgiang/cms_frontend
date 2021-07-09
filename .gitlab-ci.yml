@@ -47,6 +47,7 @@ deploy_staging:
   script:
     - cd dist
     - rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress . $SSH_USER@$SSH_HOST:/home/beautyup/qa-cms-frontend/dist
+  when: manual
 
 
 build_prod:
@@ -66,3 +67,4 @@ deploy_prod:
   script:
     - cd dist
     - rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --progress . $SSH_USER@$SSH_HOST:/home/beautyup/cms-frontend/dist
+  when: manual
