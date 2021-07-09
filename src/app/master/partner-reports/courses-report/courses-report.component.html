@@ -8,10 +8,11 @@
     (nzPageIndexChange)="onPageChange($event)"
     [nzShowTotal]="showTotal"
     nzBordered
+    [nzScroll]="{ x: '1200px' }"
   >
     <thead>
       <tr>
-        <th>ID</th>
+        <th nzWidth="70px" nzAlign="center">ID</th>
         <th nzWidth="200px">Tên khóa học</th>
         <th *ngFor="let partner of partners" nzWidth="230px">
           {{ partner.name }}
@@ -20,8 +21,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let course of coursesData; index as i">
-        <td>
-          {{
+        <td nzAlign="center">
+          #{{
             i + 1 + (courses.meta.currentPage - 1) * courses.meta.itemsPerPage
           }}
         </td>
