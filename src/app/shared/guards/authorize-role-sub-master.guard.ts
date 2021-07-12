@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthorizeRoleMasterGuard implements CanActivate {
+export class AuthorizeRoleSubMasterGuard implements CanActivate {
   currentUser: User;
   constructor(
     private authService: AuthenticationService,
@@ -25,7 +25,12 @@ export class AuthorizeRoleMasterGuard implements CanActivate {
   ): Observable<boolean> {
     return this.authService.currentUser.pipe(
       map((user) => {
-        if (user.role === 'Admin' && user.isMaster) return true;
+        if (
+          user.role === 'SubMaster' ||
+          (user.role === 'Admin' && user.isMaster)
+        )
+          return true;
+
         this.router.navigateByUrl('authentication/error/404');
         return false;
       })

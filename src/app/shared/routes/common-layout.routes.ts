@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthorizeByRoleGuard } from '@shared/guards/authorize-by-role.guard';
-import { AuthorizeRoleMasterGuard } from '@shared/guards/authorize-role-master.guard';
+import { AuthorizeRoleSubMasterGuard } from '@shared/guards/authorize-role-sub-master.guard';
 import { ConfigQuickContactComponent } from 'src/app/config-quick-contact/config-quick-contact.component';
 
 export const CommonLayoutRoutes: Routes = [
@@ -109,7 +109,7 @@ export const CommonLayoutRoutes: Routes = [
   },
   {
     path: 'master',
-    canActivate: [AuthorizeRoleMasterGuard],
+    canActivate: [AuthorizeRoleSubMasterGuard],
     loadChildren: () =>
       import('src/app/master/master.module').then((m) => m.MasterModule),
     data: {

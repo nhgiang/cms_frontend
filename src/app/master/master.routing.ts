@@ -1,4 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
+import { AuthorizeRoleMasterGuard } from '@shared/guards/authorize-role-master.guard';
 
 const routes: Routes = [
   {
@@ -20,7 +21,18 @@ const routes: Routes = [
     data: {
       title: 'Báo cáo đối tác',
     },
-  }
+  },
+  {
+    path: 'submaster',
+    canActivate: [AuthorizeRoleMasterGuard],
+    loadChildren: () =>
+      import('src/app/master/submaster/submaster.module').then(
+        (m) => m.SubMasterModule
+      ),
+    data: {
+      title: 'Quản lý SubMaster',
+    },
+  },
 ];
 
 export const MasterRoutes = RouterModule.forChild(routes);
