@@ -25,7 +25,7 @@ export class AuthorizeByRoleGuard implements CanActivate {
   ): Observable<boolean> {
     return this.authService.currentUser.pipe(
       map((user) => {
-        if (user.role === 'Admin') return true;
+        if (user.role === 'Admin' || user.role === 'SubMaster') return true;
         this.router.navigateByUrl('authentication/error/404');
         return false;
       })

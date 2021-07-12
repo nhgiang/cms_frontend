@@ -65,7 +65,11 @@
         </ul>
       </nz-dropdown-menu>
       <li
-        *ngIf="(user$ | async)?.isMaster && !anonymous"
+        *ngIf="
+          ((user$ | async)?.isMaster ||
+            (user$ | async)?.role === 'SubMaster') &&
+          !anonymous
+        "
         nz-dropdown
         [nzDropdownMenu]="masterPrivilege"
         [nzTrigger]="'click'"
@@ -98,6 +102,13 @@
               <li nz-menu-item>Báo cáo tài chính tổng quan</li>
               <li nz-menu-item>Báo cáo doanh thu tổng quan</li>
             </ul>
+          </li>
+          <li
+            *ngIf="(user$ | async)?.isMaster"
+            nz-menu-item
+            [routerLink]="['master/submaster']"
+          >
+            Danh sách SubMaster
           </li>
         </ul>
       </nz-dropdown-menu>
