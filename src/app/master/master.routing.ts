@@ -33,6 +33,16 @@ const routes: Routes = [
       title: 'Quản lý SubMaster',
     },
   },
+  {
+    path: 'partner-packages',
+    loadChildren: () =>
+      import('src/app/master/partner-packages/partner-packages.module').then(
+        (m) => m.PartnerPackagesModule
+      ),
+    data: {
+      title: 'Gói sản phẩm cho đối tác',
+    },
+  },
 ];
 
 export const MasterRoutes = RouterModule.forChild(routes);

@@ -1,0 +1,83 @@
+<nz-card>
+  <nz-spin [nzSpinning]="isloading">
+    <form nz-form [formGroup]="form" nzLayout="vertical" (ngSubmit)="submit()">
+      <nz-form-item>
+        <nz-form-label nzRequired> Tên gói sản phẩm </nz-form-label>
+        <nz-form-control [nzErrorTip]="customErrs">
+          <input nz-col [nzSpan]="16" nz-input formControlName="name" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>
+          Tổng dung lương video khóa học tải lên
+        </nz-form-label>
+        <nz-form-control [nzErrorTip]="customErrs">
+          <input-number
+            nz-col
+            [nzSpan]="16"
+            formControlName="maxStorage"
+            class="w-100 m-r-5"
+            style="display: inline-block"
+          ></input-number>
+          GB
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired> Giá tiền lưu trữ hàng tháng</nz-form-label>
+        <nz-form-control [nzErrorTip]="customErrs">
+          <input-number
+            nz-col
+            [nzSpan]="16"
+            formControlName="monthlyPrice"
+            class="w-100 m-r-5"
+            style="display: inline-block"
+          ></input-number>
+          VND
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Giới hạn số lượng học viên</nz-form-label>
+        <nz-form-control [nzErrorTip]="customErrs">
+          <input-number
+            nz-col
+            [nzSpan]="16"
+            formControlName="maxStudents"
+            class="w-100 m-r-5"
+            style="display: inline-block"
+          ></input-number>
+          <span>Học viên</span>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Thời hạn</nz-form-label>
+        <nz-form-control [nzErrorTip]="customErrs">
+          <input-number
+            nz-col
+            [nzSpan]="16"
+            formControlName="days"
+            class="w-100 m-r-5"
+            style="display: inline-block"
+          ></input-number>
+          Ngày
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="text-right">
+        <a nz-button routerLink="/master/partner-packages" class="m-r-5"
+          >Hủy bỏ</a
+        >
+        <button nzType="primary" nz-button type="submit">Lưu lại</button>
+      </div>
+    </form>
+  </nz-spin>
+</nz-card>
+
+<ng-template #customErrs let-control="$implicit">
+  <ng-container *ngIf="control.errors.required">
+    Trường thông tin không được để trống
+  </ng-container>
+</ng-template>
