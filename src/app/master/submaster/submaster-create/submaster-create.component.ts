@@ -33,6 +33,7 @@ export class SubMasterCreateComponent implements OnInit {
       password: ['', [TValidators.required, TValidators.passwordRules]],
       phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]],
       bio: [null, TValidators.required],
+      jobTitle: [null, TValidators.required],
       avatar: [null, TValidators.required],
     });
   }

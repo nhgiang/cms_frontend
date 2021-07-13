@@ -30,7 +30,7 @@ const routes: Routes = [
         (m) => m.SubMasterModule
       ),
     data: {
-      title: 'Quản lý SubMaster',
+      title: 'Quản lý sub-master',
     },
   },
 ];
