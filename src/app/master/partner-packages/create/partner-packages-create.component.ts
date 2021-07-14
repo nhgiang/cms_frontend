@@ -1,0 +1,70 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
+import { PartnerPackageApiService } from '@shared/api/partner-packages.api.service';
+import { Ultilities } from '@shared/extentions/ultilities';
+import { TValidators } from '@shared/extentions/validators';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { finalize } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-partner-packages-create',
+  templateUrl: 'partner-packages-create.component.html',
+})
+export class PartnerPackagesCreateComponent implements OnInit {
+  constructor(
+    private api: PartnerPackageApiService,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private notif: NzNotificationService
+  ) {}
+  form: FormGroup;
+  isloading = false;
+  editId: string = null;
+
+  ngOnInit() {
+    this.editId = this.route.snapshot.params.id;
+    this.form = this.fb.group({
+      name: ['', [TValidators.required, TValidators.maxLength(20)]],
+      maxStorage: ['', TValidators.required],
+      monthlyPrice: ['', TValidators.required],
+      maxStudents: ['', TValidators.required],
+      days: ['', TValidators.required],
+    });
+    if (this.editId) {
+      this.isloading = true;
+      this.api
+        .get(this.editId)
+        .pipe(finalize(() => (this.isloading = false)))
+        .subscribe((value) => this.form.patchValue(value));
+    }
+  }
+
+  submit() {
+    Ultilities.validateForm(this.form);
+
+    this.isloading = true;
+    if (!this.editId) {
+      this.api
+        .create(this.form.value)
+        .pipe(finalize(() => (this.isloading = false)))
+        .subscribe(() => {
+          this.notif.success('Thành công', 'Thêm mới gói sản phẩm thành công!');
+          this.router.navigate(['/master/partner-packages']);
+        });
+      return;
+    }
+    this.api
+      .update(this.editId, this.form.value)
+      .pipe(finalize(() => (this.isloading = false)))
+      .subscribe(() => {
+        this.notif.success('Thành công', 'Cập nhật gói sản phẩm thành công!');
+        this.router.navigate(['/master/partner-packages']);
+      });
+  }
+}
