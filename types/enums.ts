@@ -1,5 +1,7 @@
 import { Option } from '@shared/interfaces/option.type';
 
+export const OTHERID = "other_id"
+
 export enum UserStatus {
   Active = 'Active',
   InActive = 'InActive',
@@ -109,7 +111,7 @@ export enum SettingKeyEndPoint {
   Payment = 'payments',
   VNPay = 'vnpays',
   HomepageHeader = 'header',
-  HomepageEducation = 'education'
+  HomepageEducation = 'education',
 }
 
 export enum SettingKey {
@@ -132,5 +134,3 @@ export enum SettingKey {
   HomepageHeader = 'HomepageHeader',
   HomepageEducation = 'HomepageEducation',
 }
-
-

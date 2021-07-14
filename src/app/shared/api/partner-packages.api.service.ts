@@ -7,8 +7,11 @@ import { BaseApi } from './base-api';
 export class PartnerPackageApiService extends BaseApi {
   endpoint = 'partner-packages';
 
-  getList() {
-    return this.httpClient.get(this.createUrl(''));
+  getList(partnerId?: string) {
+    return this.httpClient.get(
+      this.createUrl(''),
+      {params: this.createParams({ partnerId })}
+    );
   }
   get(id: string) {
     return this.httpClient.get(this.createUrl(`/${id}`));

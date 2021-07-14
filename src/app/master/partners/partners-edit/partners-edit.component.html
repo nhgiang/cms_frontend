@@ -1,31 +1,25 @@
-<form nz-form [formGroup]="form">
-  <nz-form-item class="col-md-12">
-    <nz-form-label class="text-left w-100" nzRequired
-      >Tên học viện</nz-form-label
-    >
-    <nz-form-control nzErrorTip="Vui lòng nhập tên học viện" class="w-75">
+<form nz-form [formGroup]="form" nzLayout="vertical">
+  <nz-form-item>
+    <nz-form-label nzRequired>Tên học viện</nz-form-label>
+    <nz-form-control nzErrorTip="Vui lòng nhập tên học viện">
       <input type="text" nz-input formControlName="name" />
     </nz-form-control>
   </nz-form-item>
-  <nz-form-item class="col-md-12">
-    <nz-form-label class="text-left input-space w-100" nzRequired
-      >Tên người đại diện</nz-form-label
-    >
+  <nz-form-item>
+    <nz-form-label nzRequired>Tên người đại diện</nz-form-label>
     <nz-form-control nzErrorTip="Vui lòng nhập tên người đại diện">
       <input type="text" nz-input formControlName="representative" />
     </nz-form-control>
   </nz-form-item>
 
-  <nz-form-item class="col-md-12">
-    <nz-form-label class="text-left w-100" nzRequired>Địa chỉ</nz-form-label>
-    <nz-form-control class="w-75" nzErrorTip="Vui lòng nhập địa chỉ">
+  <nz-form-item>
+    <nz-form-label nzRequired>Địa chỉ</nz-form-label>
+    <nz-form-control nzErrorTip="Vui lòng nhập địa chỉ">
       <input type="text" nz-input formControlName="address" />
     </nz-form-control>
   </nz-form-item>
-  <nz-form-item class="col-md-12">
-    <nz-form-label class="text-left input-space w-100" nzRequired
-      >Số điện thoại</nz-form-label
-    >
+  <nz-form-item>
+    <nz-form-label nzRequired>Số điện thoại</nz-form-label>
     <nz-form-control [nzErrorTip]="errorPhone">
       <input type="text" nz-input formControlName="phoneNumber" />
     </nz-form-control>
@@ -39,9 +33,9 @@
     </ng-template>
   </nz-form-item>
 
-  <nz-form-item class="col-md-12">
-    <nz-form-label class="text-left w-100" nzRequired>Quy mô</nz-form-label>
-    <nz-form-control [nzErrorTip]="errorSize" class="w-75">
+  <nz-form-item>
+    <nz-form-label nzRequired>Quy mô</nz-form-label>
+    <nz-form-control [nzErrorTip]="errorSize">
       <input type="number" nz-input formControlName="size" />
       <ng-template #errorSize>
         <ng-container
@@ -58,8 +52,8 @@
       </ng-template>
     </nz-form-control>
   </nz-form-item>
-  <nz-form-item class="col-md-12">
-    <nz-form-label class="text-left input-space w-100" nzRequired
+  <nz-form-item>
+    <nz-form-label nzRequired
       >Email người liên hệ</nz-form-label
     >
     <nz-form-control [nzErrorTip]="errorEmail">
@@ -74,8 +68,8 @@
       </ng-container>
     </ng-template>
   </nz-form-item>
-  <nz-form-item class="col-12">
-    <nz-form-label class="text-left w-100" nzRequired>Tên miền</nz-form-label>
+  <nz-form-item>
+    <nz-form-label nzRequired>Tên miền</nz-form-label>
     <nz-form-control [nzErrorTip]="errorDomain">
       <input
         type="text"
@@ -96,40 +90,84 @@
       </ng-container>
     </ng-template>
   </nz-form-item>
-  <nz-form-item class="col-12">
-    <nz-form-label class="text-left input-space w-100" nzRequired>
-      Dung lượng video upload</nz-form-label
-    >
-    <nz-form-control formGroupName="settings" [nzErrorTip]="errorMaxCourse">
-      <input
-        type="text"
-        style="width: 70%"
-        nz-input
-        formControlName="maxFileSizeUpload"
-      />
-      GB
+  <nz-form-item>
+    <nz-form-label nzRequired>
+      Gói sản phẩm
+    </nz-form-label>
+    <nz-form-control [nzErrorTip]="'Vui lòng lựa chọn gói sản phẩm'">
+      <nz-select formControlName="packageId" (ngModelChange)="onChange($event)">
+        <nz-option
+          *ngFor="let pkg of pkgList"
+          [nzLabel]="pkg.name"
+          [nzValue]="pkg.id"
+        ></nz-option>
+      </nz-select>
     </nz-form-control>
-    <ng-template #errorMaxCourse>
-      <ng-container
-        *ngIf="
-          form.get('settings').get('maxFileSizeUpload').hasError('required')
-        "
-      >
-        Vui lòng nhập tổng dung lượng video có thể upload
-      </ng-container>
-      <ng-container
-        *ngIf="
-          form
-            .get('settings')
-            .get('maxFileSizeUpload')
-            .hasError('onlyNumber') ||
-          form.get('settings').get('maxFileSizeUpload').hasError('maxLength')
-        "
-      >
-        Dung lượng upload phải là số nguyên dương và không được quá 3 chữ số
-      </ng-container>
-    </ng-template>
   </nz-form-item>
+
+  <div formGroupName="customPackage">
+    <nz-form-item>
+      <nz-form-label nzRequired>
+        Tổng dung lương video khóa học tải lên
+      </nz-form-label>
+      <nz-form-control [nzErrorTip]="customErrs">
+        <input-number
+          nz-col
+          [nzSpan]="12"
+          formControlName="maxStorage"
+          class="w-100 m-r-5"
+          style="display: inline-block"
+        ></input-number>
+        GB
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzRequired> Giá tiền lưu trữ hàng tháng</nz-form-label>
+      <nz-form-control [nzErrorTip]="customErrs">
+        <input-number
+          nz-col
+          [nzSpan]="12"
+          formControlName="monthlyPrice"
+          class="w-100 m-r-5"
+          style="display: inline-block"
+        ></input-number>
+        VND
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzRequired>Giới hạn số lượng học viên</nz-form-label>
+      <nz-form-control [nzErrorTip]="customErrs">
+        <input-number
+          nz-col
+          [nzSpan]="12"
+          formControlName="maxStudents"
+          class="w-100 m-r-5"
+          style="display: inline-block"
+        ></input-number>
+        <span>Học viên</span>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzRequired>Thời hạn</nz-form-label>
+      <nz-form-control [nzErrorTip]="customErrs">
+        <input-number
+          nz-col
+          [nzSpan]="12"
+          formControlName="days"
+          class="w-100 m-r-5"
+          style="display: inline-block"
+        ></input-number>
+        Ngày
+      </nz-form-control>
+    </nz-form-item>
+    <ng-template #customErrs>
+      Trường thông tin không được để trống
+    </ng-template>
+  </div>
+
   <div class="text-right btn-step-1">
     <button (click)="close()" nz-button type="button" nzType="primary" nzGhost>
       Hủy

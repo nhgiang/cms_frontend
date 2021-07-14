@@ -1,32 +1,44 @@
-<nz-table [nzLoading]="isloading" [nzShowPagination]="false" [nzData]="list">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Gói sản phẩm</th>
-      <th>Giá tiền lưu trữ</th>
-      <th>Giới hạn dung lượng</th>
-      <th>Số lượng học viên</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of list">
-      <td>#{{ item.index }}</td>
-      <td>{{ item.name }}</td>
-      <td>{{ item.monthlyPrice | number }}</td>
-      <td>{{ item.maxStorage }}</td>
-      <td>{{ item.maxStudents }}</td>
-      <td>
-        <a
-          nz-button
-          nzShape="circle"
-          class="m-r-5"
-          [routerLink]="['edit', item.id]"
-        >
-          <i nz-icon nzType="edit"></i>
-        </a>
-        <a nzShape="circle" nz-button><i nz-icon nzType="close"></i></a>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>
+<nz-card>
+  <div class="text-right">
+    <a nz-button nzType="primary" routerLink="create">Tạo mới gói sản phẩm</a>
+  </div>
+  <nz-table [nzLoading]="isloading" [nzShowPagination]="false" [nzData]="list">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Gói sản phẩm</th>
+        <th>Giá tiền lưu trữ</th>
+        <th>Giới hạn dung lượng</th>
+        <th>Số lượng học viên</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of list">
+        <td>#{{ item.index }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.monthlyPrice | number }}</td>
+        <td>{{ item.maxStorage }}</td>
+        <td>{{ item.maxStudents }}</td>
+        <td>
+          <a
+            nz-button
+            nzShape="circle"
+            class="m-r-5"
+            [routerLink]="['edit', item.id]"
+          >
+            <i nz-icon nzType="edit"></i>
+          </a>
+          <a nzShape="circle" nz-button
+            ><i
+              confirmation="Bạn có chắc muốn xóa gói sản phẩm này không?"
+              (confirmed)="remove(item.id)"
+              nz-icon
+              nzType="close"
+            ></i
+          ></a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

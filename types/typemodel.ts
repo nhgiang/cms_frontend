@@ -246,7 +246,7 @@ export interface Story {
   images: string[];
 }
 
-export interface VideoIntroContact extends VideoIntro { }
+export interface VideoIntroContact extends VideoIntro {}
 
 export interface Faq {
   answer: string;
@@ -285,4 +285,26 @@ export interface QuestionAnswer {
 
 export interface Education {
   coverAvatar: string;
+}
+
+export interface CreatePartner {
+  name: string;
+  domain: string;
+  email: string;
+  representative: string;
+  address: string;
+  phoneNumber: string;
+  size: number;
+  packageId?: string;
+  admin: {
+    email: string;
+    password: string;
+  };
+  customPackage?: {
+    name?: string;
+    maxStorage: number;
+    maxStudents: number;
+    days: number;
+    monthlyPrice: number;
+  };
 }
