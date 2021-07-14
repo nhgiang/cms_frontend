@@ -41,7 +41,10 @@
         </a>
       </li>
       <li
-        [class.d-none]="(user$ | async)?.role !== 'Admin'"
+        [class.d-none]="
+          (user$ | async)?.role !== 'Admin' &&
+          (user$ | async)?.role !== 'SubMaster'
+        "
         nz-dropdown
         [nzDropdownMenu]="adminPrivilege"
         [nzTrigger]="'click'"
