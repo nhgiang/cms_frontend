@@ -1,16 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { PartnerPackageApiService } from '@shared/api/partner-packages.api.service';
 import { PartnersApiService } from '@shared/api/partners.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
-import merge from 'lodash-es/merge';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { iif, of } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
+import { merge } from 'lodash';
 
 @Component({
   selector: 'app-partners-edit',
@@ -21,23 +19,46 @@ export class PartnersEditComponent implements OnInit {
   @Input() data: any;
   form: FormGroup;
   currentStep = 0;
-
+  pkgList: any = [];
+  myPkg: any;
   constructor(
     private partnersApiService: PartnersApiService,
     private fb: FormBuilder,
     private modalRef: NzModalRef<PartnersEditComponent>,
+    private pkgApi: PartnerPackageApiService,
     private notification: NzNotificationService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.buildForm();
+    this.pkgApi.getList(this.data.id).subscribe((data: any) => {
+      this.pkgList = data;
+      this.myPkg = this.pkgList.find((pkg) => pkg.id === this.data.packageId);
+      let customPkg = this.pkgList.find(
+        (pkg) => pkg?.tailoredPartnerId === this.data.id
+      );
+      if (!customPkg)
+        this.pkgList.push({
+          name: 'Khác',
+          id: null,
+          maxStorage: null,
+          maxStudents: null,
+          monthlyPrice: null,
+          days: null,
+          tailoredPartnerId: true,
+        });
+      this.form.get('customPackage').patchValue(this.myPkg);
+      if (!this.myPkg?.tailoredPartnerId)
+        this.form.get('customPackage').disable();
+    });
   }
 
   submit() {
     Ultilities.validateForm(this.form);
-    console.log(123);
 
-    const domain = `${this.form.get('domain').value + this.partnersApiService.endpointUrl}`;
+    const domain = `${
+      this.form.get('domain').value + this.partnersApiService.endpointUrl
+    }`;
     const next = () => {
       this.notification.success(
         'Thành công',
@@ -52,20 +73,27 @@ export class PartnersEditComponent implements OnInit {
       );
       this.modalRef.close(true);
     };
-    iif(() => domain === this.data.domain,
+    iif(
+      () => domain === this.data.domain,
       of(false),
       this.partnersApiService.validateDomain(domain).pipe(
-        tap(res => {
+        tap((res) => {
           if (res) {
             this.form.get('domain').setErrors({ exits: true });
           }
-        }))
-    ).pipe(
-      filter(x => !x),
-      switchMap(() => {
-        return this.partnersApiService.update(this.data.id, merge(this.form.value, { domain }));
-      })
-    ).subscribe(next, err);
+        })
+      )
+    )
+      .pipe(
+        filter((x) => !x),
+        switchMap(() => {
+          return this.partnersApiService.update(
+            this.data.id,
+            merge(this.form.value, { domain })
+          );
+        })
+      )
+      .subscribe(next, err);
   }
 
   close() {
@@ -96,6 +124,12 @@ export class PartnersEditComponent implements OnInit {
   //     })
   //   );
   // }
+  onChange(value) {
+    const pkg = this.pkgList.find((pkg) => pkg.id === value);
+    this.form.get('customPackage').patchValue(pkg);
+    if (pkg.tailoredPartnerId) this.form.get('customPackage').enable();
+    else this.form.get('customPackage').disable();
+  }
 
   buildForm() {
     this.form = this.fb.group({
@@ -120,16 +154,12 @@ export class PartnersEditComponent implements OnInit {
         ],
       ],
       email: [this.data.email, [TValidators.required, TValidators.emailRules]],
-      settings: this.fb.group({
-        maxFileSizeUpload: [
-          Number(this.data?.settings?.maxFileSizeUpload),
-          [
-            TValidators.required,
-            TValidators.maxLength(3),
-            TValidators.min(1),
-            TValidators.onlyNumber(),
-          ],
-        ],
+      packageId: [this.data?.packageId, TValidators.required],
+      customPackage: this.fb.group({
+        maxStorage: ['', TValidators.required],
+        monthlyPrice: ['', TValidators.required],
+        maxStudents: ['', TValidators.required],
+        days: ['', TValidators.required],
       }),
     });
   }

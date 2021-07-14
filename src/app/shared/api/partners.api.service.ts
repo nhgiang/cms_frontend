@@ -45,4 +45,5 @@ export class PartnersApiService extends BaseApi {
   getAll() {
     return this.httpClient.get(this.createUrl('/all'));
   }
+  
 }

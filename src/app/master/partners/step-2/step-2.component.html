@@ -1,60 +1,113 @@
 <div>
-  <form [formGroup]="myForm">
-    <div class="row">
-      <nz-form-item class="col-12">
-        <nz-form-label class="text-left w-100" nzRequired
-          >Tên miền</nz-form-label
+  <form nz-form [formGroup]="myForm" nzLayout="vertical">
+    <nz-form-item>
+      <nz-form-label nzRequired>Tên miền</nz-form-label>
+      <nz-form-control class="w-75" [nzErrorTip]="errorDomain">
+        <input
+          nz-col
+          [nzSpan]="12"
+          type="text"
+          nz-input
+          formControlName="domain"
+        />.beautyup.asia
+      </nz-form-control>
+      <ng-template #errorDomain>
+        <ng-container *ngIf="myForm.get('domain').hasError('maxLength')">
+          Tên miền không được quá 10 kí tự
+        </ng-container>
+        <ng-container *ngIf="myForm.get('domain').hasError('required')">
+          Vui lòng nhập tên miền
+        </ng-container>
+        <ng-container *ngIf="myForm.get('domain').hasError('exits')">
+          Tên miền trùng với đối tác khác
+        </ng-container>
+      </ng-template>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzRequired> Gói sản phẩm</nz-form-label>
+      <nz-form-control [nzErrorTip]="customErrs">
+        <nz-select
+          nz-col
+          [nzSpan]="12"
+          formControlName="packageId"
+          (ngModelChange)="change($event)"
         >
-        <nz-form-control class="w-75" [nzErrorTip]="errorDomain">
-          <input
-            style="width: 15%"
-            type="text"
-            nz-input
-            formControlName="domain"
-          />.beautyup.asia
-        </nz-form-control>
-        <ng-template #errorDomain>
-          <ng-container *ngIf="myForm.get('domain').hasError('maxLength')">
-            Tên miền không được quá 10 kí tự
-          </ng-container>
-          <ng-container *ngIf="myForm.get('domain').hasError('required')">
-            Vui lòng nhập tên miền
-          </ng-container>
-          <ng-container *ngIf="myForm.get('domain').hasError('exits')">
-            Tên miền trùng với đối tác khác
-          </ng-container>
-        </ng-template>
-      </nz-form-item>
-      <nz-form-item class="col-12">
-        <nz-form-label class="text-left input-space w-100" nzRequired>
-          Dung lượng video upload</nz-form-label
-        >
-        <nz-form-control [nzErrorTip]="errorMaxCourse">
-          <input
-            style="width: 15%"
-            type="nụmber"
-            nz-input
-            formControlName="maxFileSizeUpload"
-          />
+          <nz-option
+            *ngFor="let pkg of packageList"
+            [nzValue]="pkg.id"
+            [nzLabel]="pkg.name"
+          ></nz-option>
+          <nz-option [nzValue]="otherId" nzLabel="Khác"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div
+      formGroupName="customPackage"
+      *ngIf="
+        myForm.controls['packageId'].dirty 
+      "
+    >
+      <nz-form-item>
+        <nz-form-label nzRequired>
+          Tổng dung lương video khóa học tải lên
+        </nz-form-label>
+        <nz-form-control [nzErrorTip]="customErrs">
+          <input-number
+            nz-col
+            [nzSpan]="12"
+            formControlName="maxStorage"
+            class="w-100 m-r-5"
+            style="display: inline-block"
+          ></input-number>
           GB
         </nz-form-control>
-        <ng-template #errorMaxCourse>
-          <ng-container
-            *ngIf="myForm.get('maxFileSizeUpload').hasError('required')"
-          >
-            Vui lòng nhập tổng dung lượng video có thể upload
-          </ng-container>
-          <ng-container
-            *ngIf="
-              myForm.get('maxFileSizeUpload').hasError('onlyNumber') ||
-              myForm.get('maxFileSizeUpload').hasError('maxLength')
-            "
-          >
-            Dung lượng upload phải là số nguyên dương và không được quá 3 chữ số
-          </ng-container>
-        </ng-template>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired> Giá tiền lưu trữ hàng tháng</nz-form-label>
+        <nz-form-control [nzErrorTip]="customErrs">
+          <input-number
+            nz-col
+            [nzSpan]="12"
+            formControlName="monthlyPrice"
+            class="w-100 m-r-5"
+            style="display: inline-block"
+          ></input-number>
+          VND
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Giới hạn số lượng học viên</nz-form-label>
+        <nz-form-control [nzErrorTip]="customErrs">
+          <input-number
+            nz-col
+            [nzSpan]="12"
+            formControlName="maxStudents"
+            class="w-100 m-r-5"
+            style="display: inline-block"
+          ></input-number>
+          <span>Học viên</span>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Thời hạn</nz-form-label>
+        <nz-form-control [nzErrorTip]="customErrs">
+          <input-number
+            nz-col
+            [nzSpan]="12"
+            formControlName="days"
+            class="w-100 m-r-5"
+            style="display: inline-block"
+          ></input-number>
+          Ngày
+        </nz-form-control>
       </nz-form-item>
     </div>
+
     <div class="text-right btn-step-1">
       <button
         nz-button
@@ -76,4 +129,9 @@
       </button>
     </div>
   </form>
+  <ng-template #customErrs let-control="$implicit">
+    <ng-container *ngIf="control.errors.required">
+      Trường này không được để trống
+    </ng-container>
+  </ng-template>
 </div>

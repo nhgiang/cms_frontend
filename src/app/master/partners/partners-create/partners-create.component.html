@@ -1,4 +1,4 @@
-<nz-card style="height: 80vh;">
+<nz-card>
   <div class="col-10 mt-3">
     <nz-steps [nzCurrent]="currentStep">
       <nz-step [nzTitle]="(currentStep === 0) ? 'Đang thực hiện' : 'Đã Hoàn Thành'" nzDescription="Thông tin cơ bản">
@@ -10,14 +10,14 @@
     </nz-steps>
   </div>
   <div class="mt-5">
-    <div *ngIf="currentStep === 0">
+    <ng-container *ngIf="currentStep === 0">
       <app-step-1 [(currentStep)]="currentStep" [form]="form"></app-step-1>
-    </div>
-    <div *ngIf="currentStep === 1">
+    </ng-container>
+    <ng-container *ngIf="currentStep === 1">
       <app-step-2 [(currentStep)]="currentStep" [form]="form"></app-step-2>
-    </div>
-    <div *ngIf="currentStep === 2">
+    </ng-container>
+    <ng-container *ngIf="currentStep === 2">
       <app-step-3 [(currentStep)]="currentStep" [form]="form" (submitForm)="submit()"></app-step-3>
-    </div>
+    </ng-container>
   </div>
 </nz-card>

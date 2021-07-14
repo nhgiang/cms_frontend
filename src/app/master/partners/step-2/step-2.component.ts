@@ -5,12 +5,13 @@ import {
   FormGroup,
   ValidationErrors,
 } from '@angular/forms';
+import { PartnerPackageApiService } from '@shared/api/partner-packages.api.service';
 import { PartnersApiService } from '@shared/api/partners.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-
+import { OTHERID } from 'types/enums';
 @Component({
   selector: 'app-step-2',
   templateUrl: './step-2.component.html',
@@ -21,28 +22,45 @@ export class Step2Component implements OnInit {
   @Input() currentStep: number;
   @Output() currentStepChange = new EventEmitter();
   myForm: FormGroup;
+  packageList: any = [];
+  otherId = OTHERID;
 
   constructor(
     private fb: FormBuilder,
-    private partnersApiService: PartnersApiService
+    private partnersApiService: PartnersApiService,
+    private packageApi: PartnerPackageApiService
   ) {}
 
   ngOnInit(): void {
+    this.packageApi.getList().subscribe((data: any) => {
+      this.packageList = data;
+    });
+
     this.myForm = this.fb.group({
       domain: [
         this.form.get('domain').value,
         [TValidators.required, TValidators.maxLength(10)],
         this.validateDomain.bind(this),
       ],
-      maxFileSizeUpload: [
-        this.form.value.settings?.maxFileSizeUpload,
-        [
+      packageId: [this.form.value.packageId],
+      customPackage: this.fb.group({
+        maxStorage: [
+          this.form.get('customPackage').value?.maxStorage,
           TValidators.required,
-          TValidators.maxLength(3),
-          TValidators.min(1),
-          TValidators.onlyNumber(),
         ],
-      ],
+        monthlyPrice: [
+          this.form.get('customPackage').value?.monthlyPrice,
+          TValidators.required,
+        ],
+        maxStudents: [
+          this.form.get('customPackage').value?.maxStudents,
+          TValidators.required,
+        ],
+        days: [
+          this.form.get('customPackage').value?.days,
+          TValidators.required,
+        ],
+      }),
     });
   }
 
@@ -68,10 +86,27 @@ export class Step2Component implements OnInit {
     this.currentStepChange.emit(this.currentStep - 1);
   }
 
+  change(value) {
+    if (value !== this.otherId) {
+      this.myForm
+        .get('customPackage')
+        .patchValue(this.packageList.find((item) => item.id === value));
+      this.myForm.get('customPackage').disable();
+    } else {
+      this.myForm.get('customPackage').enable();
+      this.myForm.get('customPackage').patchValue({
+        maxStorage: null,
+        monthlyPrice: null,
+        maxStudents: null,
+        days: null,
+      });
+    }
+  }
   submit() {
     Ultilities.validateForm(this.myForm);
+    if (this.myForm.value.packageId === this.otherId)
+      Ultilities.validateForm(this.myForm.get('customPackage') as FormGroup);
     this.form.patchValue(this.myForm.value);
-    this.form.get('settings').patchValue(this.myForm.value);
     this.currentStepChange.emit(1 + this.currentStep);
   }
 }
