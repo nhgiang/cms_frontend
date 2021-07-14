@@ -132,6 +132,20 @@
         <div class="col-md-6">
           <nz-form-item>
             <nz-form-label [nzSpan]="6" nzRequired class="text-left"
+              >Chức vụ</nz-form-label
+            >
+            <nz-form-control [nzErrorTip]="'Vui lòng nhập chức vụ'">
+              <input
+                nz-input
+                formControlName="jobTitle"
+                placeholder="Nhập chức vụ"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-md-6">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzRequired class="text-left"
               >Mô tả</nz-form-label
             >
             <nz-form-control [nzErrorTip]="'Vui lòng nhập mô tả'">

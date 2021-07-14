@@ -35,6 +35,7 @@ export class SubMasterUpdateComponent implements OnInit {
       password: [null, TValidators.passwordRules],
       phoneNumber: [null, [TValidators.required, TValidators.phoneNumber]],
       bio: [null, TValidators.required],
+      jobTitle: [null, TValidators.required],
       avatar: [null, TValidators.required],
     });
     const assistanceId = this.route.snapshot.paramMap.get('id');

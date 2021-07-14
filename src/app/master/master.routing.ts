@@ -30,7 +30,17 @@ const routes: Routes = [
         (m) => m.SubMasterModule
       ),
     data: {
-      title: 'Quản lý SubMaster',
+      title: 'Quản lý sub-master',
+    },
+  },
+  {
+    path: 'partner-packages',
+    loadChildren: () =>
+      import('src/app/master/partner-packages/partner-packages.module').then(
+        (m) => m.PartnerPackagesModule
+      ),
+    data: {
+      title: 'Gói sản phẩm cho đối tác',
     },
   },
   {

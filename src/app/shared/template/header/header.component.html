@@ -41,7 +41,10 @@
         </a>
       </li>
       <li
-        [class.d-none]="(user$ | async)?.role !== 'Admin'"
+        [class.d-none]="
+          (user$ | async)?.role !== 'Admin' &&
+          (user$ | async)?.role !== 'SubMaster'
+        "
         nz-dropdown
         [nzDropdownMenu]="adminPrivilege"
         [nzTrigger]="'click'"
@@ -108,7 +111,7 @@
             nz-menu-item
             [routerLink]="['master/submaster']"
           >
-            Danh sách SubMaster
+            Danh sách sub-master
           </li>
         </ul>
       </nz-dropdown-menu>

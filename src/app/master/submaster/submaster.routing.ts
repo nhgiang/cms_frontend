@@ -12,14 +12,14 @@ const routes: Routes = [
     path: 'create',
     component: SubMasterCreateComponent,
     data: {
-      title: 'Tạo mới nhân viên',
+      title: 'Tạo mới sub-master',
     },
   },
   {
     path: ':id',
     component: SubMasterUpdateComponent,
     data: {
-      title: 'Cập nhật thông tin nhân viên',
+      title: 'Cập nhật thông tin sub-master',
     },
   },
 ];
