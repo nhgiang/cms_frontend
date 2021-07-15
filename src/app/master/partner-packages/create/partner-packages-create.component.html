@@ -80,6 +80,9 @@
   <ng-container *ngIf="control.errors.required">
     Trường thông tin không được để trống
   </ng-container>
+  <ng-container *ngIf="control.errors.maxLength"
+    >Tên sản phẩm không được vượt quá 20 ký tự</ng-container
+  >
 </ng-template>
 
 <!-- trùng tên -->

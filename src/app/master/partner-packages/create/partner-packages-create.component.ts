@@ -30,11 +30,11 @@ export class PartnerPackagesCreateComponent implements OnInit {
   ngOnInit() {
     this.editId = this.route.snapshot.params.id;
     this.form = this.fb.group({
-      name: ['', [TValidators.required, TValidators.maxLength(20)]],
-      maxStorage: ['', TValidators.required],
-      monthlyPrice: ['', TValidators.required],
-      maxStudents: ['', TValidators.required],
-      days: ['', TValidators.required],
+      name: [null, [TValidators.required, TValidators.maxLength(20)]],
+      maxStorage: [null, TValidators.required],
+      monthlyPrice: [null, TValidators.required],
+      maxStudents: [null, TValidators.required],
+      days: [null, TValidators.required],
     });
     if (this.editId) {
       this.isloading = true;

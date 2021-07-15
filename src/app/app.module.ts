@@ -13,6 +13,7 @@ import { API_BASE_URL } from '@shared/api/base-url';
 import { PartnersApiService } from '@shared/api/partners.api.service';
 import { ErrorInterceptor } from '@shared/interceptor/error.interceptor';
 import { JwtInterceptor } from '@shared/interceptor/token.interceptor';
+import { DatetimePipe } from '@shared/pipes/datetime.pipe';
 import { AuthenticationService } from '@shared/services/authentication.service';
 import { ErrorHandlerService } from '@shared/services/error-handler.service';
 import { ThemeConstantService } from '@shared/services/theme-constant.service';
@@ -118,6 +119,7 @@ const ngZorroConfig: NzConfig = {
       useValue: viVN,
     },
     ThemeConstantService,
+    DatetimePipe
   ],
   bootstrap: [AppComponent],
 })
