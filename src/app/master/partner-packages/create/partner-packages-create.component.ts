@@ -31,10 +31,16 @@ export class PartnerPackagesCreateComponent implements OnInit {
     this.editId = this.route.snapshot.params.id;
     this.form = this.fb.group({
       name: [null, [TValidators.required, TValidators.maxLength(20)]],
-      maxStorage: [null, TValidators.required],
-      monthlyPrice: [null, TValidators.required],
-      maxStudents: [null, TValidators.required],
-      days: [null, TValidators.required],
+      maxStorage: [null, [TValidators.required, TValidators.maxLength(3)]],
+      monthlyPrice: [
+        null,
+        [TValidators.required, TValidators.maxLength(9)],
+      ],
+      maxStudents: [
+        null,
+        [TValidators.required, TValidators.maxLength(5)],
+      ],
+      days: [null, [TValidators.required, TValidators.maxLength(5)]],
     });
     if (this.editId) {
       this.isloading = true;

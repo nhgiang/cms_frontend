@@ -81,7 +81,8 @@
     Trường thông tin không được để trống
   </ng-container>
   <ng-container *ngIf="control.errors.maxLength"
-    >Tên sản phẩm không được vượt quá 20 ký tự</ng-container
+    >Trường thông tin vượt quá giới hạn {{ control.errors.info }} ký tự
+    </ng-container
   >
 </ng-template>
 

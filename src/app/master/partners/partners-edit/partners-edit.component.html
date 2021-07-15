@@ -53,9 +53,7 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired
-      >Email người liên hệ</nz-form-label
-    >
+    <nz-form-label nzRequired>Email người liên hệ</nz-form-label>
     <nz-form-control [nzErrorTip]="errorEmail">
       <input type="text" nz-input formControlName="email" />
     </nz-form-control>
@@ -91,9 +89,7 @@
     </ng-template>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired>
-      Gói sản phẩm
-    </nz-form-label>
+    <nz-form-label nzRequired> Gói sản phẩm </nz-form-label>
     <nz-form-control [nzErrorTip]="'Vui lòng lựa chọn gói sản phẩm'">
       <nz-select formControlName="packageId" (ngModelChange)="onChange($event)">
         <nz-option
@@ -164,7 +160,12 @@
       </nz-form-control>
     </nz-form-item>
     <ng-template #customErrs>
-      Trường thông tin không được để trống
+      <ng-container *ngIf="control.errors.required">
+        Trường thông tin không được để trống
+      </ng-container>
+      <ng-container *ngIf="control.errors.maxLength">
+        Trường thông tin vượt quá giới hạn {{ control.errors.info }} ký tự
+      </ng-container>
     </ng-template>
   </div>
 

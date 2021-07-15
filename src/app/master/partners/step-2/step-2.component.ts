@@ -46,19 +46,19 @@ export class Step2Component implements OnInit {
       customPackage: this.fb.group({
         maxStorage: [
           this.form.get('customPackage').value?.maxStorage,
-          TValidators.required,
+          [TValidators.required, TValidators.maxLength(3)],
         ],
         monthlyPrice: [
           this.form.get('customPackage').value?.monthlyPrice,
-          TValidators.required,
+          [TValidators.required, TValidators.maxLength(9)],
         ],
         maxStudents: [
           this.form.get('customPackage').value?.maxStudents,
-          TValidators.required,
+          [TValidators.required, TValidators.maxLength(5)],
         ],
         days: [
           this.form.get('customPackage').value?.days,
-          TValidators.required,
+          [TValidators.required, TValidators.maxLength(5)],
         ],
       }),
     });
