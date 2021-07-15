@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaseApi } from '@shared/api/base-api';
 import { PartnerRevenueApiService } from '@shared/api/partner-revenue.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { last, sumBy } from 'lodash-es';
@@ -13,7 +12,7 @@ import { QueryResult } from 'types/typemodel';
   styleUrls: ['./partner-revenue-report.component.scss']
 })
 export class PartnerRevenueReportComponent extends DataTableContainer<any> {
-  expandData: any[] = [];
+  expandData: any[];
 
   constructor(
     route: ActivatedRoute,
@@ -45,7 +44,7 @@ export class PartnerRevenueReportComponent extends DataTableContainer<any> {
         index: item.index,
         name: item.name,
         revenueLabel: 'Tổng doanh thu',
-        totalLearner: item.totalLearner,
+        totalLearner: sumBy(item.courses, 'numberOfStudent'),
         cost: item.storageRevenue + sumBy(item.courses, 'royaltyAmount'),
         parent: null,
         expand: false,
@@ -67,18 +66,18 @@ export class PartnerRevenueReportComponent extends DataTableContainer<any> {
         index: null,
         name: null,
         revenueLabel: 'Chiết khấu khóa học',
-        totalLearner: null,
+        totalLearner: sumBy(item.courses, 'numberOfStudent'),
         cost: item.storageRevenue,
         parent: this.expandData[this.expandData.length - 2],
         expand: false,
-        hasChildren: !!item.courses.length
+        hasChildren: !!item.courses?.length
       });
       item.courses.forEach(course => {
         this.expandData.push({
           id: item.id,
           index: null,
           name: null,
-          revenueLabel: course.name,
+          revenueLabel: course.courseName,
           totalLearner: course.numberOfStudent,
           cost: course.royaltyAmount,
           parent: this.expandData.find(t => t.revenueLabel === 'Chiết khấu khóa học' && t.id === item.id),
@@ -87,15 +86,23 @@ export class PartnerRevenueReportComponent extends DataTableContainer<any> {
         });
       });
     });
-    console.log(this.expandData)
   }
 
-  collapse(a, b, e) {
+  collapse(item, e) {
     if (e) {
-      console.log(this.expandData)
       return;
     } else {
-
+      if (!item.parent) {
+        this.expandData.filter(t => t.id = item.id).forEach(expand => {
+          expand.expand = false;
+        });
+      } else {
+        this.expandData.forEach(expand => {
+          if (expand.parent === item) {
+            expand.expand = false;
+          }
+        });
+      }
     }
   }
 }

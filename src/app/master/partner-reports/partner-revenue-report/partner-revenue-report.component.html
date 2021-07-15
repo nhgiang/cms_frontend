@@ -16,7 +16,7 @@
     <thead>
       <tr>
         <th scope="col"
-            nzWidth="70px">ID</th>
+            nzWidth="70px">STT</th>
         <th scope="col">Tên đối tác</th>
         <th scope="col">Tổng doanh thu</th>
         <th scope="col">Tổng học viên</th>
@@ -27,14 +27,14 @@
     <tbody>
       <ng-container *ngFor="let item of expandData">
         <tr *ngIf="(item.parent && item.parent.expand) || !item.parent">
-          <td>#{{item?.index}}</td>
+          <td>{{item?.index}}</td>
           <td>{{item.name}}</td>
           <td [nzIndentSize]="item.level! * 20"
               [nzShowExpand]="item.hasChildren"
               [(nzExpand)]="item.expand"
-              (nzExpandChange)="collapse(item, item, $event)">{{item.revenueLabel}}</td>
-          <td></td>
-          <td></td>
+              (nzExpandChange)="collapse(item, $event)">{{item.revenueLabel}}</td>
+          <td>{{item?.totalLearner}}</td>
+          <td>{{item?.cost}}</td>
           <td></td>
         </tr>
       </ng-container>
