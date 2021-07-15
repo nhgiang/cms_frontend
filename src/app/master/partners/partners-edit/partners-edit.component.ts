@@ -9,6 +9,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { iif, of } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { merge } from 'lodash';
+import { OTHERID } from 'types/enums';
 
 @Component({
   selector: 'app-partners-edit',
@@ -40,7 +41,7 @@ export class PartnersEditComponent implements OnInit {
       if (!customPkg)
         this.pkgList.push({
           name: 'Khác',
-          id: null,
+          id: OTHERID,
           maxStorage: null,
           maxStudents: null,
           monthlyPrice: null,
