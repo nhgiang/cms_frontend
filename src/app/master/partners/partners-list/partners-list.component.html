@@ -1,55 +1,61 @@
 <nz-card>
-  <form [formGroup]="form"
-        nz-form
-        class="d-md-flex justify-content-between ">
+  <form [formGroup]="form" nz-form class="d-md-flex justify-content-between">
     <nz-form-item>
       <nz-form-control [nzSpan]="8">
-        <input style="min-width: 300px;"
-               formControlName="q"
-               nz-input
-               placeholder="Tìm kiếm theo tên trung tâm , người đại diện, số điện thoại" />
+        <input
+          style="min-width: 300px"
+          formControlName="q"
+          nz-input
+          placeholder="Tìm kiếm theo tên trung tâm , người đại diện, số điện thoại"
+        />
       </nz-form-control>
     </nz-form-item>
     <div class="text-right">
-      <button nzType="primary"
-              type="button"
-              routerLink="create"
-              nz-button>Thêm mới đối tác</button>
+      <button nzType="primary" type="button" routerLink="create" nz-button>
+        Thêm mới đối tác
+      </button>
     </div>
   </form>
 
-  <nz-table [nzData]="items"
-            [nzShowTotal]="totalTemplate"
-            [nzNoResult]="empty"
-            [nzFrontPagination]="false"
-            [nzPageSize]="quantity"
-            [nzTotal]="meta?.totalItems"
-            [(nzPageIndex)]="page"
-            (nzQueryParams)="onSearchParamsChanged($event)"
-            [nzLoading]="isloading"
-            nzTableLayout="fixed"
-            [nzScroll]="1440">
+  <nz-table
+    [nzData]="items"
+    [nzShowTotal]="totalTemplate"
+    [nzNoResult]="empty"
+    [nzLoading]="isLoading"
+    [nzFrontPagination]="false"
+    [nzPageSize]="quantity"
+    [nzTotal]="meta?.totalItems"
+    [(nzPageIndex)]="page"
+    (nzQueryParams)="onSearchParamsChanged($event)"
+    nzTableLayout="fixed"
+    [nzScroll]="1440"
+  >
     <thead>
       <tr>
-        <th scope="col"
-            nzWidth="50px">ID</th>
+        <th scope="col" nzWidth="50px">ID</th>
         <ng-container *ngFor="let item of metaData">
-          <th [ngClass]="item.class"
-              *ngIf="item.sortable"
-              [nzWidth]="item.width"
-              [nzSortFn]="item.sortable"
-              scope="col"
-              [nzColumnKey]="item.key"
-              [nzSortOrder]="item.sortOrder">{{item.name}}</th>
-          <th *ngIf="!item.sortable"
-              [ngClass]="item.class"
-              [nzWidth]="item.width"
-              scope="col"
-              [nzColumnKey]="item.key">
-            {{item.name}}</th>
+          <th
+            [ngClass]="item.class"
+            *ngIf="item.sortable"
+            [nzWidth]="item.width"
+            [nzSortFn]="item.sortable"
+            scope="col"
+            [nzColumnKey]="item.key"
+            [nzSortOrder]="item.sortOrder"
+          >
+            {{ item.name }}
+          </th>
+          <th
+            *ngIf="!item.sortable"
+            [ngClass]="item.class"
+            [nzWidth]="item.width"
+            scope="col"
+            [nzColumnKey]="item.key"
+          >
+            {{ item.name }}
+          </th>
         </ng-container>
-        <th scope="col"
-            nzWidth="150px"></th>
+        <th scope="col" nzWidth="150px"></th>
       </tr>
     </thead>
 
@@ -60,63 +66,104 @@
         <td>{{ item.domain }}</td>
         <td>{{ item.representative }}</td>
         <td>{{ item.phoneNumber }}</td>
+        <td>{{ item.package.name }}</td>
+        <td>{{ item.expiredDate | datetime }}</td>
         <td>
-          <nz-badge [nzColor]="item.status | option:studentStatusOptions:'color'"
-                    [nzText]="item.status | option:studentStatusOptions"></nz-badge>
+          <nz-badge
+            [nzColor]="item.status | option: studentStatusOptions:'color'"
+            [nzText]="item.status | option: studentStatusOptions"
+          ></nz-badge>
         </td>
         <td>
-          <div class="d-flex justify-content-end">
-            <a class="m-r-5"
-               nz-button
-               nzType="default"
-               nzShape="circle"
-               nz-tooltip
-               nzTooltipTitle="Mạo danh">
-              <div [confirmation]="'Bạn muốn truy cập vào trang quản trị của ' + item.domain + '?'"
-                   (confirmed)="impersonation(item)">
-                <i nz-icon
-                   nzType="user"
-                   nzTheme="outline"></i>
+          <div class="d-flex justify-content-start">
+            <a
+              class="m-r-5"
+              nz-button
+              nzType="default"
+              nz-tooltip
+              nzShape="circle"
+              nzTooltipTitle="Gia hạn"
+              [routerLink]="[item.id, 'extension']"
+            >
+            <i nz-icon nzType="field-time"></i>
+            </a>
+            <a
+              class="m-r-5"
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              nz-tooltip
+              nzTooltipTitle="Mạo danh"
+            >
+              <div
+                [confirmation]="
+                  'Bạn muốn truy cập vào trang quản trị của ' +
+                  item.domain +
+                  '?'
+                "
+                (confirmed)="impersonation(item)"
+              >
+                <i nz-icon nzType="user" nzTheme="outline"></i>
               </div>
             </a>
-            <a (click)="edit(item)"
-               class="m-r-5"
-               nz-button
-               nzType="default"
-               nzShape="circle"
-               nz-tooltip
-               nzTooltipTitle="Chỉnh sửa">
-              <i aria-hidden="true"
-                 nz-icon
-                 nzType="edit"
-                 theme="outline"></i>
+            <a
+              (click)="edit(item)"
+              class="m-r-5"
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              nz-tooltip
+              nzTooltipTitle="Chỉnh sửa"
+            >
+              <i aria-hidden="true" nz-icon nzType="edit" theme="outline"></i>
             </a>
-            <a class="m-r-5"
-               nz-button
-               nzType="default"
-               nzShape="circle"
-               nz-tooltip
-               [nzTooltipTitle]="item.status === 'Active' ? 'Khóa' : 'Mở khóa'">
-              <div [confirmation]="'Bạn có chắc chắn muốn ' + (item.status === 'InActive' ? 'mở khóa' : 'khóa') +  ' partner này không?'"
-                   (confirmed)="unlock(item)">
-                   <i aria-hidden="true" nz-icon [nzType]="item.status === 'Active' ? 'lock':'unlock'" nzTheme="outline"></i>
+            <a
+              class="m-r-5"
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              nz-tooltip
+              [nzTooltipTitle]="item.status === 'Active' ? 'Khóa' : 'Mở khóa'"
+            >
+              <div
+                [confirmation]="
+                  'Bạn có chắc chắn muốn ' +
+                  (item.status === 'InActive' ? 'mở khóa' : 'khóa') +
+                  ' partner này không?'
+                "
+                (confirmed)="unlock(item)"
+              >
+                <i
+                  aria-hidden="true"
+                  nz-icon
+                  [nzType]="item.status === 'Active' ? 'lock' : 'unlock'"
+                  nzTheme="outline"
+                ></i>
               </div>
             </a>
-            <a class="m-r-5"
-            nz-button
-            nzType="default"
-            nzShape="circle"
-            nz-tooltip
-            nzTooltipTitle="Xóa"
-            [class.disable]="item.status === 'Active'">
-           <div [confirmation]="'Bạn có chắc chắn muốn khóa tài khoản partner này không?'"
-                (confirmed)="delete(item?.id)">
-             <i aria-hidden="true"
-                nz-icon
-                nzType="close"
-                nzTheme="outline"></i>
-           </div>
-         </a>
+            <a
+              class="m-r-5"
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              nz-tooltip
+              nzTooltipTitle="Xóa"
+              [class.disable]="item.status === 'Active'"
+            >
+              <div
+                [confirmation]="
+                  'Bạn có chắc chắn muốn khóa tài khoản partner này không?'
+                "
+                (confirmed)="delete(item?.id)"
+              >
+                <i
+                  aria-hidden="true"
+                  nz-icon
+                  nzType="close"
+                  nzTheme="outline"
+                ></i>
+              </div>
+            </a>
           </div>
         </td>
       </tr>
@@ -128,21 +175,21 @@
   <nz-empty nzNotFoundContent="Chưa có dữ liệu"></nz-empty>
 </ng-template>
 
-<ng-template #totalTemplate
-             let-total> Tổng cộng: {{ total }} </ng-template>
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>
 
 <ng-template #footerModal>
   <div class="text-right btn-step-1">
-    <button nz-button
-            type="button"
-            (click)="close()"
-            nzType=" primary"
-            nzGhost>Hủy</button>
-    <button nz-button
-            nzType="primary"
-            type="button"
-            class="ml-3"
-            (click)="update()">Xác
-      nhận</button>
+    <button nz-button type="button" (click)="close()" nzType=" primary" nzGhost>
+      Hủy
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      type="button"
+      class="ml-3"
+      (click)="update()"
+    >
+      Xác nhận
+    </button>
   </div>
 </ng-template>

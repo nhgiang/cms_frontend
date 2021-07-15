@@ -45,9 +45,7 @@
 
     <div
       formGroupName="customPackage"
-      *ngIf="
-        myForm.controls['packageId'].dirty 
-      "
+      *ngIf="myForm.controls['packageId'].dirty"
     >
       <nz-form-item>
         <nz-form-label nzRequired>
@@ -132,6 +130,9 @@
   <ng-template #customErrs let-control="$implicit">
     <ng-container *ngIf="control.errors.required">
       Trường này không được để trống
+    </ng-container>
+    <ng-container *ngIf="control.errors.maxLength">
+      Trường thông tin vượt quá giới hạn {{ control.errors.info }} ký tự
     </ng-container>
   </ng-template>
 </div>

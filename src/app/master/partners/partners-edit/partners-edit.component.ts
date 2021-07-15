@@ -157,10 +157,10 @@ export class PartnersEditComponent implements OnInit {
       email: [this.data.email, [TValidators.required, TValidators.emailRules]],
       packageId: [this.data?.packageId, TValidators.required],
       customPackage: this.fb.group({
-        maxStorage: ['', TValidators.required],
-        monthlyPrice: ['', TValidators.required],
-        maxStudents: ['', TValidators.required],
-        days: ['', TValidators.required],
+        maxStorage: ['', [TValidators.required, TValidators.maxLength(3)]],
+        monthlyPrice: ['', [TValidators.required, TValidators.maxLength(9)]],
+        maxStudents: ['', [TValidators.required, TValidators.maxLength(5)]],
+        days: ['', [TValidators.required, TValidators.maxLength(5)]],
       }),
     });
   }

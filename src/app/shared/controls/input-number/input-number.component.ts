@@ -78,11 +78,11 @@ export class InputNumberComponent implements ControlValueAccessor, AfterViewInit
   @Input() nzParser = (value: string) => value.trim();
   @Input() nzFormatter = (value: number) => {
     try {
-      if (!value || Number(value < 0)) { return `0`; }
+      if (!value || Number(value < 0)) { return null; }
       // tslint:disable-next-line: radix
       return `${this.decimalPipe.transform(parseInt(String(value).replace(this.currencyChars, '')))}`;
     } catch (error) {
-      return 0;
+      return null;
     }
   }
   onChange: OnChangeType = () => { };

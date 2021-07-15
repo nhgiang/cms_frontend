@@ -33,8 +33,8 @@ export class TValidators extends Validators {
     return regex.test(value)
       ? null
       : {
-        passwordRules: true,
-      };
+          passwordRules: true,
+        };
   }
 
   static onlyNumber(): ValidatorFn {
@@ -47,8 +47,8 @@ export class TValidators extends Validators {
       return regex.test(toFixed(value))
         ? null
         : {
-          onlyNumber: true,
-        };
+            onlyNumber: true,
+          };
     };
   }
 
@@ -58,8 +58,8 @@ export class TValidators extends Validators {
     return regex.test(control.value && control.value.trim())
       ? null
       : {
-        link: true,
-      };
+          link: true,
+        };
   }
 
   static textRange =
@@ -78,18 +78,18 @@ export class TValidators extends Validators {
       min: number,
       max: number //inclusive
     ) =>
-      (control: AbstractControl): ValidationErrors => {
-        if (control.value) {
-          const value = Number(control.value.toString().trim());
-          if (inRange(value, min, max + 0.001)) return null;
-          return {
-            numberRange: {
-              min: min,
-              max: max,
-            },
-          };
-        }
-      };
+    (control: AbstractControl): ValidationErrors => {
+      if (control.value) {
+        const value = Number(control.value.toString().trim());
+        if (inRange(value, min, max + 0.001)) return null;
+        return {
+          numberRange: {
+            min: min,
+            max: max,
+          },
+        };
+      }
+    };
 
   static emailRules(control: AbstractControl): ValidationErrors {
     const value = control.value && control.value.trim();
@@ -100,8 +100,8 @@ export class TValidators extends Validators {
     return regex.test(value)
       ? null
       : {
-        emailRules: true,
-      };
+          emailRules: true,
+        };
   }
 
   static phoneNumber(control: AbstractControl): ValidationErrors {
@@ -113,8 +113,8 @@ export class TValidators extends Validators {
     return regex.test(value)
       ? null
       : {
-        phoneNumber: true,
-      };
+          phoneNumber: true,
+        };
   }
 
   static required(control: AbstractControl): ValidationErrors {
@@ -132,7 +132,7 @@ export class TValidators extends Validators {
         return null;
       }
       return this.trimData(control.value.toString())?.length > length
-        ? { maxLength: true }
+        ? { maxLength: true, info: length }
         : null;
     };
   }
@@ -166,8 +166,8 @@ export class TValidators extends Validators {
       endDate = moment(endDate);
       return endDate < startDate
         ? {
-          endBeforeStart: true,
-        }
+            endBeforeStart: true,
+          }
         : null;
     };
 
