@@ -1,0 +1,45 @@
+<nz-card>
+  <div class="text-right mb-3">
+    <button nz-button
+            nzType="primary"
+            (click)="refresh()">Làm mới</button>
+  </div>
+  <nz-table [nzData]="expandData"
+            (nzQueryParams)="onParamsChanged($event)"
+            [nzPageSize]="quantity"
+            [nzLoading]="isloading"
+            [nzTotal]="meta?.totalItems"
+            [nzFrontPagination]="false"
+            [nzShowTotal]="totalTemplate"
+            [(nzPageIndex)]="page"
+            nzBordered>
+    <thead>
+      <tr>
+        <th scope="col"
+            nzWidth="70px">STT</th>
+        <th scope="col">Tên đối tác</th>
+        <th scope="col">Tổng doanh thu</th>
+        <th scope="col">Tổng học viên</th>
+        <th scope="col">Chi phí</th>
+        <th scope="col">Ghi chú</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let item of expandData">
+        <tr *ngIf="(item.parent && item.parent.expand) || !item.parent">
+          <td>{{item?.index}}</td>
+          <td>{{item.name}}</td>
+          <td [nzIndentSize]="item.level! * 20"
+              [nzShowExpand]="item.hasChildren"
+              [(nzExpand)]="item.expand"
+              (nzExpandChange)="collapse(item, $event)">{{item.revenueLabel}}</td>
+          <td>{{item?.totalLearner}}</td>
+          <td>{{item?.cost}}</td>
+          <td></td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #totalTemplate
+             let-total> Tổng cộng: {{ total }} </ng-template>
