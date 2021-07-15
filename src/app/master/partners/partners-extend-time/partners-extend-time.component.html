@@ -1,0 +1,36 @@
+<nz-card [nzLoading]="isLoading">
+  <form nz-form [formGroup]="form" (ngSubmit)="validate()" nzLayout="vertical">
+    <nz-form-item>
+      <nz-form-label>Thời gian gốc</nz-form-label>
+      <nz-form-control>
+        <nz-range-picker
+          formControlName="currentDuration"
+          nzDisabled
+        ></nz-range-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired>Thời gian gia hạn</nz-form-label>
+      <nz-form-control [nzErrorTip]="customErrs">
+        <nz-range-picker nzMode="date" formControlName="extendedDuration"></nz-range-picker>
+      </nz-form-control>
+      <ng-template #customErrs let-control="$implicit">
+        <ng-container *ngIf="control.errors.required">
+          Vui lòng chọn thời gian gia hạn
+        </ng-container>
+        <ng-container *ngIf="control.errors.sameday">
+          Ngày kết thúc phải sau ngày bắt đầu
+        </ng-container>
+        <ng-container *ngIf="control.errors.expireddate">
+          Ngày bắt đầu không được trước ngày hết hạn của thời gian gốc
+        </ng-container>
+        <ng-container *ngIf="control.errors.now">
+          Ngày bắt đầu gia hạn không được trước hôm nay
+        </ng-container>
+      </ng-template>
+    </nz-form-item>
+    <div class="text-right">
+      <button type="submit" nzType="primary" nz-button>Gia hạn</button>
+    </div>
+  </form>
+</nz-card>

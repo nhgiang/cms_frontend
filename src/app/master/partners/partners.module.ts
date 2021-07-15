@@ -8,6 +8,7 @@ import { PartnersRoutes } from './partners.routing';
 import { Step1Component } from './step-1/step-1.component';
 import { Step2Component } from './step-2/step-2.component';
 import { Step3Component } from './step-3/step-3.component';
+import { PartnersExtendTimeComponent } from './partners-extend-time/partners-extend-time.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { Step3Component } from './step-3/step-3.component';
   declarations: [
     PartnersListComponent,
     PartnersCreateComponent,
+    PartnersExtendTimeComponent, 
     PartnersEditComponent,
     Step1Component,
     Step2Component,

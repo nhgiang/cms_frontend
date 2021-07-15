@@ -80,6 +80,10 @@
   <ng-container *ngIf="control.errors.required">
     Trường thông tin không được để trống
   </ng-container>
+  <ng-container *ngIf="control.errors.maxLength"
+    >Trường thông tin vượt quá giới hạn {{ control.errors.info }} ký tự
+    </ng-container
+  >
 </ng-template>
 
 <!-- trùng tên -->

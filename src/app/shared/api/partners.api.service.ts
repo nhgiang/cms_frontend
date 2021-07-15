@@ -45,5 +45,11 @@ export class PartnersApiService extends BaseApi {
   getAll() {
     return this.httpClient.get(this.createUrl('/all'));
   }
-  
+
+  getTime(id: string) {
+    return this.httpClient.get(this.createUrl(`/${id}/extension`));
+  }
+  postTime(id: string, body: any) {
+    return this.httpClient.post(this.createUrl(`/${id}/extension`), body);
+  }
 }
