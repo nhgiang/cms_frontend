@@ -159,7 +159,7 @@
         Ngày
       </nz-form-control>
     </nz-form-item>
-    <ng-template #customErrs>
+    <ng-template #customErrs let-control="$implicit">
       <ng-container *ngIf="control.errors.required">
         Trường thông tin không được để trống
       </ng-container>
