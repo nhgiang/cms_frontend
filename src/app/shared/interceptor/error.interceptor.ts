@@ -27,7 +27,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         location.href = '/authentication/login';
       } else if ([403, 404, 500].includes(error.status)) {
         this.router.navigate(['/authentication/error', error.status]);
-      }
+      } 
       return throwError(error);
     }));
   }
