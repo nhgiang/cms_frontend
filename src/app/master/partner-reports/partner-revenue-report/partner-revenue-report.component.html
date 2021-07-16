@@ -42,7 +42,7 @@
               [(nzExpand)]="item.expand"
               (nzExpandChange)="collapse(item, $event)">{{item.revenueLabel}}</td>
           <td class="text-center">{{item?.totalLearner}}</td>
-          <td class="text-right">{{item?.cost}} VNĐ</td>
+          <td class="text-right">{{item?.cost | number}} VNĐ</td>
           <td></td>
         </tr>
       </ng-container>
