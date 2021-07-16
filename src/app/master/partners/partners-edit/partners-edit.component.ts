@@ -10,6 +10,7 @@ import { iif, of } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { merge } from 'lodash';
 import { OTHERID } from 'types/enums';
+import { omit } from 'lodash-es';
 
 @Component({
   selector: 'app-partners-edit',
@@ -57,6 +58,10 @@ export class PartnersEditComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
 
+    const body =
+      this.form.value.packageId === OTHERID
+        ? omit(this.form.value, 'packageId')
+        : this.form.value;
     const domain = `${
       this.form.get('domain').value + this.partnersApiService.endpointUrl
     }`;
@@ -90,7 +95,7 @@ export class PartnersEditComponent implements OnInit {
         switchMap(() => {
           return this.partnersApiService.update(
             this.data.id,
-            merge(this.form.value, { domain })
+            merge(body, { domain })
           );
         })
       )
