@@ -12,7 +12,10 @@
     <nz-form-item>
       <nz-form-label nzRequired>Thời gian gia hạn</nz-form-label>
       <nz-form-control [nzErrorTip]="customErrs">
-        <nz-range-picker nzMode="date" formControlName="extendedDuration"></nz-range-picker>
+        <nz-range-picker
+          nzMode="date"
+          formControlName="extendedDuration"
+        ></nz-range-picker>
       </nz-form-control>
       <ng-template #customErrs let-control="$implicit">
         <ng-container *ngIf="control.errors.required">
@@ -30,6 +33,9 @@
       </ng-template>
     </nz-form-item>
     <div class="text-right">
+      <button type="submit" nz-button [routerLink]="['/master']" class="m-r-5">
+        Quay lại
+      </button>
       <button type="submit" nzType="primary" nz-button>Gia hạn</button>
     </div>
   </form>
