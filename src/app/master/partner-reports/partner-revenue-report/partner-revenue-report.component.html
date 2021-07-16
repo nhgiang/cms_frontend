@@ -3,6 +3,11 @@
     <button nz-button
             nzType="primary"
             (click)="refresh()">Làm mới</button>
+    <button nz-button
+            nzType="primary"
+            (click)="download()"
+            [nzLoading]="activity.is('downloading')"
+            class="ml-3">Tải xuống báo cáo</button>
   </div>
   <nz-table [nzData]="expandData"
             (nzQueryParams)="onParamsChanged($event)"
@@ -19,9 +24,12 @@
             nzWidth="70px">STT</th>
         <th scope="col">Tên đối tác</th>
         <th scope="col">Danh mục</th>
-        <th scope="col" class="text-center">Tổng học viên</th>
-        <th scope="col" class="text-right">Chi phí</th>
-        <th scope="col">Ghi chú</th>
+        <th scope="col"
+            class="text-center">Tổng học viên</th>
+        <th scope="col"
+            class="text-right">Chi phí</th>
+        <th scope="col"
+            class="text-center">Ghi chú</th>
       </tr>
     </thead>
     <tbody>

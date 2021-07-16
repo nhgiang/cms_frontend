@@ -4,7 +4,9 @@ import { PartnerRevenueApiService } from '@shared/api/partner-revenue.api.servic
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { last, sumBy } from 'lodash-es';
 import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { QueryResult } from 'types/typemodel';
+import { Activity } from 'utils/Activity';
 
 @Component({
   selector: 'app-partner-revenue-report',
@@ -13,7 +15,7 @@ import { QueryResult } from 'types/typemodel';
 })
 export class PartnerRevenueReportComponent extends DataTableContainer<any> {
   expandData: any[];
-
+  activity = new Activity();
   constructor(
     route: ActivatedRoute,
     router: Router,
@@ -93,7 +95,7 @@ export class PartnerRevenueReportComponent extends DataTableContainer<any> {
       return;
     } else {
       if (!item.parent) {
-        this.expandData.filter(t => t.id = item.id).forEach(expand => {
+        this.expandData.filter(t => t.id === item.id).forEach(expand => {
           expand.expand = false;
         });
       } else {
@@ -104,5 +106,10 @@ export class PartnerRevenueReportComponent extends DataTableContainer<any> {
         });
       }
     }
+  }
+
+  download() {
+    this.activity.start('downloading');
+    this.partnerRevenueApi.downloadExcel().pipe(finalize(() => this.activity.stop('downloading'))).subscribe();
   }
 }
