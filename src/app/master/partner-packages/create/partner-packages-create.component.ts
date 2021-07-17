@@ -32,14 +32,8 @@ export class PartnerPackagesCreateComponent implements OnInit {
     this.form = this.fb.group({
       name: [null, [TValidators.required, TValidators.maxLength(20)]],
       maxStorage: [null, [TValidators.required, TValidators.maxLength(3)]],
-      monthlyPrice: [
-        null,
-        [TValidators.required, TValidators.maxLength(9)],
-      ],
-      maxStudents: [
-        null,
-        [TValidators.required, TValidators.maxLength(5)],
-      ],
+      monthlyPrice: [null, [TValidators.required, TValidators.maxLength(9)]],
+      maxStudents: [null, [TValidators.required, TValidators.maxLength(5)]],
       days: [null, [TValidators.required, TValidators.maxLength(5)]],
     });
     if (this.editId) {
@@ -59,10 +53,19 @@ export class PartnerPackagesCreateComponent implements OnInit {
       this.api
         .create(this.form.value)
         .pipe(finalize(() => (this.isloading = false)))
-        .subscribe(() => {
-          this.notif.success('Thành công', 'Thêm mới gói sản phẩm thành công!');
-          this.router.navigate(['/master/partner-packages']);
-        });
+        .subscribe(
+          () => {
+            this.notif.success(
+              'Thành công',
+              'Thêm mới gói sản phẩm thành công!'
+            );
+            this.router.navigate(['/master/partner-packages']);
+          },
+          (err) => {
+            if (err.status === 409)
+              this.form.controls['name'].setErrors({ conflict: true });
+          }
+        );
       return;
     }
     this.api
