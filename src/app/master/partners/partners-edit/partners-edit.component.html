@@ -146,19 +146,6 @@
       </nz-form-control>
     </nz-form-item>
 
-    <nz-form-item>
-      <nz-form-label nzRequired>Thời hạn</nz-form-label>
-      <nz-form-control [nzErrorTip]="customErrs">
-        <input-number
-          nz-col
-          [nzSpan]="12"
-          formControlName="days"
-          class="w-100 m-r-5"
-          style="display: inline-block"
-        ></input-number>
-        Ngày
-      </nz-form-control>
-    </nz-form-item>
     <ng-template #customErrs let-control="$implicit">
       <ng-container *ngIf="control.errors.required">
         Trường thông tin không được để trống
