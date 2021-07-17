@@ -78,11 +78,11 @@ export class StudentDetailComponent implements OnInit {
     const error = (error: HttpErrorResponse) => {
       if (error.status === 412) {
         this.notification.warning('Cảnh báo', error.error.message);
-      }
-      this.notification.error(
-        'Thất bại',
-        `${message} tài khoản học viên thất bại!`
-      );
+      } else
+        this.notification.error(
+          'Thất bại',
+          `${message} tài khoản học viên thất bại!`
+        );
     };
     const data = {
       id,
