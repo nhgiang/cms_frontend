@@ -6,20 +6,20 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Gói sản phẩm</th>
-        <th>Giá tiền lưu trữ</th>
-        <th>Giới hạn dung lượng</th>
-        <th>Số lượng học viên</th>
+        <th nzAlign="center">Gói sản phẩm</th>
+        <th nzAlign="right">Giá tiền lưu trữ</th>
+        <th nzAlign="center">Giới hạn dung lượng</th>
+        <th nzAlign="center">Số lượng học viên</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of list">
         <td>#{{ item.index }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.monthlyPrice | number }}</td>
-        <td>{{ item.maxStorage }}</td>
-        <td>{{ item.maxStudents }}</td>
+        <td nzAlign="center">{{ item.name }}</td>
+        <td nzAlign="right">{{ item.monthlyPrice | number }}</td>
+        <td nzAlign="center">{{ item.maxStorage }}</td>
+        <td nzAlign="center">{{ item.maxStudents }}</td>
         <td>
           <a
             nz-button
