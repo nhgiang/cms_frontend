@@ -114,11 +114,11 @@ export class PartnersListComponent extends DataTableContainer<any> {
       this.refresh();
       this.notification.success(
         'Thành công',
-        'Khóa tài khoản đối tác thành công!'
+        'Xóa tài khoản đối tác thành công!'
       );
     };
     const err = () => {
-      this.notification.error('Thất bại', 'Khóa tài khoản đối tác thất bại!');
+      this.notification.error('Thất bại', 'Xóa tài khoản đối tác thất bại!');
     };
     this.partnersApiService.delete(id).subscribe(next, err);
   }
