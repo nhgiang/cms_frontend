@@ -11,6 +11,9 @@ import { CertificationComponent } from './certification/certification.component'
 const routes: Routes = [
   {
     path: 'course',
+    data: {
+      title: 'Danh sách khóa học',
+    },
     children: [
       {
         path: '',
