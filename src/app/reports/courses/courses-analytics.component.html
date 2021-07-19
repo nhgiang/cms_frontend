@@ -41,7 +41,15 @@
         <th scope="col" nzWidth="300px">Khóa học</th>
         <th scope="col" nzWidth="250px">Loại khóa học</th>
         <th scope="col" nzAlign="center">Học viên đăng ký</th>
-        <th scope="col" nzAlign="center">Lượt xem</th>
+        <th
+          scope="col"
+          nzAlign="center"
+          [nzSortOrder]="null"
+          [nzSortFn]="sortFn"
+          [nzSortDirections]="['ascend', 'descend', null]"
+        >
+          Lượt xem
+        </th>
         <th scope="col" nzAlign="center">Đăng ký mới</th>
         <th scope="col">Hoàn thành khóa học</th>
         <th scope="col" nzAlign="center">Số bình luận</th>
