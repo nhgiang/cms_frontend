@@ -1,0 +1,46 @@
+<nz-card>
+  <div class=" text-right">
+    <a nz-button nzType="primary" [routerLink]="['create']">Thêm mới</a>
+  </div>
+  <nz-table [nzData]="items" [nzLoading]="isloading" [nzFrontPagination]="false" [nzShowTotal]="totalTemplate"
+    [nzNoResult]="empty">
+    <thead>
+      <tr>
+        <th scope="col" nzWidth="70px">ID</th>
+        <ng-container *ngFor="let col of metaData">
+          <th *ngIf="!col.sortable" [classList]="col?.class" scope="col">{{col.name}}</th>
+          <th [classList]="col?.class" *ngIf="col.sortable" scope="col" [nzSortFn]="col.sortable"
+            [nzSortOrder]="col?.sortOrder" [nzColumnKey]="col.key">{{col.name}}</th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>#{{item?.index}}</td>
+        <td class="text-nowrap">
+          <a [routerLink]="['../course/edit', item.id]" class="truncate-1" [title]="item?.name">{{item?.name| truncate:
+            30}}</a>
+        </td>
+        <td>
+          <div class="d-flex align-items-center">
+            <nz-avatar nzShape="square" [nzSize]="28" nzIcon="picture" [nzSrc]="item.teacherAvatar"
+              style="min-width: 28px;">
+            </nz-avatar>
+            <span class="m-l-10" [title]="item?.teacherName">
+              {{item?.teacherName | truncate: 30}}
+            </span>
+          </div>
+        </td>
+        <td [title]="item?.typeName">{{item?.typeName|truncate: 30}}</td>
+        <td class="text-right">{{item?.studentPrice | number}}đ</td>
+        <td class="text-right">{{item?.partnerPrice | number}}đ</td>
+        <td class="text-center">{{item?.totalStudent}}</td>
+        <td>{{item?.created | date: 'dd/MM/yyyy'}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>

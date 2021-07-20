@@ -19,4 +19,4 @@ import { OccupationsAnalyticsComponent } from './occupations/occupations.compone
     OccupationsAnalyticsComponent,
   ],
 })
-export class ReportsModule {}
+export class ReportsModule { }
