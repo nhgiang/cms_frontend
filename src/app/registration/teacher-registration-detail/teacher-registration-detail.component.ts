@@ -23,7 +23,7 @@ export class TeacherRegistrationDetailComponent implements OnInit {
     private apiService: TeacherRegistrationsApiService,
     private notif: NzNotificationService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -66,7 +66,7 @@ export class TeacherRegistrationDetailComponent implements OnInit {
       .subscribe(() => {
         this.notif.success(
           'Thành công',
-          'Cập nhật thông tin giảng viên đăng kí thành công'
+          'Cập nhật thông tin giảng viên đăng ký thành công'
         );
         this.router.navigate(['../'], { relativeTo: this.route });
       });

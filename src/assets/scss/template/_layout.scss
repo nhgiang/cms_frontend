@@ -47,21 +47,16 @@
         .breadcrumb-items {
           display: flex;
           align-items: center;
-          nz-breadcrumb-item {
-            font-size: 19px;
+          .breadcrumb-item {
+            &:not(:last-child) h4 {
+              font-size: 16px;
+              color: #72849a;
+            }
             &:first-child,
             &:last-child {
               pointer-events: none;
             }
-            &:not(:last-child) {
-              font-size: 16px;
-              color: #72849a;
-            }
           }
-          // .breadcrumb-item:not(:last-child) h4 {
-          //   font-size: 16px;
-          //   color: #72849a;
-          // }
         }
       }
     }

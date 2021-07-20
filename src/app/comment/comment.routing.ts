@@ -6,7 +6,6 @@ const routes: Routes = [
   {
     path: '',
     data: {
-      headerDisplay: true,
       title: 'Danh sách comment'
     },
     children: [
