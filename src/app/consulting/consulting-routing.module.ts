@@ -6,14 +6,20 @@ import { ConsultingInformationComponent } from './consulting-information/consult
 const routes: Routes = [
   {
     path: 'information',
+    data: {
+      title: 'Thông tin tư vấn'
+    },
     children: [
       {
         path: '',
-        component: ConsultingInformationComponent
+        component: ConsultingInformationComponent,
       },
       {
         path: ':id',
-        component: ConsultingInformationEditComponent
+        component: ConsultingInformationEditComponent,
+        data: {
+          title: 'Thông tin khách hàng'
+        }
       }
     ]
   },

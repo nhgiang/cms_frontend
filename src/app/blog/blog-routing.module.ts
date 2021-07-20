@@ -9,13 +9,13 @@ import { BlogTypeComponent } from './blog-type/blog-type.component';
 const routes: Routes = [
   {
     path: 'blog-management',
+    data: {
+      title: 'Danh sách bài viết'
+    },
     children: [
       {
         path: '',
-        component: BlogListComponent,
-        data: {
-          title: 'Danh sách bài viết'
-        }
+        component: BlogListComponent
       },
       {
         path: 'create',
