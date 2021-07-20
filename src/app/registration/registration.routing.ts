@@ -7,15 +7,12 @@ const routes: Routes = [
   {
     path: 'teacher',
     data: {
-      title: 'Giảng viên đăng kí',
+      title: 'Giảng viên đăng ký',
     },
     children: [
       {
         path: '',
-        component: TeachersRegistrationsComponent,
-        data: {
-          title: 'Giảng viên đăng kí',
-        },
+        component: TeachersRegistrationsComponent
       },
       {
         path: ':id',
