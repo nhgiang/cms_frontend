@@ -14,6 +14,9 @@ import { StudentComponent } from './student/student.component';
 const routes: Routes = [
   {
     path: 'student',
+    data: {
+      title: 'Quản lý học viên'
+    },
     children: [
       {
         path: '',
@@ -33,6 +36,9 @@ const routes: Routes = [
   },
   {
     path: 'lecturer',
+    data: {
+      title: 'Quản lý giảng viên',
+    },
     children: [
       {
         path: '',
@@ -62,6 +68,9 @@ const routes: Routes = [
   },
   {
     path: 'assistance',
+    data: {
+      title: 'Quản lý nhân viên',
+    },
     canActivate: [AuthorizeByRoleGuard],
     children: [
       {
@@ -93,4 +102,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserRoutingModule {}
+export class UserRoutingModule { }
