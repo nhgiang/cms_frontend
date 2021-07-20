@@ -5,11 +5,12 @@ import { PartnerReportsRoutes } from './partner-reports.routing';
 import { SharedModule } from '@shared/shared.module';
 import { CoursesReportComponent } from './courses-report/courses-report.component';
 import { PartnerRevenueReportComponent } from './partner-revenue-report/partner-revenue-report.component';
+import { TeacherDiscountReportComponent } from './teacher-discount-report/teacher-discount-report.component';
 
 
 
 @NgModule({
-  declarations: [LearnerReportComponent, CoursesReportComponent, PartnerRevenueReportComponent],
+  declarations: [LearnerReportComponent, CoursesReportComponent, PartnerRevenueReportComponent, TeacherDiscountReportComponent],
   imports: [
     CommonModule,
     PartnerReportsRoutes,
