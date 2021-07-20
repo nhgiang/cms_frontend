@@ -2,13 +2,12 @@
   <form [formGroup]="form" nz-form class="d-md-flex justify-content-between">
     <nz-form-item>
       <nz-form-control [nzSpan]="8">
-        <input style="min-width: 300px" formControlName="q" nz-input
-          placeholder="Tìm kiếm theo tên trung tâm , người đại diện, số điện thoại" />
+        <input style="min-width: 300px" formControlName="q" nz-input placeholder="Tìm kiếm theo tên giảng viên" />
       </nz-form-control>
     </nz-form-item>
     <div class="text-right">
       <button nzType="primary" type="button" routerLink="create" nz-button>
-        Thêm mới đối tác
+        Download báo cáo
       </button>
     </div>
   </form>
@@ -33,6 +32,9 @@
     </thead>
 
     <tbody>
+      <tr>
+        <td><a (click)="goTodDetail()">123</a></td>
+      </tr>
       <tr *ngFor="let item of items; index as i">
         <td>#{{ item.index }}</td>
         <td>{{ item.name }}</td>
@@ -48,41 +50,9 @@
         </td>
         <td>
           <div class="d-flex justify-content-start">
-            <a class="m-r-5" nz-button nzType="default" nz-tooltip nzShape="circle" nzTooltipTitle="Gia hạn"
-              [routerLink]="[item.id, 'extension']">
-              <i nz-icon nzType="field-time"></i>
-            </a>
-            <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Mạo danh">
-              <div [confirmation]="
-                  'Bạn muốn truy cập vào trang quản trị của ' +
-                  item.domain +
-                  '?'
-                " (confirmed)="impersonation(item)">
-                <i nz-icon nzType="user" nzTheme="outline"></i>
-              </div>
-            </a>
             <a (click)="edit(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
-              nzTooltipTitle="Chỉnh sửa">
-              <i aria-hidden="true" nz-icon nzType="edit" theme="outline"></i>
-            </a>
-            <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
-              [nzTooltipTitle]="item.status === 'Active' ? 'Khóa' : 'Mở khóa'">
-              <div [confirmation]="
-                  'Bạn có chắc chắn muốn ' +
-                  (item.status === 'InActive' ? 'mở khóa' : 'khóa') +
-                  ' partner này không?'
-                " (confirmed)="unlock(item)">
-                <i aria-hidden="true" nz-icon [nzType]="item.status === 'Active' ? 'lock' : 'unlock'"
-                  nzTheme="outline"></i>
-              </div>
-            </a>
-            <a class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa"
-              [class.disable]="item.status === 'Active'">
-              <div [confirmation]="
-                  'Bạn có chắc chắn muốn xóa tài khoản partner này không?'
-                " (confirmed)="delete(item?.id)">
-                <i aria-hidden="true" nz-icon nzType="close" nzTheme="outline"></i>
-              </div>
+              nzTooltipTitle="Chi tiết">
+              <i nz-icon nzType="file-text" nzTheme="outline" aria-hidden="true"></i>
             </a>
           </div>
         </td>

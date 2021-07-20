@@ -11,9 +11,7 @@ import { QueryResult } from 'types/typemodel';
   styleUrls: ['./teacher-discount-report.component.scss']
 })
 export class TeacherDiscountReportComponent extends DataTableContainer<any> implements OnInit {
-  protected fetch(): Observable<QueryResult<any>> {
-    throw new Error('Method not implemented.');
-  }
+
   isLoading = false;
   form: FormGroup;
   metaData = [
@@ -46,7 +44,14 @@ export class TeacherDiscountReportComponent extends DataTableContainer<any> impl
     super(route, router);
   }
 
+  protected fetch(): Observable<QueryResult<any>> {
+    throw new Error('Method not implemented.');
+  }
+
   ngOnInit() {
   }
 
+  goTodDetail() {
+    this.router.navigate(['/master/partner-reports/teacher-discount-report/213'], { state: { title: 'Nguyễn văn A' } })
+  }
 }
