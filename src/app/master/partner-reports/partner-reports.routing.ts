@@ -39,7 +39,10 @@ const routes: Routes = [
       },
       {
         path: ':id',
-        component: TeacherDiscountReportDetailComponent
+        component: TeacherDiscountReportDetailComponent,
+        data: {
+          title: 'Báo cáo chi tiết của giảng viên'
+        }
       }
     ]
   }

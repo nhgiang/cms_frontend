@@ -21,9 +21,6 @@ const routes: Routes = [
       {
         path: '',
         component: StudentComponent,
-        data: {
-          title: 'Quản lý học viên',
-        },
       },
       {
         path: ':id',
@@ -42,10 +39,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: LecturerComponent,
-        data: {
-          title: 'Quản lý giảng viên',
-        },
+        component: LecturerComponent
       },
       {
         path: 'create',
@@ -75,10 +69,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: AssistanceComponent,
-        data: {
-          title: 'Quản lý nhân viên',
-        },
+        component: AssistanceComponent
       },
       {
         path: 'create',

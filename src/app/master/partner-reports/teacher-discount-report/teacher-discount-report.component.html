@@ -6,51 +6,38 @@
       </nz-form-control>
     </nz-form-item>
     <div class="text-right">
-      <button nzType="primary" type="button" routerLink="create" nz-button>
+      <button nzType="primary" type="button" (click)="download()" nz-button>
         Download báo cáo
       </button>
     </div>
   </form>
 
-  <nz-table [nzData]="items" [nzShowTotal]="totalTemplate" [nzNoResult]="empty" [nzLoading]="isLoading"
-    [nzFrontPagination]="false" [nzPageSize]="quantity" [nzTotal]="meta?.totalItems" [(nzPageIndex)]="page"
-    (nzQueryParams)="onSearchParamsChanged($event)" nzTableLayout="fixed">
+  <nz-table #basicTable [nzData]="items" [nzShowTotal]="totalTemplate" [nzNoResult]="empty" [nzLoading]="isLoading"
+    nzBordered nzShowPagination nzTableLayout="fixed">
     <thead>
       <tr>
-        <th scope="col" nzWidth="50px">ID</th>
-        <ng-container *ngFor="let item of metaData">
-          <th [ngClass]="item.class" *ngIf="item.sortable" [nzWidth]="item.width" [nzSortFn]="item.sortable" scope="col"
-            [nzColumnKey]="item.key" [nzSortOrder]="item.sortOrder">
-            {{ item.name }}
-          </th>
-          <th *ngIf="!item.sortable" [ngClass]="item.class" [nzWidth]="item.width" scope="col" [nzColumnKey]="item.key">
-            {{ item.name }}
-          </th>
-        </ng-container>
-        <th scope="col" nzWidth="150px"></th>
+        <th scope="col" nzWidth="60px">ID</th>
+        <th scope="col" [nzSortOrder]="null" [nzSortFn]="sortFn" [nzSortDirections]="['ascend', 'descend', null]">Tên
+          giảng viên</th>
+        <th scope="col">Tên khóa học</th>
+        <th scope="col" class="text-center">Lượt đăng ký</th>
+        <th scope="col" class="text-center"> Tổng chiết khấu</th>
+        <th scope="col" nzWidth="80px"></th>
       </tr>
     </thead>
 
     <tbody>
-      <tr>
-        <td><a (click)="goTodDetail()">123</a></td>
-      </tr>
-      <tr *ngFor="let item of items; index as i">
-        <td>#{{ item.index }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.domain }}</td>
-        <td>{{ item.representative }}</td>
-        <td>{{ item.adminEmail }}</td>
-        <td>{{ item.phoneNumber }}</td>
-        <td>{{ item.package.name }}</td>
-        <td>{{ item.expiredDate | datetime }}</td>
+      <tr *ngFor="let item of basicTable.data; let i=index">
+        <td>#{{ i+1 }}</td>
+        <td>{{ item.fullName }}</td>
         <td>
-          <nz-badge [nzColor]="item.status | option: studentStatusOptions:'color'"
-            [nzText]="item.status | option: studentStatusOptions"></nz-badge>
+          <p class="mb-0" *ngFor="let course of item.courses"> {{ course.name }} </p>
         </td>
+        <td class="text-right">{{ item.totalRegistration | number }}</td>
+        <td class="text-right">{{ item.totalAmount | number }} VNĐ</td>
         <td>
-          <div class="d-flex justify-content-start">
-            <a (click)="edit(item)" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
+          <div class="d-flex justify-content-center">
+            <a [routerLink]="item.id" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
               nzTooltipTitle="Chi tiết">
               <i nz-icon nzType="file-text" nzTheme="outline" aria-hidden="true"></i>
             </a>
@@ -66,14 +53,3 @@
 </ng-template>
 
 <ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>
-
-<ng-template #footerModal>
-  <div class="text-right btn-step-1">
-    <button nz-button type="button" (click)="close()" nzType=" primary" nzGhost>
-      Hủy
-    </button>
-    <button nz-button nzType="primary" type="button" class="ml-3" (click)="update()">
-      Xác nhận
-    </button>
-  </div>
-</ng-template>

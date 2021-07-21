@@ -9,7 +9,17 @@
     <div class="main-content">
       <div class="main-content-header" *ngIf="contentHeaderDisplay !== 'none'">
         <h4 class="page-title" *ngIf="breadcrumbs$ | async; let breadcrumbs">
-          <nz-breadcrumb nzSeparator=">" class="breadcrumb-items" [nzAutoGenerate]="true" [nzRouteLabel]="'title'">
+          <nz-breadcrumb nzSeparator=">" class="breadcrumb-items">
+            <nz-breadcrumb-item class="breadcrumb-item" *ngFor="let item of breadcrumbs; let i = index">
+              <h4 class="mb-0" *ngIf="breadcrumbs.length === 1; else el">
+                {{ item.label }}
+              </h4>
+              <ng-template #el>
+                <h4 class="mb-0 d-inline-block">
+                  <a [routerLink]="[item.url]"> {{ item.label }}</a>
+                </h4>
+              </ng-template>
+            </nz-breadcrumb-item>
           </nz-breadcrumb>
         </h4>
       </div>

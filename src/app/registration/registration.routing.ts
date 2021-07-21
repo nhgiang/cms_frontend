@@ -12,10 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: TeachersRegistrationsComponent,
-        data: {
-          title: 'Giảng viên đăng ký',
-        },
+        component: TeachersRegistrationsComponent
       },
       {
         path: ':id',

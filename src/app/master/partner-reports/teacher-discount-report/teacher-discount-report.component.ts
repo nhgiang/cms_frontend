@@ -1,57 +1,57 @@
+import { state } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataTableContainer } from '@shared/class/data-table-container';
-import { Observable } from 'rxjs';
-import { QueryResult } from 'types/typemodel';
+import { RoyaltiesAnalyticsApiService } from '@shared/api/royalties-analytics.api.service';
+import { debounceTime, finalize } from 'rxjs/operators';
+import { Activity } from 'utils/Activity';
 
 @Component({
   selector: 'app-teacher-discount-report',
   templateUrl: './teacher-discount-report.component.html',
   styleUrls: ['./teacher-discount-report.component.scss']
 })
-export class TeacherDiscountReportComponent extends DataTableContainer<any> implements OnInit {
-
+export class TeacherDiscountReportComponent implements OnInit {
+  activity = new Activity();
   isLoading = false;
   form: FormGroup;
-  metaData = [
-    {
-      key: 'name',
-      name: 'Tên giảng viên',
-      sortable: false,
-    },
-    {
-      key: 'domain',
-      name: 'Tên khóa học',
-      sortable: false,
-    },
-    {
-      key: 'username',
-      name: 'Lượt đăng ký',
-      sortable: false,
-    },
+  items: any[];
 
-    {
-      key: 'adminEmail',
-      name: 'Tổng chiết khấu',
-      sortable: false,
-    }
-  ];
   constructor(
-    route: ActivatedRoute,
-    router: Router,
+    private route: ActivatedRoute,
+    private router: Router,
+    private fb: FormBuilder,
+    private royaltiesAnalyticsApiService: RoyaltiesAnalyticsApiService
   ) {
-    super(route, router);
+    this.form = this.fb.group({
+      q: [null]
+    })
   }
 
-  protected fetch(): Observable<QueryResult<any>> {
-    throw new Error('Method not implemented.');
-  }
 
   ngOnInit() {
+    this.fetch();
+    this.form.valueChanges.pipe(debounceTime(500)).subscribe(x => {
+      this.fetch({ q: x.q });
+    })
   }
 
-  goTodDetail() {
-    this.router.navigate(['/master/partner-reports/teacher-discount-report/213'], { state: { title: 'Nguyễn văn A' } })
+  sortFn = (a: any, b: any) => a.fullName.localeCompare(b.fullName);
+
+  fetch(params?: any) {
+    this.items = [];
+    this.royaltiesAnalyticsApiService.getMaster(params).subscribe(data => {
+      console.log(data);
+      this.items = data.map(x => {
+        x.totalRegistration = x.courses.reduce((a, b) => a + (parseInt(b.totalRegistration) || 0), 0);
+        x.totalAmount = x.courses.reduce((a, b) => a + (parseInt(b.royaltyAmount) || 0), 0);
+        return x
+      });
+    });
   }
+
+  download() {
+    this.royaltiesAnalyticsApiService.downloadExcel().pipe(finalize(() => this.activity.stop('downloading'))).subscribe();
+  }
+
 }
