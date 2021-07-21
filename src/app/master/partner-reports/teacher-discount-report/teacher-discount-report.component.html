@@ -1,0 +1,55 @@
+<nz-card>
+  <form [formGroup]="form" nz-form class="d-md-flex justify-content-between">
+    <nz-form-item>
+      <nz-form-control [nzSpan]="8">
+        <input style="min-width: 300px" formControlName="q" nz-input placeholder="Tìm kiếm theo tên giảng viên" />
+      </nz-form-control>
+    </nz-form-item>
+    <div class="text-right">
+      <button nzType="primary" type="button" (click)="download()" nz-button>
+        Download báo cáo
+      </button>
+    </div>
+  </form>
+
+  <nz-table #basicTable [nzData]="items" [nzShowTotal]="totalTemplate" [nzNoResult]="empty" [nzLoading]="isLoading"
+    nzBordered nzShowPagination nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th scope="col" nzWidth="60px">ID</th>
+        <th scope="col" [nzSortOrder]="null" [nzSortFn]="sortFn" [nzSortDirections]="['ascend', 'descend', null]">Tên
+          giảng viên</th>
+        <th scope="col">Tên khóa học</th>
+        <th scope="col" class="text-center">Lượt đăng ký</th>
+        <th scope="col" class="text-center"> Tổng chiết khấu</th>
+        <th scope="col" nzWidth="80px"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of basicTable.data; let i=index">
+        <td>#{{ i+1 }}</td>
+        <td>{{ item.fullName }}</td>
+        <td>
+          <p class="mb-0" *ngFor="let course of item.courses"> {{ course.name }} </p>
+        </td>
+        <td class="text-right">{{ item.totalRegistration | number }}</td>
+        <td class="text-right">{{ item.totalAmount | number }} VNĐ</td>
+        <td>
+          <div class="d-flex justify-content-center">
+            <a [routerLink]="item.id" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
+              nzTooltipTitle="Chi tiết">
+              <i nz-icon nzType="file-text" nzTheme="outline" aria-hidden="true"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<ng-template #empty>
+  <nz-empty nzNotFoundContent="Chưa có dữ liệu"></nz-empty>
+</ng-template>
+
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>

@@ -1,0 +1,43 @@
+<nz-card>
+
+  <div class="text-right mb-3">
+    <button nzType="primary" type="button" (click)="download()" nz-button>
+      Download báo cáo
+    </button>
+  </div>
+
+  <nz-table #basicTable [nzData]="items" [nzNoResult]="empty" (nzQueryParams)="onParamsChanged($event)"
+    [nzPageSize]="quantity" [nzLoading]="isloading" [nzTotal]="meta?.totalItems" [nzFrontPagination]="false"
+    [nzShowTotal]="totalTemplate" [(nzPageIndex)]="page" nzBordered nzShowPagination nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th scope="col" nzWidth="50px">ID</th>
+        <ng-container *ngFor="let col of metaData">
+          <th *ngIf="!col.sortable" [classList]="col?.class" [nzWidth]="col?.width" scope="col">{{col.name}}</th>
+          <th [classList]="col?.class" *ngIf="col.sortable" scope="col" [nzSortFn]="col.sortable"
+            [nzSortOrder]="col?.sortOrder" [nzColumnKey]="col.key">{{col.name}}</th>
+        </ng-container>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of items; let i=index">
+        <td>#{{ i+1 }}</td>
+        <td>{{ item.studentName }}</td>
+        <td> {{ item.name }} </td>
+        <td>{{ item.partnerName }}</td>
+        <td> {{ item.type }} </td>
+        <td class="text-right">{{ item.coursePrice | number }} VNĐ</td>
+        <td class="text-right">{{ item.royaltyPercentage | number }} %</td>
+        <td class="text-center">{{ item.date | date:'dd/MM/yyyy' }} </td>
+        <td class="text-right">{{ item.royaltyAmount | number }} VNĐ</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<ng-template #empty>
+  <nz-empty nzNotFoundContent="Chưa có dữ liệu"></nz-empty>
+</ng-template>
+
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>
