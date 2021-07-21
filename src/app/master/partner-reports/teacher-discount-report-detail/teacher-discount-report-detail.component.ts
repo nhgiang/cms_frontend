@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoyaltiesAnalyticsApiService } from '@shared/api/royalties-analytics.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { Observable } from 'rxjs';
-import { finalize, switchMap, tap } from 'rxjs/operators';
+import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { QueryResult } from 'types/typemodel';
 
 @Component({
@@ -83,7 +83,13 @@ export class TeacherDiscountReportDetailComponent extends DataTableContainer<any
       order: this.order,
       sort: this.sort
     };
-    return this.royaltiesAnalyticsApiService.findByTeacherId(this.id, params)
+    return this.royaltiesAnalyticsApiService.findByTeacherId(this.id, params).pipe(map((data) => {
+      data.items.map(item => {
+        item.type = item.type === 'Course' ? 'Gói lẻ' : 'Gói membership';
+        return item;
+      })
+      return data;
+    }))
   }
 
   download() {
