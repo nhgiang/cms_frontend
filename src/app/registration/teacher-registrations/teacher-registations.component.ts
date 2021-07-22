@@ -18,7 +18,7 @@ export class TeachersRegistrationsComponent implements OnInit {
   constructor(
     private serviceApi: TeacherRegistrationsApiService,
     private notif: NzNotificationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.fetch(1, undefined).subscribe(this.updateObserver());
@@ -48,8 +48,8 @@ export class TeachersRegistrationsComponent implements OnInit {
             index + 1 + (this.meta.currentPage - 1) * this.meta.itemsPerPage,
         }));
       },
-      error() {},
-      complete() {},
+      error() { },
+      complete() { },
     };
   }
 
@@ -60,7 +60,7 @@ export class TeachersRegistrationsComponent implements OnInit {
   protected deleteTeacher(teacher: Teacher) {
     this.isDataLoading = true;
     this.serviceApi.delete(teacher.id).subscribe(() => {
-      this.notif.success('Thành công', 'Xóa giảng viên thành công');
+      this.notif.success('Thành công', 'Xóa giảng viên đăng ký thành công');
       this.fetch(1, undefined).subscribe(this.updateObserver()); // refresh
     });
   }

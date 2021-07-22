@@ -40,6 +40,12 @@ export class PartnersListComponent extends DataTableContainer<any> {
       name: 'Đại diện',
       sortable: false,
     },
+
+    {
+      key: 'adminEmail',
+      name: 'Email Admin',
+      sortable: false,
+    },
     {
       key: 'phone',
       name: 'Số điện thoại',

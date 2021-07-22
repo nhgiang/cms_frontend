@@ -17,10 +17,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: CourseListComponent,
-        data: {
-          title: 'Danh sách khóa học',
-        },
+        component: CourseListComponent
       },
       {
         path: 'edit/:courseId',

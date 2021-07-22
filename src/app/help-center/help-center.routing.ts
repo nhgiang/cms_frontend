@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: 'help-center',
     data: {
-      title: ''
+      title: 'Danh sách bài viết'
     },
     children: [
       {
@@ -19,7 +19,7 @@ const routes: Routes = [
         path: 'list',
         component: HelpCenterListComponent,
         data: {
-          title: 'Danh sách bài viết'
+          title: ''
         },
       },
       {

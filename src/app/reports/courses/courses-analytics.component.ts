@@ -12,7 +12,6 @@ import { CourseType, QueryResult, User } from 'types/typemodel';
   templateUrl: 'courses-analytics.component.html',
 })
 export class CoursesAnalyticsComponent implements OnInit {
-
   constructor(
     private analyticsApi: AnalyticsApiService,
     private fb: FormBuilder,
@@ -26,6 +25,8 @@ export class CoursesAnalyticsComponent implements OnInit {
 
   queryForm: FormGroup;
 
+  sortFn = (a: any, b: any) => a.totalView - b.totalView;
+
   teachers$ = (params: any) => {
     return this.teachersApi.getList(params).pipe(
       map((data: QueryResult<User>) => {
@@ -35,16 +36,18 @@ export class CoursesAnalyticsComponent implements OnInit {
         })) as Option[];
       })
     );
-  }
+  };
+
   courseTypes$ = (params: any) => {
     return this.courseTypesApi.getList(params).pipe(
       map((data: QueryResult<CourseType>) => {
-        return (
-          data.items.map((item) => ({ value: item.id, label: item.name }))
-        ) as Option[];
+        return data.items.map((item) => ({
+          value: item.id,
+          label: item.name,
+        })) as Option[];
       })
     );
-  }
+  };
 
   ngOnInit() {
     this.fetch();

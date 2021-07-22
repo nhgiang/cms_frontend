@@ -14,13 +14,13 @@ import { StudentComponent } from './student/student.component';
 const routes: Routes = [
   {
     path: 'student',
+    data: {
+      title: 'Quản lý học viên'
+    },
     children: [
       {
         path: '',
         component: StudentComponent,
-        data: {
-          title: 'Quản lý học viên',
-        },
       },
       {
         path: ':id',
@@ -33,13 +33,13 @@ const routes: Routes = [
   },
   {
     path: 'lecturer',
+    data: {
+      title: 'Quản lý giảng viên',
+    },
     children: [
       {
         path: '',
-        component: LecturerComponent,
-        data: {
-          title: 'Quản lý giảng viên',
-        },
+        component: LecturerComponent
       },
       {
         path: 'create',
@@ -62,14 +62,14 @@ const routes: Routes = [
   },
   {
     path: 'assistance',
+    data: {
+      title: 'Quản lý nhân viên',
+    },
     canActivate: [AuthorizeByRoleGuard],
     children: [
       {
         path: '',
-        component: AssistanceComponent,
-        data: {
-          title: 'Quản lý nhân viên',
-        },
+        component: AssistanceComponent
       },
       {
         path: 'create',
@@ -93,4 +93,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserRoutingModule {}
+export class UserRoutingModule { }
