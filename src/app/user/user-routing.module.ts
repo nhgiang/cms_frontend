@@ -8,6 +8,7 @@ import { AssistanceComponent } from './assistance/assistance.component';
 import { LecturerCreateComponent } from './lecturer/lecturer-create/lecturer-create.component';
 import { LecturerUpdateComponent } from './lecturer/lecturer-update/lecturer-update.component';
 import { LecturerComponent } from './lecturer/lecturer.component';
+import { NotificationComponent } from './notification/notification.component';
 import { StudentDetailComponent } from './student/student-detail/student-detail.component';
 import { StudentComponent } from './student/student.component';
 
@@ -87,6 +88,11 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'notification',
+    component: NotificationComponent,
+    data: { title: 'Thông báo' }
+  }
 ];
 
 @NgModule({

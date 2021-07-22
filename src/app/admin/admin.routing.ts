@@ -13,14 +13,6 @@ const routes: Routes = [
     data: {
       title: 'Cài đặt gói Membership',
     },
-  },
-  {
-    path: 'notification',
-    loadChildren: () =>
-      import('src/app/notification/notification.module').then((m) => m.NotificationModule),
-    data: {
-      title: 'Báo cáo',
-    },
   }
 ];
 

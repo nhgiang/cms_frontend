@@ -10,6 +10,8 @@ import { StudentComponent } from './student/student.component';
 import { AssistanceComponent } from './assistance/assistance.component';
 import { AssistanceCreateComponent } from './assistance/assistance-create/assistance-create.component';
 import { AssistanceUpdateComponent } from './assistance/assistance-update/assistance-update.component';
+import { NotificationComponent } from './notification/notification.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 @NgModule({
@@ -21,12 +23,14 @@ import { AssistanceUpdateComponent } from './assistance/assistance-update/assist
     LecturerUpdateComponent,
     AssistanceComponent,
     AssistanceCreateComponent,
-    AssistanceUpdateComponent
+    AssistanceUpdateComponent,
+    NotificationComponent
   ],
   imports: [
     CommonModule,
     UserRoutingModule,
-    SharedModule
+    SharedModule,
+    AngularEditorModule
   ]
 })
 export class UserModule { }

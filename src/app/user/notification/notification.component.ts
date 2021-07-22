@@ -4,16 +4,20 @@ import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { API_BASE_URL } from '@shared/api/base-url';
 import { NotificationsService } from '@shared/api/notifications.api.service';
+import { StudentApiService } from '@shared/api/student.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
+import { QueryResult } from 'types/typemodel';
+import { Option } from '@shared/interfaces/option.type';
 
 @Component({
-  selector: 'app-notification-create',
-  templateUrl: './notification-create.component.html',
-  styleUrls: ['./notification-create.component.scss']
+  selector: 'app-notification',
+  templateUrl: './notification.component.html',
+  styleUrls: ['./notification.component.scss']
 })
-export class NotificationCreateComponent implements OnInit {
+export class NotificationComponent implements OnInit {
+
   form: FormGroup;
   imageUrl: string;
   isLoading: boolean;
@@ -41,13 +45,15 @@ export class NotificationCreateComponent implements OnInit {
         tag: 'h1',
       },
     ],
-    // uploadUrl: `${this.hostUrl}/files/upload`
+    uploadUrl: `${this.hostUrl}/files/upload`
   };
+  maxTag = 4;
   constructor(
     private fb: FormBuilder,
     @Inject(API_BASE_URL) protected hostUrl: string,
     private notificationsService: NotificationsService,
     private router: Router,
+    private studentApi: StudentApiService,
   ) { }
 
   ngOnInit() {
@@ -57,7 +63,8 @@ export class NotificationCreateComponent implements OnInit {
   createForm() {
     this.form = this.fb.group({
       message: [null, [TValidators.required]],
-      receivers: [null],
+      receivers: [null, [TValidators.required]],
+      title: [null, [TValidators.required]]
     });
   }
   submit() {
@@ -65,7 +72,24 @@ export class NotificationCreateComponent implements OnInit {
     this.isLoading = true;
     this.notificationsService.createNotification(this.form.value).pipe(finalize(() => { this.isLoading = false })).subscribe(x => {
       console.log(x);
-      this.router.navigate(['../']);
     })
   }
+
+  student$ = (params: any) => {
+    return this.studentApi.getStudentActive(params).pipe(
+      map((data: QueryResult<any>) => {
+        data.items.unshift({
+          id: null,
+          fullName: 'Tất cả'
+        })
+        this.maxTag = data.meta.totalItems;
+        return data.items.map((item) => ({
+          value: item.id,
+          label: item.fullName || item.email
+        })) as Option[];
+
+      })
+    );
+  };
+
 }

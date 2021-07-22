@@ -1,0 +1,36 @@
+<nz-card>
+  <nz-spin [nzSpinning]="isLoading">
+    <form [formGroup]="form" (ngSubmit)="submit()" nz-form [nzLayout]="'vertical'">
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Chọn người nhận</nz-form-label>
+        <nz-form-control [nzErrorTip]="'Vui lòng chọn người nhận'">
+          <!-- <input nz-input formControlName="receivers" placeholder="Nhập người nhận"> -->
+          <!-- <select-advance class="m-r-20" placeholder="Tất cả loại khóa học" formControlName="receivers"
+            [getOptionsFn]="courseTypes$" width="275px"></select-advance> -->
+          <app-multiple-selection [maxMultipleCount]="100" [getOptionsFn]="student$" formControlName="receivers"
+            nzAllowClear placeholder="Chọn kỹ năng đạt được">
+          </app-multiple-selection>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>Tiêu đề thông báo</nz-form-label>
+        <nz-form-control [nzErrorTip]="'Vui lòng chọn người nhận'">
+          <input nz-input formControlName="title" placeholder="Nhập tiêu đề thông báo">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Nội dung thông báo</nz-form-label>
+        <nz-form-control [nzErrorTip]="'Vui lòng nhập nội dung bài viết'">
+          <angular-editor placeholder="Nhập vào nội dung bài viết" formControlName="message" [config]="editorConfig">
+          </angular-editor>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="text-right">
+        <button nz-button nzType="primary" type="button" nzGhost class="mr-3" [routerLink]="['../']">Quay lại</button>
+        <button nz-button nzType="primary" type="submit" [nzLoading]="isLoading">Lưu lại</button>
+      </div>
+    </form>
+  </nz-spin>
+</nz-card>
