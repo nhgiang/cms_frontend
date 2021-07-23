@@ -13,7 +13,7 @@ const routes: Routes = [
     data: {
       title: 'Cài đặt gói Membership',
     },
-  },
+  }
 ];
 
 export const AdminRoutes = RouterModule.forChild(routes);

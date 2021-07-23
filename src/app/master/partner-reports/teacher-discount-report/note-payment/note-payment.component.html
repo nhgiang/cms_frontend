@@ -1,0 +1,13 @@
+<nz-spin [nzSpinning]="loading">
+  <form [formGroup]="form">
+    <nz-form-item>
+      <nz-form-control>
+        <textarea [nzAutosize]="{ minRows: 3, maxRows: 8 }" formControlName="note" nz-input placeholder="Nhập ghi chú"
+          nz-input> </textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <div *nzModalFooter>
+      <button nz-button nzType="primary" (click)="submit()" [nzLoading]="loading">Xác nhận</button>
+    </div>
+  </form>
+</nz-spin>

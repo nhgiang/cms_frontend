@@ -142,5 +142,6 @@ export const CommonLayoutRoutes: Routes = [
     data: {
       title: 'Báo cáo',
     },
-  },
+  }
+
 ];

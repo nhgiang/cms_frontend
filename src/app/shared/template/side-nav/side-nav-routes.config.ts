@@ -32,6 +32,12 @@ export const ROUTES: SideNavInterface[] = [
         submenu: [],
         isAdminOnly: true,
       },
+      {
+        path: 'notification',
+        title: 'Thông báo',
+        submenu: [],
+        isAdminOnly: true,
+      },
     ],
   },
   {
