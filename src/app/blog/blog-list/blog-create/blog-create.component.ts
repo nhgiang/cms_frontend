@@ -23,6 +23,7 @@ export class BlogCreateComponent implements OnInit {
   imageUrl: string;
   isLoading: boolean;
   editorConfig: AngularEditorConfig = {
+    sanitize: false,
     editable: true,
     spellcheck: true,
     height: '20rem',

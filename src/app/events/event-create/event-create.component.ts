@@ -23,6 +23,7 @@ export class EventCreateComponent implements OnInit {
   isLoading: boolean;
   eventStatus = EventStatus;
   editorConfig: AngularEditorConfig = {
+    sanitize: false,
     editable: true,
     spellcheck: true,
     height: '15rem',
