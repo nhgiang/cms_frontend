@@ -12,15 +12,15 @@
       </nz-form-item>
       <nz-form-item>
         <nz-form-label nzRequired>Tiêu đề thông báo</nz-form-label>
-        <nz-form-control [nzErrorTip]="'Vui lòng chọn người nhận'">
-          <input nz-input formControlName="title" placeholder="Nhập tiêu đề thông báo">
+        <nz-form-control [nzErrorTip]="'Vui lòng nhập tiêu đề thông báo'">
+          <input nz-input formControlName="message" placeholder="Nhập tiêu đề thông báo">
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label nzRequired>Nội dung thông báo</nz-form-label>
         <nz-form-control [nzErrorTip]="'Vui lòng nhập nội dung bài viết'">
-          <angular-editor placeholder="Nhập vào nội dung bài viết" formControlName="message" [config]="editorConfig">
+          <angular-editor placeholder="Nhập vào nội dung bài viết" formControlName="content" [config]="editorConfig">
           </angular-editor>
         </nz-form-control>
       </nz-form-item>
