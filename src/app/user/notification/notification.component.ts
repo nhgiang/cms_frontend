@@ -11,6 +11,7 @@ import { finalize, map } from 'rxjs/operators';
 import { QueryResult } from 'types/typemodel';
 import { Option } from '@shared/interfaces/option.type';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { UserApiService } from '@shared/api/user.api.service';
 
 @Component({
   selector: 'app-notification',
@@ -55,7 +56,8 @@ export class NotificationComponent implements OnInit {
     @Inject(API_BASE_URL) protected hostUrl: string,
     private notificationsService: NotificationsService,
     private studentApi: StudentApiService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private userApiService: UserApiService
   ) { }
 
   ngOnInit() {
@@ -88,8 +90,8 @@ export class NotificationComponent implements OnInit {
     })
   }
 
-  student$ = (params: any) => {
-    return this.studentApi.getStudentActive(params).pipe(
+  user$ = (params: any) => {
+    return this.userApiService.getAllActive(params).pipe(
       map((data: QueryResult<any>) => {
         data.items.unshift({
           id: 'all',

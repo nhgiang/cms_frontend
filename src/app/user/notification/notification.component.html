@@ -5,7 +5,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>Chọn người nhận</nz-form-label>
         <nz-form-control [nzErrorTip]="'Vui lòng chọn người nhận'">
-          <app-multiple-selection [maxMultipleCount]="maxTag" [getOptionsFn]="student$" formControlName="receivers"
+          <app-multiple-selection [maxMultipleCount]="maxTag" [getOptionsFn]="user$" formControlName="receivers"
             nzAllowClear placeholder="Chọn người nhận">
           </app-multiple-selection>
         </nz-form-control>

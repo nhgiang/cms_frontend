@@ -8,7 +8,11 @@ import { BaseApi } from './base-api';
 export class UserApiService extends BaseApi {
   endpoint = 'users';
 
-  updateStatus(id, body: {id: string, status: UserStatus}) {
+  updateStatus(id, body: { id: string, status: UserStatus }) {
     return this.httpClient.patch<any>(this.createUrl(`/${id}/update-status`), body);
+  }
+
+  getAllActive(params: any) {
+    return this.httpClient.get<any>(this.createUrl(''), { params: this.createParams({ ...params, status: 'Active' }) });
   }
 }
