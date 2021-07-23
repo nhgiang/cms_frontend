@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoyaltiesAnalyticsApiService } from '@shared/api/royalties-analytics.api.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { debounceTime, finalize } from 'rxjs/operators';
 import { Activity } from 'utils/Activity';
+import { NotePaymentComponent } from './note-payment/note-payment.component';
 
 @Component({
   selector: 'app-teacher-discount-report',
@@ -21,7 +23,8 @@ export class TeacherDiscountReportComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private royaltiesAnalyticsApiService: RoyaltiesAnalyticsApiService
+    private royaltiesAnalyticsApiService: RoyaltiesAnalyticsApiService,
+    private modal: NzModalService
   ) {
     this.form = this.fb.group({
       q: [null]
@@ -52,6 +55,13 @@ export class TeacherDiscountReportComponent implements OnInit {
 
   download() {
     this.royaltiesAnalyticsApiService.downloadExcel().pipe(finalize(() => this.activity.stop('downloading'))).subscribe();
+  }
+
+  updateNote() {
+    this.modal.create({
+      nzContent: NotePaymentComponent,
+      nzTitle: 'Cập nhật ghi chú'
+    })
   }
 
 }

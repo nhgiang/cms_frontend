@@ -7,11 +7,12 @@ import { CoursesReportComponent } from './courses-report/courses-report.componen
 import { PartnerRevenueReportComponent } from './partner-revenue-report/partner-revenue-report.component';
 import { TeacherDiscountReportComponent } from './teacher-discount-report/teacher-discount-report.component';
 import { TeacherDiscountReportDetailComponent } from './teacher-discount-report-detail/teacher-discount-report-detail.component';
+import { NotePaymentComponent } from './teacher-discount-report/note-payment/note-payment.component';
 
 
 
 @NgModule({
-  declarations: [LearnerReportComponent, CoursesReportComponent, PartnerRevenueReportComponent, TeacherDiscountReportComponent, TeacherDiscountReportDetailComponent],
+  declarations: [LearnerReportComponent, CoursesReportComponent, PartnerRevenueReportComponent, TeacherDiscountReportComponent, TeacherDiscountReportDetailComponent, NotePaymentComponent],
   imports: [
     CommonModule,
     PartnerReportsRoutes,

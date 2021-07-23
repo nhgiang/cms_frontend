@@ -12,6 +12,8 @@ import { AssistanceCreateComponent } from './assistance/assistance-create/assist
 import { AssistanceUpdateComponent } from './assistance/assistance-update/assistance-update.component';
 import { NotificationComponent } from './notification/notification.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from '@shared/interceptor/token.interceptor';
 
 
 @NgModule({
@@ -31,6 +33,13 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     UserRoutingModule,
     SharedModule,
     AngularEditorModule
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor, multi: true
+    },
   ]
+
 })
 export class UserModule { }

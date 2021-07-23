@@ -22,7 +22,8 @@
         <th scope="col">Tên khóa học</th>
         <th scope="col" class="text-center">Lượt đăng ký</th>
         <th scope="col" class="text-center"> Tổng chiết khấu</th>
-        <th scope="col" nzWidth="80px"></th>
+        <th scope="col" class="text-center"> Ghi chú</th>
+        <th scope="col" nzWidth="110px"></th>
       </tr>
     </thead>
 
@@ -35,8 +36,13 @@
         </td>
         <td class="text-right">{{ item.totalRegistration | number }}</td>
         <td class="text-right">{{ item.totalAmount | number }} VNĐ</td>
+        <td> {{ item.note }} </td>
         <td>
           <div class="d-flex justify-content-center">
+            <a (click)="updateNote()" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
+              nzTooltipTitle="Cập nhật ghi chú">
+              <i nz-icon nzType="edit" nzTheme="outline" aria-hidden="true"></i>
+            </a>
             <a [routerLink]="item.id" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip
               nzTooltipTitle="Chi tiết">
               <i nz-icon nzType="file-text" nzTheme="outline" aria-hidden="true"></i>

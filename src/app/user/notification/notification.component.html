@@ -5,11 +5,8 @@
       <nz-form-item>
         <nz-form-label nzRequired>Chọn người nhận</nz-form-label>
         <nz-form-control [nzErrorTip]="'Vui lòng chọn người nhận'">
-          <!-- <input nz-input formControlName="receivers" placeholder="Nhập người nhận"> -->
-          <!-- <select-advance class="m-r-20" placeholder="Tất cả loại khóa học" formControlName="receivers"
-            [getOptionsFn]="courseTypes$" width="275px"></select-advance> -->
-          <app-multiple-selection [maxMultipleCount]="100" [getOptionsFn]="student$" formControlName="receivers"
-            nzAllowClear placeholder="Chọn kỹ năng đạt được">
+          <app-multiple-selection [maxMultipleCount]="maxTag" [getOptionsFn]="student$" formControlName="receivers"
+            nzAllowClear placeholder="Chọn người nhận">
           </app-multiple-selection>
         </nz-form-control>
       </nz-form-item>
@@ -28,8 +25,7 @@
         </nz-form-control>
       </nz-form-item>
       <div class="text-right">
-        <button nz-button nzType="primary" type="button" nzGhost class="mr-3" [routerLink]="['../']">Quay lại</button>
-        <button nz-button nzType="primary" type="submit" [nzLoading]="isLoading">Lưu lại</button>
+        <button nz-button nzType="primary" type="submit" [nzLoading]="isLoading">Gửi</button>
       </div>
     </form>
   </nz-spin>

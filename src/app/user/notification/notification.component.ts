@@ -10,6 +10,7 @@ import { TValidators } from '@shared/extentions/validators';
 import { finalize, map } from 'rxjs/operators';
 import { QueryResult } from 'types/typemodel';
 import { Option } from '@shared/interfaces/option.type';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-notification',
@@ -24,7 +25,7 @@ export class NotificationComponent implements OnInit {
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '15rem',
+    height: '20rem',
     minHeight: '5rem',
     placeholder: 'Enter text here...',
     translate: 'no',
@@ -52,8 +53,8 @@ export class NotificationComponent implements OnInit {
     private fb: FormBuilder,
     @Inject(API_BASE_URL) protected hostUrl: string,
     private notificationsService: NotificationsService,
-    private router: Router,
     private studentApi: StudentApiService,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit() {
@@ -68,10 +69,21 @@ export class NotificationComponent implements OnInit {
     });
   }
   submit() {
+    const receivers: [] = this.form.controls.receivers.value || [];
+    if (receivers.length === 0) {
+      this.form.get('receivers').setValue(null);
+    } else {
+      if (receivers.some(x => x === 'all')) {
+        this.form.get('receivers').setValue([]);
+      }
+    }
     Ultilities.validateForm(this.form);
     this.isLoading = true;
     this.notificationsService.createNotification(this.form.value).pipe(finalize(() => { this.isLoading = false })).subscribe(x => {
-      console.log(x);
+      if (x.success) {
+        this.notification.success('Thành công', 'Gửi thông báo thành công');
+        this.form.reset();
+      }
     })
   }
 
@@ -79,7 +91,7 @@ export class NotificationComponent implements OnInit {
     return this.studentApi.getStudentActive(params).pipe(
       map((data: QueryResult<any>) => {
         data.items.unshift({
-          id: null,
+          id: 'all',
           fullName: 'Tất cả'
         })
         this.maxTag = data.meta.totalItems;

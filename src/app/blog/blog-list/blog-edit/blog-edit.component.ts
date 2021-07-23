@@ -25,7 +25,7 @@ export class BlogEditComponent implements OnInit {
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '5rem',
+    height: '20rem',
     minHeight: '5rem',
     placeholder: 'Enter text here...',
     translate: 'no',
