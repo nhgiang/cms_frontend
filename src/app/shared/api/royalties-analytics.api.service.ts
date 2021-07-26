@@ -45,26 +45,42 @@ export class RoyaltiesAnalyticsApiService extends BaseApi {
   }
 
   downloadExcel(params?: { [key: string]: any }) {
-    return this.httpClient.get(this.createUrl(`${this.commissionsEndpoint}/master/excel`), { params: this.createParams(params), responseType: 'blob' }).pipe(
-      tap((res) => {
-        download(
-          res,
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-          'Báo cáo chiết khấu giảng viên' + new Date().getTime().toString()
-        );
+    return this.httpClient
+      .get(this.createUrl(`${this.commissionsEndpoint}/master/excel`), {
+        params: this.createParams(params),
+        responseType: 'blob',
       })
-    );
+      .pipe(
+        tap((res) => {
+          download(
+            res,
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Báo cáo chiết khấu giảng viên' + new Date().getTime().toString()
+          );
+        })
+      );
   }
 
   downloadExcelByTeacherId(id: string) {
-    return this.httpClient.get(this.createUrl(`${this.commissionsEndpoint}/master/${id}/excel`), { responseType: 'blob' }).pipe(
-      tap((res) => {
-        download(
-          res,
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-          'Báo cáo chiết khấu giảng viên' + new Date().getTime().toString()
-        );
+    return this.httpClient
+      .get(this.createUrl(`${this.commissionsEndpoint}/master/${id}/excel`), {
+        responseType: 'blob',
       })
+      .pipe(
+        tap((res) => {
+          download(
+            res,
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Báo cáo chiết khấu giảng viên' + new Date().getTime().toString()
+          );
+        })
+      );
+  }
+
+  upsertNote(id: string, note: string) {
+    return this.httpClient.post(
+      this.createUrl(`${this.commissionsEndpoint}/note/${id}`),
+      { note }
     );
   }
 }
