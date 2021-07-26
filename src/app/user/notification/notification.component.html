@@ -1,31 +1,63 @@
 <nz-card>
   <nz-spin [nzSpinning]="isLoading">
-    <form [formGroup]="form" (ngSubmit)="submit()" nz-form [nzLayout]="'vertical'">
-
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      nz-form
+      [nzLayout]="'vertical'"
+    >
       <nz-form-item>
         <nz-form-label nzRequired>Chọn người nhận</nz-form-label>
         <nz-form-control [nzErrorTip]="'Vui lòng chọn người nhận'">
-          <app-multiple-selection [maxMultipleCount]="maxTag" [getOptionsFn]="user$" formControlName="receivers"
-            nzAllowClear placeholder="Chọn người nhận">
+          <app-multiple-selection
+            [maxMultipleCount]="maxTag"
+            [getOptionsFn]="user$"
+            formControlName="receivers"
+            nzAllowClear
+            placeholder="Chọn người nhận"
+          >
           </app-multiple-selection>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label nzRequired>Tiêu đề thông báo</nz-form-label>
-        <nz-form-control [nzErrorTip]="'Vui lòng nhập tiêu đề thông báo'">
-          <input nz-input formControlName="message" placeholder="Nhập tiêu đề thông báo">
+        <nz-form-control [nzErrorTip]="titleErr">
+          <input
+            nz-input
+            formControlName="message"
+            placeholder="Nhập tiêu đề thông báo"
+          />
         </nz-form-control>
+        <ng-template #titleErr>
+          <ng-container *ngIf="form.get('message').hasError('required')">
+            Vui lòng nhập tiêu đề thông báo
+          </ng-container>
+          <ng-container *ngIf="form.get('message').hasError('maxLength')">
+            Tiêu đề thông báo không được quá 200 kí tự
+          </ng-container>
+        </ng-template>
       </nz-form-item>
 
       <nz-form-item>
         <nz-form-label nzRequired>Nội dung thông báo</nz-form-label>
         <nz-form-control [nzErrorTip]="'Vui lòng nhập nội dung bài viết'">
-          <angular-editor placeholder="Nhập vào nội dung bài viết" formControlName="content" [config]="editorConfig">
+          <angular-editor
+            placeholder="Nhập vào nội dung bài viết"
+            formControlName="content"
+            [config]="editorConfig"
+          >
           </angular-editor>
         </nz-form-control>
       </nz-form-item>
       <div class="text-right">
-        <button nz-button nzType="primary" type="submit" [nzLoading]="isLoading">Gửi</button>
+        <button
+          nz-button
+          nzType="primary"
+          type="submit"
+          [nzLoading]="isLoading"
+        >
+          Gửi
+        </button>
       </div>
     </form>
   </nz-spin>

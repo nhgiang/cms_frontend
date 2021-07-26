@@ -66,7 +66,7 @@ export class NotificationComponent implements OnInit {
 
   createForm() {
     this.form = this.fb.group({
-      message: [null, [TValidators.required]],
+      message: [null, [TValidators.required, TValidators.maxLength(200)]],
       receivers: [null, [TValidators.required]],
       content: [null, [TValidators.required]]
     });
