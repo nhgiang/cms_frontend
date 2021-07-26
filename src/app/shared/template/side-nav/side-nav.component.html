@@ -79,7 +79,8 @@
           [hasSub]="subItem.submenu.length > 0"
           [routerLinkActiveOptions]="{ exact: true }"
           [class.d-none]="
-            subItem.isAdminOnly && !(currentUser.role === 'Admin')
+            item.isAdminOnly &&
+            !(currentUser.role === 'Admin' || currentUser.role === 'SubMaster')
           "
         >
           <a

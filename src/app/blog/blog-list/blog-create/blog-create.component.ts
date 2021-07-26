@@ -26,7 +26,7 @@ export class BlogCreateComponent implements OnInit {
     sanitize: false,
     editable: true,
     spellcheck: true,
-    height: '20rem',
+    height: '30rem',
     minHeight: '5rem',
     placeholder: 'Enter text here...',
     translate: 'no',
