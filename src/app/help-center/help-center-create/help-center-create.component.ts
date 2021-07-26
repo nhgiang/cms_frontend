@@ -20,6 +20,7 @@ import { switchMap } from 'rxjs/operators';
 export class HelpCenterCreateComponent implements OnInit {
 
   editorConfig: AngularEditorConfig = {
+    sanitize: false,
     editable: true,
     spellcheck: true,
     height: '30rem',

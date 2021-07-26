@@ -8,19 +8,20 @@ import { AssistanceComponent } from './assistance/assistance.component';
 import { LecturerCreateComponent } from './lecturer/lecturer-create/lecturer-create.component';
 import { LecturerUpdateComponent } from './lecturer/lecturer-update/lecturer-update.component';
 import { LecturerComponent } from './lecturer/lecturer.component';
+import { NotificationComponent } from './notification/notification.component';
 import { StudentDetailComponent } from './student/student-detail/student-detail.component';
 import { StudentComponent } from './student/student.component';
 
 const routes: Routes = [
   {
     path: 'student',
+    data: {
+      title: 'Quản lý học viên'
+    },
     children: [
       {
         path: '',
         component: StudentComponent,
-        data: {
-          title: 'Quản lý học viên',
-        },
       },
       {
         path: ':id',
@@ -33,13 +34,13 @@ const routes: Routes = [
   },
   {
     path: 'lecturer',
+    data: {
+      title: 'Quản lý giảng viên',
+    },
     children: [
       {
         path: '',
-        component: LecturerComponent,
-        data: {
-          title: 'Quản lý giảng viên',
-        },
+        component: LecturerComponent
       },
       {
         path: 'create',
@@ -62,14 +63,14 @@ const routes: Routes = [
   },
   {
     path: 'assistance',
+    data: {
+      title: 'Quản lý nhân viên',
+    },
     canActivate: [AuthorizeByRoleGuard],
     children: [
       {
         path: '',
-        component: AssistanceComponent,
-        data: {
-          title: 'Quản lý nhân viên',
-        },
+        component: AssistanceComponent
       },
       {
         path: 'create',
@@ -87,10 +88,15 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'notification',
+    component: NotificationComponent,
+    data: { title: 'Thông báo' }
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserRoutingModule {}
+export class UserRoutingModule { }

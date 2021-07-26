@@ -21,4 +21,13 @@ export class StudentApiService extends BaseApi {
   getById(id) {
     return this.httpClient.get<User>(this.createUrl(`/${id}`));
   }
+
+  getStudentActive(params: {
+    page: number,
+    limit: number,
+    q: string,
+    specializationId: string
+  }) {
+    return this.httpClient.get<QueryResult<User>>(this.createUrl(''), { params: this.createParams({ ...params, status: 'Active' }) });
+  }
 }

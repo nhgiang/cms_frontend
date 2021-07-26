@@ -6,10 +6,11 @@ import { DataTableContainer } from '@shared/class/data-table-container';
 import { StudentStatusOptions } from '@shared/options/student-status.options';
 import { AuthenticationService } from '@shared/services/authentication.service';
 import { DestroyService } from '@shared/services/destroy.service';
+import { isPast } from 'date-fns';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Observable } from 'rxjs';
-import { debounceTime, filter, finalize, takeUntil } from 'rxjs/operators';
+import { debounceTime, filter, finalize, map, takeUntil } from 'rxjs/operators';
 import { QueryResult } from 'types/typemodel';
 import { PartnersEditComponent } from '../partners-edit/partners-edit.component';
 
@@ -21,7 +22,7 @@ import { PartnersEditComponent } from '../partners-edit/partners-edit.component'
 })
 export class PartnersListComponent extends DataTableContainer<any> {
   form: FormGroup;
-  isLoading = false;
+  isloading = false;
   @ViewChild('footerModal') footerModal: TemplateRef<any>;
   studentStatusOptions = StudentStatusOptions;
   metaData = [
@@ -38,6 +39,12 @@ export class PartnersListComponent extends DataTableContainer<any> {
     {
       key: 'username',
       name: 'Đại diện',
+      sortable: false,
+    },
+
+    {
+      key: 'adminEmail',
+      name: 'Email Admin',
       sortable: false,
     },
     {
@@ -79,7 +86,6 @@ export class PartnersListComponent extends DataTableContainer<any> {
   }
 
   protected fetch(): Observable<QueryResult<any>> {
-    this.isLoading = true;
     const params = {
       limit: this.quantity,
       page: this.page,
@@ -87,9 +93,20 @@ export class PartnersListComponent extends DataTableContainer<any> {
       order: this.order,
     };
     const { q } = this.params;
-    return this.partnersApiService
-      .getList({ ...params, q })
-      .pipe(finalize(() => (this.isLoading = false)));
+    return this.partnersApiService.getList({ ...params, q }).pipe(
+      map((result) => {
+        return {
+          meta: result.meta,
+          items: result.items.map((item) => ({
+            ...item,
+            status: isPast(new Date(item.extendedExpired))
+              ? 'Expired'
+              : item.status,
+            isExpired: isPast(new Date(item.extendedExpired)),
+          })),
+        };
+      })
+    );
   }
 
   edit(data: any) {

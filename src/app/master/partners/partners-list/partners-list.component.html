@@ -21,7 +21,7 @@
     [nzData]="items"
     [nzShowTotal]="totalTemplate"
     [nzNoResult]="empty"
-    [nzLoading]="isLoading"
+    [nzLoading]="isloading"
     [nzFrontPagination]="false"
     [nzPageSize]="quantity"
     [nzTotal]="meta?.totalItems"
@@ -65,9 +65,12 @@
         <td>{{ item.name }}</td>
         <td>{{ item.domain }}</td>
         <td>{{ item.representative }}</td>
+        <td>{{ item.adminEmail }}</td>
         <td>{{ item.phoneNumber }}</td>
         <td>{{ item.package.name }}</td>
-        <td>{{ item.expiredDate | datetime }}</td>
+        <td [class.text-danger]="item.isExpired">
+          {{ item.expiredDate | datetime }}
+        </td>
         <td>
           <nz-badge
             [nzColor]="item.status | option: studentStatusOptions:'color'"
@@ -85,7 +88,7 @@
               nzTooltipTitle="Gia hạn"
               [routerLink]="[item.id, 'extension']"
             >
-            <i nz-icon nzType="field-time"></i>
+              <i nz-icon nzType="field-time"></i>
             </a>
             <a
               class="m-r-5"
@@ -124,6 +127,8 @@
               nzShape="circle"
               nz-tooltip
               [nzTooltipTitle]="item.status === 'Active' ? 'Khóa' : 'Mở khóa'"
+              [class.disable]="item.isExpired"
+              
             >
               <div
                 [confirmation]="

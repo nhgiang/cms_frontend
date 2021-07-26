@@ -6,10 +6,22 @@ import { TeachersRegistrationsComponent } from './teacher-registrations/teacher-
 const routes: Routes = [
   {
     path: 'teacher',
-    component: TeachersRegistrationsComponent,
     data: {
-      title: 'Giảng viên đăng kí',
+      title: 'Giảng viên đăng ký',
     },
+    children: [
+      {
+        path: '',
+        component: TeachersRegistrationsComponent
+      },
+      {
+        path: ':id',
+        component: TeacherRegistrationDetailComponent,
+        data: {
+          title: 'Chi tiết giảng viên',
+        },
+      },
+    ]
   },
   {
     path: 'partner',
@@ -18,13 +30,7 @@ const routes: Routes = [
       title: 'Học viện đăng ký',
     },
   },
-  {
-    path: 'teacher/:id',
-    component: TeacherRegistrationDetailComponent,
-    data: {
-      title: 'Chi tiết giảng viên',
-    },
-  },
+
 ];
 
 export const RegistrationsRoutes = RouterModule.forChild(routes);

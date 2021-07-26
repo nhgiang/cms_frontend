@@ -23,9 +23,10 @@ export class BlogEditComponent implements OnInit {
   imageUrl: string;
   isLoading: boolean;
   editorConfig: AngularEditorConfig = {
+    sanitize: false,
     editable: true,
     spellcheck: true,
-    height: '5rem',
+    height: '20rem',
     minHeight: '5rem',
     placeholder: 'Enter text here...',
     translate: 'no',
@@ -72,7 +73,7 @@ export class BlogEditComponent implements OnInit {
   }
 
   submit() {
-    Ultilities.validateForm(this.form);
+    console.log(this.form.value);
     this.isLoading = true;
     this.storageApi.uploadFile(this.form.value.coverImage).pipe(switchMap(url => {
       const body = this.form.value;
