@@ -57,7 +57,7 @@ const ngZorroConfig: NzConfig = {
   modal: {
     nzMaskClosable: false,
   },
-};
+};   
 
 @NgModule({
   declarations: [
