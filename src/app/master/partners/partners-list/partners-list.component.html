@@ -21,7 +21,7 @@
     [nzData]="items"
     [nzShowTotal]="totalTemplate"
     [nzNoResult]="empty"
-    [nzLoading]="isLoading"
+    [nzLoading]="isloading"
     [nzFrontPagination]="false"
     [nzPageSize]="quantity"
     [nzTotal]="meta?.totalItems"
@@ -68,7 +68,9 @@
         <td>{{ item.adminEmail }}</td>
         <td>{{ item.phoneNumber }}</td>
         <td>{{ item.package.name }}</td>
-        <td>{{ item.expiredDate | datetime }}</td>
+        <td [class.text-danger]="item.isExpired">
+          {{ item.expiredDate | datetime }}
+        </td>
         <td>
           <nz-badge
             [nzColor]="item.status | option: studentStatusOptions:'color'"
@@ -125,6 +127,8 @@
               nzShape="circle"
               nz-tooltip
               [nzTooltipTitle]="item.status === 'Active' ? 'Khóa' : 'Mở khóa'"
+              [class.disable]="item.isExpired"
+              
             >
               <div
                 [confirmation]="
