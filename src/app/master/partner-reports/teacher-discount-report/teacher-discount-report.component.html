@@ -58,7 +58,11 @@
             {{ course.name }}
           </p>
         </td>
-        <td class="text-right">{{ item.totalRegistration | number }}</td>
+        <td class="text-right">
+          <p class="mb-0" *ngFor="let course of item.courses">
+            {{ course.totalRegistration | number }}
+          </p>
+        </td>
         <td class="text-right">{{ item.totalAmount | number }} VNĐ</td>
         <td style="white-space: pre-wrap">{{ item.note }}</td>
         <td>
