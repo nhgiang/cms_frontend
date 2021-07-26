@@ -24,7 +24,7 @@ export abstract class DataTableContainer<T> implements OnInit {
     return this.route.snapshot.params;
   }
 
-  constructor(protected route: ActivatedRoute, protected router: Router) { }
+  constructor(protected route: ActivatedRoute, protected router: Router) {}
 
   // tslint:disable-next-line: contextual-lifecycle
   ngOnInit() {
@@ -91,7 +91,7 @@ export abstract class DataTableContainer<T> implements OnInit {
     for (const key in trimData(parsedParams)) {
       try {
         parsedParams[key] = JSON.parse(parsedParams[key]);
-      } catch (e) { }
+      } catch (e) {}
     }
     this.params = parsedParams;
   }
