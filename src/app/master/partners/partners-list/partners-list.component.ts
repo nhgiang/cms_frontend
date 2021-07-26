@@ -100,7 +100,7 @@ export class PartnersListComponent extends DataTableContainer<any> {
           items: result.items.map((item) => ({
             ...item,
             status: isPast(new Date(item.extendedExpired))
-              ? 'InActive'
+              ? 'Expired'
               : item.status,
             isExpired: isPast(new Date(item.extendedExpired)),
           })),
