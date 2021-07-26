@@ -18,12 +18,15 @@ const routes: Routes = [
       {
         path: 'list',
         component: HelpCenterListComponent,
+        data: {
+          title: ''
+        },
       },
       {
         path: 'create',
         component: HelpCenterCreateComponent,
         data: {
-          title: 'Chi tiết bài viết'
+          title: 'Thêm mới bài viết'
         },
       },
       {

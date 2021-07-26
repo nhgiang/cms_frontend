@@ -25,6 +25,7 @@ export class EventDetailComponent implements OnInit {
   event: EventEntity;
   eventStatus = EventStatus;
   editorConfig: AngularEditorConfig = {
+    sanitize: false,
     editable: true,
     spellcheck: true,
     height: '15rem',

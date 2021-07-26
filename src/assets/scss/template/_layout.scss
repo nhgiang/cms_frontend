@@ -13,14 +13,13 @@
     }
 
     .main-content {
-      padding: calc(#{$header-height} + #{$layout-content-gutter-sm})
-        $layout-content-gutter $layout-content-gutter $layout-content-gutter;
+      padding: calc(#{$header-height} + #{$layout-content-gutter-sm}) $layout-content-gutter $layout-content-gutter
+        $layout-content-gutter;
       min-height: calc(100vh - #{$footer-height});
 
       @include screen-mobile {
-        padding: calc(#{$header-height} + #{$layout-content-gutter-sm})
-          $layout-content-gutter-sm $layout-content-gutter-sm
-          $layout-content-gutter-sm;
+        padding: calc(#{$header-height} + #{$layout-content-gutter-sm}) $layout-content-gutter-sm
+          $layout-content-gutter-sm $layout-content-gutter-sm;
       }
 
       .main-content-header {
@@ -48,9 +47,15 @@
         .breadcrumb-items {
           display: flex;
           align-items: center;
-          .breadcrumb-item:not(:last-child) h4 {
-            font-size: 16px;
-            color: #72849a;
+          .breadcrumb-item {
+            &:not(:last-child) h4 {
+              font-size: 16px;
+              color: #72849a;
+            }
+            &:first-child,
+            &:last-child {
+              pointer-events: none;
+            }
           }
         }
       }

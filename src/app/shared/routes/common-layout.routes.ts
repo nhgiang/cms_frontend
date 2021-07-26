@@ -51,7 +51,7 @@ export const CommonLayoutRoutes: Routes = [
       ),
     data: {
       headerDisplay: true,
-      title: 'Thông tin tư vấn',
+      title: 'Tư vấn đánh giá',
     },
   },
   {
@@ -142,5 +142,6 @@ export const CommonLayoutRoutes: Routes = [
     data: {
       title: 'Báo cáo',
     },
-  },
+  }
+
 ];

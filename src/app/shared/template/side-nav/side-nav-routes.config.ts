@@ -32,6 +32,12 @@ export const ROUTES: SideNavInterface[] = [
         submenu: [],
         isAdminOnly: true,
       },
+      {
+        path: 'notification',
+        title: 'Thông báo',
+        submenu: [],
+        isAdminOnly: true,
+      },
     ],
   },
   {
@@ -101,7 +107,7 @@ export const ROUTES: SideNavInterface[] = [
     title: 'Quản lý nội dung website',
     iconType: 'nzIcon',
     iconTheme: 'outline',
-    icon: 'profile',
+    icon: 'layout',
     submenu: [
       {
         path: 'header',
@@ -155,7 +161,7 @@ export const ROUTES: SideNavInterface[] = [
     title: 'Quản lý nội dung liên hệ',
     iconType: 'nzIcon',
     iconTheme: 'outline',
-    icon: 'profile',
+    icon: 'contacts',
     submenu: [
       {
         path: 'video',
@@ -203,7 +209,7 @@ export const ROUTES: SideNavInterface[] = [
     title: 'Quản lý bài đăng',
     iconType: 'nzIcon',
     iconTheme: 'outline',
-    icon: 'calendar',
+    icon: 'schedule',
     submenu: [
       {
         path: 'type',
@@ -227,7 +233,7 @@ export const ROUTES: SideNavInterface[] = [
     title: 'Đối tác đăng ký',
     iconType: 'nzIcon',
     iconTheme: 'outline',
-    icon: 'customer-service',
+    icon: 'usergroup-add',
     submenu: [
       {
         path: 'teacher',
@@ -246,7 +252,7 @@ export const ROUTES: SideNavInterface[] = [
     title: 'Quản lý comment',
     iconType: 'nzIcon',
     iconTheme: 'outline',
-    icon: 'customer-service',
+    icon: 'comment',
     submenu: [],
   },
   {
@@ -254,7 +260,7 @@ export const ROUTES: SideNavInterface[] = [
     title: 'Quản lý chat facebook',
     iconType: 'nzIcon',
     iconTheme: 'outline',
-    icon: 'customer-service',
+    icon: 'whats-app',
     submenu: [],
   },
   {
@@ -262,38 +268,26 @@ export const ROUTES: SideNavInterface[] = [
     title: 'Báo cáo',
     iconType: 'nzIcon',
     iconTheme: 'outline',
-    icon: 'team',
+    icon: 'audit',
     submenu: [
       {
         path: 'revenue',
         title: 'Báo cáo doanh thu',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'customer-service',
         submenu: [],
       },
       {
         path: 'courses',
         title: 'Báo cáo khóa học',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'book',
         submenu: [],
       },
       {
         path: 'royalty-rates',
         title: 'Báo cáo chiết khấu',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'fund',
         submenu: [],
       },
       {
         path: 'occupations',
         title: 'Báo cáo nghề nghiệp',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'money-collect',
         submenu: [],
       },
     ],
@@ -308,9 +302,6 @@ export const ROUTES: SideNavInterface[] = [
       {
         path: 'help-center',
         title: 'Danh sách bài viết',
-        iconType: 'nzIcon',
-        iconTheme: 'outline',
-        icon: 'customer-service',
         submenu: [],
       },
     ],
