@@ -77,7 +77,7 @@ export class CommonLayoutComponent implements OnInit {
     let path = '/';
     if (route.routeConfig) {
       if (route.routeConfig.data) {
-        label = route.routeConfig.data.title;
+        label = route.routeConfig.data?.title;
         path += route.routeConfig.path;
       }
     }
@@ -87,6 +87,8 @@ export class CommonLayoutComponent implements OnInit {
       label,
       url: nextUrl,
     } as IBreadcrumb;
+    console.log(route.firstChild);
+
 
     const newBreadcrumbs = label
       ? [...breadcrumbs, breadcrumb]
