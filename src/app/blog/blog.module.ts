@@ -13,6 +13,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { JwtInterceptor } from '@shared/interceptor/token.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BlogEditComponent } from './blog-list/blog-edit/blog-edit.component';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { BlogEditComponent } from './blog-list/blog-edit/blog-edit.component';
     CommonModule,
     BlogRoutingModule,
     SharedModule,
-    AngularEditorModule
+    AngularEditorModule,
+    CKEditorModule
   ],
   providers: [
     {

@@ -3,24 +3,46 @@
     <nz-form-item>
       <nz-form-label class="text-left w-100" nzRequired>Tiêu đề</nz-form-label>
       <nz-form-control [nzErrorTip]="error">
-        <input type="text" nz-input formControlName="title">
+        <input type="text" nz-input formControlName="title" />
         <ng-template #error>
-          <ng-container *ngIf="form.get('title').hasError('required')">Vui lòng nhập tiêu đề bài viết</ng-container>
-          <ng-container *ngIf="form.get('title').hasError('maxLength')">Tiêu đề không được quá 300 kí tự</ng-container>
+          <ng-container *ngIf="form.get('title').hasError('required')"
+            >Vui lòng nhập tiêu đề bài viết</ng-container
+          >
+          <ng-container *ngIf="form.get('title').hasError('maxLength')"
+            >Tiêu đề không được quá 300 kí tự</ng-container
+          >
         </ng-template>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label class="text-left input-space w-100" nzRequired>Mô tả chung</nz-form-label>
+      <nz-form-label class="text-left input-space w-100" nzRequired
+        >Mô tả chung</nz-form-label
+      >
       <nz-form-control [nzErrorTip]="'Vui lòng nhập nội dung bài viết'">
-        <angular-editor [placeholder]="'Nhập vào nội dung bài viết'" formControlName="content" [config]="editorConfig">
-        </angular-editor>
+        <!-- <angular-editor [placeholder]="'Nhập vào nội dung bài viết'" formControlName="content" [config]="editorConfig">
+        </angular-editor> -->
+        <app-ck-editor formControlName="content"></app-ck-editor>
       </nz-form-control>
     </nz-form-item>
     <div class="text-right">
-      <button nz-button type="button" [routerLink]="['/settings-help/help-center/list']" nzType="primary" nzGhost>Quay
-        lại</button>
-      <button nz-button nzType="primary" type="button" class="ml-3" (click)="submit()">Xác nhận</button>
+      <button
+        nz-button
+        type="button"
+        [routerLink]="['/settings-help/help-center/list']"
+        nzType="primary"
+        nzGhost
+      >
+        Quay lại
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        type="button"
+        class="ml-3"
+        (click)="submit()"
+      >
+        Xác nhận
+      </button>
     </div>
   </form>
 </nz-card>

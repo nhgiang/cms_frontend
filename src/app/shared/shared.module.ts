@@ -35,6 +35,8 @@ import { NameTeacherPipe } from './pipes/name-teacher.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { FixFontEditorDirective } from './services/fix-font-editor-service.ts/fix-font-editor.directive';
+import { CkEditorComponent } from './components/ck-editor/ck-editor.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   exports: [
@@ -71,7 +73,8 @@ import { FixFontEditorDirective } from './services/fix-font-editor-service.ts/fi
     SafeUrlPipe,
     TruncatePipe,
     ChangePasswordComponent,
-    FixFontEditorDirective
+    FixFontEditorDirective,
+    CkEditorComponent
   ],
   imports: [
     RouterModule,
@@ -80,6 +83,7 @@ import { FixFontEditorDirective } from './services/fix-font-editor-service.ts/fi
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    CKEditorModule
   ],
   declarations: [
     SearchPipe,
@@ -109,7 +113,8 @@ import { FixFontEditorDirective } from './services/fix-font-editor-service.ts/fi
     TruncatePipe,
     NameTeacherPipe,
     ChangePasswordComponent,
-    FixFontEditorDirective
+    FixFontEditorDirective,
+    CkEditorComponent
   ],
   providers: [ThemeConstantService],
 })

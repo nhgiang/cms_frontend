@@ -1,42 +1,67 @@
 <nz-card>
   <nz-spin [nzSpinning]="isLoading">
     <form [formGroup]="form">
-      <div class="media align-items-start mb-4 flex-column d-flex"
-           [class.ant-form-item-has-error]="form.controls.thumbnail.invalid && form.controls.thumbnail.dirty">
-        <app-image-cropper-control formControlName="thumbnail"
-                                   [width]="640"
-                                   [height]="400"
-                                   [showAction]="true">
-          <label class="label-avatar">Chọn ảnh đại diện cho sự kiện<span class="text-danger">*</span></label>
+      <div
+        class="media align-items-start mb-4 flex-column d-flex"
+        [class.ant-form-item-has-error]="
+          form.controls.thumbnail.invalid && form.controls.thumbnail.dirty
+        "
+      >
+        <app-image-cropper-control
+          formControlName="thumbnail"
+          [width]="640"
+          [height]="400"
+          [showAction]="true"
+        >
+          <label class="label-avatar"
+            >Chọn ảnh đại diện cho sự kiện<span class="text-danger"
+              >*</span
+            ></label
+          >
           <p class="opacity-07 font-size-12 m-b-0">
-            Kích thước đề xuất: 357x200 <br>
+            Kích thước đề xuất: 357x200 <br />
             Max file size: 5MB
           </p>
         </app-image-cropper-control>
-        <div *ngIf="form.controls.thumbnail.invalid && form.controls.thumbnail.dirty"
-             class="ant-form-item-explain ant-form-item-explain-error">Vui lòng tải lên ảnh đại diện sự kiện
+        <div
+          *ngIf="
+            form.controls.thumbnail.invalid && form.controls.thumbnail.dirty
+          "
+          class="ant-form-item-explain ant-form-item-explain-error"
+        >
+          Vui lòng tải lên ảnh đại diện sự kiện
         </div>
       </div>
       <div class="row">
         <div class="col-6">
           <nz-form-item>
-            <nz-form-label nzRequired
-                           class="text-left input-space">Tên sự kiện</nz-form-label>
-            <nz-form-control [nzErrorTip]="'Tên sự kiện phải từ 1 đến 200 ký tự'">
-              <input nz-input
-                     formControlName="title"
-                     placeholder="Nhập tên sự kiện">
+            <nz-form-label nzRequired class="text-left input-space"
+              >Tên sự kiện</nz-form-label
+            >
+            <nz-form-control
+              [nzErrorTip]="'Tên sự kiện phải từ 1 đến 200 ký tự'"
+            >
+              <input
+                nz-input
+                formControlName="title"
+                placeholder="Nhập tên sự kiện"
+              />
             </nz-form-control>
           </nz-form-item>
         </div>
         <div class="col-6">
           <nz-form-item>
-            <nz-form-label nzRequired
-                           class="text-left input-space">Khách mời chính</nz-form-label>
-            <nz-form-control [nzErrorTip]="'Tên khách mời phải từ 1 đến 200 ký tự'">
-              <input nz-input
-                     formControlName="host"
-                     placeholder="Nhập tên khách mời">
+            <nz-form-label nzRequired class="text-left input-space"
+              >Khách mời chính</nz-form-label
+            >
+            <nz-form-control
+              [nzErrorTip]="'Tên khách mời phải từ 1 đến 200 ký tự'"
+            >
+              <input
+                nz-input
+                formControlName="host"
+                placeholder="Nhập tên khách mời"
+              />
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -44,80 +69,103 @@
       <div class="row">
         <div class="col-6">
           <nz-form-item>
-            <nz-form-label nzRequired
-                           class="text-left input-space">Địa điểm</nz-form-label>
+            <nz-form-label nzRequired class="text-left input-space"
+              >Địa điểm</nz-form-label
+            >
             <nz-form-control [nzErrorTip]="'Địa điểm phải từ 1 đến 200 ký tự'">
-              <input nz-input
-                     formControlName="address"
-                     placeholder="Nhập vào địa điểm">
+              <input
+                nz-input
+                formControlName="address"
+                placeholder="Nhập vào địa điểm"
+              />
             </nz-form-control>
           </nz-form-item>
         </div>
         <div class="col-6">
           <nz-form-item>
-            <nz-form-label nzRequired
-                           class="text-left input-space">Loại sự kiện</nz-form-label>
+            <nz-form-label nzRequired class="text-left input-space"
+              >Loại sự kiện</nz-form-label
+            >
             <nz-form-control [nzErrorTip]="'Vui lòng chọn loại sự kiện'">
-              <select-advance placeholder="Chọn loại sự kiện"
-                              [getOptionsFn]="eventTypes$"
-                              style="min-width: 220px;"
-                              formControlName="typeId"></select-advance>
+              <select-advance
+                placeholder="Chọn loại sự kiện"
+                [getOptionsFn]="eventTypes$"
+                style="min-width: 220px"
+                formControlName="typeId"
+              ></select-advance>
             </nz-form-control>
           </nz-form-item>
         </div>
       </div>
-      <div class="row mb-3"
-           [class.ant-form-item-has-error]="form?.errors?.endBeforeStart && form.dirty">
+      <div
+        class="row mb-3"
+        [class.ant-form-item-has-error]="
+          form?.errors?.endBeforeStart && form.dirty
+        "
+      >
         <div class="col-6">
           <nz-form-item class="mb-0">
-            <nz-form-label nzRequired
-                           class="text-left input-space">Thời gian bắt đầu</nz-form-label>
+            <nz-form-label nzRequired class="text-left input-space"
+              >Thời gian bắt đầu</nz-form-label
+            >
             <nz-form-control [nzErrorTip]="'Vui lòng chọn thời gian bắt đầu'">
-              <nz-date-picker nzFormat="dd/MM/yyyy HH:mm"
-                              class="w-100"
-                              formControlName="startAt"
-                              [nzShowTime]="{nzFormat: 'HH:mm'}"
-                              [nzPlaceHolder]="'Chọn thời gian bắt đầu'">
+              <nz-date-picker
+                nzFormat="dd/MM/yyyy HH:mm"
+                class="w-100"
+                formControlName="startAt"
+                [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                [nzPlaceHolder]="'Chọn thời gian bắt đầu'"
+              >
               </nz-date-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
         <div class="col-6">
           <nz-form-item class="mb-0">
-            <nz-form-label nzRequired
-                           class="text-left input-space">Thời gian kết thúc</nz-form-label>
+            <nz-form-label nzRequired class="text-left input-space"
+              >Thời gian kết thúc</nz-form-label
+            >
             <nz-form-control [nzErrorTip]="'Vui lòng chọn thời gian kết thúc'">
-              <nz-date-picker nzFormat="dd/MM/yyyy HH:mm"
-                              class="w-100"
-                              formControlName="endAt"
-                              [nzShowTime]="{nzFormat: 'HH:mm'}"
-                              [nzPlaceHolder]="'Chọn thời gian kết thúc'"></nz-date-picker>
+              <nz-date-picker
+                nzFormat="dd/MM/yyyy HH:mm"
+                class="w-100"
+                formControlName="endAt"
+                [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                [nzPlaceHolder]="'Chọn thời gian kết thúc'"
+              ></nz-date-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div class="mt-2 d-flex flex-column"
-             style="padding-left: 9px;margin-left: 150px">
-          <div *ngIf="form?.errors?.endBeforeStart && form.dirty"
-               class="ant-form-item-explain ant-form-item-explain-error">
+        <div
+          class="mt-2 d-flex flex-column"
+          style="padding-left: 9px; margin-left: 150px"
+        >
+          <div
+            *ngIf="form?.errors?.endBeforeStart && form.dirty"
+            class="ant-form-item-explain ant-form-item-explain-error"
+          >
             Thời gian bắt đầu không thể lớn hơn thời gian kết thúc
           </div>
-          <label nz-checkbox
-                 formControlName="showCountDown">Hiển thị thời gian đếm ngược</label>
+          <label nz-checkbox formControlName="showCountDown"
+            >Hiển thị thời gian đếm ngược</label
+          >
         </div>
       </div>
       <div class="row">
         <div class="col-6">
           <nz-form-item>
-            <nz-form-label nzRequired
-                           class="text-left input-space">Người tham gia</nz-form-label>
+            <nz-form-label nzRequired class="text-left input-space"
+              >Người tham gia</nz-form-label
+            >
             <nz-form-control [nzErrorTip]="totalParticipantErr">
-              <input nz-input
-                     formControlName="totalParticipant"
-                     placeholder="Nhập vào số lượng người tham gia"
-                     type="number">
+              <input
+                nz-input
+                formControlName="totalParticipant"
+                placeholder="Nhập vào số lượng người tham gia"
+                type="number"
+              />
             </nz-form-control>
-            <ng-template #totalParticipantErr
-                         let-control>
+            <ng-template #totalParticipantErr let-control>
               <ng-container *ngIf="control.hasError('required')">
                 Vui lòng nhập số người tham gia
               </ng-container>
@@ -129,16 +177,18 @@
         </div>
         <div class="col-6">
           <nz-form-item>
-            <nz-form-label nzRequired
-                           class="text-left input-space">Số phần quà</nz-form-label>
+            <nz-form-label nzRequired class="text-left input-space"
+              >Số phần quà</nz-form-label
+            >
             <nz-form-control [nzErrorTip]="giftsErr">
-              <input nz-input
-                     formControlName="gifts"
-                     placeholder="Nhập vào số lượng phần quà"
-                     type="number">
+              <input
+                nz-input
+                formControlName="gifts"
+                placeholder="Nhập vào số lượng phần quà"
+                type="number"
+              />
             </nz-form-control>
-            <ng-template #giftsErr
-                         let-control>
+            <ng-template #giftsErr let-control>
               <ng-container *ngIf="control.hasError('required')">
                 Vui lòng nhập số phần quà
               </ng-container>
@@ -150,43 +200,58 @@
         </div>
       </div>
       <nz-form-item>
-        <nz-form-label nzRequired
-                       class="input-space text-left">Link sự kiện</nz-form-label>
+        <nz-form-label nzRequired class="input-space text-left"
+          >Link sự kiện</nz-form-label
+        >
         <nz-form-control [nzErrorTip]="'Sai định dạng đường dẫn'">
-          <input nz-input
-                 formControlName="link"
-                 placeholder="Nhập vào link sự kiện">
+          <input
+            nz-input
+            formControlName="link"
+            placeholder="Nhập vào link sự kiện"
+          />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label class="text-left input-space"
-                       nzRequired>Mô tả chung</nz-form-label>
+        <nz-form-label class="text-left input-space" nzRequired
+          >Mô tả chung</nz-form-label
+        >
         <nz-form-control [nzErrorTip]="'Vui lòng nhập nội dung bài viết'">
-          <angular-editor [placeholder]="'Nhập vào nội dung bài viết'"
+          <!-- <angular-editor [placeholder]="'Nhập vào nội dung bài viết'"
                           formControlName="description"
-                          [config]="editorConfig"></angular-editor>
+                          [config]="editorConfig"></angular-editor> -->
+          <app-ck-editor formControlName="description"></app-ck-editor>
         </nz-form-control>
       </nz-form-item>
       <div class="text-right">
-        <button nz-button
-                nzType="primary"
-                type="button"
-                nzGhost
-                class="mr-3"
-                [routerLink]="['../']">Quay lại</button>
-        <button nz-button
-                nzType="primary"
-                type="button"
-                class="mr-3"
-                (click)="submit(true)"
-                [nzLoading]="isLoading">Lưu
-          nháp</button>
-        <button nz-button
-                nzType="primary"
-                type="button"
-                (click)="submit(false)"
-                [nzLoading]="isLoading">Lưu và công bố
-          sự kiện</button>
+        <button
+          nz-button
+          nzType="primary"
+          type="button"
+          nzGhost
+          class="mr-3"
+          [routerLink]="['../']"
+        >
+          Quay lại
+        </button>
+        <button
+          nz-button
+          nzType="primary"
+          type="button"
+          class="mr-3"
+          (click)="submit(true)"
+          [nzLoading]="isLoading"
+        >
+          Lưu nháp
+        </button>
+        <button
+          nz-button
+          nzType="primary"
+          type="button"
+          (click)="submit(false)"
+          [nzLoading]="isLoading"
+        >
+          Lưu và công bố sự kiện
+        </button>
       </div>
     </form>
   </nz-spin>
