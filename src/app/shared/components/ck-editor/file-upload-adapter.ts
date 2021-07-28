@@ -1,3 +1,4 @@
+import { TokenService } from '@shared/services/token.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AssetType } from 'types/enums';
 import { bytesToSize } from 'utils/common';
@@ -8,8 +9,11 @@ export class MyUploadAdapter {
   fileType: AssetType;
   maxSize = 1_300_000;
   currentTypes: any[] = ['jpeg', 'png', 'jpg'];
-  constructor(private loader: any, private uploadUrl: string, private headers: {}, private messageService: NzMessageService) {
-  }
+  constructor(
+    private loader: any,
+    private uploadUrl: string,
+    private messageService: NzMessageService,
+  ) { }
 
 
 
@@ -92,11 +96,9 @@ export class MyUploadAdapter {
       this.messageService.error(`Kích cỡ file không được vượt quá ${bytesToSize(this.maxSize)}`);
       reject();
     }
-
-    // tslint:disable-next-line: forin
-    for (const key in this.headers) {
-      xhr.setRequestHeader(key, this.headers[key]);
-    }
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xhr.setRequestHeader('X-CSRF-TOKEN', 'CSRF-Token');
+    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
 
     xhr.addEventListener('error', () => reject(genericErrorText));
 

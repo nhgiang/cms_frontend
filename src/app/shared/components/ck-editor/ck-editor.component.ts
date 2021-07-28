@@ -52,14 +52,9 @@ export class CkEditorComponent implements ControlValueAccessor {
 
   onReady($event) {
     const uploadUrl = `${this.hostUrl}/files/upload`;
-    const headers = {
-      'Access-Control-Allow-Origin': '*',
-      'X-CSRF-TOKEN': 'CSRF-Token',
-      Authorization: `Bearer ${this.token.token}`
-    };
 
     $event.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-      return new MyUploadAdapter(loader, uploadUrl, headers, this.messageService);
+      return new MyUploadAdapter(loader, uploadUrl, this.messageService);
 
     };
 
