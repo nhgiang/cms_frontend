@@ -46,7 +46,6 @@ export class BlogEditComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form.value);
     this.isLoading = true;
     this.storageApi.uploadFile(this.form.value.coverImage).pipe(switchMap(url => {
       const body = this.form.value;

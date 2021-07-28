@@ -115,7 +115,6 @@ export class EditCourseComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
-    console.log(this.form);
 
     this.isLoading = true;
     iif(() => (this.form.value.photo instanceof Blob),
@@ -158,7 +157,7 @@ export class EditCourseComponent implements OnInit {
   }
 
   addFeedback() {
-    const modalRef = this.modalService.create({ 
+    const modalRef = this.modalService.create({
       nzContent: FeedbackFormComponent,
       nzComponentParams: {
         courseId: this.course.id

@@ -31,7 +31,7 @@ export class CkEditorComponent implements OnInit, ControlValueAccessor {
   token = localStorage.getItem('token');
   editor = editor;
   config = {
-    placeholder: this.placeholder
+    placeholder: this.placeholder,
   };
 
   constructor(
@@ -55,8 +55,6 @@ export class CkEditorComponent implements OnInit, ControlValueAccessor {
   }
 
   onReady($event) {
-    console.log(this.token);
-
     const uploadUrl = `${this.hostUrl}/files/upload`;
     const headers = {
       'Access-Control-Allow-Origin': '*',
