@@ -32,6 +32,9 @@ export class CkEditorComponent implements OnInit, ControlValueAccessor {
   editor = editor;
   config = {
     placeholder: this.placeholder,
+    listStyle: [
+      { type: 'disc' }
+    ]
   };
 
   constructor(
