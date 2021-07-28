@@ -30,7 +30,6 @@
     "@azure/storage-blob": "^12.5.0",
     "@ckeditor/ckeditor5-angular": "^2.0.2",
     "@fortawesome/fontawesome-free": "^5.15.1",
-    "@kolkov/angular-editor": "^1.1.4",
     "@types/ckeditor": "^4.9.10",
     "@vimeo/player": "^2.15.0",
     "browser-image-compression": "^1.0.14",

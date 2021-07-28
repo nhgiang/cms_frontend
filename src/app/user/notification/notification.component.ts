@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { API_BASE_URL } from '@shared/api/base-url';
 import { NotificationsService } from '@shared/api/notifications.api.service';
 import { StudentApiService } from '@shared/api/student.api.service';

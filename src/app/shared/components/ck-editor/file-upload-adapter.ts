@@ -1,7 +1,14 @@
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { AssetType } from 'types/enums';
+import { bytesToSize } from 'utils/common';
+
 export class MyUploadAdapter {
 
   xhr: any;
-  constructor(private loader: any, private uploadUrl: string, private headers: {}) {
+  fileType: AssetType;
+  maxSize = 1_300_000;
+  currentTypes: any[] = ['jpeg', 'png', 'jpg'];
+  constructor(private loader: any, private uploadUrl: string, private headers: {}, private messageService: NzMessageService) {
   }
 
 
@@ -75,6 +82,16 @@ export class MyUploadAdapter {
     const loader = this.loader;
 
     const genericErrorText = `Couldn't upload file: ${file.name}.`;
+
+    if (file.type.split('/')[0] !== 'image') {
+      this.messageService.error(`Vui lòng chọn đúng định dạng file`);
+      reject();
+    }
+
+    if (!this.validateSize(file)) {
+      this.messageService.error(`Kích cỡ file không được vượt quá ${bytesToSize(this.maxSize)}`);
+      reject();
+    }
 
     // tslint:disable-next-line: forin
     for (const key in this.headers) {
@@ -185,4 +202,27 @@ export class MyUploadAdapter {
 
   }
 
+  private validateType(url: string): boolean {
+    if (this.fileType) {
+      this.initExtentionFile(this.fileType);
+    }
+    const types = url.split('/')[0];
+    return this.currentTypes.indexOf(types) >= 0;
+  }
+
+  private validateSize(file: File) {
+    return +file.size < +this.maxSize;
+  }
+
+  initExtentionFile(assetType: AssetType) {
+    switch (assetType) {
+      case AssetType.Image:
+        this.currentTypes = ['image'];
+        break;
+      case AssetType.undefined:
+        this.currentTypes = [];
+        break;
+      default: return;
+    }
+  }
 }

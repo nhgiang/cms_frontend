@@ -1,11 +1,12 @@
-import { Component, forwardRef, Inject, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { API_BASE_URL } from '@shared/api/base-url';
 import { DestroyService } from '@shared/services/destroy.service';
 import { TokenService } from '@shared/services/token.service';
 import { isFunction } from 'lodash-es';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { filter, takeUntil } from 'rxjs/operators';
-import * as editor from './ckeditor';
+import editor from './ckeditor';
 import { MyUploadAdapter } from './file-upload-adapter';
 
 @Component({
@@ -21,42 +22,32 @@ import { MyUploadAdapter } from './file-upload-adapter';
     DestroyService
   ]
 })
-export class CkEditorComponent implements OnInit, ControlValueAccessor {
+export class CkEditorComponent implements ControlValueAccessor {
 
   @Input() placeholder = '';
-  form: FormGroup;
   onChangeFn: (val: any) => void;
   onTouchedFn: (val: any) => void;
-  fileList: any[];
-  token = localStorage.getItem('token');
+  token = { token: localStorage.getItem('token') };
+  data = '';
   editor = editor;
   config = {
     placeholder: this.placeholder,
     listStyle: [
       { type: 'disc' }
-    ]
+    ],
   };
 
   constructor(
     @Inject(API_BASE_URL) protected hostUrl: string,
     private tokenService: TokenService,
-    private fb: FormBuilder,
-    private destroy: DestroyService
+    private destroy: DestroyService,
+    private messageService: NzMessageService
   ) {
-    this.tokenService.tokenObs.pipe(filter(x => !!x), takeUntil(this.destroy)).subscribe(token => { this.token = token; });
-    this.form = this.fb.group({
-      editor: []
-    });
+    this.tokenService.tokenObs.pipe(filter(x => !!x), takeUntil(this.destroy)).subscribe(token => { this.token.token = token; });
   }
 
-  ngOnInit(): void {
-    this.form.get('editor').valueChanges.subscribe(val => {
-      console.log(val);
-
-      if (isFunction(this.onChangeFn)) {
-        this.onChangeFn(val);
-      }
-    });
+  change(e) {
+    this.onChangeFn(e);
   }
 
   onReady($event) {
@@ -64,18 +55,20 @@ export class CkEditorComponent implements OnInit, ControlValueAccessor {
     const headers = {
       'Access-Control-Allow-Origin': '*',
       'X-CSRF-TOKEN': 'CSRF-Token',
-      Authorization: `Bearer ${this.token}`
+      Authorization: `Bearer ${this.token.token}`
     };
 
     $event.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-      return new MyUploadAdapter(loader, uploadUrl, headers);
+      return new MyUploadAdapter(loader, uploadUrl, headers, this.messageService);
 
     };
 
   }
 
   writeValue(obj: any): void {
-    this.form.get('editor').setValue(obj);
+    if (obj) {
+      this.data = obj;
+    }
   }
 
   registerOnChange(fn: any): void {

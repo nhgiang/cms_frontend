@@ -34,7 +34,6 @@ import { ToImagePipe } from './pipes/to-image.pipe';
 import { NameTeacherPipe } from './pipes/name-teacher.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
-import { FixFontEditorDirective } from './services/fix-font-editor-service.ts/fix-font-editor.directive';
 import { CkEditorComponent } from './components/ck-editor/ck-editor.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
@@ -73,7 +72,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     SafeUrlPipe,
     TruncatePipe,
     ChangePasswordComponent,
-    FixFontEditorDirective,
     CkEditorComponent
   ],
   imports: [
@@ -113,7 +111,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     TruncatePipe,
     NameTeacherPipe,
     ChangePasswordComponent,
-    FixFontEditorDirective,
     CkEditorComponent
   ],
   providers: [ThemeConstantService],

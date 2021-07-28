@@ -1,14 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AngularEditorConfig, AngularEditorService } from '@kolkov/angular-editor';
 import { API_BASE_URL } from '@shared/api/base-url';
 import { PostTypesApiService } from '@shared/api/post-types.api.service';
 import { PostsApiService } from '@shared/api/posts.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
-import { FixFontEditorDirective } from '@shared/services/fix-font-editor-service.ts/fix-font-editor.directive';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, map, switchMap } from 'rxjs/operators';
 
@@ -16,7 +14,6 @@ import { finalize, map, switchMap } from 'rxjs/operators';
   selector: 'app-blog-edit',
   templateUrl: './blog-edit.component.html',
   styleUrls: ['./blog-edit.component.scss'],
-  providers: [FixFontEditorDirective, AngularEditorService]
 })
 export class BlogEditComponent implements OnInit {
   form: FormGroup;
