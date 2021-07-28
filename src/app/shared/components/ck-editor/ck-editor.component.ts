@@ -46,13 +46,12 @@ export class CkEditorComponent implements ControlValueAccessor {
         'fontColor',
         'fontBackgroundColor',
         '|',
+        'uploadImage',
         'highlight',
-        'todoList',
         'alignment',
+        'removeFormat',
         'findAndReplace',
         'specialCharacters',
-        'removeFormat',
-        'uploadImage',
         'blockQuote',
         'insertTable',
         'mediaEmbed',
@@ -62,30 +61,57 @@ export class CkEditorComponent implements ControlValueAccessor {
         'redo',
       ],
     },
+    image: {
+      toolbar: [
+        'imageStyle:inline',
+        'imageStyle:alignLeft',
+        'imageStyle:alignRight',
+        '|',
+        'imageTextAlternative',
+        '|',
+        'imageStyle:block',
+        'imageStyle:side',
+      ],
+      styles: {
+        options: ['inline', 'alignLeft', 'alignRight',
+          'alignCenter', 'alignBlockLeft', 'alignBlockRight',
+          'block', 'side'],
+      },
+      resizeOptions: [
+        {
+          name: 'imageStyle:inline',
+          value: 'inline',
+          label: 'inline'
+        },
+        {
+          name: 'imageStyle:alignLeft',
+          value: 'alignLeft',
+          label: 'alignLeft'
+        },
+        {
+          name: 'imageStyle:alignRight',
+          value: 'alignRight',
+          label: 'alignRight'
+        },
+        {
+          name: 'imageStyle:block',
+          value: 'block',
+          label: 'block'
+        },
+        {
+          name: 'imageStyle:side',
+          value: 'side',
+          label: 'side'
+        },
+      ]
+    },
+    table: {
+      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+    },
     alignment: {
       options: ['left', 'right', 'center', 'justify'],
     },
-    image: {
-      toolbar: [
-      ],
-      resizeOptions: [
-        {
-          name: 'resizeImage:original',
-          value: null,
-          label: 'Original'
-        },
-        {
-          name: 'resizeImage:40',
-          value: '40',
-          label: '40%'
-        },
-        {
-          name: 'resizeImage:60',
-          value: '60',
-          label: '60%'
-        }
-      ]
-    },
+
     placeholder: this.placeholder
   };
 

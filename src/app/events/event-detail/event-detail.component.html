@@ -218,7 +218,10 @@
         <nz-form-control [nzErrorTip]="'Vui lòng nhập nội dung bài viết'">
           <!-- <angular-editor [placeholder]="'Nhập vào nội dung bài viết'" formControlName="description"
             [config]="editorConfig"></angular-editor> -->
-          <app-ck-editor formControlName="description"></app-ck-editor>
+          <app-ck-editor
+            formControlName="description"
+            [placeholder]="'Nhập vào nội dung bài viết'"
+          ></app-ck-editor>
         </nz-form-control>
       </nz-form-item>
       <div class="text-right">
