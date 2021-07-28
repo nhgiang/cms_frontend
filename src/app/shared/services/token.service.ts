@@ -47,4 +47,8 @@ export class TokenService {
   private getNewToken(params: { refreshToken: string }): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}`, { params });
   };
+
+  setToken(token: string) {
+    this.token$.next(token);
+  }
 }

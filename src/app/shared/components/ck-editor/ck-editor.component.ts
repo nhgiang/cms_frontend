@@ -1,9 +1,10 @@
 import { Component, forwardRef, Inject, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { API_BASE_URL } from '@shared/api/base-url';
-import { StorageApiService } from '@shared/api/storage.api.service';
+import { DestroyService } from '@shared/services/destroy.service';
 import { TokenService } from '@shared/services/token.service';
 import { isFunction } from 'lodash-es';
+import { filter, takeUntil } from 'rxjs/operators';
 import * as editor from './ckeditor';
 import { MyUploadAdapter } from './file-upload-adapter';
 
@@ -16,7 +17,8 @@ import { MyUploadAdapter } from './file-upload-adapter';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => CkEditorComponent),
       multi: true
-    }
+    },
+    DestroyService
   ]
 })
 export class CkEditorComponent implements OnInit, ControlValueAccessor {
@@ -36,8 +38,9 @@ export class CkEditorComponent implements OnInit, ControlValueAccessor {
     @Inject(API_BASE_URL) protected hostUrl: string,
     private tokenService: TokenService,
     private fb: FormBuilder,
+    private destroy: DestroyService
   ) {
-    this.tokenService.tokenObs.subscribe(token => { this.token = token; });
+    this.tokenService.tokenObs.pipe(filter(x => !!x), takeUntil(this.destroy)).subscribe(token => { this.token = token; });
     this.form = this.fb.group({
       editor: []
     });
@@ -52,12 +55,14 @@ export class CkEditorComponent implements OnInit, ControlValueAccessor {
   }
 
   onReady($event) {
+    console.log(this.token);
+
     const uploadUrl = `${this.hostUrl}/files/upload`;
     const headers = {
       'Access-Control-Allow-Origin': '*',
       'X-CSRF-TOKEN': 'CSRF-Token',
       Authorization: `Bearer ${this.token}`
-    }
+    };
 
     $event.plugins.get('FileRepository').createUploadAdapter = (loader) => {
 
