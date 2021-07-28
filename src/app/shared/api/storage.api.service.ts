@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AnonymousCredential, BlobServiceClient } from '@azure/storage-blob';
 import { forkJoin, from, Observable, of } from 'rxjs';
-import { map, mapTo, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { map, mapTo, switchMap, tap } from 'rxjs/operators';
 import { VideoAsset } from 'types/typemodel';
 import { BaseApi } from './base-api';
 import { v4 } from 'uuid';
-import { reduce } from 'lodash';
 declare var imageCompression: any;
 const options = {
-  maxSizeMB: 1,
+  maxSizeMB: 0.5,
   useWebWorker: true,
 };
-// async function compress(image) {
-//   return await imageCompression(image, options);
-// }
 
 @Injectable({
   providedIn: 'root',
@@ -30,20 +26,31 @@ export class StorageApiService extends BaseApi {
       return of(file as string);
     }
     const form = new FormData();
-    return from(imageCompression(file as File, options)).pipe(
-      switchMap((compressed: any) => {
-        console.info('File gốc size: ', file.size);
-        console.info('File nén: ', compressed.size);
-        form.append(
-          'file',
-          compressed,
-          fileName || (file as any).name || 'unknownfile'
-        );
-        return this.httpClient
-          .post<any>(this.createUrl('/upload'), form)
-          .pipe(map((result: { path: string }) => result.path));
-      })
-    );
+    if (file.type.startsWith('image'))
+      return from(imageCompression(file as File, options)).pipe(
+        switchMap((compressed: any) => {
+          console.info('File gốc size: ', file.size);
+          console.info('File nén: ', compressed.size);
+          form.append(
+            'file',
+            compressed,
+            fileName || (file as any).name || 'unknownfile'
+          );
+          return this.httpClient
+            .post<any>(this.createUrl('/upload'), form)
+            .pipe(map((result: { path: string }) => result.path));
+        })
+      );
+    else {
+      form.append(
+        'file',
+        file,
+        fileName || (file as any).name || 'unknownfile'
+      );
+      return this.httpClient
+        .post<any>(this.createUrl('/upload'), form)
+        .pipe(map((result: { path: string }) => result.path));
+    }
   }
 
   uploadFiles(files: Blob[] | File[] | string[] | any[]): Observable<string[]> {

@@ -158,7 +158,7 @@ export class EditCourseComponent implements OnInit {
   }
 
   addFeedback() {
-    const modalRef = this.modalService.create({
+    const modalRef = this.modalService.create({ 
       nzContent: FeedbackFormComponent,
       nzComponentParams: {
         courseId: this.course.id
