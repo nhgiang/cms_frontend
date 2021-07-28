@@ -87,8 +87,6 @@ export class CommonLayoutComponent implements OnInit {
       label,
       url: nextUrl,
     } as IBreadcrumb;
-    console.log(route.firstChild);
-
 
     const newBreadcrumbs = label
       ? [...breadcrumbs, breadcrumb]
