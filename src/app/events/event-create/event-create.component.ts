@@ -22,56 +22,6 @@ export class EventCreateComponent implements OnInit {
   form: FormGroup;
   isLoading: boolean;
   eventStatus = EventStatus;
-  editorConfig: AngularEditorConfig = {
-    sanitize: false,
-    editable: true,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '5rem',
-    placeholder: '',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    toolbarHiddenButtons: [
-      [
-        'undo',
-        'redo',
-        'fontName',
-        'justifyLeft',
-        'justifyCenter',
-        'justifyRight',
-        'justifyFull',
-        'subscript',
-        'superscript',
-        'indent',
-        'outdent',
-      ],
-      [
-        'textColor',
-        'backgroundColor',
-        'customClasses',
-        'insertImage',
-        'insertVideo',
-        'insertHorizontalRule',
-        'toggleEditorMode'
-      ]
-    ],
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ]
-  };
 
   constructor(
     private fb: FormBuilder,

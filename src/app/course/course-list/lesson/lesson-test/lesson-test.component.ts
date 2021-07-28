@@ -12,9 +12,9 @@ import { QuestionComponent } from './question/question.component';
   selector: 'app-lesson-test',
   templateUrl: './lesson-test.component.html',
   styleUrls: ['./lesson-test.component.scss'],
-  providers: [
-    { provide: Window, useValue: window }
-  ]
+  // providers: [
+  //   { provide: Window, useValue: window }
+  // ]
 })
 export class LessonTestComponent implements OnInit {
   @ViewChildren(QuestionComponent) questions: QueryList<QuestionComponent>;
@@ -24,6 +24,7 @@ export class LessonTestComponent implements OnInit {
   lessonTestId: string;
   loading: boolean;
   courseId: string;
+  window: Window;
 
   listQuestions: any[] = [{}];
 
@@ -31,10 +32,8 @@ export class LessonTestComponent implements OnInit {
     private fb: FormBuilder,
     private unitTestApi: UnitTestApiService,
     private notification: NzNotificationService,
-    private activatedRoute: ActivatedRoute,
     private route: ActivatedRoute,
     private router: Router,
-    @Inject(Window) private window: Window
   ) {
     this.buildForm();
     this.lessonTestId = this.route.snapshot.paramMap.get('unitId');
@@ -58,7 +57,7 @@ export class LessonTestComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
-      lessionId: [this.activatedRoute.snapshot.params.lessonId],
+      lessionId: [this.route.snapshot.params.lessonId],
       title: [null, [TValidators.required]],
       point: [null, [TValidators.required, TValidators.min(1)]],
       questions: []

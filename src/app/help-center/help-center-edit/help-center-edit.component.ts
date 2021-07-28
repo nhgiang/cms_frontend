@@ -19,32 +19,7 @@ import { switchMap } from 'rxjs/operators';
 })
 export class HelpCenterEditComponent {
 
-  editorConfig: AngularEditorConfig = {
-    sanitize: false,
-    editable: true,
-    spellcheck: true,
-    height: '30rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-    uploadUrl: `${this.hostUrl}/files/upload`
-  };
+
   form: FormGroup;
   id: string;
   ready = false;
