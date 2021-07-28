@@ -121,7 +121,7 @@ export class MyUploadAdapter {
 
       resolve({
 
-        default: response.url
+        default: response.path
 
       });
 

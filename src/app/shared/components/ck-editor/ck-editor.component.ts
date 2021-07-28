@@ -51,6 +51,8 @@ export class CkEditorComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit(): void {
     this.form.get('editor').valueChanges.subscribe(val => {
+      console.log(val);
+
       if (isFunction(this.onChangeFn)) {
         this.onChangeFn(val);
       }
@@ -66,7 +68,6 @@ export class CkEditorComponent implements OnInit, ControlValueAccessor {
     };
 
     $event.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-
       return new MyUploadAdapter(loader, uploadUrl, headers);
 
     };
