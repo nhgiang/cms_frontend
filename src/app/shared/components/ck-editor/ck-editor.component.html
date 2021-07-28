@@ -1,7 +1,9 @@
-<ckeditor
-  [editor]="editor"
-  [config]="config"
-  [(ngModel)]="control"
-  name="editor5"
-  (ready)="onReady($event)"
-></ckeditor>
+<form [formGroup]="form">
+  <ckeditor
+    [editor]="editor"
+    [config]="config"
+    formControlName="editor"
+    name="editor5"
+    (ready)="onReady($event)"
+  ></ckeditor>
+</form>

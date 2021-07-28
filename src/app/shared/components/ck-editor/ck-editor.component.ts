@@ -1,8 +1,9 @@
-import { Component, forwardRef, Inject, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, Inject, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, FormBuilder, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { API_BASE_URL } from '@shared/api/base-url';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { TokenService } from '@shared/services/token.service';
+import { isFunction } from 'lodash-es';
 import * as editor from './ckeditor';
 import { MyUploadAdapter } from './file-upload-adapter';
 
@@ -18,10 +19,10 @@ import { MyUploadAdapter } from './file-upload-adapter';
     }
   ]
 })
-export class CkEditorComponent implements ControlValueAccessor {
+export class CkEditorComponent implements OnInit, ControlValueAccessor {
 
   @Input() placeholder = '';
-  control: any;
+  form: FormGroup;
   onChangeFn: (val: any) => void;
   onTouchedFn: (val: any) => void;
   fileList: any[];
@@ -117,9 +118,21 @@ export class CkEditorComponent implements ControlValueAccessor {
 
   constructor(
     @Inject(API_BASE_URL) protected hostUrl: string,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private fb: FormBuilder,
   ) {
     this.tokenService.tokenObs.subscribe(token => { this.token = token; });
+    this.form = this.fb.group({
+      editor: []
+    });
+  }
+
+  ngOnInit(): void {
+    this.form.get('editor').valueChanges.subscribe(val => {
+      if (isFunction(this.onChangeFn)) {
+        this.onChangeFn(val);
+      }
+    });
   }
 
   onReady($event) {
@@ -139,7 +152,7 @@ export class CkEditorComponent implements ControlValueAccessor {
   }
 
   writeValue(obj: any): void {
-    this.control = obj;
+    this.form.get('editor').setValue(obj);
   }
 
   registerOnChange(fn: any): void {

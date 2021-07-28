@@ -22,33 +22,6 @@ export class BlogEditComponent implements OnInit {
   form: FormGroup;
   imageUrl: string;
   isLoading: boolean;
-  editorConfig: AngularEditorConfig = {
-    sanitize: false,
-    editable: true,
-    spellcheck: true,
-    height: '20rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-    uploadUrl: `${this.hostUrl}/files/upload`
-  };
 
   blog: any;
   constructor(
