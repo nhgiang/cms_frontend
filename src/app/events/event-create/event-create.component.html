@@ -215,13 +215,10 @@
         <nz-form-label class="text-left input-space" nzRequired
           >Mô tả chung</nz-form-label
         >
-        <nz-form-control [nzErrorTip]="'Vui lòng nhập nội dung bài viết'">
-          <!-- <angular-editor [placeholder]="'Nhập vào nội dung bài viết'"
-                          formControlName="description"
-                          [config]="editorConfig"></angular-editor> -->
+        <nz-form-control [nzErrorTip]="'Vui lòng nhập nội dung mô tả sự kiện'">
           <app-ck-editor
             formControlName="description"
-            [placeholder]="'Nhập vào nội dung bài viết'"
+            [placeholder]="'Nhập nội dung mô tả sự kiện'"
           ></app-ck-editor>
         </nz-form-control>
       </nz-form-item>
