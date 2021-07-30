@@ -96,11 +96,6 @@ export class MyUploadAdapter {
       reject();
     }
 
-    if (!this.validateType(file)) {
-      this.messageService.error(`File không đúng định dạng ảnh`);
-      reject();
-    }
-
     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
 
     xhr.setRequestHeader('X-CSRF-TOKEN', 'CSRF-Token');
@@ -211,27 +206,7 @@ export class MyUploadAdapter {
 
   }
 
-  private validateType(url: string): boolean {
-    if (this.fileType) {
-      this.initExtentionFile(this.fileType);
-    }
-    const types = url.split('/')[0];
-    return this.currentTypes.indexOf(types) >= 0;
-  }
-
   private validateSize(file: File) {
     return +file.size < +this.maxSize;
-  }
-
-  private initExtentionFile(assetType: AssetType) {
-    switch (assetType) {
-      case AssetType.Image:
-        this.currentTypes = ['image'];
-        break;
-      case AssetType.undefined:
-        this.currentTypes = [];
-        break;
-      default: return;
-    }
   }
 }
