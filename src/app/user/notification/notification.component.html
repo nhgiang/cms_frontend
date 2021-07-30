@@ -41,12 +41,6 @@
       <nz-form-item>
         <nz-form-label nzRequired>Nội dung thông báo</nz-form-label>
         <nz-form-control [nzErrorTip]="'Vui lòng nhập nội dung thông báo'">
-          <!-- <angular-editor
-            placeholder="Nhập vào nội dung thông báo"
-            formControlName="content"
-            [config]="editorConfig"
-          >
-          </angular-editor> -->
           <app-ck-editor
             formControlName="content"
             placeholder="Nhập vào nội dung thông báo"

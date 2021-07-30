@@ -26,8 +26,6 @@ export class TokenService {
     private httpClient: HttpClient
   ) {
     this.destroySubject = new Subject();
-    this.token$ = new BehaviorSubject(localStorage.getItem('token'));
-    this.tokenObs = this.token$.asObservable();
   }
 
   refreshTokenFn() {
@@ -46,9 +44,5 @@ export class TokenService {
 
   private getNewToken(params: { refreshToken: string }): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}`, { params });
-  };
-
-  setToken(token: string) {
-    this.token$.next(token);
   }
 }

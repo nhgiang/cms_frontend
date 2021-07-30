@@ -1,11 +1,8 @@
-import { Component, forwardRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
-import { ControlValueAccessor, FormBuilder, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, Inject, Input } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { API_BASE_URL } from '@shared/api/base-url';
 import { DestroyService } from '@shared/services/destroy.service';
-import { TokenService } from '@shared/services/token.service';
-import { isFunction } from 'lodash-es';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { filter, takeUntil } from 'rxjs/operators';
 import editor from './ckeditor';
 import { MyUploadAdapter } from './file-upload-adapter';
 
@@ -27,7 +24,6 @@ export class CkEditorComponent implements ControlValueAccessor {
   @Input() placeholder = '';
   onChangeFn: (val: any) => void;
   onTouchedFn: (val: any) => void;
-  token = { token: localStorage.getItem('token') };
   data = '';
   editor = editor;
   config = {
@@ -39,14 +35,11 @@ export class CkEditorComponent implements ControlValueAccessor {
 
   constructor(
     @Inject(API_BASE_URL) protected hostUrl: string,
-    private tokenService: TokenService,
-    private destroy: DestroyService,
-    private messageService: NzMessageService
+    private messageService: NzMessageService,
   ) {
-    this.tokenService.tokenObs.pipe(filter(x => !!x), takeUntil(this.destroy)).subscribe(token => { this.token.token = token; });
   }
 
-  change(e) {
+  change(e: string) {
     this.onChangeFn(e);
   }
 
@@ -60,10 +53,8 @@ export class CkEditorComponent implements ControlValueAccessor {
 
   }
 
-  writeValue(obj: any): void {
-    if (obj) {
-      this.data = obj;
-    }
+  writeValue(obj: string | null): void {
+    this.data = obj;
   }
 
   registerOnChange(fn: any): void {
