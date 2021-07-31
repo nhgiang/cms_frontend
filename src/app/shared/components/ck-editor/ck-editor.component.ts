@@ -6,6 +6,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import editor from './ckeditor';
 import { MyUploadAdapter } from './file-upload-adapter';
 
+const IFRAME_SRC = '//cdn.iframe.ly/api/iframe';
+const API_KEY = 'd7f2c7c9e2def0a48a6372';
 @Component({
   selector: 'app-ck-editor',
   templateUrl: './ck-editor.component.html',
@@ -31,6 +33,38 @@ export class CkEditorComponent implements ControlValueAccessor {
     listStyle: [
       { type: 'disc' }
     ],
+    mediaEmbed: {
+      // Previews are always enabled if there’s a provider for a URL (below regex catches all URLs)
+      // By default `previewsInData` are disabled, but let’s set it to `false` explicitely to be sure
+      previewsInData: true,
+
+      providers: [
+        {
+          // hint: this is just for previews. Get actual HTML codes by making API calls from your CMS
+          name: 'iframely',
+
+          // Match all URLs or just the ones you need:
+          url: /.+/,
+
+          html: (match) => {
+            const url = match[0];
+
+            const iframeUrl = IFRAME_SRC + '?app=2&api_key=' + API_KEY + '&url=' + encodeURIComponent(url);
+
+            return (
+              // If you need, set maxwidth and other styles for 'iframely-embed' class - it's yours to customize
+              '<div class="iframely-embed">' +
+              '<div class="iframely-responsive">' +
+              `<iframe src="${iframeUrl}" ` +
+              'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>' +
+              '</iframe>' +
+              '</div>' +
+              '</div>'
+            );
+          },
+        },
+      ],
+    },
   };
 
   constructor(
