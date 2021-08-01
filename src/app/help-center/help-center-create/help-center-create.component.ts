@@ -1,13 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularEditorConfig, AngularEditorService } from '@kolkov/angular-editor';
 import { API_BASE_URL } from '@shared/api/base-url';
 import { HelpCenterApiService } from '@shared/api/help-center.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
-import { FixFontEditorDirective } from '@shared/services/fix-font-editor-service.ts/fix-font-editor.directive';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { switchMap } from 'rxjs/operators';
 
@@ -15,37 +13,9 @@ import { switchMap } from 'rxjs/operators';
   selector: 'app-help-center-create',
   templateUrl: './help-center-create.component.html',
   styleUrls: ['./help-center-create.component.scss'],
-  providers: [FixFontEditorDirective, AngularEditorService]
 })
 export class HelpCenterCreateComponent implements OnInit {
 
-  editorConfig: AngularEditorConfig = {
-    sanitize: false,
-    editable: true,
-    spellcheck: true,
-    height: '30rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Times New Roman',
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-    uploadUrl: `${this.hostUrl}/files/upload`
-  };
   form: FormGroup;
   imageUrl: string;
 

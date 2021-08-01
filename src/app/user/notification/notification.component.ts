@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { API_BASE_URL } from '@shared/api/base-url';
 import { NotificationsService } from '@shared/api/notifications.api.service';
 import { StudentApiService } from '@shared/api/student.api.service';
@@ -23,33 +22,6 @@ export class NotificationComponent implements OnInit {
   form: FormGroup;
   imageUrl: string;
   isLoading: boolean;
-  editorConfig: AngularEditorConfig = {
-    sanitize: false,
-    editable: true,
-    spellcheck: true,
-    height: '20rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-    uploadUrl: `${this.hostUrl}/files/upload`
-  };
   maxTag = 4;
   constructor(
     private fb: FormBuilder,

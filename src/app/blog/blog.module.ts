@@ -9,7 +9,6 @@ import { BlogTypeCreateComponent } from './blog-type/blog-type-create/blog-type-
 import { BlogTypeEditComponent } from './blog-type/blog-type-edit/blog-type-edit.component';
 import { BlogHottestComponent } from './blog-hottest/blog-hottest.component';
 import { BlogCreateComponent } from './blog-list/blog-create/blog-create.component';
-import { AngularEditorModule } from '@kolkov/angular-editor';
 import { JwtInterceptor } from '@shared/interceptor/token.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BlogEditComponent } from './blog-list/blog-edit/blog-edit.component';
@@ -29,7 +28,6 @@ import { BlogEditComponent } from './blog-list/blog-edit/blog-edit.component';
     CommonModule,
     BlogRoutingModule,
     SharedModule,
-    AngularEditorModule
   ],
   providers: [
     {

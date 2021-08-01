@@ -6,10 +6,9 @@ import { SharedModule } from '@shared/shared.module';
 import { EventListComponent } from './event-list/event-list.component';
 import { EventDetailComponent } from './event-detail/event-detail.component';
 import { EventCreateComponent } from './event-create/event-create.component';
-import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, EventsRoutes, AngularEditorModule],
+  imports: [CommonModule, SharedModule, EventsRoutes],
   declarations: [
     EventsOrganizeComponent,
     EventListComponent,
@@ -17,4 +16,4 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     EventCreateComponent,
   ],
 })
-export class EventsModule {}
+export class EventsModule { }

@@ -115,7 +115,6 @@ export class EditCourseComponent implements OnInit {
 
   submit() {
     Ultilities.validateForm(this.form);
-    console.log(this.form);
 
     this.isLoading = true;
     iif(() => (this.form.value.photo instanceof Blob),

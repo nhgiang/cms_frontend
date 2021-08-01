@@ -4,6 +4,7 @@ import { CoursesReportComponent } from './courses-report/courses-report.componen
 import { PartnerRevenueReportComponent } from './partner-revenue-report/partner-revenue-report.component';
 import { TeacherDiscountReportComponent } from './teacher-discount-report/teacher-discount-report.component';
 import { TeacherDiscountReportDetailComponent } from './teacher-discount-report-detail/teacher-discount-report-detail.component';
+import { TeacherDetailResolver } from '@shared/services/resolve/teacher-detail.resolver';
 
 const routes: Routes = [
   {
@@ -40,9 +41,10 @@ const routes: Routes = [
       {
         path: ':id',
         component: TeacherDiscountReportDetailComponent,
-        data: {
-          title: 'Báo cáo chi tiết của giảng viên'
-        }
+        resolve: {
+          title: TeacherDetailResolver
+        },
+        data: {}
       }
     ]
   }

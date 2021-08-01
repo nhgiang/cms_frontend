@@ -1,14 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularEditorConfig, AngularEditorService } from '@kolkov/angular-editor';
 import { API_BASE_URL } from '@shared/api/base-url';
 import { PostTypesApiService } from '@shared/api/post-types.api.service';
 import { PostsApiService } from '@shared/api/posts.api.service';
 import { StorageApiService } from '@shared/api/storage.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
-import { FixFontEditorDirective } from '@shared/services/fix-font-editor-service.ts/fix-font-editor.directive';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize, map, switchMap } from 'rxjs/operators';
 
@@ -16,39 +14,11 @@ import { finalize, map, switchMap } from 'rxjs/operators';
   selector: 'app-blog-create',
   templateUrl: './blog-create.component.html',
   styleUrls: ['./blog-create.component.scss'],
-  providers: [FixFontEditorDirective, AngularEditorService]
 })
 export class BlogCreateComponent implements OnInit {
   form: FormGroup;
   imageUrl: string;
   isLoading: boolean;
-  editorConfig: AngularEditorConfig = {
-    sanitize: false,
-    editable: true,
-    spellcheck: true,
-    height: '20rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-    uploadUrl: `${this.hostUrl}/files/upload`
-  };
   constructor(
     private fb: FormBuilder,
     @Inject(API_BASE_URL) protected hostUrl: string,
