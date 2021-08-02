@@ -6,9 +6,9 @@ import { SettingContainer } from '@shared/class/setting-container';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { forkJoin, iif, of } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { finalize, switchMap } from 'rxjs/operators';
-import { AssetType, SettingKey, SettingKeyEndPoint, VideoType } from 'types/enums';
+import { AssetType, SettingKey, SettingKeyEndPoint } from 'types/enums';
 import { VideoIntro } from 'types/typemodel';
 
 @Component({
@@ -20,7 +20,6 @@ export class VideoIntroComponent extends SettingContainer<VideoIntro> implements
   form: FormGroup;
   AssetType = AssetType;
   isLoading: boolean;
-  VideoType = VideoType;
   isVisible: boolean;
 
   constructor(
@@ -38,10 +37,7 @@ export class VideoIntroComponent extends SettingContainer<VideoIntro> implements
     this.isLoading = true;
     forkJoin({
       image: this.storageApi.uploadFile(this.form.value.image),
-      video: iif(() => this.form.value.videoType === VideoType.Youtube,
-        of(this.form.value.video),
-        this.storageApi.uploadFile(this.form.value.video)
-      )
+      video: this.storageApi.uploadFile(this.form.value.video)
     }).pipe(switchMap(({ image, video }) => {
       this.form.get('image').setValue(image);
       this.form.get('video').setValue(video);
@@ -58,7 +54,6 @@ export class VideoIntroComponent extends SettingContainer<VideoIntro> implements
 
   protected handleResult(result: { res: VideoIntro; isVisible: boolean; }) {
     this.form.patchValue(result.res);
-    this.form.get('video').setValue(result.res.video);
     this.isVisible = result.isVisible;
   }
 
@@ -66,7 +61,6 @@ export class VideoIntroComponent extends SettingContainer<VideoIntro> implements
     this.form = this.fb.group({
       image: [null, Validators.required],
       video: [null],
-      videoType: [null],
       title: [null, TValidators.maxLength(100)]
     });
   }
