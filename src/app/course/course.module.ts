@@ -46,6 +46,7 @@ import { CertificationComponent } from './certification/certification.component'
     LessonTestComponent,
     QuestionComponent,
     CertificationComponent
-  ]
+  ],
+  exports: [UploadVideoIntroComponent]
 })
 export class CourseModule { }

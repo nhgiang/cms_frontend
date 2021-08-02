@@ -15,6 +15,7 @@ import { VideoIntroComponent } from './video-intro/video-intro.component';
 import { HottestCourseComponent } from './hottest-course/hottest-course.component';
 import { SettingHeaderComponent } from './setting-header/setting-header.component';
 import { EducationComponent } from './education/education.component';
+import { CourseModule } from '../course/course.module';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { EducationComponent } from './education/education.component';
   imports: [
     CommonModule,
     ContentRoutingModule,
-    SharedModule
+    SharedModule,
+    CourseModule
   ]
 })
 export class ContentModule { }

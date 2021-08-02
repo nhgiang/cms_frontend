@@ -46,12 +46,14 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
 
   writeValue(obj: any) {
     if (obj) {
-      if (this.isUploadLink === VideoType.Youtube) {
-        this.linkYoutubeInput = obj;
-        this.changeLink(obj);
-      } else {
-        this.fileVideo = obj;
-      }
+      setTimeout(() => {
+        if (this.isUploadLink === VideoType.Youtube) {
+          this.linkYoutubeInput = obj;
+          this.changeLink(obj);
+        } else {
+          this.fileVideo = obj;
+        }
+      }, 0);
     }
   }
 
@@ -70,7 +72,7 @@ export class UploadVideoIntroComponent extends AbstractControlDirective implemen
     const id = getYouTubeId.default(link);
     this.displayPreviewYT = !!id;
     this.url1 = `https://www.youtube.com/embed/${id}`;
-    this.onChangeFn(link);
+    this.onChangeFn(this.url1);
   }
 
   uploadVideo(e: File) {
