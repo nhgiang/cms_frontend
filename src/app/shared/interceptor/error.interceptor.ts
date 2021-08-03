@@ -1,17 +1,21 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
 import jwt_decode from 'jwt-decode';
-import { ITokenDecode } from '@shared/services/token.service';
+import { ITokenDecode, TokenService } from '@shared/services/token.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+  isRefreshing = false;
+  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
   constructor(
     private router: Router,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private tokenService: TokenService
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -20,15 +24,48 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.notification.error('Thất bại', 'Đường truyền mạng không ổn định. Vui lòng thử lại sau!');
       } else if (error.status === 401) {
         // tslint:disable-next-line: max-line-length
-        if (localStorage.getItem('token') && Number(jwt_decode<ITokenDecode>(localStorage.getItem('token'))?.exp) > Number(new Date().getTime()) / 1000) {
-          this.notification.warning('', 'Tài khoản của bạn đã đăng nhập ở một thiết bị khác hoặc tạm thời bị khóa.');
-        }
-        localStorage.clear();
-        location.href = '/authentication/login';
+        return this.handleError401(request, next);
       } else if ([403, 404, 500].includes(error.status)) {
         this.router.navigate(['/authentication/error', error.status]);
-      } 
+      }
       return throwError(error);
     }));
+  }
+
+  handleError401(request: HttpRequest<any>, next: HttpHandler) {
+    // tslint:disable-next-line: max-line-length
+    if (localStorage.getItem('refreshToken') && Number(jwt_decode<ITokenDecode>(localStorage.getItem('refreshToken'))?.exp) > Number(new Date().getTime()) / 1000) {
+      this.notification.warning('', 'Tài khoản của bạn đã đăng nhập ở một thiết bị khác hoặc tạm thời bị khóa.');
+      localStorage.clear();
+      this.router.navigate(['/authentication/login']);
+    }
+    if (!this.isRefreshing) {
+      this.isRefreshing = true;
+      this.refreshTokenSubject.next(null);
+      return this.tokenService.getNewToken().pipe(
+        switchMap((res) => {
+          this.isRefreshing = false;
+          this.tokenService.token = res.accessToken;
+          this.refreshTokenSubject.next(res.accessToken);
+          return next.handle(this.injectToken(request));
+        })
+      )
+    } else {
+      return this.refreshTokenSubject.pipe(
+        filter(token => token != null),
+        take(1),
+        switchMap(() => {
+          return next.handle(this.injectToken(request));
+        }));
+    }
+  }
+
+  injectToken(request: HttpRequest<any>) {
+    const token = this.tokenService.token;
+    return request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
   }
 }
