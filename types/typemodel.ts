@@ -5,6 +5,7 @@ import {
   InvoiceType,
   PaymentMethod,
   UserStatus,
+  VideoType,
 } from './enums';
 
 export interface QueryResult<T> {
@@ -89,6 +90,7 @@ export interface VideoIntro {
   title: string;
   image: string;
   video: string;
+  videoType: VideoType;
 }
 
 export interface ConsultingInformation extends Entity {
@@ -246,7 +248,7 @@ export interface Story {
   images: string[];
 }
 
-export interface VideoIntroContact extends VideoIntro {}
+export interface VideoIntroContact extends VideoIntro { }
 
 export interface Faq {
   answer: string;
