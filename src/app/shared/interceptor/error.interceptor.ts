@@ -2,7 +2,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, filter, mergeMap, switchMap, take } from 'rxjs/operators';
+import { catchError, filter, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import jwt_decode from 'jwt-decode';
 import { ITokenDecode, TokenService } from '@shared/services/token.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -50,10 +50,19 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.tokenService.token = res.accessToken;
           this.refreshTokenSubject.next(res.accessToken);
           return next.handle(this.injectToken(request));
+        }),
+        catchError((err) => {
+          this.router.navigate(['/authentication/login']);
+          return throwError(err);
         })
       )
     } else {
       return this.refreshTokenSubject.pipe(
+        tap(() => {
+          if (this.tokenService.refreshToken === null) {
+            this.router.navigate(['/authentication/login']);
+          }
+        }),
         filter(token => token != null),
         take(1),
         switchMap(() => {
