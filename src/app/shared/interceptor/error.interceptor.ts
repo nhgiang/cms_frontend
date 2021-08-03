@@ -38,10 +38,16 @@ export class ErrorInterceptor implements HttpInterceptor {
       this.notification.warning('', 'Tài khoản của bạn đã đăng nhập ở một thiết bị khác hoặc tạm thời bị khóa.');
       localStorage.clear();
       this.router.navigate(['/authentication/login']);
+      return;
+    }
+    // tslint:disable-next-line: max-line-length
+    if (localStorage.getItem('refreshToken') && Number(jwt_decode<ITokenDecode>(localStorage.getItem('refreshToken'))?.exp) < Number(new Date().getTime()) / 1000) {
+      localStorage.clear();
+      this.router.navigate(['/authentication/login']);
+      this.isRefreshing = false;
+      return;
     }
     if (!this.isRefreshing) {
-      console.log(123);
-
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
       return this.tokenService.getNewToken().pipe(
