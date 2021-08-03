@@ -34,7 +34,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   handleError401(request: HttpRequest<any>, next: HttpHandler) {
     // tslint:disable-next-line: max-line-length
-    if (localStorage.getItem('refreshToken') && Number(jwt_decode<ITokenDecode>(localStorage.getItem('refreshToken'))?.exp) > Number(new Date().getTime()) / 1000) {
+    if (localStorage.getItem('token') && Number(jwt_decode<ITokenDecode>(localStorage.getItem('token'))?.exp) > Number(new Date().getTime()) / 1000) {
       this.notification.warning('', 'Tài khoản của bạn đã đăng nhập ở một thiết bị khác hoặc tạm thời bị khóa.');
       localStorage.clear();
       this.router.navigate(['/authentication/login']);
