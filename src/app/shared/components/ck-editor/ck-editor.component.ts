@@ -64,7 +64,7 @@ export class CkEditorComponent implements ControlValueAccessor {
         },
         {
           name: 'resizeImage:100',
-          value: null,
+          value: '100',
           label: '100%'
         },
       ],
