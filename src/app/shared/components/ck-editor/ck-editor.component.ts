@@ -33,6 +33,42 @@ export class CkEditorComponent implements ControlValueAccessor {
     listStyle: [
       { type: 'disc' }
     ],
+    image: {
+      toolbar: [
+        "imageStyle:inline",
+        "imageStyle:alignLeft",
+        "imageStyle:alignRight",
+        "|",
+        "imageTextAlternative",
+        "|", "imageStyle:block",
+        "imageStyle:alignBlockLeft",
+        "imageStyle:alignBlockRight",
+        "|",
+        "resizeImage",
+      ],
+      resizeOptions: [
+        {
+          name: 'resizeImage:100',
+          value: null,
+          label: '100%'
+        },
+        {
+          name: 'resizeImage:25',
+          value: '25',
+          label: '25%'
+        },
+        {
+          name: 'resizeImage:50',
+          value: '50',
+          label: '50%'
+        },
+        {
+          name: 'resizeImage:75',
+          value: '75',
+          label: '75%'
+        }
+      ],
+    },
     mediaEmbed: {
       // Previews are always enabled if there’s a provider for a URL (below regex catches all URLs)
       // By default `previewsInData` are disabled, but let’s set it to `false` explicitely to be sure
