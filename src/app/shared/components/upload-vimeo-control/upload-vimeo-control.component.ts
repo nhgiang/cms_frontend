@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  forwardRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { StorageApiService } from '@shared/api/storage.api.service';
@@ -16,11 +24,14 @@ declare const amp: any;
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => UploadVimeoControlComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class UploadVimeoControlComponent extends AbstractControlDirective implements OnInit, AfterViewInit {
+export class UploadVimeoControlComponent
+  extends AbstractControlDirective
+  implements OnInit, AfterViewInit
+{
   @ViewChild('vimeo', { static: false }) vimeo: ElementRef;
   @ViewChild('video', { static: false }) video: ElementRef;
   @Input() confirmationText: string;
@@ -46,43 +57,57 @@ export class UploadVimeoControlComponent extends AbstractControlDirective implem
   ) {
     super();
   }
-  ngAfterViewInit(): void {
-
-  }
+  ngAfterViewInit(): void {}
 
   writeValue(file: any) {
     this.url = file;
     if (file) {
       this.status = UploaderStatus.Selected;
-      this.storageApi.getVideo(this.url, this.isPrivate).subscribe((video: any) => {
-        this.isProcessing = !video.url;
-        const player = amp(this.vimeo.nativeElement, {
-          autoplay: true,
-          controls: true,
-          width: 'auto',
-          height: 'auto'
+      this.storageApi
+        .getVideo(this.url, this.isPrivate)
+        .subscribe((video: any) => {
+          this.isProcessing = !video.url;
+          const player = amp(this.vimeo.nativeElement, {
+            techOrder: [
+              'html5FairPlayHLS',
+              'azureHtml5JS',
+              'flashSS',
+              'silverlightSS',
+              'html5',
+            ],
+            autoplay: true,
+            controls: true,
+            width: 'auto',
+            height: 'auto',
+          });
+          if (video.url) {
+            player.src([
+              {
+                src: video.url,
+                type: 'application/vnd.ms-sstr+xml',
+                protectionInfo: [
+                  {
+                    type: 'PlayReady',
+                    authenticationToken: `Bearer ${video.token}`,
+                  },
+                  {
+                    type: 'Widevine',
+                    authenticationToken: `Bearer ${video.token}`,
+                  },
+                  {
+                    type: 'FairPlay',
+                    certificateUrl: 'assets/fairplay.cer',
+                    authenticationToken: `Bearer ${video.token}`,
+                  },
+                ],
+              },
+            ]);
+          }
         });
-        if (video.url) {
-          player.src([{
-            src: video.url,
-            type: 'application/vnd.ms-sstr+xml',
-            protectionInfo: [{
-              type: 'PlayReady',
-              authenticationToken: `Bearer ${video.token}`
-            },
-            {
-              type: 'Widevine',
-              authenticationToken: `Bearer ${video.token}`
-            }]
-          }]);
-        }
-      });
     }
-
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onFileChanged($event) {
     const file = ($event.target as HTMLInputElement).files[0];
