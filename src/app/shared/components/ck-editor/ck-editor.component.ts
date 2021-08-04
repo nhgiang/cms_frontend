@@ -48,9 +48,9 @@ export class CkEditorComponent implements ControlValueAccessor {
       ],
       resizeOptions: [
         {
-          name: 'resizeImage:100',
+          name: 'resizeImage:Original',
           value: null,
-          label: '100%'
+          label: 'Original'
         },
         {
           name: 'resizeImage:25',
@@ -66,13 +66,17 @@ export class CkEditorComponent implements ControlValueAccessor {
           name: 'resizeImage:75',
           value: '75',
           label: '75%'
+        },
+        {
+          name: 'resizeImage:100',
+          value: '100',
+          label: '100%'
         }
       ],
     },
     mediaEmbed: {
       // Previews are always enabled if there’s a provider for a URL (below regex catches all URLs)
       // By default `previewsInData` are disabled, but let’s set it to `false` explicitely to be sure
-      previewsInData: true,
 
       providers: [
         {

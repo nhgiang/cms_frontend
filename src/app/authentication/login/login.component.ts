@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { AuthenticationService } from '@shared/services/authentication.service';
+import { TokenService } from '@shared/services/token.service';
 import { finalize } from 'rxjs/operators';
 import { trimData } from 'utils/common';
 @Component({
@@ -18,6 +19,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private authService: AuthenticationService,
     private router: Router,
+    private tokenService: TokenService
   ) {
     this.myForm = this.fb.group({
       email: [null, [TValidators.required, TValidators.emailRules]],
@@ -37,8 +39,10 @@ export class LoginComponent {
       .pipe(
         finalize(() => this.loading = false))
       .subscribe(({ accessToken, refreshToken }) => {
-        localStorage.setItem('token', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
+        this.tokenService.token = accessToken;
+        this.tokenService.refreshToken = refreshToken;
+        // localStorage.setItem('token', accessToken);
+        // localStorage.setItem('refreshToken', refreshToken);
         if (this.myForm.value.isRemember) {
           this.storePassword(data).then();
         }

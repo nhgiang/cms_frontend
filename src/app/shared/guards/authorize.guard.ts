@@ -18,7 +18,7 @@ export class AuthorizeGuard implements CanActivate {
     private authService: AuthenticationService,
     private router: Router,
     private tokenService: TokenService
-  ) {}
+  ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -26,7 +26,6 @@ export class AuthorizeGuard implements CanActivate {
   ): Observable<boolean> {
     return this.authService.getMe().pipe(
       map((user) => {
-        this.tokenService.refreshTokenFn();
         return (
           user.role === 'Admin' ||
           user.role === 'Assistance' ||
@@ -34,7 +33,7 @@ export class AuthorizeGuard implements CanActivate {
         );
       }),
       catchError((e) => {
-        this.router.navigate(['/authentication/login']);
+        // this.router.navigate(['/authentication/login']);
         return of(false);
       })
     );
