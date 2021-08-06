@@ -1,7 +1,7 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, filter, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import jwt_decode from 'jwt-decode';
 import { ITokenDecode, TokenService } from '@shared/services/token.service';
@@ -58,7 +58,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           return next.handle(this.injectToken(request));
         }),
         catchError((err) => {
-          this.router.navigate(['/authentication/login']);
+          location.href = '/authentication/login';
           return throwError(err);
         })
       )
