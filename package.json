@@ -32,7 +32,6 @@
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@types/ckeditor": "^4.9.10",
     "@vimeo/player": "^2.15.0",
-    "browser-image-compression": "^1.0.14",
     "chart.js": "^2.9.4",
     "date-fns": "^2.16.1",
     "get-youtube-id": "^1.0.1",
