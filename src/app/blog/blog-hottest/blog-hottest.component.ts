@@ -29,7 +29,7 @@ export class BlogHottestComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.array(Array(3).fill(0).map(() => this.fb.group({
       blogId: [null]
-    })));
+    }))); 
     this.settingApi.get().subscribe(res => {
       const data = res.map(t => {
         return {
