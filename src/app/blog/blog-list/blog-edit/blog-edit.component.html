@@ -1,5 +1,19 @@
 <nz-card>
   <nz-spin [nzSpinning]="isLoading">
+    <div class="text-right mb-3">
+      <nz-switch
+        [(ngModel)]="isHottest"
+        [nzCheckedChildren]="checkedTemplate"
+        [nzUnCheckedChildren]="unCheckedTemplate"
+        (click)="hottestToggle()"
+        nzControl
+        [nzLoading]="hottestLoading"
+      ></nz-switch>
+      <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+      <ng-template #unCheckedTemplate
+        ><i nz-icon nzType="close"></i
+      ></ng-template>
+    </div>
     <form [formGroup]="form" (ngSubmit)="submit()">
       <div
         class="media align-items-start mb-4 flex-column d-flex"

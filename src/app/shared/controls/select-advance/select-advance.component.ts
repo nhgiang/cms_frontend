@@ -46,7 +46,8 @@ export interface ParamsSelectAdvance {
 })
 export class SelectAdvanceComponent
   extends AbstractControlDirective
-  implements OnInit, OnChanges {
+  implements OnInit, OnChanges
+{
   @Input() getOptionsFn: (
     params: ParamsSelectAdvance | any
   ) => Observable<Option[]>;
@@ -60,7 +61,7 @@ export class SelectAdvanceComponent
   page = 1;
   timeout: any;
   isDone = false;
-  options = []; // {value: '(id)', label: ''}
+  @Input() options = []; // {value: '(id)', label: ''}
   search$: Subject<string>;
   loadMore$: Subject<any>;
   q: string;
@@ -86,7 +87,11 @@ export class SelectAdvanceComponent
     if (isEmpty(obj)) {
       return;
     }
-    const ids = isArray(obj) ? (obj.every(x => isObject(x)) ? obj.map((x: any) => x.id) : obj) : [obj];
+    const ids = isArray(obj)
+      ? obj.every((x) => isObject(x))
+        ? obj.map((x: any) => x.id)
+        : obj
+      : [obj];
     this.getOptionsFn({ page: 1, ids })
       .pipe(
         tap((data) => {
@@ -164,5 +169,9 @@ export class SelectAdvanceComponent
         disabled: this.optionsDisabled.some((t) => t.id === option.value),
       };
     });
+  }
+
+  reset() {
+    this.onSearch();
   }
 }
