@@ -6,19 +6,34 @@
       nz-form
       [nzLayout]="'vertical'"
     >
-      <nz-form-item>
-        <nz-form-label nzRequired>Chọn người nhận</nz-form-label>
-        <nz-form-control [nzErrorTip]="'Vui lòng chọn người nhận'">
-          <app-multiple-selection
-            [maxMultipleCount]="maxTag"
-            [getOptionsFn]="user$"
-            formControlName="receivers"
-            nzAllowClear
-            placeholder="Chọn người nhận"
-          >
-          </app-multiple-selection>
-        </nz-form-control>
-      </nz-form-item>
+      <div class="row">
+        <nz-form-item class="col-md-8">
+          <nz-form-label nzRequired>Chọn người nhận</nz-form-label>
+          <nz-form-control [nzErrorTip]="'Vui lòng chọn người nhận'">
+            <app-multiple-selection
+              #usersSelection
+              [maxMultipleCount]="maxTag"
+              [getOptionsFn]="user$"
+              formControlName="receivers"
+              nzAllowClear
+              placeholder="Chọn người nhận"
+              [options]="options"
+            >
+            </app-multiple-selection>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="col-md-4">
+          <nz-form-label> Tìm theo giảng viên </nz-form-label>
+          <nz-form-control>
+            <select-advance
+              [getOptionsFn]="teachers$"
+              formControlName="teacherId"
+              placeholder="Chọn giảng viên"
+            ></select-advance>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
       <nz-form-item>
         <nz-form-label nzRequired>Tiêu đề thông báo</nz-form-label>
         <nz-form-control [nzErrorTip]="titleErr">
