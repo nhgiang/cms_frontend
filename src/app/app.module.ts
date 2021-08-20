@@ -57,7 +57,7 @@ const ngZorroConfig: NzConfig = {
   modal: {
     nzMaskClosable: false,
   },
-};   
+};
 
 @NgModule({
   declarations: [
@@ -119,8 +119,8 @@ const ngZorroConfig: NzConfig = {
       useValue: viVN,
     },
     ThemeConstantService,
-    DatetimePipe
+    DatetimePipe,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
