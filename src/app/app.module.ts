@@ -43,7 +43,7 @@ const appInit = (
     return partnersApi
       .getDomain(
         domain.replace('cms.', '').includes('localhost')
-          ? 'qa.beautyup.asia'
+          ? 'abc.qa.beautyup.asia'
           : domain.replace('cms.', '')
       )
       .toPromise()
