@@ -43,7 +43,7 @@ const appInit = (
     return partnersApi
       .getDomain(
         domain.replace('cms.', '').includes('localhost')
-          ? 'abc.qa.beautyup.asia'
+          ? 'qa.beautyup.asia'
           : domain.replace('cms.', '')
       )
       .toPromise()
@@ -57,7 +57,7 @@ const ngZorroConfig: NzConfig = {
   modal: {
     nzMaskClosable: false,
   },
-};   
+};
 
 @NgModule({
   declarations: [
@@ -119,8 +119,8 @@ const ngZorroConfig: NzConfig = {
       useValue: viVN,
     },
     ThemeConstantService,
-    DatetimePipe
+    DatetimePipe,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
