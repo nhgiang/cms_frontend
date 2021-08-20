@@ -104,7 +104,7 @@ export const ROUTES: SideNavInterface[] = [
   },
   {
     path: 'content',
-    title: 'Quản lý nội dung website',
+    title: 'Nội dung website',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'layout',
@@ -158,7 +158,7 @@ export const ROUTES: SideNavInterface[] = [
   },
   {
     path: 'contact',
-    title: 'Quản lý nội dung liên hệ',
+    title: 'Nội dung liên hệ',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'contacts',
@@ -294,7 +294,7 @@ export const ROUTES: SideNavInterface[] = [
   },
   {
     path: 'settings-help',
-    title: 'Cài đặt bài viết hướng dẫn',
+    title: 'Bài viết hướng dẫn',
     iconType: 'nzIcon',
     iconTheme: 'outline',
     icon: 'customer-service',
