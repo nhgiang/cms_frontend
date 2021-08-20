@@ -17,8 +17,11 @@
       [hasSub]="item.submenu.length > 0"
       [routerLinkActiveOptions]="{ exact: true }"
       [class.d-none]="
-        item.isAdminOnly &&
-        !(currentUser.role === 'Admin' || currentUser.role === 'SubMaster')
+        (item.isAdminOnly &&
+          !(
+            currentUser.role === 'Admin' || currentUser.role === 'SubMaster'
+          )) ||
+        (item.title === 'Đối tác đăng ký' && !isRoot)
       "
     >
       <a
@@ -68,6 +71,9 @@
         class="ant-menu ant-menu-inline ant-menu-sub dropdown-menu"
         *ngIf="item.submenu.length > 0"
       >
+        <li class="ant-menu-item title" [class.d-none]="!isFolded">
+          {{ item.title }}
+        </li>
         <li
           [ngClass]="
             subItem.submenu.length > 0
