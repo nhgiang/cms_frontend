@@ -5,13 +5,15 @@ import { QueryResult } from 'types/typemodel';
 import { BaseApi } from './base-api';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CourseApiService extends BaseApi {
   endpoint = 'courses';
 
   getList(params) {
-    return this.httpClient.get<QueryResult<Course>>(this.createUrl(''), { params: this.createParams(params) });
+    return this.httpClient.get<QueryResult<Course>>(this.createUrl(''), {
+      params: this.createParams(params),
+    });
   }
 
   create(body: any): Observable<Course> {
@@ -27,11 +29,15 @@ export class CourseApiService extends BaseApi {
   }
 
   getByUser(id: string, params: any): Observable<any> {
-    return this.httpClient.get<any>(this.createUrl(`/find/${id}`), { params: this.createParams(params) });
+    return this.httpClient.get<any>(this.createUrl(`/find/${id}`), {
+      params: this.createParams(params),
+    });
   }
 
   getInfoOfCourseHottest(params) {
-    return this.httpClient.get<QueryResult<Course>>(this.createUrl(''), { params });
+    return this.httpClient.get<QueryResult<Course>>(this.createUrl(''), {
+      params,
+    });
   }
 
   publish(id) {
@@ -39,7 +45,9 @@ export class CourseApiService extends BaseApi {
   }
 
   comment(params: any): Observable<any> {
-    return this.httpClient.get(this.createUrl('/comments'), { params: this.createParams(params) });
+    return this.httpClient.get(this.createUrl('/comments'), {
+      params: this.createParams(params),
+    });
   }
 
   hidden(id: string, body: any): Observable<any> {
@@ -48,5 +56,9 @@ export class CourseApiService extends BaseApi {
 
   count() {
     return this.httpClient.get(this.createUrl('/count'));
+  }
+
+  delete(id: string) {
+    return this.httpClient.delete(this.createUrl(`/${id}`));
   }
 }

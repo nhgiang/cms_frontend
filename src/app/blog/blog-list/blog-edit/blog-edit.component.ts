@@ -55,7 +55,6 @@ export class BlogEditComponent implements OnInit {
           if (value.blogId === id) this.isHottest = true;
           return value;
         });
-      console.log(this.hottestBlogs, this.isHottest);
     });
   }
 

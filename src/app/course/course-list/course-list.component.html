@@ -42,6 +42,7 @@
             [nzSortOrder]="col?.sortOrder" [nzColumnKey]="col.key">{{col.name}}</th>
         </ng-container>
       </tr>
+      <tr></tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of items">
@@ -63,8 +64,16 @@
         <td [title]="item?.typeName">{{item?.typeName|truncate: 30}}</td>
         <td class="text-right">{{item?.studentPrice | number}}đ</td>
         <td class="text-right">{{item?.partnerPrice | number}}đ</td>
-        <td class="text-center">{{item?.totalStudent}}</td>
+        <td class="text-center">{{item?.totalStudent ? item.totalStudent : 0}}</td>
         <td>{{item?.created | date: 'dd/MM/yyyy'}}</td>
+        <td>
+          <div (confirmed)="deleteCourse(item?.id)"
+                [confirmation]="'Bạn có chắc muốn xóa khóa học này hay không?'">
+                <button [disabled]="item.totalStudent" class="m-r-5" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa" >
+                  <i  aria-hidden="true" nz-icon nzType="close" nzTheme="outline"></i>
+                </button>
+              </div>
+        </td>
       </tr>
     </tbody>
   </nz-table>
