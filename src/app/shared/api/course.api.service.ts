@@ -61,4 +61,10 @@ export class CourseApiService extends BaseApi {
   delete(id: string) {
     return this.httpClient.delete(this.createUrl(`/${id}`));
   }
+
+  updateVisibility(id: string, status: boolean) {
+    return this.httpClient.post(this.createUrl(`/update-visibility/${id}`), {
+      isVisible: status,
+    });
+  }
 }

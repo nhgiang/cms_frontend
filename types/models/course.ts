@@ -20,7 +20,9 @@ export interface Course extends Entity {
   skills: any[];
   userId: any;
   isOwner: any;
-  isHidden: any;
+  isHidden: any; //dành cho partner
+
+  isVisible: boolean;
 }
 export interface Specialization extends Entity {
   name: string;
