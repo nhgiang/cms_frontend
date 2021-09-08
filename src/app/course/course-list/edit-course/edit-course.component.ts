@@ -100,7 +100,7 @@ export class EditCourseComponent implements OnInit {
           this.textConfirm = this.isHidden
             ? 'Bạn có muốn hiện khóa học này?'
             : (course?.hasStudent ? 'Khóa học này có học viên.' : '') +
-              ' Bạn có chắc chắn muốn ẩn khóa học này?';
+            ' Bạn có chắc chắn muốn ẩn khóa học này?';
           this.course = course;
           this.form.get('videoIntroType').patchValue(course.videoIntroType);
           setTimeout(() => {
@@ -118,42 +118,42 @@ export class EditCourseComponent implements OnInit {
   teachers = (params: any) => {
     return this.isDisableAll
       ? from([this.course]).pipe(
-          map((res) => ({ value: res.userId, label: res.teacherName })),
-          toArray()
-        )
+        map((res) => ({ value: res.userId, label: res.teacherName })),
+        toArray()
+      )
       : this.teacherApiService
-          .getList(params)
-          .pipe(
-            map((res) =>
-              res.items.map((x) => ({ value: x.id, label: x.fullName }))
-            )
-          );
+        .getList(params)
+        .pipe(
+          map((res) =>
+            res.items.map((x) => ({ value: x.id, label: x.fullName }))
+          )
+        );
   };
 
   courseTypes = (params: any) => {
     return this.isDisableAll
       ? from([this.course]).pipe(
-          map((res) => ({ value: res.typeId, label: res.typeName })),
-          toArray()
-        )
+        map((res) => ({ value: res.typeId, label: res.typeName })),
+        toArray()
+      )
       : this.courseTypesApiService
-          .getList(params)
-          .pipe(
-            map((res) => res.items.map((x) => ({ value: x.id, label: x.name })))
-          );
+        .getList(params)
+        .pipe(
+          map((res) => res.items.map((x) => ({ value: x.id, label: x.name })))
+        );
   };
 
   skills = (params: any) => {
     return this.isDisableAll
       ? from([...this.listSkill]).pipe(
-          map((res) => ({ value: res.id, label: res.name })),
-          toArray()
-        )
+        map((res) => ({ value: res.id, label: res.name })),
+        toArray()
+      )
       : this.skillsApiService
-          .findAll(params)
-          .pipe(
-            map((res) => res.items.map((x) => ({ value: x.id, label: x.name })))
-          );
+        .findAll(params)
+        .pipe(
+          map((res) => res.items.map((x) => ({ value: x.id, label: x.name })))
+        );
   };
 
   submit() {
@@ -298,7 +298,7 @@ export class EditCourseComponent implements OnInit {
           this.textConfirm = this.isHidden
             ? 'Bạn có muốn hiện khóa học này?'
             : (this.course?.hasStudent ? 'Khóa học này có học viên.' : '') +
-              ' Bạn có chắc chắn muốn ẩn khóa học này?';
+            ' Bạn có chắc chắn muốn ẩn khóa học này?';
           const message = this.isHidden
             ? 'Ẩn khóa học thành công!'
             : 'Hiện khóa học thành công!';

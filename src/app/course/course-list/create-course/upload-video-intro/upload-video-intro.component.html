@@ -14,7 +14,7 @@
       *ngIf="displayPreviewYT"
       width="560"
       height="315"
-      [src]="url1 | safeUrl"
+      [src]="url | safeUrl"
       title="YouTube video player"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
@@ -22,8 +22,8 @@
   </div>
   <div *ngIf="isUploadLink === VideoType.Vimeo">
     <app-upload-vimeo-control
-      [ngModel]="fileVideo"
-      (ngModelChange)="uploadVideo($event)"
+      [(ngModel)]="fileVideo"
+      (ngModelChange)="onChangeFn($event)"
       [isDisable]="isDisable || isHidden"
       [isPrivate]="false"
       [confirmationText]="
