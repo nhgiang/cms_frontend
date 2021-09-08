@@ -8,7 +8,7 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validator } from '@angular/forms';
 import { AbstractControlDirective } from '@shared/controls/abstract-control.directive';
 import * as getYouTubeId from 'get-youtube-id';
 import { VideoType } from 'types/enums';
@@ -30,7 +30,7 @@ import { VideoType } from 'types/enums';
     }
   ]
 })
-export class UploadVideoIntroComponent extends AbstractControlDirective implements OnInit, OnChanges {
+export class UploadVideoIntroComponent extends AbstractControlDirective implements OnInit, OnChanges, Validator {
   @ViewChild('inputUpload', { static: false }) inputUpload: ElementRef;
   @Input() isUploadLink: VideoType;
   @Input() isDisable: boolean;
