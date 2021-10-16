@@ -1,8 +1,21 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, filter, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import {
+  catchError,
+  filter,
+  mergeMap,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 import jwt_decode from 'jwt-decode';
 import { ITokenDecode, TokenService } from '@shared/services/token.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -10,40 +23,61 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   isRefreshing = false;
-  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
+    null
+  );
 
   constructor(
     private router: Router,
     private notification: NzNotificationService,
     private tokenService: TokenService
-  ) { }
+  ) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
-      if (!navigator.onLine) {
-        this.notification.error('Thất bại', 'Đường truyền mạng không ổn định. Vui lòng thử lại sau!');
-      } else if (error.status === 401) {
-        // tslint:disable-next-line: max-line-length
-        return this.handleError401(request, next);
-      } else if ([403, 404, 500].includes(error.status)) {
-        this.router.navigate(['/authentication/error', error.status]);
-      }
-      return throwError(error);
-    }));
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    return next.handle(request).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (!navigator.onLine) {
+          this.notification.error(
+            'Thất bại',
+            'Đường truyền mạng không ổn định. Vui lòng thử lại sau!'
+          );
+        } else if (error.status === 401) {
+          // tslint:disable-next-line: max-line-length
+          return this.handleError401(request, next);
+        } else if ([403, 404, 500].includes(error.status)) {
+          this.router.navigate(['/authentication/error', error.status]);
+        }
+        return throwError(error);
+      })
+    );
   }
 
   handleError401(request: HttpRequest<any>, next: HttpHandler) {
     // tslint:disable-next-line: max-line-length
-    if (localStorage.getItem('token') && Number(jwt_decode<ITokenDecode>(localStorage.getItem('token'))?.exp) > Number(new Date().getTime()) / 1000) {
-      this.notification.warning('', 'Tài khoản của bạn đã đăng nhập ở một thiết bị khác hoặc tạm thời bị khóa.');
-      localStorage.clear();
-      this.router.navigate(['/authentication/login']);
+    if (
+      localStorage.getItem('token') &&
+      Number(jwt_decode<ITokenDecode>(localStorage.getItem('token'))?.exp) >
+        Number(new Date().getTime()) / 1000
+    ) {
+      this.notification.warning(
+        '',
+        'Tài khoản của bạn đã đăng nhập ở một thiết bị khác hoặc tạm thời bị khóa.'
+      );
+      this.logout();
       return;
     }
     // tslint:disable-next-line: max-line-length
-    if (localStorage.getItem('refreshToken') && Number(jwt_decode<ITokenDecode>(localStorage.getItem('refreshToken'))?.exp) < Number(new Date().getTime()) / 1000) {
-      localStorage.clear();
-      this.router.navigate(['/authentication/login']);
+    if (
+      localStorage.getItem('refreshToken') &&
+      Number(
+        jwt_decode<ITokenDecode>(localStorage.getItem('refreshToken'))?.exp
+      ) <
+        Number(new Date().getTime()) / 1000
+    ) {
+      this.logout();
       this.isRefreshing = false;
       return;
     }
@@ -58,22 +92,23 @@ export class ErrorInterceptor implements HttpInterceptor {
           return next.handle(this.injectToken(request));
         }),
         catchError((err) => {
-          location.href = '/authentication/login';
+          this.logout();
           return throwError(err);
         })
-      )
+      );
     } else {
       return this.refreshTokenSubject.pipe(
         tap(() => {
           if (this.tokenService.refreshToken === null) {
-            this.router.navigate(['/authentication/login']);
+            this.logout();
           }
         }),
-        filter(token => token != null),
+        filter((token) => token != null),
         take(1),
         switchMap(() => {
           return next.handle(this.injectToken(request));
-        }));
+        })
+      );
     }
   }
 
@@ -81,8 +116,13 @@ export class ErrorInterceptor implements HttpInterceptor {
     const token = this.tokenService.token;
     return request.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
+  }
+
+  private logout() {
+    localStorage.clear();
+    location.href = '/authentication/login';
   }
 }
