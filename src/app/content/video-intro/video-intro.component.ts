@@ -41,7 +41,7 @@ export class VideoIntroComponent extends SettingContainer<VideoIntro> implements
     }).pipe(switchMap(({ image, video }) => {
       this.form.get('image').setValue(image);
       this.form.get('video').setValue(video);
-      return this.post(this.form.value);
+      return this.post({...this.form.value, video: video || ''});
     }), finalize(() => this.isLoading = false)).subscribe((res) => {
       this.form.patchValue(res);
       this.notification.success('Thành công', 'Cập nhật thông tin video giới thiệu thành công');
