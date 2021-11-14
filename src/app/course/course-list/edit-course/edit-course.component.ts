@@ -14,7 +14,7 @@ import { AuthenticationService } from '@shared/services/authentication.service';
 import { omit } from 'lodash-es';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { from, iif, of } from 'rxjs';
+import { forkJoin, from, iif, of } from 'rxjs';
 import { finalize, map, switchMap, tap, toArray } from 'rxjs/operators';
 import { AssetType, VideoType } from 'types/enums';
 import { Course, Feedback } from 'types/models/course';
@@ -72,6 +72,7 @@ export class EditCourseComponent implements OnInit {
       partnerPrice: [null, [Validators.required, Validators.required]],
       skills: [[], [Validators.required]],
       videoIntroType: [VideoType.Youtube, Validators.required],
+      banner: [null, Validators.required],
     });
     this.authService.currentUser.subscribe((x) => {
       this.user = x;
@@ -100,7 +101,7 @@ export class EditCourseComponent implements OnInit {
           this.textConfirm = this.isHidden
             ? 'Bạn có muốn hiện khóa học này?'
             : (course?.hasStudent ? 'Khóa học này có học viên.' : '') +
-              ' Bạn có chắc chắn muốn ẩn khóa học này?';
+            ' Bạn có chắc chắn muốn ẩn khóa học này?';
           this.course = course;
           this.form.get('videoIntroType').patchValue(course.videoIntroType);
           setTimeout(() => {
@@ -118,55 +119,52 @@ export class EditCourseComponent implements OnInit {
   teachers = (params: any) => {
     return this.isDisableAll
       ? from([this.course]).pipe(
-          map((res) => ({ value: res.userId, label: res.teacherName })),
-          toArray()
-        )
+        map((res) => ({ value: res.userId, label: res.teacherName })),
+        toArray()
+      )
       : this.teacherApiService
-          .getList(params)
-          .pipe(
-            map((res) =>
-              res.items.map((x) => ({ value: x.id, label: x.fullName }))
-            )
-          );
-  };
+        .getList(params)
+        .pipe(
+          map((res) =>
+            res.items.map((x) => ({ value: x.id, label: x.fullName }))
+          )
+        );
+  }
 
   courseTypes = (params: any) => {
     return this.isDisableAll
       ? from([this.course]).pipe(
-          map((res) => ({ value: res.typeId, label: res.typeName })),
-          toArray()
-        )
+        map((res) => ({ value: res.typeId, label: res.typeName })),
+        toArray()
+      )
       : this.courseTypesApiService
-          .getList(params)
-          .pipe(
-            map((res) => res.items.map((x) => ({ value: x.id, label: x.name })))
-          );
-  };
+        .getList(params)
+        .pipe(
+          map((res) => res.items.map((x) => ({ value: x.id, label: x.name })))
+        );
+  }
 
   skills = (params: any) => {
     return this.isDisableAll
       ? from([...this.listSkill]).pipe(
-          map((res) => ({ value: res.id, label: res.name })),
-          toArray()
-        )
+        map((res) => ({ value: res.id, label: res.name })),
+        toArray()
+      )
       : this.skillsApiService
-          .findAll(params)
-          .pipe(
-            map((res) => res.items.map((x) => ({ value: x.id, label: x.name })))
-          );
-  };
+        .findAll(params)
+        .pipe(
+          map((res) => res.items.map((x) => ({ value: x.id, label: x.name })))
+        );
+  }
 
   submit() {
     Ultilities.validateForm(this.form);
 
     this.isLoading = true;
-    iif(
-      () => this.form.value.photo instanceof Blob,
-      this.storageApiService
-        .uploadFile(this.form.get('photo').value)
-        .pipe(tap((res) => this.form.controls.photo.setValue(res))),
-      of(true)
-    )
+    forkJoin([
+      this.storageApiService.uploadFile(this.form.get('photo').value).pipe(tap((res) => this.form.controls.photo.setValue(res))),
+      this.storageApiService.uploadFile(this.form.get('banner').value).pipe(tap((res) => this.form.controls.banner.setValue(res)))
+    ])
       .pipe(
         switchMap(() => {
           if (this.form.get('videoIntro').value instanceof File) {
@@ -298,7 +296,7 @@ export class EditCourseComponent implements OnInit {
           this.textConfirm = this.isHidden
             ? 'Bạn có muốn hiện khóa học này?'
             : (this.course?.hasStudent ? 'Khóa học này có học viên.' : '') +
-              ' Bạn có chắc chắn muốn ẩn khóa học này?';
+            ' Bạn có chắc chắn muốn ẩn khóa học này?';
           const message = this.isHidden
             ? 'Ẩn khóa học thành công!'
             : 'Hiện khóa học thành công!';

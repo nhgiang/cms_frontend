@@ -1,21 +1,53 @@
 <nz-card nzTitle="Bước 1: Thiết lập thông tin cơ bản">
   <nz-spin [nzSpinning]="isLoading">
     <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="row">
+        <nz-form-item class="col-6">
+          <nz-form-control nzErrorTip="File phải là file ảnh và nhỏ hơn 5MB">
+            <app-image-cropper-control
+              formControlName="photo"
+              [height]="218"
+              [width]="355"
+            >
+              <label class="label-avatar"
+                >Chọn ảnh đại diện cho khoá học
+                <span class="text-danger">*</span></label
+              >
+              <p class="opacity-07 font-size-12 m-b-0">
+                Kích thước đề xuất: 355*218 <br />
+                Max file size: 5MB
+              </p>
+            </app-image-cropper-control>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="col-6">
+          <nz-form-control nzErrorTip="File phải là file ảnh và nhỏ hơn 5MB">
+            <app-image-cropper-control
+              formControlName="banner"
+              [height]="218"
+              [width]="355"
+            >
+              <label class="label-avatar"
+                >Chọn banner cho khoá học
+                <span class="text-danger">*</span></label
+              >
+              <p class="opacity-07 font-size-12 m-b-0">
+                Kích thước đề xuất: 355*218 <br />
+                Max file size: 5MB
+              </p>
+            </app-image-cropper-control>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
       <nz-form-item class="row">
-        <nz-form-control nzErrorTip="File phải là file ảnh và nhỏ hơn 5MB">
-          <app-image-cropper-control formControlName="photo" [height]="218" [width]="355">
-            <label class="label-avatar">Chọn ảnh đại diện cho khoá học <span class="text-danger">*</span></label>
-            <p class="opacity-07 font-size-12 m-b-0">
-              Kích thước đề xuất: 355*218 <br>
-              Max file size: 5MB
-            </p>
-          </app-image-cropper-control>
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item class="row">
-        <nz-form-label class="text-left input-space" nzRequired>Video giới thiệu</nz-form-label>
-        <nz-radio-group nzAutoFocus class="d-flex align-items-center row" formControlName="videoIntroType">
+        <nz-form-label class="text-left input-space" nzRequired
+          >Video giới thiệu</nz-form-label
+        >
+        <nz-radio-group
+          nzAutoFocus
+          class="d-flex align-items-center row"
+          formControlName="videoIntroType"
+        >
           <nz-radio-button nz-radio [nzValue]="VideoType.Youtube">
             Nhập link youtube
           </nz-radio-button>
@@ -27,10 +59,15 @@
 
       <nz-form-item class="row">
         <label class="text-left input-space"></label>
-        <nz-form-control nzErrorTip="Vui lòng upload hoặc nhập link video giới thiệu">
+        <nz-form-control
+          nzErrorTip="Vui lòng upload hoặc nhập link video giới thiệu"
+        >
           <div class="d-flex justify-content-between">
-            <app-upload-video-intro class="w-100" formControlName="videoIntro"
-              [isUploadLink]="form.value.videoIntroType">
+            <app-upload-video-intro
+              class="w-100"
+              formControlName="videoIntro"
+              [isUploadLink]="form.value.videoIntroType"
+            >
             </app-upload-video-intro>
           </div>
         </nz-form-control>
@@ -38,49 +75,85 @@
 
       <div class="d-flex justify-content-between row">
         <nz-form-item class="col-6">
-          <nz-form-label class="text-left input-space" nzRequired>Tên khóa học</nz-form-label>
+          <nz-form-label class="text-left input-space" nzRequired
+            >Tên khóa học</nz-form-label
+          >
           <nz-form-control nzErrorTip="Nhập tên khóa học">
-            <input nz-input formControlName="name" placeholder="Nhập tên khóa học">
+            <input
+              nz-input
+              formControlName="name"
+              placeholder="Nhập tên khóa học"
+            />
           </nz-form-control>
         </nz-form-item>
         <nz-form-item class="col-6">
-          <nz-form-label class="text-left input-space" nzRequired>Chọn giảng viên</nz-form-label>
+          <nz-form-label class="text-left input-space" nzRequired
+            >Chọn giảng viên</nz-form-label
+          >
           <nz-form-control nzErrorTip="Chọn giảng viên cho khóa học">
-            <select-advance [getOptionsFn]="teachers" formControlName="userId"
-              placeholder="Chọn giảng viên cho khóa học">
+            <select-advance
+              [getOptionsFn]="teachers"
+              formControlName="userId"
+              placeholder="Chọn giảng viên cho khóa học"
+            >
             </select-advance>
           </nz-form-control>
         </nz-form-item>
       </div>
 
       <nz-form-item>
-        <nz-form-label class="text-left input-space" nzRequired>Loại khóa học</nz-form-label>
+        <nz-form-label class="text-left input-space" nzRequired
+          >Loại khóa học</nz-form-label
+        >
         <nz-form-control nzErrorTip="Chọn loại khóa học">
-          <select-advance [getOptionsFn]="courseTypes" formControlName="typeId" placeholder="Chọn loại cho khóa học">
+          <select-advance
+            [getOptionsFn]="courseTypes"
+            formControlName="typeId"
+            placeholder="Chọn loại cho khóa học"
+          >
           </select-advance>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label class="text-left input-space" nzRequired>Mô tả</nz-form-label>
+        <nz-form-label class="text-left input-space" nzRequired
+          >Mô tả</nz-form-label
+        >
         <nz-form-control nzErrorTip="Nhập mô tả khóa học">
-          <textarea style="resize: no;" nz-input rows="3" formControlName="description"
-            placeholder="Nhập mô tả khóa học"></textarea>
+          <textarea
+            style="resize: no"
+            nz-input
+            rows="3"
+            formControlName="description"
+            placeholder="Nhập mô tả khóa học"
+          ></textarea>
         </nz-form-control>
       </nz-form-item>
 
       <div class="d-flex justify-content-between row">
         <nz-form-item class="col-6">
-          <nz-form-label class="text-left input-space" nzRequired>Giá cho học viên</nz-form-label>
+          <nz-form-label class="text-left input-space" nzRequired
+            >Giá cho học viên</nz-form-label
+          >
           <nz-form-control nzErrorTip="Nhập giá cho học viên">
-            <input-number formControlName="studentPrice" placeholder="Nhập giá cho học viên" class="w-100">
+            <input-number
+              formControlName="studentPrice"
+              placeholder="Nhập giá cho học viên"
+              class="w-100"
+            >
             </input-number>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item class="col-6">
-          <nz-form-label class="text-left input-space" nzRequired>Giá cho đối tác</nz-form-label>
+          <nz-form-label class="text-left input-space" nzRequired
+            >Giá cho đối tác</nz-form-label
+          >
           <nz-form-control nzErrorTip="Nhập giá cho đối tác">
-            <input-number formControlName="partnerPrice" placeholder="Nhập giá cho đối tác" class="w-100">
+            <input-number
+              formControlName="partnerPrice"
+              placeholder="Nhập giá cho đối tác"
+              class="w-100"
+            >
             </input-number>
           </nz-form-control>
         </nz-form-item>
@@ -88,26 +161,44 @@
 
       <nz-form-item>
         <div class="d-flex align-items-center input-space">
-          <nz-form-label class="text-left" nzRequired>
-            Kỹ năng
-          </nz-form-label>
-          <i  aria-hidden="true"nz-icon nzType="info-circle" nzTheme="outline" nz-tooltip
-            nzTooltipTitle="Chỉ cho phép chọn tối đa 4 kỹ năng"></i>
+          <nz-form-label class="text-left" nzRequired> Kỹ năng </nz-form-label>
+          <i
+            aria-hidden="true"
+            nz-icon
+            nzType="info-circle"
+            nzTheme="outline"
+            nz-tooltip
+            nzTooltipTitle="Chỉ cho phép chọn tối đa 4 kỹ năng"
+          ></i>
         </div>
         <nz-form-control nzErrorTip="Chọn kỹ năng đạt được cho khóa học">
-          <app-multiple-selection [maxMultipleCount]="4" [getOptionsFn]="skills" formControlName="skills"
-            placeholder="Chọn kỹ năng đạt được">
+          <app-multiple-selection
+            [maxMultipleCount]="4"
+            [getOptionsFn]="skills"
+            formControlName="skills"
+            placeholder="Chọn kỹ năng đạt được"
+          >
           </app-multiple-selection>
         </nz-form-control>
       </nz-form-item>
 
       <div class="w-100 d-flex justify-content-end">
-        <button nz-button [nzType]="'primary'" type="submit" [nzLoading]="isLoading">Lưu dữ liệu</button>
+        <button
+          nz-button
+          [nzType]="'primary'"
+          type="submit"
+          [nzLoading]="isLoading"
+        >
+          Lưu dữ liệu
+        </button>
       </div>
     </form>
   </nz-spin>
 </nz-card>
-<nz-card nzTitle="Bước 2: Thiết lập nội dung khoá học" style="pointer-events: none;opacity: 0.5;">
+<nz-card
+  nzTitle="Bước 2: Thiết lập nội dung khoá học"
+  style="pointer-events: none; opacity: 0.5"
+>
   <div class="row">
     <div class="col-6">
       <div class="card-body p-0">
@@ -118,13 +209,17 @@
       <div class="card-body">
         <div class="title">
           <h5 class="mb-0">Đánh giá học viên</h5>
-          <span><i  aria-hidden="true"nz-icon nzType="plus" nzTheme="outline"></i></span>
+          <span
+            ><i aria-hidden="true" nz-icon nzType="plus" nzTheme="outline"></i
+          ></span>
         </div>
       </div>
       <div class="card-body">
         <div class="title">
           <h5 class="mb-0">Cấp chứng chỉ</h5>
-          <span><i  aria-hidden="true"nz-icon nzType="plus" nzTheme="outline"></i></span>
+          <span
+            ><i aria-hidden="true" nz-icon nzType="plus" nzTheme="outline"></i
+          ></span>
         </div>
       </div>
     </div>

@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env';
 import jwt_decode from 'jwt-decode';
 import * as moment from 'moment';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 export interface ITokenDecode {
   id: string;

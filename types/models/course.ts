@@ -21,7 +21,7 @@ export interface Course extends Entity {
   userId: any;
   isOwner: any;
   isHidden: any; //dành cho partner
-
+  banner: string;
   isVisible: boolean;
 }
 export interface Specialization extends Entity {

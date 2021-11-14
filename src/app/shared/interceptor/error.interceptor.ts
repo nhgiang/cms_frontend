@@ -24,7 +24,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.notification.error('Thất bại', 'Đường truyền mạng không ổn định. Vui lòng thử lại sau!');
       } else if (error.status === 401) {
         // tslint:disable-next-line: max-line-length
-        return this.handleError401(request, next);
+       return this.handleError401(request, next, error);
       } else if ([403, 404, 500].includes(error.status)) {
         this.router.navigate(['/authentication/error', error.status]);
       }
@@ -32,7 +32,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     }));
   }
 
-  handleError401(request: HttpRequest<any>, next: HttpHandler) {
+  handleError401(request: HttpRequest<any>, next: HttpHandler, error: HttpErrorResponse) {
     // tslint:disable-next-line: max-line-length
     if (localStorage.getItem('token') && Number(jwt_decode<ITokenDecode>(localStorage.getItem('token'))?.exp) > Number(new Date().getTime()) / 1000) {
       this.notification.warning('', 'Tài khoản của bạn đã đăng nhập ở một thiết bị khác hoặc tạm thời bị khóa.');
@@ -47,6 +47,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       this.isRefreshing = false;
       return;
     }
+
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
@@ -61,11 +62,11 @@ export class ErrorInterceptor implements HttpInterceptor {
           location.href = '/authentication/login';
           return throwError(err);
         })
-      )
+      );
     } else {
       return this.refreshTokenSubject.pipe(
         tap(() => {
-          if (this.tokenService.refreshToken === null) {
+          if (this.tokenService.refreshToken === null || (error && error.url.includes('refreshToken'))) {
             this.router.navigate(['/authentication/login']);
           }
         }),

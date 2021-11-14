@@ -29,22 +29,42 @@
             </app-image-cropper-control>
           </nz-form-control>
         </nz-form-item>
-        <nz-form-item class="col-6 justify-content-end">
-          <nz-switch
-            [nzLoading]="switchLoading"
-            [ngModel]="isVisible"
-            [nzCheckedChildren]="checkedTemplate"
-            [nzUnCheckedChildren]="unCheckedTemplate"
-            (ngModelChange)="visible($event)"
-            [ngModelOptions]="{ standalone: true }"
-          ></nz-switch>
-          <ng-template #checkedTemplate
-            ><i nz-icon nzType="check"></i
-          ></ng-template>
-          <ng-template #unCheckedTemplate
-            ><i nz-icon nzType="close"></i
-          ></ng-template>
-        </nz-form-item>
+        <div class="col-6 d-flex justify-content-between">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="File phải là file ảnh và nhỏ hơn 5MB">
+              <app-image-cropper-control
+                formControlName="banner"
+                [height]="750"
+                [width]="1440"
+              >
+                <label class="label-avatar"
+                  >Chọn banner cho khoá học
+                  <span class="text-danger">*</span></label
+                >
+                <p class="opacity-07 font-size-12 m-b-0">
+                  Kích thước đề xuất: 355*218 <br />
+                  Max file size: 5MB
+                </p>
+              </app-image-cropper-control>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-switch
+              [nzLoading]="switchLoading"
+              [ngModel]="isVisible"
+              [nzCheckedChildren]="checkedTemplate"
+              [nzUnCheckedChildren]="unCheckedTemplate"
+              (ngModelChange)="visible($event)"
+              [ngModelOptions]="{ standalone: true }"
+            ></nz-switch>
+            <ng-template #checkedTemplate
+              ><i nz-icon nzType="check"></i
+            ></ng-template>
+            <ng-template #unCheckedTemplate
+              ><i nz-icon nzType="close"></i
+            ></ng-template>
+          </nz-form-item>
+        </div>
       </div>
 
       <nz-form-item class="row" [class.pe-none]="isDisableAll">

@@ -112,6 +112,7 @@ export enum SettingKeyEndPoint {
   VNPay = 'vnpays',
   HomepageHeader = 'header',
   HomepageEducation = 'education',
+  Partner = 'partner-logos'
 }
 
 export enum SettingKey {
@@ -133,4 +134,5 @@ export enum SettingKey {
   VNPay = 'VNPay',
   HomepageHeader = 'HomepageHeader',
   HomepageEducation = 'HomepageEducation',
+  Partner = 'PartnerLogo'
 }
