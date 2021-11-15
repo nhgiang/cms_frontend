@@ -16,6 +16,7 @@ import { HottestCourseComponent } from './hottest-course/hottest-course.componen
 import { SettingHeaderComponent } from './setting-header/setting-header.component';
 import { EducationComponent } from './education/education.component';
 import { CourseModule } from '../course/course.module';
+import { PartnerComponent } from './partner/partner.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { CourseModule } from '../course/course.module';
     VideoIntroComponent,
     HottestCourseComponent,
     SettingHeaderComponent,
-    EducationComponent
+    EducationComponent,
+    PartnerComponent
   ],
   imports: [
     CommonModule,

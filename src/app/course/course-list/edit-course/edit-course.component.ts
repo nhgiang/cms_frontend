@@ -14,7 +14,7 @@ import { AuthenticationService } from '@shared/services/authentication.service';
 import { omit } from 'lodash-es';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { from, iif, of } from 'rxjs';
+import { forkJoin, from, iif, of } from 'rxjs';
 import { finalize, map, switchMap, tap, toArray } from 'rxjs/operators';
 import { AssetType, VideoType } from 'types/enums';
 import { Course, Feedback } from 'types/models/course';
@@ -72,6 +72,7 @@ export class EditCourseComponent implements OnInit {
       partnerPrice: [null, [Validators.required, Validators.required]],
       skills: [[], [Validators.required]],
       videoIntroType: [VideoType.Youtube, Validators.required],
+      banner: [null, Validators.required],
     });
     this.authService.currentUser.subscribe((x) => {
       this.user = x;
@@ -141,7 +142,7 @@ export class EditCourseComponent implements OnInit {
         .pipe(
           map((res) => res.items.map((x) => ({ value: x.id, label: x.name })))
         );
-  };
+  }
 
   skills = (params: any) => {
     return this.isDisableAll
@@ -154,19 +155,16 @@ export class EditCourseComponent implements OnInit {
         .pipe(
           map((res) => res.items.map((x) => ({ value: x.id, label: x.name })))
         );
-  };
+  }
 
   submit() {
     Ultilities.validateForm(this.form);
 
     this.isLoading = true;
-    iif(
-      () => this.form.value.photo instanceof Blob,
-      this.storageApiService
-        .uploadFile(this.form.get('photo').value)
-        .pipe(tap((res) => this.form.controls.photo.setValue(res))),
-      of(true)
-    )
+    forkJoin([
+      this.storageApiService.uploadFile(this.form.get('photo').value).pipe(tap((res) => this.form.controls.photo.setValue(res))),
+      this.storageApiService.uploadFile(this.form.get('banner').value).pipe(tap((res) => this.form.controls.banner.setValue(res)))
+    ])
       .pipe(
         switchMap(() => {
           if (this.form.get('videoIntro').value instanceof File) {

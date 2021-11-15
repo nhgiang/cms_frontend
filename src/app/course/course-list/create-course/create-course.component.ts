@@ -9,7 +9,7 @@ import { TeacherApiService } from '@shared/api/teacher.api.service';
 import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { iif, of } from 'rxjs';
+import { forkJoin, iif, of } from 'rxjs';
 import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { AssetType, VideoType } from 'types/enums';
 import { trimData } from 'utils/common';
@@ -49,7 +49,8 @@ export class CreateCourseComponent implements OnInit {
       studentPrice: [null, [Validators.required, Validators.min(0)]],
       partnerPrice: [null, [Validators.required, Validators.min(0)]],
       skills: [[], [Validators.required]],
-      videoIntroType: [VideoType.Youtube, Validators.required]
+      videoIntroType: [VideoType.Youtube, Validators.required],
+      banner: [null, TValidators.required],
     });
   }
 
@@ -72,10 +73,10 @@ export class CreateCourseComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     this.isLoading = true;
-    iif(() => (this.form.controls.photo.value instanceof Blob),
+    forkJoin([
       this.storageApiService.uploadFile(this.form.get('photo').value).pipe(tap(res => this.form.controls.photo.setValue(res))),
-      of(true)
-    ).pipe(
+      this.storageApiService.uploadFile(this.form.get('banner').value).pipe(tap(res => this.form.controls.banner.setValue(res))),
+    ]).pipe(
       switchMap(() => {
         if (this.form.get('videoIntro').value instanceof File) {
           return this.storageApiService.uploadVideoPublic(this.form.get('videoIntro').value).pipe(tap(data => {

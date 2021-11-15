@@ -33,29 +33,21 @@ export class ErrorInterceptor implements HttpInterceptor {
     private tokenService: TokenService
   ) {}
 
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (!navigator.onLine) {
-          this.notification.error(
-            'Thất bại',
-            'Đường truyền mạng không ổn định. Vui lòng thử lại sau!'
-          );
-        } else if (error.status === 401) {
-          // tslint:disable-next-line: max-line-length
-          return this.handleError401(request, next);
-        } else if ([403, 404, 500].includes(error.status)) {
-          this.router.navigate(['/authentication/error', error.status]);
-        }
-        return throwError(error);
-      })
-    );
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
+      if (!navigator.onLine) {
+        this.notification.error('Thất bại', 'Đường truyền mạng không ổn định. Vui lòng thử lại sau!');
+      } else if (error.status === 401) {
+        // tslint:disable-next-line: max-line-length
+       return this.handleError401(request, next, error);
+      } else if ([403, 404, 500].includes(error.status)) {
+        this.router.navigate(['/authentication/error', error.status]);
+      }
+      return throwError(error);
+    }));
   }
 
-  handleError401(request: HttpRequest<any>, next: HttpHandler) {
+  handleError401(request: HttpRequest<any>, next: HttpHandler, error: HttpErrorResponse) {
     // tslint:disable-next-line: max-line-length
     if (
       localStorage.getItem('token') &&
@@ -81,6 +73,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       this.isRefreshing = false;
       return;
     }
+
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
@@ -99,8 +92,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     } else {
       return this.refreshTokenSubject.pipe(
         tap(() => {
-          if (this.tokenService.refreshToken === null) {
-            this.logout();
+          if (this.tokenService.refreshToken === null || (error && error.url.includes('refreshToken'))) {
+            this.router.navigate(['/authentication/login']);
           }
         }),
         filter((token) => token != null),

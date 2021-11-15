@@ -20,7 +20,7 @@ export class HottestCourseComponent implements OnInit {
   constructor(
     private courseApi: CourseApiService,
     private fb: FormBuilder,
-    private settingApi: SettingApiService<{ courseId: string }[]>,
+    private settingApi: SettingApiService<{ courseId: string, quantitySold: number, view: number }[]>,
     private notification: NzNotificationService
   ) {
     this.settingApi.setEnpoint(SettingKeyEndPoint.HottestCourse);
@@ -28,12 +28,16 @@ export class HottestCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.array(Array(10).fill(0).map(() => this.fb.group({
-      courseId: [null]
+      courseId: [null],
+      quantitySold: [null],
+      view: [null]
     })));
     this.settingApi.get().subscribe(res => {
       const data = res.map(val => {
         return {
-          courseId: val.courseId || 0
+          courseId: val.courseId,
+          quantitySold: val.quantitySold || 0,
+          view: val.view || 0
         };
       });
       this.form.patchValue(data);
@@ -58,7 +62,9 @@ export class HottestCourseComponent implements OnInit {
   submit() {
     const body = this.form.value.map(val => {
       return {
-        courseId: val.courseId || null
+        courseId: val?.courseId,
+        quantitySold: +val?.quantitySold,
+        view: +val?.view
       };
     });
     this.settingApi.post(body).subscribe(() => {

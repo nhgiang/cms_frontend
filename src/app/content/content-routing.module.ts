@@ -5,6 +5,7 @@ import { FaqComponent } from './faq/faq.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { FooterComponent } from './footer/footer.component';
 import { HottestCourseComponent } from './hottest-course/hottest-course.component';
+import { PartnerComponent } from './partner/partner.component';
 import { PremiumsComponent } from './premiums/premiums.component';
 import { SettingHeaderComponent } from './setting-header/setting-header.component';
 import { TeacherComponent } from './teacher/teacher.component';
@@ -68,10 +69,10 @@ const routes: Routes = [
     }
   },
   {
-    path: 'education',
-    component: EducationComponent,
+    path: 'partner',
+    component: PartnerComponent,
     data: {
-      title: 'Hệ thống khóa học'
+      title: 'Đối tác'
     }
   }
 ];
