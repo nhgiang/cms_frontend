@@ -169,15 +169,54 @@
       >
         <nz-form-item class="col-6">
           <nz-form-label class="text-left input-space" nzRequired
-            >Giá cho học viên</nz-form-label
+            >Giá gốc</nz-form-label
           >
-          <nz-form-control nzErrorTip="Nhập giá cho học viên">
+          <nz-form-control nzErrorTip="Nhập giá gốc">
             <input-number
-              formControlName="studentPrice"
-              placeholder="Nhập giá cho học viên"
+              formControlName="studentPriceOld"
+              placeholder="Nhập giá gốc"
               class="w-100"
             >
             </input-number>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="col-6">
+          <nz-form-label class="text-left input-space" nzRequired
+            >Giá khuyến mại</nz-form-label
+          >
+          <nz-form-control nzErrorTip="Nhập giá khuyến mại">
+            <input-number
+              formControlName="studentPrice"
+              placeholder="Nhập giá khuyến mại"
+              class="w-100"
+            >
+            </input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="row justify-content-between">
+        <nz-form-item [class.pe-none]="true" class="col-6">
+          <div class="d-flex align-items-center input-space">
+            <nz-form-label class="text-left" nzRequired>
+              Kỹ năng
+            </nz-form-label>
+            <i
+              aria-hidden="true"
+              nz-icon
+              nzType="info-circle"
+              nzTheme="outline"
+              nz-tooltip
+              nzTooltipTitle="Chỉ cho phép chọn tối đa 4 kỹ năng"
+            ></i>
+          </div>
+          <nz-form-control nzErrorTip="Chọn kỹ năng đạt được cho khóa học">
+            <app-multiple-selection
+              [maxMultipleCount]="4"
+              [getOptionsFn]="skills"
+              formControlName="skills"
+              placeholder="Chọn kỹ năng đạt được"
+            >
+            </app-multiple-selection>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item class="col-6">
@@ -194,28 +233,6 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <nz-form-item [class.pe-none]="isDisableAll">
-        <div class="d-flex align-items-center input-space">
-          <nz-form-label class="text-left" nzRequired> Kỹ năng </nz-form-label>
-          <i
-            aria-hidden="true"
-            nz-icon
-            nzType="info-circle"
-            nzTheme="outline"
-            nz-tooltip
-            nzTooltipTitle="Chỉ cho phép chọn tối đa 4 kỹ năng"
-          ></i>
-        </div>
-        <nz-form-control nzErrorTip="Chọn kỹ năng đạt được cho khóa học">
-          <app-multiple-selection
-            [maxMultipleCount]="4"
-            [getOptionsFn]="skills"
-            formControlName="skills"
-            placeholder="Chọn kỹ năng đạt được"
-          >
-          </app-multiple-selection>
-        </nz-form-control>
-      </nz-form-item>
 
       <div class="w-100 d-flex justify-content-end">
         <button

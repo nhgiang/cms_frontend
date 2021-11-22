@@ -73,6 +73,7 @@ export class EditCourseComponent implements OnInit {
       skills: [[], [Validators.required]],
       videoIntroType: [VideoType.Youtube, Validators.required],
       banner: [null, Validators.required],
+      studentPriceOld: [null, [Validators.required, Validators.min(0)]],
     });
     this.authService.currentUser.subscribe((x) => {
       this.user = x;
