@@ -51,6 +51,7 @@ export class CreateCourseComponent implements OnInit {
       skills: [[], [Validators.required]],
       videoIntroType: [VideoType.Youtube, Validators.required],
       banner: [null, TValidators.required],
+      studentPriceOld: [null, [Validators.required, Validators.min(0)]],
     });
   }
 
