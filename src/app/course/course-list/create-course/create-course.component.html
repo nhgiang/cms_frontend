@@ -160,11 +160,12 @@
       </div>
       <div class="row d-flex justify-content-between">
         <nz-form-item class="col-6">
-          <div class="d-flex align-items-center input-space">
+          <div class="d-flex input-space">
             <nz-form-label class="text-left" nzRequired>
               Kỹ năng
             </nz-form-label>
             <i
+              class="mt-2"
               aria-hidden="true"
               nz-icon
               nzType="info-circle"
@@ -173,7 +174,10 @@
               nzTooltipTitle="Chỉ cho phép chọn tối đa 4 kỹ năng"
             ></i>
           </div>
-          <nz-form-control nzErrorTip="Chọn kỹ năng đạt được cho khóa học">
+          <nz-form-control
+            style="width: calc(100% - 150px)"
+            nzErrorTip="Chọn kỹ năng đạt được cho khóa học"
+          >
             <app-multiple-selection
               [maxMultipleCount]="4"
               [getOptionsFn]="skills"
