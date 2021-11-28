@@ -53,6 +53,11 @@ export const ROUTES: SideNavInterface[] = [
         submenu: [],
       },
       {
+        path: 'combo',
+        title: 'Combo khóa học',
+        submenu: [],
+      },
+      {
         path: 'type',
         title: 'Loại khóa học',
         submenu: [],

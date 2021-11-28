@@ -20,6 +20,8 @@ import { EditCourseComponent } from './course-list/edit-course/edit-course.compo
 import { LessonTestComponent } from './course-list/lesson/lesson-test/lesson-test.component';
 import { QuestionComponent } from './course-list/lesson/lesson-test/question/question.component';
 import { CertificationComponent } from './certification/certification.component';
+import { ComboComponent } from './combo/combo.component';
+import { ComboFormComponent } from './combo/combo-form/combo-form.component';
 
 @NgModule({
   imports: [
@@ -45,7 +47,9 @@ import { CertificationComponent } from './certification/certification.component'
     EditCourseComponent,
     LessonTestComponent,
     QuestionComponent,
-    CertificationComponent
+    CertificationComponent,
+    ComboComponent,
+    ComboFormComponent
   ],
   exports: [UploadVideoIntroComponent]
 })

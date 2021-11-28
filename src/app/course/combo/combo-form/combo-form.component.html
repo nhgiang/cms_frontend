@@ -1,0 +1,51 @@
+<form [formGroup]="form">
+  <div>
+    <ng-container
+      formArrayName="courses"
+      *ngFor="let ctrl of formArrayControls?.controls; let index = index"
+    >
+      <div [formGroupName]="index">
+        <nz-form-item>
+          <nz-form-label> Khóa {{ index }}</nz-form-label>
+
+          <nz-form-control>
+            <select-advance
+              placeholder="Chọn khóa học"
+              [getOptionsFn]="courses$"
+              formControlName="courseId"
+              [hasNullOption]="true"
+            >
+            </select-advance>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </ng-container>
+    <nz-form-item>
+      <nz-form-label> Giá gốc</nz-form-label>
+      <nz-form-control>
+        <input type="text" nz-input formControlName="oldPrice" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label> Giá ưu đãi</nz-form-label>
+      <nz-form-control>
+        <input type="text" nz-input formControlName="newPrice" />
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div class="form-footer text-right">
+    <button
+      class="ml-4"
+      [routerLink]="['/dashboard/home']"
+      type="button"
+      nz-button
+      nzType="primary"
+      nzGhost
+    >
+      Quay lại
+    </button>
+    <button type="submit" nz-button nzType="primary" [nzLoading]="submiting">
+      Lưu lại
+    </button>
+  </div>
+</form>

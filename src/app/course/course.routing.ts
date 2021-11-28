@@ -7,6 +7,7 @@ import { LessonComponent } from './course-list/lesson/lesson.component';
 import { CreateCourseComponent } from './course-list/create-course/create-course.component';
 import { EditCourseComponent } from './course-list/edit-course/edit-course.component';
 import { CertificationComponent } from './certification/certification.component';
+import { ComboComponent } from './combo/combo.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,13 @@ const routes: Routes = [
         },
       },
     ]
+  },
+  {
+    path: 'combo',
+    component: ComboComponent,
+    data: {
+      title: 'Combo khóa học'
+    },
   },
   {
     path: 'skills',
