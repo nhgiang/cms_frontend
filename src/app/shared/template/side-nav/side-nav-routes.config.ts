@@ -124,11 +124,11 @@ export const ROUTES: SideNavInterface[] = [
         title: 'Video giới thiệu',
         submenu: [],
       },
-      // {
-      //   path: 'education',
-      //   title: 'Hệ thống khóa học',
-      //   submenu: [],
-      // },
+      {
+        path: 'education',
+        title: 'Banner khóa học',
+        submenu: [],
+      },
       {
         path: 'hottest-course',
         title: 'Khóa học hot nhất',

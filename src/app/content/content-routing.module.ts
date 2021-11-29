@@ -16,69 +16,76 @@ const routes: Routes = [
     path: 'premiums',
     component: PremiumsComponent,
     data: {
-      title: 'Ưu đãi'
-    }
+      title: 'Ưu đãi',
+    },
   },
   {
     path: 'footer',
     component: FooterComponent,
     data: {
-      title: 'Footer'
-    }
+      title: 'Footer',
+    },
   },
   {
     path: 'faq',
     component: FaqComponent,
     data: {
-      title: 'Câu hỏi thường gặp'
-    }
+      title: 'Câu hỏi thường gặp',
+    },
   },
   {
     path: 'feedbacks',
     component: FeedbackComponent,
     data: {
-      title: 'Đánh giá học viên'
-    }
+      title: 'Đánh giá học viên',
+    },
   },
   {
     path: 'teacher',
     component: TeacherComponent,
     data: {
-      title: 'Giảng viên'
-    }
+      title: 'Giảng viên',
+    },
   },
   {
     path: 'video-intro',
     component: VideoIntroComponent,
     data: {
-      title: 'Video giới thiệu'
-    }
+      title: 'Video giới thiệu',
+    },
   },
   {
     path: 'hottest-course',
     component: HottestCourseComponent,
     data: {
-      title: 'Khóa học hot nhất'
-    }
+      title: 'Khóa học hot nhất',
+    },
   },
   {
     path: 'header',
     component: SettingHeaderComponent,
     data: {
-      title: 'Header'
-    }
+      title: 'Header',
+    },
   },
   {
     path: 'partner',
     component: PartnerComponent,
     data: {
-      title: 'Đối tác'
-    }
-  }
+      title: 'Đối tác',
+    },
+  },
+  {
+    path: 'education',
+    component: EducationComponent,
+    data: {
+      title: 'Banner khóa học',
+    },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ContentRoutingModule { }
+export class ContentRoutingModule {}
