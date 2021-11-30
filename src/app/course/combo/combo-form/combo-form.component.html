@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="submit()">
   <div>
     <ng-container
       formArrayName="courses"
@@ -6,36 +6,42 @@
     >
       <div [formGroupName]="index">
         <nz-form-item>
-          <nz-form-label> Khóa {{ index }}</nz-form-label>
-
-          <nz-form-control>
+          <nz-form-label
+            [nzRequired]="index !== 2"
+            [nzSpan]="6"
+            class="text-left"
+          >
+            Khóa {{ index + 1 }}</nz-form-label
+          >
+          <nz-form-control [nzErrorTip]="'Không được để trống khóa học'">
             <select-advance
               placeholder="Chọn khóa học"
               [getOptionsFn]="courses$"
               formControlName="courseId"
               [hasNullOption]="true"
+              [optionsDisabled]="optionsDisabled"
             >
             </select-advance>
           </nz-form-control>
         </nz-form-item>
       </div>
     </ng-container>
-    <nz-form-item>
+    <!-- <nz-form-item>
       <nz-form-label> Giá gốc</nz-form-label>
       <nz-form-control>
         <input type="text" nz-input formControlName="oldPrice" />
       </nz-form-control>
-    </nz-form-item>
+    </nz-form-item> -->
     <nz-form-item>
-      <nz-form-label> Giá ưu đãi</nz-form-label>
-      <nz-form-control>
+      <nz-form-label nzRequired [nzSpan]="6" class="text-left"> Giá ưu đãi</nz-form-label>
+      <nz-form-control [nzErrorTip]="'Không được để trống giá ưu đãi'">
         <input type="text" nz-input formControlName="newPrice" />
       </nz-form-control>
     </nz-form-item>
   </div>
   <div class="form-footer text-right">
     <button
-      class="ml-4"
+      class="mr-4"
       [routerLink]="['/dashboard/home']"
       type="button"
       nz-button

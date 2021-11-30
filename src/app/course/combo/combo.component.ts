@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ComboApiService } from '@shared/api/combo.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable, of } from 'rxjs';
@@ -16,19 +17,25 @@ export class ComboComponent extends DataTableContainer<any> implements OnInit {
   constructor(
     route: ActivatedRoute,
     router: Router,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private comboService: ComboApiService
   ) {
     super(route, router);
   }
 
   protected fetch(): Observable<QueryResult<any>> {
-    return of(null);
+    const params = {
+      limit: this.quantity,
+      page: this.page
+    };
+    return this.comboService.getList(params);
   }
 
   addItem() {
     this.modalService.create({
       nzContent: ComboFormComponent,
       nzTitle: 'Tạo mới combo khóa học',
+      nzFooter: null
     });
   }
 
@@ -40,6 +47,7 @@ export class ComboComponent extends DataTableContainer<any> implements OnInit {
     this.modalService.create({
       nzContent: ComboFormComponent,
       nzTitle: 'Cập nhật combo khóa học',
+      nzFooter: null
     });
   }
 }
