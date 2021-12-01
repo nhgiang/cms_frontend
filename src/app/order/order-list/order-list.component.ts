@@ -60,7 +60,8 @@ export class OrderListComponent extends DataTableContainer<Invoice> implements O
       const result = res;
       result.items = res.items.map((item: Invoice) => ({
         ...item,
-        invoicePrice: item.transactionAmount != null ? item.transactionAmount : item.totalPrice
+        invoicePrice: item.transactionAmount != null ? item.transactionAmount : item.totalPrice,
+        items: [...item.items, ...item.combos.map(t => ({ courseName: t.name }))]
       }));
       return result;
     }));
