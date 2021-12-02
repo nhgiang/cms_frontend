@@ -14,15 +14,19 @@ export class ComboApiService extends BaseApi {
     return this.httpClient.get<QueryResult<any>>(this.createUrl(''), { params: this.createParams(params) });
   }
 
+  getDetail(id) {
+    return this.httpClient.get<any>(this.createUrl(`/${id}`));
+  }
+
   addCommbo(body: any) {
     return this.httpClient.post(this.createUrl(''), body);
   }
 
   editCombo(body, id) {
-    return this.httpClient.put(this.createUrl(`${id}`), body);
+    return this.httpClient.put(this.createUrl(`/${id}`), body);
   }
 
   deleteCombo(id) {
-    return this.httpClient.delete(this.createUrl(`${id}`));
+    return this.httpClient.delete(this.createUrl(`/${id}`));
   }
 }

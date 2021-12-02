@@ -2,59 +2,77 @@
   <div class="ant-card-body">
     <div class="row">
       <div class="col-12 text-right">
-        <button nz-button
-                nzType="primary"
-                (click)="addItem()">Thêm mới</button>
+        <button nz-button nzType="primary" (click)="addItem()">Thêm mới</button>
       </div>
     </div>
-    <nz-table [nzData]="items"
-              [nzLoading]="isloading"
-              (nzQueryParams)="onParamsChanged($event)"
-              [(nzPageIndex)]="page"
-              [nzPageSize]="quantity"
-              [nzTotal]="meta?.totalItems"
-              [nzFrontPagination]="false"
-              [nzShowTotal]="totalTemplate">
+    <nz-table
+      [nzData]="items"
+      [nzLoading]="isloading"
+      (nzQueryParams)="onParamsChanged($event)"
+      [(nzPageIndex)]="page"
+      [nzPageSize]="quantity"
+      [nzTotal]="meta?.totalItems"
+      [nzFrontPagination]="false"
+      [nzShowTotal]="totalTemplate"
+    >
       <thead>
         <tr>
-          <th scope="col"
-              [nzWidth]="'150px'">STT</th>
+          <th scope="col" [nzWidth]="'150px'">STT</th>
           <th scope="col">Tên combo</th>
           <th scope="col">Khóa học</th>
           <th scope="col">Giá gốc</th>
           <th scope="col">Giá ưu đãi</th>
-          <th scope="col"
-              [nzWidth]="'120px'"></th>
+          <th scope="col" [nzWidth]="'120px'"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of items">
-          <td>#{{item?.index}}</td>
-          <td>{{item?.name}}</td>
+          <td>#{{ item?.index }}</td>
+          <td>{{ item?.name }}</td>
+          <td>
+            <div *ngFor="let course of item?.courseNames">
+              {{ course }}
+            </div>
+          </td>
+          <td>
+            {{ item?.originPrice | number }} vnđ
+          </td>
+          <td>
+            {{ item?.price | number }} vnđ
+          </td>
           <td>
             <div class="d-flex">
-              <a (click)="editItem(item?.id)"
-                 class="m-r-5"
-                 nz-button
-                 nzType="default"
-                 nzShape="circle"
-                 nz-tooltip
-                 nzTooltipTitle="Chỉnh sửa">
-                <i  aria-hidden="true"nz-icon
-                   nzType="edit"
-                   theme="outline"></i>
+              <a
+                (click)="editItem(item?.id)"
+                class="m-r-5"
+                nz-button
+                nzType="default"
+                nzShape="circle"
+                nz-tooltip
+                nzTooltipTitle="Chỉnh sửa"
+              >
+                <i aria-hidden="true" nz-icon nzType="edit" theme="outline"></i>
               </a>
-              <div (confirmed)="deleteTeacher(item?.id)"
-                   [confirmation]="'Bạn có chắc muốn xóa thông tin combo khóa học này hay không?'">
-                <a class="m-r-5"
-                   nz-button
-                   nzType="default"
-                   nzShape="circle"
-                   nz-tooltip
-                   nzTooltipTitle="Xóa">
-                  <i  aria-hidden="true"nz-icon
-                     nzType="close"
-                     nzTheme="outline"></i>
+              <div
+                (confirmed)="deleteTeacher(item?.id)"
+                [confirmation]="
+                  'Bạn có chắc muốn xóa thông tin combo khóa học này hay không?'
+                "
+              >
+                <a
+                  class="m-r-5"
+                  nz-button
+                  nzType="default"
+                  nzShape="circle"
+                  nz-tooltip
+                  nzTooltipTitle="Xóa"
+                >
+                  <i
+                    aria-hidden="true"
+                    nz-icon
+                    nzType="close"
+                    nzTheme="outline"
+                  ></i>
                 </a>
               </div>
             </div>
@@ -64,5 +82,4 @@
     </nz-table>
   </div>
 </nz-card>
-<ng-template #totalTemplate
-             let-total> Tổng cộng: {{ total }} </ng-template>
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>

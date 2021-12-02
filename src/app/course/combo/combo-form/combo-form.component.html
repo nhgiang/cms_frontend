@@ -1,7 +1,15 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <div>
+    <nz-form-item>
+      <nz-form-label nzRequired [nzSpan]="6" class="text-left">
+        Tên combo</nz-form-label
+      >
+      <nz-form-control [nzErrorTip]="'Không được để trống tên combo'">
+        <input type="text" nz-input formControlName="name" />
+      </nz-form-control>
+    </nz-form-item>
     <ng-container
-      formArrayName="courses"
+      formArrayName="courseIds"
       *ngFor="let ctrl of formArrayControls?.controls; let index = index"
     >
       <div [formGroupName]="index">
@@ -33,9 +41,16 @@
       </nz-form-control>
     </nz-form-item> -->
     <nz-form-item>
-      <nz-form-label nzRequired [nzSpan]="6" class="text-left"> Giá ưu đãi</nz-form-label>
+      <nz-form-label nzRequired [nzSpan]="6" class="text-left">
+        Giá ưu đãi</nz-form-label
+      >
       <nz-form-control [nzErrorTip]="'Không được để trống giá ưu đãi'">
-        <input type="text" nz-input formControlName="newPrice" />
+        <input-number
+          formControlName="price"
+          placeholder="Nhập giá ưu đãi"
+          class="w-100"
+        >
+        </input-number>
       </nz-form-control>
     </nz-form-item>
   </div>

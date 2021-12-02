@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ComboApiService } from '@shared/api/combo.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { Observable, of } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 import { QueryResult } from 'types/typemodel';
 import { ComboFormComponent } from './combo-form/combo-form.component';
 
@@ -32,22 +33,32 @@ export class ComboComponent extends DataTableContainer<any> implements OnInit {
   }
 
   addItem() {
-    this.modalService.create({
+    const modalRef = this.modalService.create({
       nzContent: ComboFormComponent,
       nzTitle: 'Tạo mới combo khóa học',
       nzFooter: null
     });
+    modalRef.afterClose.pipe(take(1), filter(t => t)).subscribe(() => this.refresh());
   }
 
   deleteTeacher(id) {
-
+    this.comboService.deleteCombo(id).subscribe(() => {
+      this.refresh();
+    })
   }
 
   editItem(id) {
-    this.modalService.create({
-      nzContent: ComboFormComponent,
-      nzTitle: 'Cập nhật combo khóa học',
-      nzFooter: null
+    let modalRef: NzModalRef;
+    this.comboService.getDetail(id).subscribe((detail) => {
+      modalRef = this.modalService.create({
+        nzContent: ComboFormComponent,
+        nzTitle: 'Cập nhật combo khóa học',
+        nzFooter: null,
+        nzComponentParams: {
+          data: detail
+        }
+      });
     });
+    modalRef.afterClose.pipe(take(1), filter(t => t)).subscribe(() => this.refresh());
   }
 }

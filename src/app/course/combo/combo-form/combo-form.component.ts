@@ -21,7 +21,7 @@ export class ComboFormComponent implements OnInit {
   optionsDisabled: any[];
 
   get formArrayControls() {
-    return this.form && this.form.get('courses') as FormArray;
+    return this.form && this.form.get('courseIds') as FormArray;
   }
 
   constructor(
@@ -39,8 +39,15 @@ export class ComboFormComponent implements OnInit {
         control.setValidators(Validators.required);
       }
     });
+    if (this.data) {
+      const value = {
+        ...this.data,
+        courseIds: this.data.courseIds.map(t => ({ courseId: t }))
+      };
+      this.form.patchValue(value);
+    }
     this.form.valueChanges.subscribe(value => {
-      this.optionsDisabled = value.courses.map(t => {
+      this.optionsDisabled = value.courseIds.map(t => {
         return {
           id: t.courseId
         };
@@ -50,10 +57,11 @@ export class ComboFormComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
-      courses: this.fb.array([1, 2, 3].map((val) => this.fb.group({
+      courseIds: this.fb.array([1, 2, 3].map((val) => this.fb.group({
         courseId: [null]
       }))),
-      newPrice: [null, Validators.required],
+      price: [null, Validators.required],
+      name: [null, Validators.required]
     });
   }
 
@@ -62,16 +70,22 @@ export class ComboFormComponent implements OnInit {
       // tap(res => res.items.forEach(course => this.objKey[course.id] = course)),
       // tslint:disable-next-line: max-line-length
       map(res => {
-        console.log(res);
         return res.items.map(x => ({ value: x.id, label: x.name }));
       })
     );
   }
 
   submit() {
-    console.log(this.form)
-
     Ultilities.validateForm(this.form);
+    const body = this.form.value;
+    body.courseIds.forEach((course, i) => {
+      if (course.courseId) {
+        body.courseIds[i] = course.courseId;
+      } else {
+        body.courseIds.splice(i, 1);
+      }
+    });
+    console.log(body)
     this.submiting = true;
     if (this.data) {
       this.comboService.editCombo(this.form.value, this.data.id).subscribe(() => {
