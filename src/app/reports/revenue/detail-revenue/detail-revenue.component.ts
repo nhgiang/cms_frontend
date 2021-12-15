@@ -12,7 +12,7 @@ import { Invoice, QueryResult } from 'types/typemodel';
 @Component({
   selector: 'app-detail-revenue',
   templateUrl: './detail-revenue.component.html',
-  styleUrls: ['./detail-revenue.component.scss']
+  styleUrls: ['./detail-revenue.component.scss'],
 })
 export class DetailRevenueComponent extends DataTableContainer<any> {
   form: FormGroup;
@@ -24,39 +24,39 @@ export class DetailRevenueComponent extends DataTableContainer<any> {
       name: 'Tên học viên',
       sortable: false,
       width: '250px',
-      class: 'text-truncate'
+      class: 'text-truncate',
     },
     {
       key: 'email',
       name: 'Email',
       sortable: false,
       width: '200px',
-      class: 'text-truncate'
+      class: 'text-truncate',
     },
     {
       key: 'phoneNumber',
       name: 'Điện thoại',
       sortable: false,
-      width: '150px'
+      width: '150px',
     },
     {
       key: 'type',
       name: 'Loại tài khoản',
       sortable: false,
-      width: '150px'
+      width: '150px',
     },
     {
       key: 'courseName',
       name: 'Tên khóa học',
       sortable: false,
-      width: '300px'
+      width: '300px',
     },
     {
       key: 'time',
       name: 'Thời gian',
       sortable: false,
       class: 'text-center',
-      width: '200px'
+      width: '200px',
     },
     {
       key: 'price',
@@ -69,8 +69,29 @@ export class DetailRevenueComponent extends DataTableContainer<any> {
       name: 'Phí VNPay',
       sortable: false,
       class: 'text-center',
-      width: '100px'
-    }
+      width: '100px',
+    },
+    {
+      key: 'code',
+      name: 'Mã hóa đơn',
+      sortable: false,
+      class: 'text-center',
+      width: '100px',
+    },
+    {
+      key: 'bankCode',
+      name: 'Thông tin ngân hàng',
+      sortable: false,
+      class: 'text-center',
+      width: '250px',
+    },
+    {
+      key: 'transactionCode',
+      name: 'Mã giao dịch ngân hàng',
+      sortable: false,
+      class: 'text-center',
+      width: '250px',
+    },
   ];
   constructor(
     route: ActivatedRoute,
@@ -85,37 +106,53 @@ export class DetailRevenueComponent extends DataTableContainer<any> {
   ngOnInit() {
     super.ngOnInit();
     this.buildForm();
-    this.form.patchValue({
-      ...this.params,
-      type: this.params.type,
-      startDate: this.params.startDate && new Date(this.params.startDate),
-      endDate: this.params.endDate && new Date(this.params.endDate)
-    }, { emitEvent: false });
-    this.form.valueChanges.pipe(debounceTime(300)).subscribe(val => {
+    this.form.patchValue(
+      {
+        ...this.params,
+        type: this.params.type,
+        startDate: this.params.startDate && new Date(this.params.startDate),
+        endDate: this.params.endDate && new Date(this.params.endDate),
+      },
+      { emitEvent: false }
+    );
+    this.form.valueChanges.pipe(debounceTime(300)).subscribe((val) => {
       const params = {
         ...val,
         endDate: val.endDate && val.endDate.toISOString(),
-        startDate: val.startDate && val.startDate.toISOString()
+        startDate: val.startDate && val.startDate.toISOString(),
       };
       this.onSearchParamsChanged(params);
     });
   }
 
-
   protected fetch(): Observable<QueryResult<Invoice>> {
     const params = {
       limit: this.quantity,
-      page: this.page
+      page: this.page,
     };
     const { q, endDate, startDate, type } = this.params;
-    return this.invoiceApi.getListRevenue({ ...params, q, status: 'Success', endDate, startDate, type }).pipe(map(res => {
-      const result = res;
-      result.items = res.items.map((item: Invoice) => ({
-        ...item,
-        invoicePrice: item.transactionAmount != null ? item.transactionAmount : item.totalPrice
-      }));
-      return result;
-    }));
+    return this.invoiceApi
+      .getListRevenue({
+        ...params,
+        q,
+        status: 'Success',
+        endDate,
+        startDate,
+        type,
+      })
+      .pipe(
+        map((res) => {
+          const result = res;
+          result.items = res.items.map((item: Invoice) => ({
+            ...item,
+            invoicePrice:
+              item.transactionAmount != null
+                ? item.transactionAmount
+                : item.totalPrice,
+          }));
+          return result;
+        })
+      );
   }
 
   buildForm() {
@@ -132,10 +169,13 @@ export class DetailRevenueComponent extends DataTableContainer<any> {
     const params = {
       ...val,
       endDate: val.endDate && val.endDate.toISOString(),
-      startDate: val.startDate && val.startDate.toISOString()
+      startDate: val.startDate && val.startDate.toISOString(),
     };
     this.invoiceApi.downloadExcelReport(params).subscribe(() => {
-      this.notification.success("Thành công", "Tải xuống báo cáo doanh thu chi tiết thành công!");
+      this.notification.success(
+        'Thành công',
+        'Tải xuống báo cáo doanh thu chi tiết thành công!'
+      );
     });
   }
 }
