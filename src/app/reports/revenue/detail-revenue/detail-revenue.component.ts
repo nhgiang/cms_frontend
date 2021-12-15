@@ -75,21 +75,18 @@ export class DetailRevenueComponent extends DataTableContainer<any> {
       key: 'code',
       name: 'Mã hóa đơn',
       sortable: false,
-      class: 'text-center',
       width: '100px',
     },
     {
       key: 'bankCode',
       name: 'Thông tin ngân hàng',
       sortable: false,
-      class: 'text-center',
       width: '250px',
     },
     {
       key: 'transactionCode',
       name: 'Mã giao dịch ngân hàng',
       sortable: false,
-      class: 'text-center',
       width: '250px',
     },
   ];
