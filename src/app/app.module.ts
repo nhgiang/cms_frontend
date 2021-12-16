@@ -41,11 +41,7 @@ const appInit = (
   return () => {
     const domain = location.host;
     return partnersApi
-      .getDomain(
-        domain.replace('cms.', '').includes('localhost')
-          ? 'qa.beautyup.asia'
-          : domain.replace('cms.', '')
-      )
+      .getDomain('beautyup.asia')
       .toPromise()
       .then((res) => {
         authenticationService.partnerId = res;
@@ -106,10 +102,10 @@ const ngZorroConfig: NzConfig = {
       provide: LocationStrategy,
       useClass: PathLocationStrategy,
     },
-    // {
-    //   provide: ErrorHandler,
-    //   useClass: ErrorHandlerService,
-    // },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorHandlerService,
+    },
     {
       provide: API_BASE_URL,
       useValue: environment.api,

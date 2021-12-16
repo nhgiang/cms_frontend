@@ -81,13 +81,13 @@ export class DetailRevenueComponent extends DataTableContainer<any> {
       key: 'bankCode',
       name: 'Thông tin ngân hàng',
       sortable: false,
-      width: '250px',
+      width: '200px',
     },
     {
       key: 'transactionCode',
       name: 'Mã giao dịch ngân hàng',
       sortable: false,
-      width: '250px',
+      width: '200px',
     },
   ];
   constructor(

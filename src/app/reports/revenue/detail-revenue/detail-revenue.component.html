@@ -108,14 +108,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let invoice of productsListTable.data; let i = index">
-        <td>#{{ invoice?.index }}</td>
-        <td>
+        <td>#{{ invoice.index }}</td>
+        <td nzEllipsis>
           <div class="d-flex align-items-center">
-            {{ invoice?.user.fullName || invoice?.user.email }}
+            {{ invoice.user.fullName || invoice.user.email }}
           </div>
         </td>
-        <td nzEllipsis>{{ invoice?.user.email }}</td>
-        <td nzEllipsis>{{ invoice?.user.phoneNumber }}</td>
+        <td nzEllipsis>{{ invoice.user.email }}</td>
+        <td nzEllipsis>{{ invoice.user.phoneNumber }}</td>
         <td nzEllipsis>
           <ng-container
             *ngIf="invoice.type === invoiceType.Course; else memeberShip"
@@ -130,36 +130,43 @@
           <ng-container
             *ngIf="invoice.type === invoiceType.Course; else memeberShipCourse"
           >
-            <ng-container *ngFor="let item of invoice?.items">
-              <div class="text-truncate">
-                <span [title]="item.courseName">{{ item.courseName }}</span>
-              </div>
-            </ng-container>
+            <div *ngFor="let item of invoice.items" class="text-truncate">
+              <span [title]="item.courseName">{{ item.courseName }}</span>
+            </div>
+            <div *ngFor="let item of invoice.combos" class="text-truncate">
+              <span [title]="item.name">{{ item.name }}</span>
+            </div>
           </ng-container>
           <ng-template #memeberShipCourse>
             <div>Tất cả</div>
           </ng-template>
         </td>
         <td nzEllipsis class="text-center">
-          <div>{{ invoice?.transactionTime | date: "dd/MM/YYYY HH:mm" }}</div>
+          <div>{{ invoice.transactionTime | date: "dd/MM/YYYY HH:mm" }}</div>
         </td>
         <td nzEllipsis>
           <ng-container
             *ngIf="invoice.type === invoiceType.Course; else memeberShipPrice"
           >
-            <ng-container *ngFor="let item of invoice?.items">
-              <div>{{ item.price | number }}</div>
-            </ng-container>
+            <div *ngFor="let item of invoice.items">
+              {{ item.price | number }}
+            </div>
+            <div *ngFor="let item of invoice.combos">
+              {{ item.price | number }}
+            </div>
           </ng-container>
           <ng-template #memeberShipPrice>
-            <div>{{ invoice?.totalPrice | number }}</div>
+            <div>{{ invoice.totalPrice | number }}</div>
           </ng-template>
         </td>
         <td nzEllipsis class="text-center">
           <ng-container
             *ngIf="invoice.type === invoiceType.Course; else memeberShipFee"
           >
-            <ng-container *ngFor="let item of invoice?.items">
+            <ng-container *ngFor="let item of invoice.items">
+              <div>0</div>
+            </ng-container>
+            <ng-container *ngFor="let item of invoice.combos">
               <div>0</div>
             </ng-container>
           </ng-container>
@@ -167,9 +174,9 @@
             <div>0</div>
           </ng-template>
         </td>
-        <td nzEllipsis>{{ invoice?.code }}</td>
-        <td nzEllipsis>{{ invoice?.bankCode }}</td>
-        <td nzEllipsis>{{ invoice?.transactionCode }}</td>
+        <td nzEllipsis>{{ invoice.code }}</td>
+        <td nzEllipsis>{{ invoice.bankCode }}</td>
+        <td nzEllipsis>{{ invoice.transactionCode }}</td>
       </tr>
     </tbody>
   </nz-table>
