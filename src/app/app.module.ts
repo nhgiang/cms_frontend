@@ -38,14 +38,16 @@ const appInit = (
   partnersApi: PartnersApiService,
   authenticationService: AuthenticationService
 ) => {
-  return () => {
+  return async () => {
     const domain = location.host;
-    return partnersApi
-      .getDomain('beautyup.asia')
-      .toPromise()
-      .then((res) => {
-        authenticationService.partnerId = res;
-      });
+    const res = await partnersApi
+      .getDomain(
+        domain.replace('cms.', '').includes('localhost')
+          ? 'qa.beautyup.asia'
+          : domain.replace('cms.', '')
+      )
+      .toPromise();
+    authenticationService.partnerId = res;
   };
 };
 
