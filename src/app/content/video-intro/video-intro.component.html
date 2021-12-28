@@ -35,12 +35,14 @@
           >Image poster</nz-form-label
         >
         <nz-form-control [nzErrorTip]="errFileTemp">
-          <app-file-upload-control
+          <!-- <app-file-upload-control
             formControlName="image"
             [fileType]="AssetType.Image"
             [maxSize]="5000000"
           >
-          </app-file-upload-control>
+          </app-file-upload-control> -->
+             <!-- <app-pictures-wall-upload [maxLength]="15" [maxSize]="5000000" formControlName="coverAvatar">
+                  </app-pictures-wall-upload> -->
           <div
             *ngIf="!form.get('image').value"
             class="pt-4"
