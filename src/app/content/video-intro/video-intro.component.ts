@@ -36,7 +36,7 @@ export class VideoIntroComponent extends SettingContainer<VideoIntro> implements
     Ultilities.validateForm(this.form);
     this.isLoading = true;
     forkJoin({
-      image: this.storageApi.uploadFile(this.form.value.image),
+      image: this.storageApi.uploadFiles(this.form.value.image),
       video: this.storageApi.uploadFile(this.form.value.video)
     }).pipe(switchMap(({ image, video }) => {
       this.form.get('image').setValue(image);

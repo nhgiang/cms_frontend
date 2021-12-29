@@ -31,7 +31,7 @@ export class EducationComponent extends SettingContainer<Education> implements O
 
   submit() {
     this.isLoading = true;
-    this.storageApi.uploadFile(this.form.value.coverAvatar).pipe(
+    this.storageApi.uploadFiles(this.form.value.coverAvatar).pipe(
       switchMap(url => {
         this.form.get('coverAvatar').setValue(url);
         return this.post(this.form.value);
