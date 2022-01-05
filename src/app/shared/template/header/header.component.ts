@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SettingMembershipsApiService } from '@shared/api/setting-memberships.api.service';
+import { SettingApiService } from '@shared/api/setting.api.service';
 import { ChangePasswordComponent } from '@shared/components/change-password/change-password.component';
 import { AuthenticationService } from '@shared/services/authentication.service';
 import { ThemeConstantService } from '@shared/services/theme-constant.service';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable } from 'rxjs';
 import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
 
@@ -12,18 +16,9 @@ import { ChangeAvatarComponent } from './change-avatar/change-avatar.component';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
+  isVisible = false;
   user$: Observable<any>;
   anonymous: any;
-
-  constructor(
-    private themeService: ThemeConstantService,
-    private drawerService: NzDrawerService,
-    private authService: AuthenticationService,
-    private router: Router
-  ) {
-    this.user$ = this.authService.currentUser;
-
-  }
 
   masterList = [
     {
@@ -40,7 +35,8 @@ export class HeaderComponent implements OnInit {
   quickViewVisible = false;
   isFolded: boolean;
   isExpand: boolean;
-
+  courseDays: number;
+  settingMembership: any;
   notificationList = [
     {
       title: 'You received a new message',
@@ -67,6 +63,17 @@ export class HeaderComponent implements OnInit {
       color: 'ant-avatar-' + 'gold',
     },
   ];
+
+  constructor(
+    private themeService: ThemeConstantService,
+    private drawerService: NzDrawerService,
+    private authService: AuthenticationService,
+    private router: Router,
+    private modalService: NzModalService,
+    private settingApi: SettingMembershipsApiService
+  ) {
+    this.user$ = this.authService.currentUser;
+  }
 
   ngOnInit(): void {
     this.themeService.isMenuFoldedChanges.subscribe(
@@ -124,5 +131,19 @@ export class HeaderComponent implements OnInit {
   logoutAnonymous() {
     this.authService.clearAnonymous();
     this.router.navigate(['/master/partners']);
+  }
+
+  modalSetupCourse() {
+    this.settingApi.get().subscribe(res => {
+      this.isVisible = true;
+      this.courseDays = res.courseDays;
+      this.settingMembership = res;
+    });
+  }
+
+  handleOk() {
+    this.settingApi.post({ ...this.settingMembership, courseDays: this.courseDays }).subscribe(() => {
+      this.isVisible = false;
+    });
   }
 }

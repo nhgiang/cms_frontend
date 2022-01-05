@@ -3,31 +3,58 @@
     <div class="logo logo-dark">
       <a href="">
         <img src="assets/images/logo/logo.svg" alt="Logo" />
-        <img class="logo-fold" src="assets/images/logo/logo-fold.png" alt="Logo" />
+        <img
+          class="logo-fold"
+          src="assets/images/logo/logo-fold.png"
+          alt="Logo"
+        />
       </a>
     </div>
     <div class="logo logo-white">
       <a href="">
-        <img src="assets/images/logo/logodark.svg" alt="Logo" style="width: 102px" />
+        <img
+          src="assets/images/logo/logodark.svg"
+          alt="Logo"
+          style="width: 102px"
+        />
       </a>
     </div>
     <ul class="nav-left">
       <li class="desktop-toggle">
         <a (click)="toggleFold()">
-          <i aria-hidden="true" nz-icon [nzType]="isFolded ? 'menu-unfold' : 'menu-fold'" theme="outline"></i>
+          <i
+            aria-hidden="true"
+            nz-icon
+            [nzType]="isFolded ? 'menu-unfold' : 'menu-fold'"
+            theme="outline"
+          ></i>
         </a>
       </li>
       <li class="mobile-toggle">
         <a (click)="toggleExpand()">
-          <i aria-hidden="true" nz-icon [nzType]="isExpand ? 'menu-fold' : 'menu-unfold'" theme="outline"></i>
+          <i
+            aria-hidden="true"
+            nz-icon
+            [nzType]="isExpand ? 'menu-fold' : 'menu-unfold'"
+            theme="outline"
+          ></i>
         </a>
       </li>
-      <li [class.d-none]="
+      <li
+        [class.d-none]="
           (user$ | async)?.role !== 'Admin' &&
           (user$ | async)?.role !== 'SubMaster'
-        " nz-dropdown [nzDropdownMenu]="adminPrivilege" [nzTrigger]="'click'">
-        <a nz-tooltip [nzTooltipPlacement]="'bottom'" nzTooltipTitle="Cài đặt admin"><i nz-icon
-            nzType="setting"></i></a>
+        "
+        nz-dropdown
+        [nzDropdownMenu]="adminPrivilege"
+        [nzTrigger]="'click'"
+      >
+        <a
+          nz-tooltip
+          [nzTooltipPlacement]="'bottom'"
+          nzTooltipTitle="Cài đặt admin"
+          ><i nz-icon nzType="setting"></i
+        ></a>
       </li>
       <nz-dropdown-menu #adminPrivilege="nzDropdownMenu">
         <ul nz-menu>
@@ -38,15 +65,28 @@
             Cài đặt gói membership
           </li>
           <li nz-menu-item routerLink="/user/assistance">Quản lý nhân viên</li>
+          <li nz-menu-item (click)="modalSetupCourse()">
+            Cài đặt mua khóa học lẻ
+          </li>
         </ul>
       </nz-dropdown-menu>
-      <li *ngIf="
+      <li
+        *ngIf="
           ((user$ | async)?.isMaster ||
             (user$ | async)?.role === 'SubMaster') &&
           !anonymous
-        " nz-dropdown [nzDropdownMenu]="masterPrivilege" [nzTrigger]="'click'" style="z-index: 2">
-        <a nz-tooltip [nzTooltipPlacement]="'leftBottom'" nzTooltipTitle="Quyền master"><i style="z-index: 1" nz-icon
-            nzType="apartment"></i></a>
+        "
+        nz-dropdown
+        [nzDropdownMenu]="masterPrivilege"
+        [nzTrigger]="'click'"
+        style="z-index: 2"
+      >
+        <a
+          nz-tooltip
+          [nzTooltipPlacement]="'leftBottom'"
+          nzTooltipTitle="Quyền master"
+          ><i style="z-index: 1" nz-icon nzType="apartment"></i
+        ></a>
       </li>
       <nz-dropdown-menu #masterPrivilege="nzDropdownMenu">
         <ul nz-menu>
@@ -57,23 +97,39 @@
             <ul>
               <li nz-menu-item>
                 <a [routerLink]="['master/partner-reports/learner-report']">
-                  Báo cáo tổng quan học viên</a>
+                  Báo cáo tổng quan học viên</a
+                >
               </li>
               <li nz-menu-item>
                 <a [routerLink]="['master/partner-reports/courses-report']">
-                  Báo cáo tổng quan thông tin khóa học</a>
+                  Báo cáo tổng quan thông tin khóa học</a
+                >
               </li>
               <li nz-menu-item>
-                <a [routerLink]="['master/partner-reports/partner-revenue-report']">
-                  Báo cáo doanh thu đối tác</a>
+                <a
+                  [routerLink]="[
+                    'master/partner-reports/partner-revenue-report'
+                  ]"
+                >
+                  Báo cáo doanh thu đối tác</a
+                >
               </li>
               <li nz-menu-item>
-                <a [routerLink]="['master/partner-reports/teacher-discount-report']">
-                  Báo cáo chiết khấu giảng viên</a>
+                <a
+                  [routerLink]="[
+                    'master/partner-reports/teacher-discount-report'
+                  ]"
+                >
+                  Báo cáo chiết khấu giảng viên</a
+                >
               </li>
             </ul>
           </li>
-          <li *ngIf="(user$ | async)?.isMaster" nz-menu-item [routerLink]="['master/submaster']">
+          <li
+            *ngIf="(user$ | async)?.isMaster"
+            nz-menu-item
+            [routerLink]="['master/submaster']"
+          >
             Danh sách sub-master
           </li>
           <li nz-menu-item [routerLink]="['master/partner-packages']">
@@ -85,7 +141,12 @@
   </div>
   <div *ngIf="anonymous" class="ml-5 desktop-toggle d-flex align-items-center">
     <nz-button-group>
-      <button nz-button nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomLeft">
+      <button
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="menu"
+        nzPlacement="bottomLeft"
+      >
         {{ anonymous?.name }}
       </button>
       <button nz-button nzPlacement="bottomRight">
@@ -112,8 +173,13 @@
         </div>
       </li>
       <li>
-        <span class="p-h-10 pointer" nz-dropdown [nzDropdownMenu]="profile" [nzTrigger]="'click'"
-          [nzPlacement]="'bottomRight'">
+        <span
+          class="p-h-10 pointer"
+          nz-dropdown
+          [nzDropdownMenu]="profile"
+          [nzTrigger]="'click'"
+          [nzPlacement]="'bottomRight'"
+        >
           <nz-avatar [nzIcon]="'user'" [nzSrc]="user?.avatar"></nz-avatar>
         </span>
         <nz-dropdown-menu #profile="nzDropdownMenu">
@@ -136,12 +202,27 @@
               <a (click)="changePassword()">Cập nhật mật khẩu </a>
             </li>
             <li nz-menu-item>
-              <a (click)="logout()" class="p-v-5 d-flex align-items-center justify-content-between">
+              <a
+                (click)="logout()"
+                class="p-v-5 d-flex align-items-center justify-content-between"
+              >
                 <div>
-                  <i aria-hidden="true" class="opacity-04 font-size-16" nz-icon nzType="logout" theme="outline"></i>
+                  <i
+                    aria-hidden="true"
+                    class="opacity-04 font-size-16"
+                    nz-icon
+                    nzType="logout"
+                    theme="outline"
+                  ></i>
                   <span class="m-l-10">Logout</span>
                 </div>
-                <i aria-hidden="true" class="font-size-10" nz-icon nzType="right" theme="outline"></i>
+                <i
+                  aria-hidden="true"
+                  class="font-size-10"
+                  nz-icon
+                  nzType="right"
+                  theme="outline"
+                ></i>
               </a>
             </li>
           </ul>
@@ -150,3 +231,34 @@
     </ul>
   </div>
 </div>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Cài đặt mua khóa học lẻ"
+>
+  <div *nzModalContent>
+    <nz-form-item>
+      <nz-form-label class="text-left input-space" nzRequired
+        >Thòi gian</nz-form-label
+      >
+      <nz-form-control nzErrorTip="Chọn loại khóa học">
+        <input
+          nz-input
+          [(ngModel)]="courseDays"
+          placeholder="Nhập vào thời gian"
+          type="number"
+        />
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="isVisible = false">Hủy bỏ</button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="handleOk()"
+      [nzLoading]="isConfirmLoading"
+    >
+      Lưu lại
+    </button>
+  </div>
+</nz-modal>

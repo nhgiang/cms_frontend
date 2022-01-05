@@ -19,14 +19,16 @@
             <div class="w-100 underline mb-4 pb-4">
               <h6>Hình ảnh đại diện</h6>
               <nz-form-item class="mb-0">
-                <nz-form-control>
-                  <app-image-cropper-control
+                <nz-form-control> 
+                  <!-- <app-image-cropper-control
                     formControlName="coverAvatar"
                     [showAction]="true"
                     [allowCrop]="false"
                     class="custom-avatar"
                   >
-                  </app-image-cropper-control>
+                  </app-image-cropper-control> -->
+                  <app-pictures-wall-upload [maxLength]="15" [aspectRatio]="1440/630" [maxSize]="5000000" formControlName="coverAvatar">
+                  </app-pictures-wall-upload>
                 </nz-form-control>
               </nz-form-item>
             </div>

@@ -119,14 +119,14 @@
         <nz-form-label class="text-left input-space" nzRequired
           >Mô tả</nz-form-label
         >
-        <nz-form-control nzErrorTip="Nhập mô tả khóa học">
-          <textarea
-            style="resize: no"
-            nz-input
-            rows="3"
+        <nz-form-control
+          nzErrorTip="Nhập mô tả khóa học"
+          style="width: calc(100% - 150px)"
+        >
+          <app-ck-editor
             formControlName="description"
-            placeholder="Nhập mô tả khóa học"
-          ></textarea>
+            [placeholder]="'Nhập mô tả khóa học'"
+          ></app-ck-editor>
         </nz-form-control>
       </nz-form-item>
 

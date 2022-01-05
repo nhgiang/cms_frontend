@@ -35,6 +35,7 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
   @Input() maxSize = 5_000_000;
   @Input() fileType = ['image/png', 'image/jpeg', 'image/gif', 'image/bmp'];
   @Input() uploadUrl: string;
+  @Input() aspectRatio  = 738 / 416;
   previewImage: string | undefined = '';
   previewVisible = false;
   fileList: any[];
@@ -113,7 +114,7 @@ export class PicturesWallUploadComponent extends AbstractControlDirective {
       nzComponentParams: {
         imageFile,
         imageUrl,
-        aspectRatio: 738 / 416,
+        aspectRatio: this.aspectRatio,
       }
     });
     return this.modalRef.getContentComponent().cropped.pipe(
