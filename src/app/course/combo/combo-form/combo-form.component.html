@@ -15,7 +15,7 @@
       <div [formGroupName]="index">
         <nz-form-item>
           <nz-form-label
-            [nzRequired]="index !== 2"
+            [nzRequired]="index < 2"
             [nzSpan]="6"
             class="text-left"
           >
@@ -65,7 +65,7 @@
     >
       Quay lại
     </button>
-    <button type="submit" nz-button nzType="primary" [nzLoading]="submiting">
+    <button type="submit" nz-button nzType="primary" [nzLoading]="submitting">
       Lưu lại
     </button>
   </div>
