@@ -84,14 +84,7 @@ export class ComboFormComponent implements OnInit {
   submit() {
     Ultilities.validateForm(this.form);
     const body = this.form.value;
-    body.courseIds.forEach((course, i) => {
-      if (course.courseId) {
-        body.courseIds[i] = course.courseId;
-      } else {
-        body.courseIds.splice(i, 1);
-      }
-    });
-    console.log(body);
+    body.courseIds = body.courseIds.map((x) => x.courseId).filter((x) => x);
     this.submitting = true;
     if (this.data) {
       this.comboService
