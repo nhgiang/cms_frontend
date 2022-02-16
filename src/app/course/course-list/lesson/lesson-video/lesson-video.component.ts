@@ -57,21 +57,23 @@ export class LessonVideoComponent implements OnInit, OnChanges {
         lessionId: this.lessonId,
         video,
         attachments: file,
-        duration: 0
+        duration: 0,
+        enableTrailer: this.form.value.enableTrailer
       };
       return this.unit ? this.unitApi.editUnit(this.route.snapshot.paramMap.get('unitId'), data) : this.unitApi.createUnit(data);
     }),
       finalize(() => this.isLoading = false)).subscribe(() => {
-      this.router.navigate(['/course-management/course/edit', this.courseId]);
-      this.notification.success('Thành công', `${this.unit ? 'Cập nhật' : 'Thêm mới'} video bài giảng thành công!`);
-    });
+        this.router.navigate(['/course-management/course/edit', this.courseId]);
+        this.notification.success('Thành công', `${this.unit ? 'Cập nhật' : 'Thêm mới'} video bài giảng thành công!`);
+      });
   }
 
   buildForm() {
     this.form = this.fb.group({
       title: [null, TValidators.required],
       video: [null, Validators.required],
-      attachments: [null]
+      attachments: [null],
+      enableTrailer: [false]
     });
   }
 }

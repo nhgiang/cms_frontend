@@ -41,7 +41,7 @@ const appInit = (
   return async () => {
     const domain = location.host.replace('-cms.', '.').replace('cms.', '');
     const res = await partnersApi
-      .getDomain(domain.includes('localhost') ? 'beautyup.asia' : domain)
+      .getDomain(domain.includes('localhost') ? 'qa.beautyup.asia' : domain)
       .toPromise();
     authenticationService.partnerId = res;
   };
