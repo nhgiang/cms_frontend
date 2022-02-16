@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { LessonApiService } from '@shared/api/lesson.api.service';
+import { UnitsApiService } from '@shared/api/units.api.service';
 import { TValidators } from '@shared/extentions/validators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { switchMap } from 'rxjs/operators';
@@ -19,7 +20,8 @@ export class LearningPathComponent implements OnInit, OnChanges {
   lessons: Lesson[] = [];
   constructor(
     private lessonApi: LessonApiService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private unitApi: UnitsApiService
   ) { }
 
 
@@ -77,6 +79,12 @@ export class LearningPathComponent implements OnInit, OnChanges {
           order: i + 1
         };
       });
+    });
+  }
+
+  toggleTrailer(lesson) {
+    this.lessonApi.editLesson(lesson.id, {...lesson, enableTrailer: !lesson?.enableTrailer}).subscribe(() => {
+      this.notification.success('Thành công', 'Cập nhật thông tin chương học thành công');
     });
   }
 }
