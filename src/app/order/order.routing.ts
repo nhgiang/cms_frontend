@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrderCreateComponent } from './order-create/order-create.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { OrderListComponent } from './order-list/order-list.component';
+import { VoucherComponent } from './voucher/voucher.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,13 @@ const routes: Routes = [
         },
       },
     ],
+  },
+  {
+    path: 'voucher',
+    component: VoucherComponent,
+    data: {
+      title: 'Danh sách mã giảm giá',
+    },
   },
 ];
 

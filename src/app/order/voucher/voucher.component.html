@@ -1,0 +1,62 @@
+<nz-card>
+  <div class="text-right">
+    <button nz-button nzType="primary" class="m-r-5" (click)="addVoucher()">Tạo mới</button>
+  </div>
+  <nz-table
+    [nzShowTotal]="totalTemplate"
+    [nzNoResult]="empty"
+    #productsListTable
+    [nzFrontPagination]="false"
+    [nzData]="items"
+    [nzTotal]="meta?.totalItems"
+    (nzQueryParams)="onParamsChanged($event)"
+    [nzPageSize]="quantity"
+    [nzLoading]="isloading"
+    [(nzPageIndex)]="page"
+  >
+    <thead>
+      <tr>
+        <th nzLeft [nzWidth]="'70px'" scope="col">ID</th>
+        <th nzLeft scope="col" [nzWidth]="'200px'">Mã giảm giá</th>
+        <th scope="col">Giá trị</th>
+        <th scope="col">Loại mã</th>
+        <th scope="col">Ngày tạo</th>
+        <th scope="col">Ngày kết thúc</th>
+        <th scope="col" [nzWidth]="'150px'"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items; let i = index">
+        <td>#{{ item?.index }}</td>
+        <td>
+          {{ item?.name }}
+        </td>
+        <td>{{ item?.value }} {{ item?.symbol }}</td>
+        <td>{{ item?.type }}</td>
+        <td>{{ item?.created | datetime: true }}</td>
+        <td>
+          {{item.endAt}}
+        </td>
+        <td class="text-md-right">
+          <div class="d-flex justify-content-end">
+            <a
+              [routerLink]="['/order-management/order', invoice?.id]"
+              class="m-r-5"
+              nz-button
+              nzType="default"
+              nzShape="circle"
+              nz-tooltip
+              nzTooltipTitle="Xem chi tiết"
+            >
+              <i aria-hidden="true" nz-icon nzType="eye" theme="outline"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #empty>
+  <nz-empty [nzNotFoundContent]="'Không có dữ liệu'"></nz-empty>
+</ng-template>
+<ng-template #totalTemplate let-total> Tổng cộng: {{ total }} </ng-template>
