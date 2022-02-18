@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { VoucherApiService } from '@shared/api/voucher.api.service';
 import { DataTableContainer } from '@shared/class/data-table-container';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable, of } from 'rxjs';
@@ -17,16 +18,21 @@ export class VoucherComponent extends DataTableContainer<any> implements OnInit 
   constructor(
     route: ActivatedRoute,
     router: Router,
-    private modalService: NzModalService
+    private modalService: NzModalService,
+    private voucherApiService: VoucherApiService
   ) {
     super(route, router);
   }
 
-  ngOnInit(): void {
-  }
-
   protected fetch(): Observable<QueryResult<any>> {
-    return of(null);
+    const params = {
+      limit: this.quantity,
+      page: this.page,
+      order: this.order,
+      sort: this.sort
+    };
+    const { q, isActive, endAt, startAt } = this.params;
+    return this.voucherApiService.getList({ ...params, isActive, q, endAt, startAt });
   }
 
   addVoucher() {

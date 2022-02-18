@@ -1,11 +1,19 @@
-<form [formGroup]="form" nz-form>
+<form [formGroup]="form" nz-form (ngSubmit)="submit()">
   <nz-form-item>
     <nz-form-label class="text-left" nzRequired [nzSpan]="6"
       >Mã giảm giá</nz-form-label
     >
-    <nz-form-control [nzErrorTip]="'Vui lòng nhập mã giảm giá'">
+    <nz-form-control [nzErrorTip]="errorName">
       <input nz-input formControlName="name" placeholder="Nhập mã giảm giá" />
     </nz-form-control>
+    <ng-template #errorName>
+      <ng-container *ngIf="form.get('name').hasError('required')">
+        Vui lòng nhập mã giảm giá
+      </ng-container>
+      <ng-container *ngIf="form.get('email').hasError('voucherCode')">
+        Mã giảm giá không hợp lệ
+      </ng-container>
+    </ng-template>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label class="text-left" [nzSpan]="6">Mã đặc biệt</nz-form-label>
@@ -39,7 +47,7 @@
         formControlName="value"
         placeholder="Nhập giá trị"
       />
-      <nz-select formControlName="symbol" style="width: 70px">
+      <nz-select formControlName="sufixValue" style="width: 70px">
         <nz-option [nzLabel]="'%'" [nzValue]="'%'"></nz-option>
         <nz-option [nzLabel]="'VNĐ'" [nzValue]="'VND'"></nz-option>
       </nz-select>
@@ -53,7 +61,7 @@
       <nz-date-picker
         nzFormat="dd/MM/yyyy HH:mm"
         class="w-100"
-        formControlName="created"
+        formControlName="startAt"
         [nzShowTime]="{ nzFormat: 'HH:mm' }"
         [nzPlaceHolder]="'Chọn thời gian bắt đầu'"
       ></nz-date-picker>

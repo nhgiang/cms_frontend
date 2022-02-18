@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { StudentApiService } from '@shared/api/student.api.service';
+import { VoucherApiService } from '@shared/api/voucher.api.service';
+import { Ultilities } from '@shared/extentions/ultilities';
+import { TValidators } from '@shared/extentions/validators';
 import { map } from 'rxjs/operators';
 export enum VoucherTarget {
   GENERAL = 'GENERAL',
@@ -16,7 +19,8 @@ export class VoucherFormComponent implements OnInit {
   VoucherTarget = VoucherTarget;
   constructor(
     private fb: FormBuilder,
-    private studentApi: StudentApiService
+    private studentApi: StudentApiService,
+    private voucherApiService: VoucherApiService
   ) { }
 
   ngOnInit(): void {
@@ -38,18 +42,39 @@ export class VoucherFormComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
-      name: [, Validators.required],
+      name: [null, [TValidators.required, TValidators.voucherCode]],
       code: [],
-      numberCharacter: [],
-      symbol: [, Validators.required],
-      target: [, Validators.required],
-      value: [, Validators.required],
-      created: [, Validators.required],
-      endAt: [, Validators.required],
+      numberCharacter: [6],
+      sufixValue: [null, Validators.required],
+      target: [null, Validators.required],
+      value: [null, Validators.required],
+      startAt: [null, Validators.required],
+      endAt: [null, Validators.required],
     });
   }
 
   generateCode() {
-    
+    const prefix = this.form.value.name;
+    let result;
+    if (!prefix) {
+      result = Math.random().toString(36).substring(2, 2 + +this.form.value.numberCharacter).toUpperCase();
+    } else {
+      result = prefix;
+      const chars = '0123456789';
+      for (let i = 0; i < +this.form.value.numberCharacter; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+    }
+    this.form.get('name').patchValue(result);
+  }
+
+  submit() {
+    Ultilities.validateForm(this.form);
+    const formValue = this.form.value;
+    const body = {
+      ...this.form.value
+    };
+
+    this.voucherApiService.create(body);
   }
 }
