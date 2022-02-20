@@ -4,14 +4,17 @@
       >Mã giảm giá</nz-form-label
     >
     <nz-form-control [nzErrorTip]="errorName">
-      <input nz-input formControlName="name" placeholder="Nhập mã giảm giá" />
+      <input nz-input formControlName="name" placeholder="Nhập mã giảm giá"  />
     </nz-form-control>
     <ng-template #errorName>
       <ng-container *ngIf="form.get('name').hasError('required')">
         Vui lòng nhập mã giảm giá
       </ng-container>
-      <ng-container *ngIf="form.get('email').hasError('voucherCode')">
+      <ng-container *ngIf="form.get('name').hasError('voucherCode')">
         Mã giảm giá không hợp lệ
+      </ng-container>
+      <ng-container *ngIf="form.get('name').hasError('already')">
+        Mã giảm giá đẫ tồn tại
       </ng-container>
     </ng-template>
   </nz-form-item>
@@ -24,7 +27,13 @@
   <nz-form-item *ngIf="form.value.code">
     <nz-form-label class="text-left" [nzSpan]="6">Số ký tự</nz-form-label>
     <nz-form-control>
-      <input nz-input formControlName="numberCharacter" />
+      <input
+        nz-input
+        formControlName="numberCharacter"
+        type="number"
+        min="6"
+        max="10"
+      />
     </nz-form-control>
     <button
       nz-button
@@ -40,16 +49,15 @@
       >Giá trị</nz-form-label
     >
     <nz-input-group nzCompact style="width: 75%">
-      <input
-        style="width: calc(100% - 70px)"
-        type="text"
-        nz-input
+      <input-number
+        style="width: calc(100% - 80px)"
         formControlName="value"
         placeholder="Nhập giá trị"
-      />
-      <nz-select formControlName="sufixValue" style="width: 70px">
-        <nz-option [nzLabel]="'%'" [nzValue]="'%'"></nz-option>
-        <nz-option [nzLabel]="'VNĐ'" [nzValue]="'VND'"></nz-option>
+      >
+      </input-number>
+      <nz-select formControlName="suffixValue" style="width: 80px">
+        <nz-option [nzLabel]="'%'" [nzValue]="'PERCENTAGE'"></nz-option>
+        <nz-option [nzLabel]="'VNĐ'" [nzValue]="'CURRENCY'"></nz-option>
       </nz-select>
     </nz-input-group>
   </nz-form-item>
@@ -59,10 +67,9 @@
     >
     <nz-form-control [nzErrorTip]="'Vui lòng chọn ngày bắt đầu'">
       <nz-date-picker
-        nzFormat="dd/MM/yyyy HH:mm"
+        nzFormat="dd/MM/yyyy"
         class="w-100"
         formControlName="startAt"
-        [nzShowTime]="{ nzFormat: 'HH:mm' }"
         [nzPlaceHolder]="'Chọn thời gian bắt đầu'"
       ></nz-date-picker>
     </nz-form-control>
@@ -73,10 +80,9 @@
     >
     <nz-form-control [nzErrorTip]="'Vui lòng chọn ngày kết thúc'">
       <nz-date-picker
-        nzFormat="dd/MM/yyyy HH:mm"
+        nzFormat="dd/MM/yyyy"
         class="w-100"
         formControlName="endAt"
-        [nzShowTime]="{ nzFormat: 'HH:mm' }"
         [nzPlaceHolder]="'Chọn thời gian kết thúc'"
       ></nz-date-picker>
     </nz-form-control>
@@ -103,6 +109,7 @@
           nz-input
           placeholder="Nhập số lượng"
           formControlName="quanlity"
+          [disabled]="!!data"
         />
       </nz-form-control>
     </nz-form-item>
@@ -115,14 +122,15 @@
           class="select-advance"
           placeholder="Chọn đối tượng"
           [getOptionsFn]="users$"
-          formControlName="userIds"
+          formControlName="users"
+          [disabled]="!!data"
         >
         </app-multiple-selection>
       </nz-form-control>
     </nz-form-item>
   </ng-container>
   <div *nzModalFooter>
-    <button nz-button nzType="primary" type="button">Hủy bỏ</button>
+    <button nz-button nzGhost nzType="primary" type="button">Hủy bỏ</button>
     <button
       nz-button
       nzType="primary"

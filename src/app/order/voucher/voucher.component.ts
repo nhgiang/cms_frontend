@@ -5,16 +5,19 @@ import { DataTableContainer } from '@shared/class/data-table-container';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable, of } from 'rxjs';
 import { QueryResult } from 'types/typemodel';
-import { VoucherFormComponent } from './voucher-form/voucher-form.component';
-
+import { VoucherFormComponent, VoucherTarget } from './voucher-form/voucher-form.component';
+export enum SuffixValue {
+  PERCENTAGE = 'PERCENTAGE',
+  CURRENCY = 'CURRENCY'
+}
 @Component({
   selector: 'app-voucher',
   templateUrl: './voucher.component.html',
   styleUrls: ['./voucher.component.scss']
 })
 export class VoucherComponent extends DataTableContainer<any> implements OnInit {
-
-
+  VoucherTarget = VoucherTarget;
+  SuffixValue = SuffixValue;
   constructor(
     route: ActivatedRoute,
     router: Router,
@@ -36,9 +39,26 @@ export class VoucherComponent extends DataTableContainer<any> implements OnInit 
   }
 
   addVoucher() {
-    this.modalService.create({
+    const modalRef = this.modalService.create({
       nzContent: VoucherFormComponent,
       nzTitle: 'Thêm mới mã giảm giá',
+    });
+    modalRef.componentInstance.refresh.subscribe(() => {
+      this.refresh();
+    });
+  }
+
+  toggleStatus(value, id) {
+    this.voucherApiService.update(id, { isActive: value }).subscribe(() => {
+      this.refresh();
+    });
+  }
+
+  viewDetail(id) {
+    const modalRef = this.modalService.create({
+      nzContent: VoucherFormComponent,
+      nzTitle: 'Thêm mới mã giảm giá',
+      nzComponentParams: { id }
     });
   }
 }

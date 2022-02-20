@@ -24,4 +24,12 @@ export class VoucherApiService extends BaseApi {
   create(body) {
     return this.httpClient.post(this.createUrl(''), body);
   }
+
+  update(id: string, body: any) {
+    return this.httpClient.patch(this.createUrl(`/${id}`), body);
+  }
+
+  getById(id: string) {
+    return this.httpClient.get(this.createUrl(`/${id}`));
+  }
 }
