@@ -10,6 +10,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { finalize } from 'rxjs/operators';
 import { InvoiceStatus, InvoiceStatusOptions, InvoiceType, PaymentMethod } from 'types/enums';
 import { Invoice } from 'types/typemodel';
+import { SuffixValue } from '../voucher/voucher.component';
 
 @Component({
   selector: 'app-order-detail',
@@ -25,6 +26,7 @@ export class OrderDetailComponent implements OnInit {
   invoiceType = InvoiceType;
   isLoading: boolean;
   paymentMethod = PaymentMethod;
+  SuffixValue = SuffixValue;
 
   constructor(
     private fb: FormBuilder,
@@ -39,6 +41,7 @@ export class OrderDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.invoiceApi.getById(id).subscribe(order => {
       this.order = order;
+
       this.form.patchValue({
         code: order.code,
         bankCode: order.bankCode || order.bankCodePicked,

@@ -36,6 +36,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { CkEditorComponent } from './components/ck-editor/ck-editor.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { MaxNumberDirective } from './directives/max-number.directive';
 
 @NgModule({
   exports: [
@@ -72,7 +73,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     SafeUrlPipe,
     TruncatePipe,
     ChangePasswordComponent,
-    CkEditorComponent
+    CkEditorComponent,
+    MaxNumberDirective
   ],
   imports: [
     RouterModule,
@@ -111,7 +113,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     TruncatePipe,
     NameTeacherPipe,
     ChangePasswordComponent,
-    CkEditorComponent
+    CkEditorComponent,
+    MaxNumberDirective
   ],
   providers: [ThemeConstantService],
 })

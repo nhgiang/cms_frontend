@@ -183,6 +183,8 @@ export interface Invoice extends Entity {
   invoicePrice: number;
   paymentMethod?: PaymentMethod;
   combos: any[];
+  voucherId: string;
+  voucher: any;
 }
 
 export interface InvoiceItem {

@@ -3,17 +3,23 @@
     <div class="row align-items-center">
       <div class="col-xl-7 col-md-6 d-flex justify-content-between">
         <div class="d-md-flex align-items-center">
-          <div class="text-center text-sm-left ">
-            <nz-avatar class="shadow-sm m-v-15"
-                       nzIcon="user"
-                       [nzSize]="111"
-                       [nzSrc]="order?.user.avatar"></nz-avatar>
+          <div class="text-center text-sm-left">
+            <nz-avatar
+              class="shadow-sm m-v-15"
+              nzIcon="user"
+              [nzSize]="111"
+              [nzSrc]="order?.user.avatar"
+            ></nz-avatar>
           </div>
           <div class="text-center text-sm-left m-v-15 p-l-30">
-            <h4 class="m-b-0">{{order?.user.fullName}}</h4>
+            <h4 class="m-b-0">{{ order?.user.fullName }}</h4>
             <p class="text-opacity font-size-13">
-              <nz-badge [nzColor]="order?.user.status | option:StudentStatusOptions:'color'"
-                        [nzText]="order?.user.status | option:StudentStatusOptions"></nz-badge>
+              <nz-badge
+                [nzColor]="
+                  order?.user.status | option: StudentStatusOptions:'color'
+                "
+                [nzText]="order?.user.status | option: StudentStatusOptions"
+              ></nz-badge>
             </p>
             <p class="text-dark m-b-10">100 point</p>
           </div>
@@ -26,58 +32,78 @@
             <ul class="list-unstyled m-t-10 list-info">
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i aria-hidden="true"
-                     class="m-r-10 text-primary"
-                     nz-icon
-                     nzType="mail"
-                     theme="outline"></i>
+                  <i
+                    aria-hidden="true"
+                    class="m-r-10 text-primary"
+                    nz-icon
+                    nzType="mail"
+                    theme="outline"
+                  ></i>
                   <span>Email: </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold"> {{ order?.user.email }}</p>
+                <p class="col-md-8 font-weight-semibold">
+                  {{ order?.user.email }}
+                </p>
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i aria-hidden="true"
-                     class="m-r-10 text-primary"
-                     nz-icon
-                     nzType="phone"
-                     theme="outline"></i>
+                  <i
+                    aria-hidden="true"
+                    class="m-r-10 text-primary"
+                    nz-icon
+                    nzType="phone"
+                    theme="outline"
+                  ></i>
                   <span>Số điện thoại: </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold">{{ order?.user.phoneNumber }}</p>
+                <p class="col-md-8 font-weight-semibold">
+                  {{ order?.user.phoneNumber }}
+                </p>
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i aria-hidden="true"
-                     class="m-r-10 text-primary"
-                     nz-icon
-                     nzType="man"
-                     theme="outline"></i>
+                  <i
+                    aria-hidden="true"
+                    class="m-r-10 text-primary"
+                    nz-icon
+                    nzType="man"
+                    theme="outline"
+                  ></i>
                   <span>Giới tính: </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold"> {{ order?.user.gender }}</p>
+                <p class="col-md-8 font-weight-semibold">
+                  {{ order?.user.gender }}
+                </p>
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i aria-hidden="true"
-                     class="m-r-10 text-primary"
-                     nz-icon
-                     nzType="calendar"
-                     theme="outline"></i>
+                  <i
+                    aria-hidden="true"
+                    class="m-r-10 text-primary"
+                    nz-icon
+                    nzType="calendar"
+                    theme="outline"
+                  ></i>
                   <span>Ngày sinh: </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold">{{ order?.user.dateOfBirth | datetime }}</p>
+                <p class="col-md-8 font-weight-semibold">
+                  {{ order?.user.dateOfBirth | datetime }}
+                </p>
               </li>
               <li class="row">
                 <p class="col-md-4 font-weight-semibold text-dark m-b-5">
-                  <i aria-hidden="true"
-                     class="m-r-10 text-primary"
-                     nz-icon
-                     nzType="compass"
-                     theme="outline"></i>
+                  <i
+                    aria-hidden="true"
+                    class="m-r-10 text-primary"
+                    nz-icon
+                    nzType="compass"
+                    theme="outline"
+                  ></i>
                   <span>Địa chỉ : </span>
                 </p>
-                <p class="col-md-8 font-weight-semibold"> {{ order?.user.address }}</p>
+                <p class="col-md-8 font-weight-semibold">
+                  {{ order?.user.address }}
+                </p>
               </li>
             </ul>
           </div>
@@ -89,57 +115,76 @@
     <div class="col-6">
       <nz-card>
         <nz-spin [nzSpinning]="isLoading">
-          <form [formGroup]="form"
-                nzLayout="vertical"
-                class="ant-form-vertical">
+          <form
+            [formGroup]="form"
+            nzLayout="vertical"
+            class="ant-form-vertical"
+          >
             <h5>Thông tin hóa đơn</h5>
             <nz-form-item>
               <nz-form-label class="text-left">Mã hoá đơn</nz-form-label>
               <nz-form-control>
-                <input type="text"
-                       nz-input
-                       formControlName="code">
+                <input type="text" nz-input formControlName="code" />
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label class="text-left">Thông tin ngân hàng</nz-form-label>
-              <nz-form-control [nzErrorTip]="'Vui lòng chọn thông tin ngân hàng'">
-                <input type="text"
-                       nz-input
-                       formControlName="bankCode"
-                       placeHolder="Nhập thông tin ngân hàng">
+              <nz-form-label class="text-left"
+                >Thông tin ngân hàng</nz-form-label
+              >
+              <nz-form-control
+                [nzErrorTip]="'Vui lòng chọn thông tin ngân hàng'"
+              >
+                <input
+                  type="text"
+                  nz-input
+                  formControlName="bankCode"
+                  placeHolder="Nhập thông tin ngân hàng"
+                />
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label class="text-left">Mã giao dịch ngân hàng</nz-form-label>
-              <nz-form-control [nzErrorTip]="'Vui lòng nhập mã giao dịch ngân hàng'">
-                <input type="text"
-                       nz-input
-                       placeholder="Nhập mã giao dịch ngân hàng"
-                       formControlName="transactionCode">
+              <nz-form-label class="text-left"
+                >Mã giao dịch ngân hàng</nz-form-label
+              >
+              <nz-form-control
+                [nzErrorTip]="'Vui lòng nhập mã giao dịch ngân hàng'"
+              >
+                <input
+                  type="text"
+                  nz-input
+                  placeholder="Nhập mã giao dịch ngân hàng"
+                  formControlName="transactionCode"
+                />
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label class="text-left">Thời điểm giao dịch</nz-form-label>
-              <nz-form-control [nzErrorTip]="'Vui lòng chọn thời điểm giao dịch'">
-                <nz-date-picker [nzShowTime]="{ nzFormat: 'HH:mm' }"
-                                nzFormat="dd/MM/yyyy HH:mm"
-                                formControlName="transactionTime"
-                                nzPlaceHolder="Chọn thời điểm giao dịch. Định dạng: dd/MM/yyyy HH:mm"
-                                class="w-100">
+              <nz-form-label class="text-left"
+                >Thời điểm giao dịch</nz-form-label
+              >
+              <nz-form-control
+                [nzErrorTip]="'Vui lòng chọn thời điểm giao dịch'"
+              >
+                <nz-date-picker
+                  [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                  nzFormat="dd/MM/yyyy HH:mm"
+                  formControlName="transactionTime"
+                  nzPlaceHolder="Chọn thời điểm giao dịch. Định dạng: dd/MM/yyyy HH:mm"
+                  class="w-100"
+                >
                 </nz-date-picker>
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
               <nz-form-label class="text-left">Số tiền giao dịch</nz-form-label>
               <nz-form-control [nzErrorTip]="errorAmountTpl">
-                <input-number formControlName="transactionAmount"
-                              placeholder="Nhập số tiền giao dịch"
-                              class="w-100">
+                <input-number
+                  formControlName="transactionAmount"
+                  placeholder="Nhập số tiền giao dịch"
+                  class="w-100"
+                >
                 </input-number>
               </nz-form-control>
-              <ng-template #errorAmountTpl
-                           let-control>
+              <ng-template #errorAmountTpl let-control>
                 <ng-container *ngIf="control.hasError('required')">
                   Vui lòng nhập số tiền
                 </ng-container>
@@ -152,25 +197,33 @@
               </ng-template>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label class="text-left">Trạng thái đơn hàng</nz-form-label>
+              <nz-form-label class="text-left"
+                >Trạng thái đơn hàng</nz-form-label
+              >
               <nz-form-control>
-                <nz-select style="min-width: 220px;"
-                           class="w-100"
-                           nzPlaceHolder="Chọn trạng thái"
-                           formControlName="status">
-                  <nz-option [nzLabel]="item.label"
-                             [nzValue]="item.value"
-                             *ngFor="let item of invoiceStatusOptions"></nz-option>
+                <nz-select
+                  style="min-width: 220px"
+                  class="w-100"
+                  nzPlaceHolder="Chọn trạng thái"
+                  formControlName="status"
+                >
+                  <nz-option
+                    [nzLabel]="item.label"
+                    [nzValue]="item.value"
+                    *ngFor="let item of invoiceStatusOptions"
+                  ></nz-option>
                 </nz-select>
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
               <nz-form-label class="text-left">Ghi chú</nz-form-label>
               <nz-form-control>
-                <textarea nz-input
-                          formControlName="note"
-                          placeholder="Nhập ghi chú"
-                          rows="3">
+                <textarea
+                  nz-input
+                  formControlName="note"
+                  placeholder="Nhập ghi chú"
+                  rows="3"
+                >
                 </textarea>
               </nz-form-control>
             </nz-form-item>
@@ -181,42 +234,53 @@
     <div class="col-6">
       <nz-card>
         <h5>Thông tin sản phẩm</h5>
-        <nz-table #itemsTable
-                  [nzData]="[1]"
-                  [nzShowPagination]="false">
+        <nz-table #itemsTable [nzData]="[1]" [nzShowPagination]="false">
           <thead>
             <tr>
               <th scope="col">STT</th>
               <th scope="col">Tên sản phẩm</th>
-              <th scope="col">Giá gốc</th>
-              <th scope="col">Giá mua</th>
+              <th scope="col">Giá tiền</th>
               <th scope="col">Thời hạn</th>
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngIf="order?.type === invoiceType.Course;else memberShip">
-              <tr *ngFor="let item of order?.items;let index = index">
-                <td>#{{index+1}}</td>
-                <td>{{item?.courseName}}</td>
-                <td class="text-nowrap">{{item?.price|number}} đ</td>
-                <td>{{item?.price|number}} đ</td>
-                <td>{{item?.days}} ngày</td>
+            <ng-container
+              *ngIf="order?.type === invoiceType.Course; else memberShip"
+            >
+              <tr *ngFor="let item of order?.items; let index = index">
+                <td>#{{ index + 1 }}</td>
+                <td>{{ item?.courseName }}</td>
+                <td class="text-nowrap">{{ item?.price | number }} đ</td>
+                <td>{{ item?.days }} ngày</td>
               </tr>
             </ng-container>
             <ng-template #memberShip>
               <tr>
                 <td>#1</td>
                 <td>Gói Membership</td>
-                <td class="text-nowrap">{{order?.totalPrice | number}} đ</td>
-                <td>{{order?.totalPrice | number}} đ</td>
-                <td>{{order?.days}} ngày</td>
+                <td class="text-nowrap">{{ order?.totalPrice | number }} đ</td>
+                <td>{{ order?.days }} ngày</td>
               </tr>
             </ng-template>
-            <tr>
+            <tr *ngIf="order?.voucher">
+              <td>Giảm giá</td>
+              <td class="text-nowrap">{{ order.voucher.name }}</td>
+              <td>
+                -{{ order?.voucher.value | number }}
+                {{
+                  order?.voucher.suffixValue === SuffixValue.CURRENCY
+                    ? "đ"
+                    : "%"
+                }}
+              </td>
               <td></td>
+            </tr>
+            <tr>
               <td class="text-primary text-semibold">Tổng tiền</td>
               <td></td>
-              <td class="text-primary text-semibold text-nowrap">{{ order?.totalPrice | number }} đ</td>
+              <td class="text-primary text-semibold text-nowrap">
+                {{ order?.totalPrice | number }} đ
+              </td>
               <td></td>
             </tr>
           </tbody>
@@ -230,26 +294,42 @@
             <div class="t-cell">Hình thức thanh toán</div>
           </div>
           <div class="t-row">
-            <div class="t-cell">{{order?.created | datetime: true}}</div>
-            <div class="t-cell"
-                 *ngIf="order?.paymentMethod === paymentMethod.Bank">{{order?.bankCodePicked}}</div>
-            <div class="t-cell"
-                 *ngIf="order?.paymentMethod === paymentMethod.VNPay">VNPay</div>
+            <div class="t-cell">{{ order?.created | datetime: true }}</div>
+            <div
+              class="t-cell"
+              *ngIf="order?.paymentMethod === paymentMethod.Bank"
+            >
+              {{ order?.bankCodePicked }}
+            </div>
+            <div
+              class="t-cell"
+              *ngIf="order?.paymentMethod === paymentMethod.VNPay"
+            >
+              VNPay
+            </div>
           </div>
         </div>
       </nz-card>
     </div>
   </div>
   <div class="text-right">
-    <button nz-button
-            type="button"
-            [routerLink]="['../']"
-            nzType="primary"
-            nzGhost>Quay lại</button>
-    <button nz-button
-            nzType="primary"
-            type="button"
-            class="ml-3"
-            (click)="submit()">Xác nhận</button>
+    <button
+      nz-button
+      type="button"
+      [routerLink]="['../']"
+      nzType="primary"
+      nzGhost
+    >
+      Quay lại
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      type="button"
+      class="ml-3"
+      (click)="submit()"
+    >
+      Xác nhận
+    </button>
   </div>
 </nz-spin>

@@ -1,4 +1,4 @@
-<nz-select [nzMaxTagCount]="4" [nzMaxTagPlaceholder]="tagPlaceHolder" nzMode="multiple" [nzPlaceHolder]="placeholder"
+<nz-select [nzMaxTagCount]="nzMaxTagCount" [nzMaxTagPlaceholder]="tagPlaceHolder" nzMode="multiple" [nzPlaceHolder]="placeholder"
   [nzServerSearch]="true" (nzOnSearch)="search$.next($event)" [(ngModel)]="controlValue"
   (nzScrollToBottom)="loadMore$.next()" (ngModelChange)="onChangeFn($event)" [nzLoading]="isLoading"
   [nzDisabled]="disabled" [nzMaxMultipleCount]="maxMultipleCount" nzShowSearch [nzAllowClear]="nzAllowClear">

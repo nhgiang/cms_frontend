@@ -17,8 +17,8 @@ import { SelectAdvanceComponent } from '../select-advance/select-advance.compone
   ],
 })
 export class MultipleSelectionComponent extends SelectAdvanceComponent implements OnInit {
-  @Input() maxMultipleCount: number;
-
+  @Input() maxMultipleCount = Infinity;
+  @Input() nzMaxTagCount = 4;
   ngOnInit() {
     super.ngOnInit();
   }

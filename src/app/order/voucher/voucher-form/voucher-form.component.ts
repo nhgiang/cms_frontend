@@ -6,6 +6,7 @@ import { Ultilities } from '@shared/extentions/ultilities';
 import { TValidators } from '@shared/extentions/validators';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { distinctUntilChanged, map } from 'rxjs/operators';
+import { SuffixValue } from '../voucher.component';
 export enum VoucherTarget {
   GENERAL = 'GENERAL',
   PERSONAL = 'PERSONAL'
@@ -21,6 +22,8 @@ export class VoucherFormComponent implements OnInit {
   @Input() id: string;
   @Output() refresh = new EventEmitter();
   data;
+  minDate = new Date();
+
   constructor(
     private fb: FormBuilder,
     private studentApi: StudentApiService,
@@ -62,7 +65,7 @@ export class VoucherFormComponent implements OnInit {
       name: [null, [TValidators.required, TValidators.voucherCode]],
       code: [],
       numberCharacter: [6],
-      suffixValue: [null, Validators.required],
+      suffixValue: [SuffixValue.CURRENCY, Validators.required],
       target: [null, Validators.required],
       value: [null, Validators.required],
       startAt: [null, Validators.required],
