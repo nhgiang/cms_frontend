@@ -1,4 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
+import { VoucherComponent } from '../order/voucher/voucher.component';
 import { SettingMembershipsComponent } from './setting-memberships/setting.memberships.component';
 
 const routes: Routes = [
@@ -12,6 +13,13 @@ const routes: Routes = [
     component: SettingMembershipsComponent,
     data: {
       title: 'Cài đặt gói Membership',
+    },
+  },
+  {
+    path: 'voucher',
+    component: VoucherComponent,
+    data: {
+      title: 'Cài đặt khuyến mãi',
     },
   }
 ];

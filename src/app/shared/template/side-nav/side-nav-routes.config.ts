@@ -104,11 +104,6 @@ export const ROUTES: SideNavInterface[] = [
         path: 'order',
         title: 'Danh sách đơn hàng',
         submenu: [],
-      },
-      {
-        path: 'voucher',
-        title: 'Danh sách mã giảm giá',
-        submenu: [],
       }
     ],
   },

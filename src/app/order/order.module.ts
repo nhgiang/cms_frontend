@@ -11,7 +11,7 @@ import { VoucherFormComponent } from './voucher/voucher-form/voucher-form.compon
 
 
 @NgModule({
-  declarations: [OrderListComponent, OrderDetailComponent, OrderCreateComponent, VoucherComponent, VoucherFormComponent],
+  declarations: [OrderListComponent, OrderDetailComponent, OrderCreateComponent],
   imports: [
     CommonModule,
     SharedModule,
