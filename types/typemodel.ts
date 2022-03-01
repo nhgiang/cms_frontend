@@ -185,6 +185,7 @@ export interface Invoice extends Entity {
   combos: any[];
   voucherId: string;
   voucher: any;
+  updatedByUser: string;
 }
 
 export interface InvoiceItem {

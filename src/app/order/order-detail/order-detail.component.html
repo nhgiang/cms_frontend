@@ -292,6 +292,7 @@
           <div class="t-head">
             <div class="t-cell">Thời điểm tạo hoá đơn</div>
             <div class="t-cell">Hình thức thanh toán</div>
+            <div class="t-cell">Người cập nhật đơn hàng</div>
           </div>
           <div class="t-row">
             <div class="t-cell">{{ order?.created | datetime: true }}</div>
@@ -307,6 +308,8 @@
             >
               VNPay
             </div>
+            <div class="t-cell">{{ order?.updatedByUser  }}</div>
+
           </div>
         </div>
       </nz-card>
