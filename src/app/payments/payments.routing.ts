@@ -1,4 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
+import { PaymentMomoComponent } from './payment-momo/payment-momo.component';
 import { PaymentsComponent } from './payments-list/payments.component';
 import { PaymentsVnpayComponent } from './payments-vnpay/payments-vnpay.component';
 
@@ -16,6 +17,13 @@ const routes: Routes = [
       title: 'Vnpay',
     },
     component: PaymentsVnpayComponent,
+  },
+  {
+    path: 'momo',
+    data: {
+      title: 'MoMo',
+    },
+    component: PaymentMomoComponent,
   },
 ];
 

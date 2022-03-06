@@ -6,6 +6,7 @@ import { PaymentsComponent } from './payments-list/payments.component';
 import { PaymentsUpsertComponent } from './payments-upsert/payments-upsert.component';
 import { PaymentsPreviewComponent } from './payments-preview/payments-preview.component';
 import { PaymentsVnpayComponent } from './payments-vnpay/payments-vnpay.component';
+import { PaymentMomoComponent } from './payment-momo/payment-momo.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { PaymentsVnpayComponent } from './payments-vnpay/payments-vnpay.componen
     PaymentsUpsertComponent,
     PaymentsPreviewComponent,
     PaymentsVnpayComponent,
+    PaymentMomoComponent,
   ],
   imports: [CommonModule, SharedModule, PaymentsRoutes],
 })
