@@ -86,6 +86,7 @@ export const InvoiceStatusOptions: Option[] = [
 export enum PaymentMethod {
   Bank = 'Bank',
   VNPay = 'VNPay',
+  MOMO = 'MOMO'
 }
 
 export enum AccountType {
@@ -112,7 +113,8 @@ export enum SettingKeyEndPoint {
   VNPay = 'vnpays',
   HomepageHeader = 'header',
   HomepageEducation = 'education',
-  Partner = 'partner-logos'
+  Partner = 'partner-logos',
+  MoMo = 'momo'
 }
 
 export enum SettingKey {

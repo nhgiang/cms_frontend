@@ -296,20 +296,16 @@
           </div>
           <div class="t-row">
             <div class="t-cell">{{ order?.created | datetime: true }}</div>
-            <div
-              class="t-cell"
-              *ngIf="order?.paymentMethod === paymentMethod.Bank"
-            >
-              {{ order?.bankCodePicked }}
+            <ng-container [ngSwitch]="order?.paymentMethod">
+              <div *ngSwitchCase="paymentMethod.Bank">
+                {{ order?.bankCodePicked }}
+              </div>
+              <div *ngSwitchCase="paymentMethod.VNPay">VNPay</div>
+              <div *ngSwitchCase="paymentMethod.MOMO">MOMO</div>
+            </ng-container>
+            <div class="t-cell">
+              {{ order?.updatedByUser || order?.user.fullName }}
             </div>
-            <div
-              class="t-cell"
-              *ngIf="order?.paymentMethod === paymentMethod.VNPay"
-            >
-              VNPay
-            </div>
-            <div class="t-cell">{{ order?.updatedByUser  }}</div>
-
           </div>
         </div>
       </nz-card>
