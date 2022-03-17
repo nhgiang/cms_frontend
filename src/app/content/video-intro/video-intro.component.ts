@@ -41,7 +41,7 @@ export class VideoIntroComponent extends SettingContainer<VideoIntro> implements
     }).pipe(switchMap(({ image, video }) => {
       this.form.get('image').setValue(image);
       this.form.get('video').setValue(video);
-      return this.post({...this.form.value, video: video || ''});
+      return this.post({ ...this.form.value, video: video || '' });
     }), finalize(() => this.isLoading = false)).subscribe((res) => {
       this.form.patchValue(res);
       this.notification.success('Thành công', 'Cập nhật thông tin video giới thiệu thành công');
@@ -61,7 +61,8 @@ export class VideoIntroComponent extends SettingContainer<VideoIntro> implements
     this.form = this.fb.group({
       image: [null, Validators.required],
       video: [null],
-      title: [null, TValidators.maxLength(100)]
+      title: [null, TValidators.maxLength(100)],
+      buttonLink: [null, [TValidators.required, TValidators.link]]
     });
   }
 }

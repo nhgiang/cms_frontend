@@ -15,6 +15,28 @@
     <form [formGroup]="form" nz-form (ngSubmit)="submit()">
       <nz-form-item>
         <nz-form-label nzRequired class="label-space text-left"
+          >Đường dẫn</nz-form-label
+        >
+        <nz-form-control [nzErrorTip]="errLinkTemp">
+          <nz-input-group>
+            <input
+              formControlName="buttonLink"
+              nz-input
+              placeholder="Nhập đường dẫn"
+            />
+          </nz-input-group>
+        </nz-form-control>
+        <ng-template #errLinkTemp let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Vui lòng nhập đường dẫn
+          </ng-container>
+          <ng-container *ngIf="control.hasError('link')">
+            Đường dẫn không đúng định dạng
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired class="label-space text-left"
           >Tiêu đề background</nz-form-label
         >
         <nz-form-control
