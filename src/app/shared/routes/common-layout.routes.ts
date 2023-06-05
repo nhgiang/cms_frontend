@@ -118,7 +118,7 @@ export const CommonLayoutRoutes: Routes = [
   },
   {
     path: 'admin',
-    canActivate: [AuthorizeByRoleGuard],
+    // canActivate: [AuthorizeByRoleGuard],
     loadChildren: () =>
       import('src/app/admin/admin.module').then((m) => m.AdminModule),
     data: {

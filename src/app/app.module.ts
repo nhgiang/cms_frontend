@@ -72,22 +72,22 @@ const ngZorroConfig: NzConfig = {
     NgChartjsModule,
   ],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: appInit,
-      multi: true,
-      deps: [PartnersApiService, AuthenticationService],
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
-      multi: true,
-    },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: appInit,
+    //   multi: true,
+    //   deps: [PartnersApiService, AuthenticationService],
+    // },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: JwtInterceptor,
+    //   multi: true,
+    // },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: ErrorInterceptor,
+    //   multi: true,
+    // },
     {
       provide: NZ_I18N,
       useValue: vi_VN,
@@ -100,10 +100,10 @@ const ngZorroConfig: NzConfig = {
       provide: LocationStrategy,
       useClass: PathLocationStrategy,
     },
-    {
-      provide: ErrorHandler,
-      useClass: ErrorHandlerService,
-    },
+    // {
+    //   provide: ErrorHandler,
+    //   useClass: ErrorHandlerService,
+    // },
     {
       provide: API_BASE_URL,
       useValue: environment.api,

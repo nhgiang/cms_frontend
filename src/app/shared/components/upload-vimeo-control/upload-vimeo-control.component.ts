@@ -61,50 +61,50 @@ export class UploadVimeoControlComponent
 
   writeValue(file: any) {
     this.url = file;
-    if (file) {
-      this.status = UploaderStatus.Selected;
-      this.storageApi
-        .getVideo(this.url, this.isPrivate)
-        .subscribe((video: any) => {
-          this.isProcessing = !video.url;
-          const player = amp(this.vimeo.nativeElement, {
-            techOrder: [
-              'html5FairPlayHLS',
-              'azureHtml5JS',
-              'flashSS',
-              'silverlightSS',
-              'html5',
-            ],
-            autoplay: true,
-            controls: true,
-            width: 'auto',
-            height: 'auto',
-          });
-          if (video.url) {
-            player.src([
-              {
-                src: video.url,
-                type: 'application/vnd.ms-sstr+xml',
-                protectionInfo: [
-                  {
-                    type: 'PlayReady',
-                    authenticationToken: `Bearer ${video.token}`,
-                  },
-                  {
-                    type: 'Widevine',
-                    authenticationToken: `Bearer ${video.token}`,
-                  },
-                  {
-                    type: 'FairPlay',
-                    certificateUrl: 'assets/fairplay.cer',
-                    authenticationToken: `Bearer ${video.token}`,
-                  },
-                ],
-              },
-            ]);
-          }
-        });
-    }
+    // if (file) {
+    //   this.status = UploaderStatus.Selected;
+    //   this.storageApi
+    //     .getVideo(this.url, this.isPrivate)
+    //     .subscribe((video: any) => {
+    //       this.isProcessing = !video.url;
+    //       const player = amp(this.vimeo.nativeElement, {
+    //         techOrder: [
+    //           'html5FairPlayHLS',
+    //           'azureHtml5JS',
+    //           'flashSS',
+    //           'silverlightSS',
+    //           'html5',
+    //         ],
+    //         autoplay: true,
+    //         controls: true,
+    //         width: 'auto',
+    //         height: 'auto',
+    //       });
+    //       if (video.url) {
+    //         player.src([
+    //           {
+    //             src: video.url,
+    //             type: 'application/vnd.ms-sstr+xml',
+    //             protectionInfo: [
+    //               {
+    //                 type: 'PlayReady',
+    //                 authenticationToken: `Bearer ${video.token}`,
+    //               },
+    //               {
+    //                 type: 'Widevine',
+    //                 authenticationToken: `Bearer ${video.token}`,
+    //               },
+    //               {
+    //                 type: 'FairPlay',
+    //                 certificateUrl: 'assets/fairplay.cer',
+    //                 authenticationToken: `Bearer ${video.token}`,
+    //               },
+    //             ],
+    //           },
+    //         ]);
+    //       }
+    //     });
+    // }
   }
 
   ngOnInit(): void {}

@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: '',
     component: CommonLayoutComponent,
-    canActivate: [AuthorizeGuard],
+    // canActivate: [AuthorizeGuard],
     children: CommonLayoutRoutes
   },
   {

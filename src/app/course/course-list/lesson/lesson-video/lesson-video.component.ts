@@ -46,26 +46,26 @@ export class LessonVideoComponent implements OnInit, OnChanges {
   }
 
   submit() {
-    Ultilities.validateForm(this.form);
-    this.isLoading = true;
-    forkJoin({
-      file: this.storageApi.uploadFiles(this.form.value.attachments),
-      video: this.storageApi.uploadVideoPrivate(this.form.value.video)
-    }).pipe(switchMap(({ file, video }) => {
-      const data = {
-        title: this.form.value.title.trim(),
-        lessionId: this.lessonId,
-        video,
-        attachments: file,
-        duration: 0,
-        enableTrailer: this.form.value.enableTrailer
-      };
-      return this.unit ? this.unitApi.editUnit(this.route.snapshot.paramMap.get('unitId'), data) : this.unitApi.createUnit(data);
-    }),
-      finalize(() => this.isLoading = false)).subscribe(() => {
-        this.router.navigate(['/course-management/course/edit', this.courseId]);
-        this.notification.success('Thành công', `${this.unit ? 'Cập nhật' : 'Thêm mới'} video bài giảng thành công!`);
-      });
+    // Ultilities.validateForm(this.form);
+    // this.isLoading = true;
+    // forkJoin({
+    //   file: this.storageApi.uploadFiles(this.form.value.attachments),
+    //   video: this.storageApi.uploadVideoPrivate(this.form.value.video)
+    // }).pipe(switchMap(({ file, video }) => {
+    //   const data = {
+    //     title: this.form.value.title.trim(),
+    //     lessionId: this.lessonId,
+    //     video,
+    //     attachments: file,
+    //     duration: 0,
+    //     enableTrailer: this.form.value.enableTrailer
+    //   };
+    //   return this.unit ? this.unitApi.editUnit(this.route.snapshot.paramMap.get('unitId'), data) : this.unitApi.createUnit(data);
+    // }),
+    //   finalize(() => this.isLoading = false)).subscribe(() => {
+    //     this.router.navigate(['/course-management/course/edit', this.courseId]);
+    //     this.notification.success('Thành công', `${this.unit ? 'Cập nhật' : 'Thêm mới'} video bài giảng thành công!`);
+    //   });
   }
 
   buildForm() {

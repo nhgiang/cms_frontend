@@ -1,0 +1,12 @@
+<div class="sidebar-panel menu-animatable" [class.panel-visible]="isOpen">
+  <div class="panel-overlay" (click)="hidePanel()"></div>
+  <div class="sidebar-panel-container">
+    <div class="sidebar-panel-header" *ngIf="!isHideHeader">
+      <div class="panel-title">{{ currentPanelName | translate }}</div>
+      <a class="panel-close" (click)="hidePanel()"><i class="far fa-times"></i></a>
+    </div>
+    <div class="panel-content" [style.height]="isHideHeader ? '100vh' : 'calc(100vh - 76px)'">
+      <ng-container #container></ng-container>
+    </div>
+  </div>
+</div>

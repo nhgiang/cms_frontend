@@ -72,28 +72,28 @@ export class CreateCourseComponent implements OnInit {
   }
 
   submit() {
-    Ultilities.validateForm(this.form);
-    this.isLoading = true;
-    forkJoin([
-      this.storageApiService.uploadFile(this.form.get('photo').value).pipe(tap(res => this.form.controls.photo.setValue(res))),
-      this.storageApiService.uploadFile(this.form.get('banner').value).pipe(tap(res => this.form.controls.banner.setValue(res))),
-    ]).pipe(
-      switchMap(() => {
-        if (this.form.get('videoIntro').value instanceof File) {
-          return this.storageApiService.uploadVideoPublic(this.form.get('videoIntro').value).pipe(tap(data => {
-            this.form.get('videoIntro').patchValue(data);
-          }));
-        }
-        return of(true);
-      }),
-      switchMap(() => {
-        return this.courseApiService.create(trimData(this.form.value));
-      }),
-      finalize(() => this.isLoading = false)
-    ).subscribe(res => {
-      this.notification.success('Thành công', 'Tạo mới thông tin cơ bản khóa học thành công!');
-      this.router.navigate([`/course-management/course/edit/${res.id}`]);
-    });
+    // Ultilities.validateForm(this.form);
+    // this.isLoading = true;
+    // forkJoin([
+    //   this.storageApiService.uploadFile(this.form.get('photo').value).pipe(tap(res => this.form.controls.photo.setValue(res))),
+    //   this.storageApiService.uploadFile(this.form.get('banner').value).pipe(tap(res => this.form.controls.banner.setValue(res))),
+    // ]).pipe(
+    //   switchMap(() => {
+    //     if (this.form.get('videoIntro').value instanceof File) {
+    //       return this.storageApiService.uploadVideoPublic(this.form.get('videoIntro').value).pipe(tap(data => {
+    //         this.form.get('videoIntro').patchValue(data);
+    //       }));
+    //     }
+    //     return of(true);
+    //   }),
+    //   switchMap(() => {
+    //     return this.courseApiService.create(trimData(this.form.value));
+    //   }),
+    //   finalize(() => this.isLoading = false)
+    // ).subscribe(res => {
+    //   this.notification.success('Thành công', 'Tạo mới thông tin cơ bản khóa học thành công!');
+    //   this.router.navigate([`/course-management/course/edit/${res.id}`]);
+    // });
   }
 
   previewPhoto() {
